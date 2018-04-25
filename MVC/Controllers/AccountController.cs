@@ -11,7 +11,7 @@ using MVC;
 
 namespace MVC.Controllers
 {
-  public partial class AccountController : Controller
+    public partial class AccountController : Controller
   {
     public AccountController()
     {
