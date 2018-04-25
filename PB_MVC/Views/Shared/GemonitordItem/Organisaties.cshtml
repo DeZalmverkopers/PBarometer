@@ -1,0 +1,24 @@
+﻿@using PB_MVC.Controllers
+
+<h3>Organisaties</h3>
+
+
+@foreach (var organisatie in ViewBag.Organisaties)
+{
+    <div>
+        <button class="btn btn-primary btn-algemene-layout">@organisatie.Naam</button>
+    </div>
+}
+
+
+@*@foreach (var organisatie in ViewBag.Organisaties)
+{
+    <div>
+        <input type="checkbox" />
+        <label>@organisatie.Naam</label>
+    </div>
+}*@
+
+
+
+

@@ -1,0 +1,213 @@
+﻿
+@{
+  ViewBag.Title = "Index";
+}
+
+<h1>Beheer</h1>
+
+<div class="container">
+    @*<div class="row">
+        <div class="col-md-12">*@
+
+    @*Rij 1*@
+    <div class="row">
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+            <button class="btn btn-primary button-xx-large">+</button>
+
+            @*@Html.ActionLink("+", "Index", "Beheer", null, new { @class = "btn btn-primary button-xx-large" })*@
+
+            @*<button class="btn btn-primary">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>*@
+        </div>
+        <div class="col-md-1" id="divVerbergen">
+            <button class="btn btn-primary btn-algemene-layout" id="btnVerbergen">Grafiek bewerken sluiten</button>
+        </div>
+        <div class="col-md-1">
+
+        </div>
+    </div>
+
+    @*Rij 2*@
+    <div class="row">
+
+        <div class="col-md-4">
+            <canvas id="horizontalBarChart" height="250"></canvas>
+        </div>
+        <div class="col-md-1">
+            @Html.Partial("Bewerkingsknop")
+            @Html.Partial("VerwijderKnop")
+        </div>
+
+        <div class="col-md-4">
+            <canvas id="pieChart" height="250"></canvas>
+        </div>
+
+        <div class="col-md-1">
+            @Html.Partial("Bewerkingsknop")
+            @Html.Partial("VerwijderKnop")
+        </div>
+
+        <div class="col-md-2" id="divGrafiekAanpassen">
+
+        </div>
+
+    </div>
+
+    @*Rij 3*@
+    <div class="row">
+        <div class="col-md-1">
+            <button class="btn btn-primary button-xx-large"><<</button>
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary button-xx-large">>></button>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+    </div>
+
+    @*Rij 4*@
+    <div class="row">
+
+
+        <div class="col-md-4">
+            <canvas id="MultibarChart" height="250"></canvas>
+        </div>
+        <div class="col-md-1">
+            @Html.Partial("Bewerkingsknop")
+            @Html.Partial("VerwijderKnop")
+
+        </div>
+
+        <div class="col-md-4">
+            <canvas id="MultiLineChart" height="250"></canvas>
+        </div>
+        <div class="col-md-1">
+            @Html.Partial("Bewerkingsknop")
+            @Html.Partial("VerwijderKnop")
+        </div>
+
+
+        <div class="col-md-2">
+
+        </div>
+    </div>
+
+    @*Rij 5*@
+    <div class="row footer-paginanummer">
+        <div class="col-md-4">
+            Grafieken per pagina: 4
+        </div>
+
+        <div class="col-md-4">
+            1/3
+        </div>
+
+        <div class="col-md-4">
+
+        </div>
+
+    </div>
+    @*</div>
+        </div>*@
+</div>
+
+@section scripts {
+
+    <script src="~/Scripts/Chart.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+
+    @Html.Partial("StaafdiagramHorizontaal")
+    @Html.Partial("Taartdiagram")
+    @Html.Partial("StaafdiagramMulti")
+    @Html.Partial("LijndiagramMulti")
+
+    @Html.Partial("BewerkingsknopScripts")
+
+    @*<script type="text/javascript">
+            $("#btnAnnuleren").click(function () {
+            $.get('@Url.Action("LaadLegePartialView", "Beheer")', {}, function (resultaat) {
+                $("#divGrafiekAanpassen").html(resultaat);
+            });
+            });
+        </script>*@
+
+    <script type="text/javascript">
+        $(".verwijderen").click(function () {
+            confirm("Ben je zeker dat je de grafiek wilt verwijderen?")
+
+        });
+    </script>
+
+    @*<script>
+            $(document).ready(function () {
+                $("#divVerbergen").hide()
+            })
+
+            $(window).load(function () {
+                $("#divVerbergen").hide()
+            });
+        </script>*@
+
+
+
+}
+
+
+
+
+
+

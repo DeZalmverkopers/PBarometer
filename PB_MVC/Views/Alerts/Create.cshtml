@@ -1,0 +1,80 @@
+﻿@model PB_MVC.Models.Alerts.CreateBasicAlertViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <table class="table">
+            <tr>
+                <th>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Onderwerp, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Onderwerp, ViewBag.Onderwerp as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Eigenschap, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Eigenschap, ViewBag.Eigenschappen as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Trend, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EnumDropDownListFor(model => model.Trend, ViewBag.Trends as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+                </th>
+
+                <th>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Mail, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Mail)
+                                @Html.ValidationMessageFor(model => model.Mail, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Mobiel, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Mobiel)
+                                @Html.ValidationMessageFor(model => model.Mobiel, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </table>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Beschrijving, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Beschrijving, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

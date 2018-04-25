@@ -1,0 +1,116 @@
+﻿<h4>Grafiek toevoegen</h4>
+
+<div>
+    <label>Grafiektype</label>
+    @*@Html.DropDownList("Dashboard", ViewBag.Grafiektypes as List<SelectListItem>)*@
+    <select id="inputGrafiektype">
+        <option>staafdiagram</option>
+        <option>multistaafdiagram</option>
+        <option>donutdiagram</option>
+    </select>
+</div>
+
+<div>
+    <label>X-as</label>
+    @Html.DropDownList("Dashboard", ViewBag.XWaarden as List<SelectListItem>)
+
+</div>
+<div>
+    <label>Y-as</label>
+    @Html.DropDownList("Dashboard", ViewBag.YWaarden as List<SelectListItem>)
+
+</div>
+
+<div>
+    <label>Titel</label>
+    <input id="inputTitel" type="text" />
+</div>
+
+<div>
+    @*<button class="btn btn-primary btn-algemene-layout" id="btnToevoegenOpslaan">Opslaan</button>*@
+
+    <input id="btnToevoegenOpslaan" value="Opslaan" class="btn btn-primary btn-algemene-layout" />
+</div>
+
+
+<script type="text/javascript">
+    $("#btnToevoegenOpslaan").click(function () {
+
+        var grafiektype = $("#inputGrafiektype").val();
+        var titel = $("#inputTitel").val();
+
+        if (grafiektype == "staafdiagram") {
+             $.get('@Url.Action("LaadStaafdiagram", "Dashboard")', {}, function (resultaat) {
+                            //$("#elementen").append("<div class=row><div class=col-md-5>" + resultaat + "</div></div>");
+                            $("#elementen").append("<div class=col-md-5>" + resultaat + "</div>");
+
+
+                            myNewBarChart.options.title.text = titel;
+                            myNewBarChart.update();
+             });
+        }
+        else if (grafiektype == "multistaafdiagram") {
+            $.get('@Url.Action("LaadStaafdiagramMulti", "Dashboard")', {}, function (resultaat) {
+                            //$("#elementen").append("<div class=row><div class=col-md-5>" + resultaat + "</div></div>");
+                            $("#elementen").append("<div class=col-md-5>" + resultaat + "</div>");
+
+
+                            myNewMultiBarChart.options.title.text = titel;
+                            myNewMultiBarChart.update();
+             });
+        } else if (grafiektype == "donutdiagram") {
+            $.get('@Url.Action("LaadDonutdiagram", "Dashboard")', {}, function (resultaat) {
+                            //$("#elementen").append("<div class=row><div class=col-md-5>" + resultaat + "</div></div>");
+                            $("#elementen").append("<div class=col-md-5>" + resultaat + "</div>");
+
+                            myNewDoughnutChart.options.title.text = titel;
+                            myNewDoughnutChart.update();
+             });
+        }
+
+        });
+</script>
+
+@*<script>
+        function grafiekToevoegen() {
+
+
+        }
+    </script>*@
+
+
+@*<script>
+        $("#btnToevoegenOpslaan").click(function () {
+            $.get('@Url.Action("LaadTop5", "Beheer")', {}, function (resultaat) {
+                $("#elementen").append("<div class=row><div class=col-md-12>" + resultaat + "</div></div>");
+            });
+        });
+    </script>*@
+
+
+
+
+
+
+@*$("#btnToevoegenOpslaan").click(function () {
+        $.get('@Url.Action("LaadGrafieken", "Beheer")', {}, function (resultaat) {
+            $("#elementen").append(resultaat);
+        });
+    });*@
+
+
+
+
+
+@*<div>
+        <button type="button" data-toggle="collapse" data-target="#demo" class="btn btn-primary btn-algemene-layout">Geavanceerde instellingen</button>
+        <div id="demo" class="collapse">
+            <h5>Geavanceerde instellingen</h5>
+            <button class="btn btn-primary">Assen wisselen</button>
+            <div>
+                <label>Schaal aanpassen</label>
+                @Html.DropDownList("Beheer", ViewBag.Schaalopties as List<SelectListItem>)
+            </div>
+        </div>
+    </div>*@
+

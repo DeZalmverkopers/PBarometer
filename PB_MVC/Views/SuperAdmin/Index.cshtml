@@ -1,0 +1,79 @@
+﻿@*Seppe*@
+
+@{
+    ViewBag.Title = "SuperAdmin";
+}
+
+<h1>Superadmin</h1>
+
+
+<div class="container">
+    @*<div class="row">
+        <div class="col-md-12">*@
+    <div class="row">
+        <div class="col-md-6">
+            @Html.Partial(MVC.Shared.Views.AdminSuperadmin.AdminKnoppen)
+            <div>
+                <button class="btn btn-primary btn-algemene-layout" id="btnMediabronnen">Sociale mediabronnen instellen</button>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-algemene-layout" id="btnGebruikersgegevens">Gebruikersgegevens nakijken</button>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-algemene-layout" id="btnDeelplatform">Deelplatform aanmaken</button>
+            </div>
+        </div>
+        <div class="col-md-6" id="divResultaat">
+
+        </div>
+    </div>
+    @*</div>
+        </div>*@
+</div>
+
+@section scripts {
+    @Html.Partial("AdminSuperadminScripts")
+
+    <script type="text/javascript">
+        $("#btnMediabronnen").click(function () {
+        $.get('@Url.Action("LaadMediabronnen", "SuperAdmin")', {}, function (resultaat) {
+            $("#divResultaat").html(resultaat);
+        });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $("#btnGebruikersgegevens").click(function () {
+        $.get('@Url.Action("LaadGebruikersgegevens", "SuperAdmin")', {}, function (resultaat) {
+            $("#divResultaat").html(resultaat);
+        });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $("#btnDeelplatform").click(function () {
+        $.get('@Url.Action("LaadDeelplatform", "SuperAdmin")', {}, function (resultaat) {
+            $("#divResultaat").html(resultaat);
+        });
+        });
+    </script>
+
+
+    @*Werkt niet*@
+    @*<script type="text/javascript">
+            $("#btnBronToevoegen").click(function () {
+                //var ul = document.getElementById("#lstBronnen");
+                //var li = document.createElement("li");
+                //var children = ul.children.length + 1;
+                //li.setAttribute("id", "element" + children);
+                //li.appendChild(document.createTextNode("test"));
+                //ul.appendChild(li)
+
+                $("#lstBronnen").append('<li>test</li>');
+
+
+            });
+        </script>*@
+}
+
+

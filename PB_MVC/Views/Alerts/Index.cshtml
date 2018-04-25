@@ -1,0 +1,85 @@
+﻿@model IEnumerable<MVC.Models.Alerts.AlertViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Triggered)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Beschrijving)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Onderwerp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Geactiveerd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mobiel)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Triggered)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Beschrijving)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Onderwerp)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Geactiveerd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobiel)
+            </td>
+            <td>
+                <input id="popUpKnop" type="submit" value="Trigger Redenen" />
+            </td>
+        </tr>
+    }
+
+
+</table>
+<div id="dialog1" title="Dialog Title">@Html.Partial("Details")</div>
+
+
+@section scripts
+   {
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $("#popUpKnop").click(function () {
+                    $("#dialog1").dialog('open');
+                });
+                $("#dialog1").dialog({
+                    autoOpen: false
+                });
+            });
+        });
+    </script>
+}
+

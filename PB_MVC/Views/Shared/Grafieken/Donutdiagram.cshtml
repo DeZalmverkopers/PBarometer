@@ -1,0 +1,25 @@
+﻿<canvas id="donutChart"></canvas>
+@Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
+@Html.Partial(MVC.Shared.Views.Dashboard.VerwijderKnop)
+
+
+
+<script>
+    //Donutdiagram
+    var c = document.getElementById("donutChart");
+    var ctx = c.getContext("2d");
+    var tData = $.getValues("/Grafiek/DonutPieChartData");
+    var myNewDoughnutChart = new Chart(ctx, {
+        options: {
+            title: {
+                display: true,
+                text: "TEST",
+                fontSize: 20
+
+            }
+        },
+        type: 'doughnut',
+        data: tData,
+    });
+</script>
+

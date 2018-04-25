@@ -1,0 +1,48 @@
+﻿<script type="text/javascript">
+        $(".bewerken").click(function () {
+        $.get('@Url.Action("LaadGrafiekAanpassen", "Beheer")', {}, function (resultaat) {
+            $("#btnVerbergen").show()
+            $("#divGrafiekAanpassen").html(resultaat);
+
+            $("#divGeavanceerd").hide();
+
+        });
+        });
+</script>
+
+<script type="text/javascript">
+        $("#btnVerbergen").click(function () {
+        $.get('@Url.Action("LaadLegePartialView", "Beheer")', {}, function (resultaat) {
+            $("#divGrafiekAanpassen").html(resultaat);
+            $("#btnVerbergen").hide()
+        });
+        });
+</script>
+
+<script type="text/javascript">
+    $("#btnGeavanceerd").click(function () {
+        $("#divGeavanceerd").toggle();
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#btnVerbergen').hide();
+
+        $('#divGeavanceerd').hide();
+    })
+</script>
+
+@*<script>
+        $(document).ready(function () {
+            $('#btnVerbergen').hide();
+        })
+    </script>*@
+
+@*<script type="text/javascript">
+        $("#btnOpslaan").click(function () {
+            $("#divGeavanceerd").show()
+        });
+    </script>*@
+
+

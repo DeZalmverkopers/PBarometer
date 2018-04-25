@@ -1,0 +1,20 @@
+﻿@*<canvas id="multiPieChart"></canvas>*@
+
+<script>
+    //Taartdiagram - multi
+    var c = document.getElementById("multiPieChart");
+    var ctx = c.getContext("2d");
+    var tData = $.getValues("/Grafiek/MultiDonutChartData");
+    var myPieChart = new Chart(ctx, {
+        options: {
+            title: {
+                display: true,
+                text: "TEST",
+            }
+        },
+        type: 'doughnut',
+        data: tData,
+    });
+</script>
+
+
