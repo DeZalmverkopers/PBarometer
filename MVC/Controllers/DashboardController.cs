@@ -47,21 +47,15 @@ namespace MVC.Controllers
       };
       ViewBag.Schaalopties = schaalopties;
 
-      return PartialView("GrafiekAanpassen", ViewBag);
+      return PartialView("~/Views/Shared/Dashboard/GrafiekAanpassen.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadLegePartialView()
     {
-      return PartialView("LegePartialView");
+      return PartialView("~/Views/Shared/LegePartialView.cshtml");
     }
 	
-	//TODO
-	public virtual ActionResult LaadGeavanceerdeInstellingen()
-    {
-      return PartialView("GeavanceerdeInstellingen");
-    }
-
-    public virtual ActionResult LaadGrafiekToevoegen()
+	public virtual ActionResult LaadGrafiekToevoegen()
     {
       List<SelectListItem> liGrafiekType = new List<SelectListItem>
       {
@@ -98,32 +92,32 @@ namespace MVC.Controllers
       };
       ViewBag.Schaalopties = schaalopties;
 
-      return PartialView("GrafiekToevoegen", ViewBag);
+      return PartialView("~/Views/Shared/Dashboard/GrafiekToevoegen.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadTop5()
     {
-      return PartialView("Top5");
+      return PartialView("~/Views/Shared/GetalEnOverzicht/Top5.cshtml");
     }
 
     public virtual ActionResult LaadStaafdiagram()
     {
-      return PartialView("Staafdiagram");
+      return PartialView("~/Views/Shared/Grafieken/Staafdiagram.cshtml");
     }
 
     public virtual ActionResult LaadStaafdiagramMulti()
     {
-      return PartialView("StaafdiagramMulti");
+      return PartialView("~/Views/Shared/Grafieken/StaafdiagramMulti.cshtml");
     }
 
     public virtual ActionResult LaadDonutdiagram()
     {
-      return PartialView("Donutdiagram");
+      return PartialView("~/Views/Shared/Grafieken/Donutdiagram.cshtml");
     }
 
     public virtual ActionResult LaadAlleGrafieken()
     {
-      return PartialView("Grafieken");
+      return PartialView("~/Views/Shared/Grafieken/Grafieken.cshtml");
     }
 
 

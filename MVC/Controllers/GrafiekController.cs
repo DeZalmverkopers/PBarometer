@@ -827,7 +827,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadGrafiekenPartialView()
     {
-      return PartialView("Grafieken.Grafieken");
+      return PartialView("~/Views/Shared/Grafieken/Grafieken.cshtml");
     }
 
 

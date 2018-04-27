@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@*Seppe*@
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,14 +8,17 @@
     <title>@ViewBag.Title - Politieke Barometer</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
 
+
                 @*<span class="noti glyphicon glyphicon-bell"><span class="count">&nbsp;</span></span>*@
                 <span class="noti glyphicon glyphicon-bell" id="alertID"><span class="count">&nbsp;</span></span>
+
                 <div class="noti-content onzichtbaar" id="alertInhoudID">
                     <div class="noti-top-arrow"></div>
                     <ul id="notiContent">
@@ -30,55 +35,66 @@
                     </ul>
                 </div>
 
+
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+
                 </button>
 
+                @* @Html.ActionLink("Home", MVC.Home.Index(), new { @class = "navbar-brand" })*@
                 @Html.ActionLink("Home", "Index", "Home", new { @class = "navbar-brand" })
+
+
             </div>
+
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    @*<li>@Html.ActionLink("Dashboard", MVC.Dashboard.Index())</li>*@
                     <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
 
-                    @*<li>@Html.ActionLink("Beheer", MVC.Beheer.Index())</li>*@
+
+                    @*<li>@Html.ActionLink("Overzicht", MVC.Overzicht.Index())</li>*@
                     <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
+
+
+                    @*<li>@Html.ActionLink("Weekly Review", MVC.WeeklyReview.Index())</li>*@
                     <li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>
-                    @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
-                    {
-                    <li>@Html.ActionLink("Admin", "Index", "SuperAdmin")</li>
-                    }
-                    else
-                    {
-                        if (User.IsInRole("Admin"))
-                        {
-                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-                        }
-                    }
+
+
+                    @*<li>@Html.ActionLink("Admin", MVC.Admin.Index())</li>*@
+                    <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+
+                    @*<li>@Html.ActionLink("Superadmin", MVC.SuperAdmin.Index())</li>*@
+                    <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
+
+
                     @*<li>@Html.ActionLink("Admin", MVC.Admin.Index())</li>
                         <li>@Html.ActionLink("Superadmin", MVC.SuperAdmin.Index())</li>*@
                 </ul>
+
                 <ul class="nav navbar-nav navbar-right">
                     @*<li>@Html.ActionLink("Alerts", MVC.Alerts.Index(), new { @class = "alert-image" })</li>*@
 
+
+
+                    @*<li>@Html.ActionLink("Profiel", MVC.Profiel.Index())</li>*@
                     <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
-                    @if (!Request.IsAuthenticated)
-                    {
+
+
+                    @*<li>@Html.ActionLink("Inloggen", MVC.Account.Login())</li>*@
                     <li>@Html.ActionLink("Inloggen", "Login", "Account")</li>
+
+                    @*<li>@Html.ActionLink("Registreren", MVC.Account.Register())</li>*@
                     <li>@Html.ActionLink("Registreren", "Register", "Account")</li>
-                    }
-                    else
-                    {
-                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                        {
-                        @Html.AntiForgeryToken()
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Uitloggen</a></li>
-                        </ul>
-                        }
-                    }
+
+
+                    @*<li>@Html.ActionLink("Uitloggen", MVC.Account.LogOff())</li>*@
+                    <li>@Html.ActionLink("Uitloggen", "LogOff", "Account")</li>
+
                 </ul>
+
             </div>
         </div>
     </div>
@@ -91,17 +107,21 @@
         </footer>
     </div>
 
-    <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
-    <script src="/signalr/hubs"></script>
+
+    @*<script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+        <script src="/signalr/hubs"></script>*@
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 
     <script type="text/javascript">
         $("#alertID").click(function () {
             $("#alertInhoudID").toggle()
         });
     </script>
+
     <script>
         $(document).ready(function () {
             $("#alertInhoudID").hide()
@@ -111,6 +131,7 @@
             $("#alertInhoudID").hide()
         });
     </script>
+
 
 </body>
 </html>
