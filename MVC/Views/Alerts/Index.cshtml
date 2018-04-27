@@ -4,10 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Alerts</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button class="btn btn-primary btn-algemene-layout" data-toggle="modal" onclick="showCreateModal('#createSimpleAlert', '#createSimpleAlertBody')">
+        Nieuwe eenvoudige alert
+    </button>
+    <button class="btn btn-primary btn-algemene-layout" data-toggle="modal" onclick="showCreateModal('#createComplexeAlert', '#createComplexeAlertBody')">
+        Nieuwe complexe alert
+    </button>
 </p>
 <table class="table">
     <tr>
@@ -29,14 +34,19 @@
         <th>
             @Html.DisplayNameFor(model => model.Mobiel)
         </th>
-        <th></th>
+        <th>
+
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Triggered)
+                @if (item.Triggered)
+                {
+                    <span class="glyphicon glyphicon-ok" style="color:limegreen" data-toggle="tooltip" title='@item.TriggerRedenen' data-placement="auto"></span>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Beschrijving)
@@ -45,41 +55,96 @@
                 @Html.DisplayFor(modelItem => item.Onderwerp)
             </td>
             <td>
+                @if (item.Geactiveerd)
+                {
+                    <span class="glyphicon glyphicon-ok"></span>
+                }
+            </td>
+            <td>
+                @if (item.Mail)
+                {
+                    <span class="glyphicon glyphicon-ok"></span>
+                }
+            </td>
+            <td>
+                @if (item.Mobiel)
+                {
+                    <span class="glyphicon glyphicon-ok"></span>
+                }
+            </td>
+            <td>
+                @if (item.Eenvoudig)
+                {
+                    <button type="button" class="btn btn-li" data-toggle="modal" onclick="showModal('#editEenvoudig', '#editEenvoudigBody', @item.Id)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" onclick="showModal('#editComplex', '#editComplexBody', @item.Id)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                }
+                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("VerwijderAlert", new { id = @item.Id})'">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("ToggleActivatie", new { id = @item.Id})'">
+                    <span class="glyphicon glyphicon-off"></span>
+                </button>
+            </td>
 
-                @Html.DisplayFor(modelItem => item.Geactiveerd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mobiel)
-            </td>
-            <td>
-                <input id="popUpKnop" type="submit" value="Trigger Redenen" />
-            </td>
         </tr>
     }
 
 
 </table>
-<div id="dialog1" title="Dialog Title">@Html.Partial("Details")</div>
+<div id="editEenvoudig" class="modal fade" tabindex="-1" role="dialog" data-url='@Url.Action("EditEenvoudigeAlert")'>
+    <div class="modal-dialog modal-sm" id="editEenvoudigBody">
+    </div>
+</div>
+<div id="editComplex" class="modal fade" tabindex="-1" role="dialog" data-url='@Url.Action("EditComplexeAlert")'>
+    <div class="modal-dialog" id="editComplexBody">
+    </div>
+</div>
+<div id="createSimpleAlert" class="modal fade" tabindex="-1" role="dialog" data-url='@Url.Action("CreateSimpleAlert")'>
+    <div class="modal-dialog modal-sm" id="createSimpleAlertBody">
+    </div>
+</div>
+<div id="createComplexeAlert" class="modal fade" tabindex="-1" role="dialog" data-url='@Url.Action("CreateAlert")'>
+    <div class="modal-dialog modal-sm" id="createComplexeAlertBody">
+    </div>
+</div>
 
-
-@section scripts
-   {
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script type="text/javascript">
+@section scripts{
+    <script>
         $(document).ready(function () {
-            $(function () {
-                $("#popUpKnop").click(function () {
-                    $("#dialog1").dialog('open');
-                });
-                $("#dialog1").dialog({
-                    autoOpen: false
-                });
-            });
+            $('[data-toggle="tooltip"]').tooltip();
         });
+
+        function showModal(editComplex, editComplexBody, id) {
+            var url = $(editComplex).data('url');
+
+            $.get(url, { id: id }, function (data) {
+                $(editComplexBody).html(data);
+                $(editComplex).modal('show');
+            });
+        }
+
+        function showCreateModal(createSimpleAlert, createSimpleAlertBody) {
+            var url = $(createSimpleAlert).data('url');
+
+            $.get(url, function (data) {
+                $(createSimpleAlertBody).html(data);
+                $(createSimpleAlert).modal('show');
+            });
+        };
+
+
+
     </script>
 }
+
+
+
+
 

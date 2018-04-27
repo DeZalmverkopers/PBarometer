@@ -18,80 +18,284 @@ namespace MVC.Controllers
     [Authorize]
     public partial class AlertsController : Controller
     {
+        private AlertManager alertManager = new AlertManager();
+        private GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+
+        }
         //GET: Alerts
         public virtual ActionResult Index()
         {
-            AlertManager alertManager = new AlertManager();
             List<Alert> alerts = alertManager.GetAlerts(User.Identity.GetUserId(), true, true).ToList();
-            List<AlertViewModel> alertViewModels = new List<AlertViewModel>();
-
-            foreach (var alert in alerts)
+            if (alerts.Count > 0)
             {
-                alertViewModels.Add(new AlertViewModel()
+                List<AlertViewModel> alertViewModels = new List<AlertViewModel>();
+
+                foreach (var alert in alerts)
                 {
-                    Beschrijving = alert.Beschrijving,
-                    Mail = alert.Mail,
-                    Geactiveerd = alert.Geactiveerd,
-                    Mobiel = alert.Mobiel,
-                    Triggered = alert.Triggered,
-                    Onderwerp = alert.GemonitordItem.Naam
-                });
+                    alertViewModels.Add(new AlertViewModel()
+                    {
+                        Id = alert.AlertId,
+                        Beschrijving = alert.Beschrijving,
+                        Mail = alert.Mail,
+                        Geactiveerd = alert.Geactiveerd,
+                        Mobiel = alert.Mobiel,
+                        Triggered = alert.Triggered,
+                        Onderwerp = alert.GemonitordItem.Naam,
+                        Eenvoudig = alert.EenvoudigeAlert,
+                        TriggerRedenen = alert.TriggerRedenen
+                    });
+                }
+                return View(alertViewModels);
             }
-            return View(alertViewModels);
+            return View("LegeIndex");
         }
 
-        //GET: Create
+        //GET: CreateSimpleAlert
         [HttpGet]
-        public virtual ActionResult Create()
+        public virtual ActionResult CreateSimpleAlert()
         {
-            GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
-
             ViewBag.Eigenschappen = new List<string>() { "Polariteit", "Objectiviteit", "Aantal Vermeldingen" }.Select(x => new SelectListItem() { Text = x, Value = x });
-            ViewBag.SoortOnderwerp = new List<string>() { "Persoon", "Organisatie", "Thema" }.Select(x => new SelectListItem() { Text = x, Value = x });
             ViewBag.Trend = new List<string>() { "Stijgend", "Dalend", "Neutraal" }.Select(x => new SelectListItem() { Text = x, Value = x });
-
+            var user = UserManager.FindById(User.Identity.GetUserId());
             List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
             var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
 
             ViewBag.Onderwerp = ItemsSelectlist;
 
-
-            return View();
+            return PartialView();
         }
 
-        //POST: Create
+        //POST: CreateSimpleAlert
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  virtual ActionResult Create(CreateBasicAlertViewModel createBasicAlertViewModel)
+        public virtual ActionResult CreateSimpleAlert(CreateBasicAlertViewModel createBasicAlertViewModel)
         {
-            //TODO DEELPLATFORMID 
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var user = userManager.FindById(User.Identity.GetUserId());
-            GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
+            var user = UserManager.FindById(User.Identity.GetUserId());
             GemonitordItem gemonitordItem = gemonitordeItemsManager.GetGemonitordItem(1, createBasicAlertViewModel.Onderwerp);
+
             Alert alert = new Alert()
             {
                 Beschrijving = createBasicAlertViewModel.Beschrijving,
                 GemonitordItemId = gemonitordItem.GemonitordItemId,
                 Mail = createBasicAlertViewModel.Mail,
                 Mobiel = createBasicAlertViewModel.Mobiel,
-                Geactiveerd = true
+                Geactiveerd = true,
+                EenvoudigeAlert = true
             };
+
+            switch (createBasicAlertViewModel.Eigenschap)
+            {
+                case "Polariteit":
+                    alert.PolariteitsTrend = createBasicAlertViewModel.Trend;
+                    break;
+                case "Objectiviteit":
+                    alert.ObjectiviteitsTrend = createBasicAlertViewModel.Trend;
+                    break;
+                case "Aantal Vermeldingen":
+                    alert.VermeldingenTrend = createBasicAlertViewModel.Trend;
+                    break;
+            }
+
             if (user.Alerts == null)
             {
                 user.Alerts = new List<Alert>();
             }
             user.Alerts.Add(alert);
-            userManager.Update(user);
+            UserManager.Update(user);
             return RedirectToAction("Index");
         }
 
-        //GET: Details
+        //GET: Edit
         [HttpGet]
-        public virtual void Details(Alert alert)
+        public ActionResult EditComplexeAlert(int id)
         {
-            ViewBag.Details = alert.TriggerRedenen;
-            
+            Alert alert = alertManager.GetAlert(id);
+            CreateAlertViewModel createAlertViewModel = new CreateAlertViewModel()
+            {
+                Id = id,
+                Beschrijving = alert.Beschrijving,
+                BelangrijkheidsPeriode = alert.BelangrijkheidsPeriode,
+                BelangrijkWaarde = alert.BelangrijkWaarde,
+                NietBelangrijkWaarde = alert.NietBelangrijkWaarde,
+                Mail = alert.Mail,
+                Mobiel = alert.Mobiel,
+                MaxObjectiviteit = alert.MaxObjectiviteit,
+                MinObjectiviteit = alert.MinObjectiviteit,
+                ObjectiviteitsPeriode = alert.ObjectiviteitsPeriode,
+                MaxPolariteit = alert.MaxPolariteit,
+                MinPolariteit = alert.MinPolariteit,
+                PolariteitsPeriode = alert.PolariteitsPeriode,
+                MinDaling = alert.MinDaling,
+                MinDalingPeriode = alert.MinDalingPeriode,
+                MinStijging = alert.MinStijging,
+                MinStijgingPeriode = alert.MinStijging,
+            };
+
+            List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
+            var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
+
+            ViewBag.Onderwerp = ItemsSelectlist;
+
+            return PartialView("EditComplexeAlert", createAlertViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditComplexeAlert(CreateAlertViewModel alertViewModel)
+        {
+            Alert alert = alertManager.GetAlert(alertViewModel.Id);
+
+            GemonitordItem gemonitordItem = gemonitordeItemsManager.GetGemonitordItem(1, alertViewModel.Onderwerp);
+
+            alert.Beschrijving = alertViewModel.Beschrijving;
+            alert.EenvoudigeAlert = false;
+            alert.Geactiveerd = true;
+            alert.BelangrijkheidsPeriode = alertViewModel.BelangrijkheidsPeriode;
+            alert.BelangrijkWaarde = alertViewModel.BelangrijkWaarde;
+            alert.NietBelangrijkWaarde = alertViewModel.NietBelangrijkWaarde;
+            alert.Mail = alertViewModel.Mail;
+            alert.Mobiel = alertViewModel.Mobiel;
+            alert.MaxObjectiviteit = alertViewModel.MaxObjectiviteit;
+            alert.MinObjectiviteit = alertViewModel.MinObjectiviteit;
+            alert.ObjectiviteitsPeriode = alertViewModel.ObjectiviteitsPeriode;
+            alert.MaxPolariteit = alertViewModel.MaxPolariteit;
+            alert.MinPolariteit = alertViewModel.MinPolariteit;
+            alert.PolariteitsPeriode = alertViewModel.PolariteitsPeriode;
+            alert.MinDaling = alertViewModel.MinDaling;
+            alert.MinDalingPeriode = alertViewModel.MinDalingPeriode;
+            alert.MinStijging = alertViewModel.MinStijging;
+            alert.MinStijgingPeriode = alertViewModel.MinStijging;
+            alert.GemonitordItemId = gemonitordItem.GemonitordItemId;
+            alert.Triggered = false;
+            alertManager.ChangeAlert(alert);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult EditEenvoudigeAlert(int id)
+        {
+            Alert alert = alertManager.GetAlert(id, gemonitordItem: true);
+
+            ViewBag.Eigenschappen = new List<string>() { "Polariteit", "Objectiviteit", "Aantal Vermeldingen" }.Select(x => new SelectListItem() { Text = x, Value = x });
+            ViewBag.Trend = new List<string>() { "Stijgend", "Dalend", "Neutraal" }.Select(x => new SelectListItem() { Text = x, Value = x });
+            List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
+            var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
+
+            ViewBag.Onderwerp = ItemsSelectlist;
+            CreateBasicAlertViewModel alertViewModel = new CreateBasicAlertViewModel()
+            {
+                Id = id,
+                Beschrijving = alert.Beschrijving,
+                Mail = alert.Mail,
+                Mobiel = alert.Mobiel,
+                Onderwerp = alert.GemonitordItem.Naam,
+            };
+            return PartialView("EditEenvoudigeAlert", alertViewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEenvoudigeAlert(CreateBasicAlertViewModel alertViewModel)
+        {
+            Alert alert = alertManager.GetAlert(alertViewModel.Id);
+            GemonitordItem gemonitordItem = gemonitordeItemsManager.GetGemonitordItem(1, alertViewModel.Onderwerp);
+            alert.Beschrijving = alertViewModel.Beschrijving;
+            alert.GemonitordItemId = gemonitordItem.GemonitordItemId;
+            alert.Mail = alertViewModel.Mail;
+            alert.Mobiel = alertViewModel.Mobiel;
+            alert.Triggered = false;
+            switch (alertViewModel.Eigenschap)
+            {
+                case "Polariteit":
+                    alert.PolariteitsTrend = alertViewModel.Trend;
+                    break;
+                case "Objectiviteit":
+                    alert.ObjectiviteitsTrend = alertViewModel.Trend;
+                    break;
+                case "Aantal Vermeldingen":
+                    alert.VermeldingenTrend = alertViewModel.Trend;
+                    break;
+            }
+            alertManager.ChangeAlert(alert);
+            return RedirectToAction("Index");
+        }
+
+        //GET: CreateAlert
+        [HttpGet]
+        public ActionResult CreateAlert()
+        {
+            List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
+            var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
+
+            ViewBag.Onderwerp = ItemsSelectlist;
+
+            return PartialView();
+        }
+        //POST: CreateAlert
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult CreateAlert(CreateAlertViewModel alertViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                GemonitordItem gemonitordItem = gemonitordeItemsManager.GetGemonitordItem(1, alertViewModel.Onderwerp);
+                Alert alert = new Alert()
+                {
+                    Beschrijving = alertViewModel.Beschrijving,
+                    EenvoudigeAlert = false,
+                    Geactiveerd = true,
+                    BelangrijkheidsPeriode = alertViewModel.BelangrijkheidsPeriode,
+                    BelangrijkWaarde = alertViewModel.BelangrijkWaarde,
+                    NietBelangrijkWaarde = alertViewModel.NietBelangrijkWaarde,
+                    Mail = alertViewModel.Mail,
+                    Mobiel = alertViewModel.Mobiel,
+                    MaxObjectiviteit = alertViewModel.MaxObjectiviteit,
+                    MinObjectiviteit = alertViewModel.MinObjectiviteit,
+                    ObjectiviteitsPeriode = alertViewModel.ObjectiviteitsPeriode,
+                    MaxPolariteit = alertViewModel.MaxPolariteit,
+                    MinPolariteit = alertViewModel.MinPolariteit,
+                    PolariteitsPeriode = alertViewModel.PolariteitsPeriode,
+                    MinDaling = alertViewModel.MinDaling,
+                    MinDalingPeriode = alertViewModel.MinDalingPeriode,
+                    MinStijging = alertViewModel.MinStijging,
+                    MinStijgingPeriode = alertViewModel.MinStijging,
+                    GemonitordItemId = gemonitordItem.GemonitordItemId,
+                };
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                if (user.Alerts == null)
+                {
+                    user.Alerts = new List<Alert>();
+                }
+                user.Alerts.Add(alert);
+                UserManager.Update(user);
+                return RedirectToAction("Index");
+            }
+            List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
+            var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
+
+            ViewBag.Onderwerp = ItemsSelectlist;
+            return View();
+        }
+        [HttpGet]
+        public ActionResult VerwijderAlert(int id)
+        {
+            alertManager.RemoveAlert(alertManager.GetAlert(id));
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult ToggleActivatie(int id)
+        {
+            Alert alert = alertManager.GetAlert(id);
+            alert.Geactiveerd = !alert.Geactiveerd;
+            alertManager.ChangeAlert(alert);
+
+            return RedirectToAction("Index");
         }
     }
 }
