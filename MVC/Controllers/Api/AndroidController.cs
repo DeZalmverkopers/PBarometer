@@ -7,7 +7,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using PB_MVC.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +19,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using static PB_MVC.Controllers.AccountController;
+using static MVC.Controllers.AccountController;
 
-namespace PB_MVC.Controllers.Api
+namespace MVC.Controllers.Api
 {
     public class AndroidController : ApiController
     {   

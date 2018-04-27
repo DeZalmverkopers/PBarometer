@@ -49,12 +49,12 @@ namespace MVC.Controllers
 
       ViewBag.Themas = themas;
 
-      return PartialView(MVC.Shared.Views.GemonitordItem.Themas, ViewBag);
+      return PartialView("Themas", ViewBag);
     }
 
     public virtual ActionResult LaadTermen()
     {
-      return PartialView(MVC.Shared.Views.GemonitordItem.Termen);
+      return PartialView("Termen");
     }
 
     public virtual ActionResult LaadPersonen()
@@ -72,7 +72,7 @@ namespace MVC.Controllers
         }
       };
       ViewBag.Personen = personen;
-      return PartialView(MVC.Shared.Views.GemonitordItem.Personen, ViewBag);
+      return PartialView("Personen", ViewBag);
     }
 
     public virtual ActionResult LaadOrganisaties()
@@ -90,7 +90,7 @@ namespace MVC.Controllers
         }
       };
       ViewBag.Organisaties = organisaties;
-      return PartialView(MVC.Shared.Views.GemonitordItem.Organisaties, ViewBag);
+      return PartialView("Organisaties", ViewBag);
     }
   }
 }

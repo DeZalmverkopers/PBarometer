@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PB_MVC.Controllers
+namespace MVC.Controllers
 {
   public partial class BeheerController : Controller
   {

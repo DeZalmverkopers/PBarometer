@@ -47,12 +47,12 @@ namespace MVC.Controllers
       };
       ViewBag.Schaalopties = schaalopties;
 
-      return PartialView(MVC.Shared.Views.Dashboard.GrafiekAanpassen, ViewBag);
+      return PartialView("GrafiekAanpassen", ViewBag);
     }
 
     public virtual ActionResult LaadLegePartialView()
     {
-      return PartialView(MVC.Shared.Views.LegePartialView);
+      return PartialView("LegePartialView");
     }
 	
 	//TODO
@@ -98,32 +98,32 @@ namespace MVC.Controllers
       };
       ViewBag.Schaalopties = schaalopties;
 
-      return PartialView(MVC.Shared.Views.Dashboard.GrafiekToevoegen, ViewBag);
+      return PartialView("GrafiekToevoegen", ViewBag);
     }
 
     public virtual ActionResult LaadTop5()
     {
-      return PartialView(MVC.Shared.Views.GetalEnOverzicht.Top5);
+      return PartialView("Top5");
     }
 
     public virtual ActionResult LaadStaafdiagram()
     {
-      return PartialView(MVC.Shared.Views.Grafieken.Staafdiagram);
+      return PartialView("Staafdiagram");
     }
 
     public virtual ActionResult LaadStaafdiagramMulti()
     {
-      return PartialView(MVC.Shared.Views.Grafieken.StaafdiagramMulti);
+      return PartialView("StaafdiagramMulti");
     }
 
     public virtual ActionResult LaadDonutdiagram()
     {
-      return PartialView(MVC.Shared.Views.Grafieken.Donutdiagram);
+      return PartialView("Donutdiagram");
     }
 
     public virtual ActionResult LaadAlleGrafieken()
     {
-      return PartialView(MVC.Shared.Views.Grafieken.Grafieken);
+      return PartialView("Grafieken");
     }
 
 

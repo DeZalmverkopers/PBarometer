@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PB_MVC.Models.Alerts
+namespace MVC.Models.Alerts
 {
     public class CreateBasicAlertViewModel
     {

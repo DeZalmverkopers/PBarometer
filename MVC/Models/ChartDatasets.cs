@@ -5,7 +5,7 @@ using System.Web;
 
 //Seppe
 
-namespace PB_MVC.Models
+namespace MVC.Models
 {
   public class Chart
   {

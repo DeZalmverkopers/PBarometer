@@ -6,14 +6,14 @@ using Domain.Gemonitordeitems;
 using Domain.IdentityFramework;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using PB_MVC.Models.Alerts;
+using MVC.Models.Alerts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PB_MVC.Controllers
+namespace MVC.Controllers
 {
     [Authorize]
     public partial class AlertsController : Controller

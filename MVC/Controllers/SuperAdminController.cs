@@ -34,37 +34,37 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadGemonitordeItemsBeheren()
     {
-      return PartialView(MVC.Shared.Views.AdminSuperadmin.GemonitordeItemsBeheren);
+      return PartialView("GemonitordeItemsBeheren");
     }
 
     public virtual ActionResult LaadData()
     {
-      return PartialView(MVC.Shared.Views.AdminSuperadmin.DataImporterenEnExporteren);
+      return PartialView("DataImporterenEnExporteren");
     }
 
     public virtual ActionResult LaadGebruikersactiviteit()
     {
-      return PartialView(MVC.Shared.Views.AdminSuperadmin.GebruikersactiviteitMonitoren );
+      return PartialView("GebruikersactiviteitMonitoren");
     }
 
     public virtual ActionResult LaadLayout()
     {
-      return PartialView(MVC.Shared.Views.AdminSuperadmin.LayoutAanpassen);
+      return PartialView("LayoutAanpassen");
     }
 
     public virtual ActionResult LaadMediabronnen()
     {
-      return PartialView(MVC.Shared.Views.Superadmin.SocialeMediabronnenInstellen);
+      return PartialView("SocialeMediabronnenInstellen");
     }
 
     public virtual ActionResult LaadGebruikersgegevens()
     {
-      return PartialView(MVC.Shared.Views.Superadmin.GebruikersgegevensNakijken);
+      return PartialView("GebruikersgegevensNakijken");
     }
 
     public virtual ActionResult LaadDeelplatform()
     {
-      return PartialView(MVC.Shared.Views.Superadmin.DeelplatformAanmaken);
+      return PartialView("DeelplatformAanmaken");
     }
 
   }
