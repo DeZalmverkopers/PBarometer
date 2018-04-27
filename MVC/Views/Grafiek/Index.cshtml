@@ -63,8 +63,8 @@
             <canvas id="horizontalBarChart" height="250"></canvas>
         </div>
         <div class="col-md-1">
-            @Html.Partial("Bewerkingsknop")
-            @Html.Partial("VerwijderKnop")
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
         </div>
 
         <div class="col-md-4">
@@ -72,8 +72,8 @@
         </div>
 
         <div class="col-md-1">
-            @Html.Partial("Bewerkingsknop")
-            @Html.Partial("VerwijderKnop")
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
         </div>
 
         <div class="col-md-2" id="divGrafiekAanpassen">
@@ -127,8 +127,8 @@
             <canvas id="MultibarChart" height="250"></canvas>
         </div>
         <div class="col-md-1">
-            @Html.Partial("Bewerkingsknop")
-            @Html.Partial("VerwijderKnop")
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
 
         </div>
 
@@ -136,8 +136,8 @@
             <canvas id="MultiLineChart" height="250"></canvas>
         </div>
         <div class="col-md-1">
-            @Html.Partial("Bewerkingsknop")
-            @Html.Partial("VerwijderKnop")
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
         </div>
 
 
@@ -170,12 +170,12 @@
     <script src="~/Scripts/Chart.js"></script>
     <script src="~/Scripts/Common.js"></script>
 
-    @Html.Partial("StaafdiagramHorizontaal")
-    @Html.Partial("Taartdiagram")
-    @Html.Partial("StaafdiagramMulti")
-    @Html.Partial("LijndiagramMulti")
+    @Html.Partial("~/Views/Shared/Grafieken/StaafdiagramHorizontaal.cshtml")
+    @Html.Partial("~/Views/Shared/Grafieken/Taartdiagram.cshtml")
+    @Html.Partial("~/Views/Shared/Grafieken/StaafdiagramMulti.cshtml")
+    @Html.Partial("~/Views/Shared/Grafieken/LijndiagramMulti.cshtml")
 
-    @Html.Partial("BewerkingsknopScripts")
+    @Html.Partial("~/Views/Shared/Dashboard/BewerkingsknopScripts.cshtml")
 
     @*<script type="text/javascript">
             $("#btnAnnuleren").click(function () {

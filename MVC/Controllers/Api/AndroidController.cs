@@ -40,7 +40,7 @@ namespace MVC.Controllers.Api
                 return Ok(deelplatformen);
             }
         }
-
+/*
         [Route("api/Grafieken/")]
         public IHttpActionResult GetGrafieken(string deelplatformnaam, string gebruikersnaam)
         {
@@ -54,6 +54,6 @@ namespace MVC.Controllers.Api
             {
                 return Ok(grafieken);
             }
-        }
+        }*/
     }
 }

@@ -15,13 +15,13 @@
         <div class="col-md-5">
             <canvas id="horizontalBarChart" height="250"></canvas>
 
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
         </div>
 
         <div class="col-md-5">
             <canvas id="pieChart" height="250"></canvas>
 
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
         </div>
 
         <div class="col-md-2" id="divVerbergen">
@@ -77,11 +77,11 @@
 
         <div class="col-md-5">
             <canvas id="MultibarChart" height="250"></canvas>
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
         </div>
         <div class="col-md-5">
             <canvas id="MultiLineChart" height="250"></canvas>
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
         </div>
         <div class="col-md-2">
 
@@ -102,8 +102,8 @@
     <script src="~/Scripts/Chart.js"></script>
     <script src="~/Scripts/Common.js"></script>
 
-    @Html.Partial(MVC.Shared.Views.Grafieken.Grafieken)
-    @Html.Partial(MVC.Shared.Views.Dashboard.BeheerScripts)
+    @Html.Partial("~/Views/Shared/Grafieken/Grafieken.cshtml")
+    @Html.Partial("~/Views/Shared/Dashboard/BeheerScripts.cshtml")
 
 
 

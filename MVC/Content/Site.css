@@ -22,3 +22,169 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+
+
+
+/*Hieronder staat de zelf geschreven CSS*/
+
+
+
+/*Afbeelding van de bel die gebruikt wordt in de navigatiebalk*/
+/*.alert-image {
+    background: url(../images/alert.png) no-repeat top left;
+    display: block;
+    width: 50px;
+    height: 50px;
+    text-indent: -9999px;
+}*/
+
+
+
+.navbar, .navbar-inverse {
+    background-color: #428bca !important
+}
+
+/*.navbar > .active > a, .navbar > .active > a:focus, .navbar > .active > a:hover,
+.navbar-inverse > .active > a, .navbar-inverse > .active > a:focus, .navbar-inverse > .active > a:hover {
+    
+    
+}*/
+
+
+/*.btn-group-block {
+    display: block; 
+}*/
+
+.btn-algemene-layout {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 250px
+}
+
+.button-xx-large {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: xx-large
+}
+
+.elementen-centreren {
+    text-align: center
+}
+
+/*Kleur elementen navigatiebalk instellen*/
+.nav.navbar-nav li a {
+    color: black
+}
+
+/*Weergave van de paginanummering*/
+.footer-paginanummer {
+    width: 100%;
+    border-top: solid;
+    border-bottom: solid;
+    border-width: thin;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+/*Scrollbar uitschakelen bij ingeklapte navigatiebalk*/
+.navbar-collapse.in {
+    overflow: hidden;
+    max-height: none !important;
+    height: auto !important;
+}
+
+/*Kleur tekst van het element op zwart instellen*/
+.navbar-inverse .navbar-brand {
+    color: black;
+}
+
+.onzichtbaar {
+    /*visibility: hidden*/
+    display: none
+}
+
+.zichtbaar {
+    /*visibility: visible*/
+    display: inline;
+}
+
+/*Deze class wordt gebruikt om aan te geven dat het om een bewerkingsknop gaat, 
+    background-color heeft dus eigenlijk geen nut, maar de CSS mag niet leeg zijn*/
+
+/*.bewerken {
+    background-color: #428bca
+}
+
+.verwijderen {
+    background-color: #428bca
+}*/
+
+
+h1 {
+    font-family: 'Palatino Linotype';
+    font-weight: bold
+}
+
+.grafiekhoogte {
+    height: 200px;
+}
+
+.weekly-review {
+    font-family: 'Trebuchet MS'
+}
+
+
+/*Notificatievenster*/
+
+.noti-content {
+    position: fixed;
+    right: 100px;
+    background: #e5e5e5;
+    border-radius: 4px;
+    top: 47px;
+    width: 250px;
+    border: 1px solid #9E988B;
+}
+
+ul#notiContent {
+    max-height: 200px;
+    overflow: auto;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+}
+
+    ul#notiContent li {
+        margin: 3px;
+        padding: 6px;
+        /*background: #fff*/
+        background-color: yellowgreen
+    }
+
+.noti-top-arrow {
+    border-color: transparent;
+    border-bottom-color: #F5DEB3;
+    border-style: dashed dashed solid;
+    border-width: 0 8.5px 8.5px;
+    position: absolute;
+    right: 32px;
+    top: -8px;
+}
+
+span.noti {
+    color: black;
+    /*margin:15px;*/
+    margin-top: 1px;
+    position: fixed;
+    right: 100px;
+    font-size: 35px;
+    cursor: pointer
+}
+
+span.count {
+    position: relative;
+    top: -3px
+}

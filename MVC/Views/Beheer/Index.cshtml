@@ -55,8 +55,8 @@
         <div class="col-md-5">
             <canvas id="horizontalBarChart"></canvas>
 
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
-            @Html.Partial(MVC.Shared.Views.Dashboard.VerwijderKnop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
 
 
         </div>
@@ -64,8 +64,8 @@
         <div class="col-md-5">
             <canvas id="pieChart"></canvas>
 
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
-            @Html.Partial(MVC.Shared.Views.Dashboard.VerwijderKnop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
 
         </div>
 
@@ -118,16 +118,16 @@
         <div class="col-md-5">
             <canvas id="lineChart"></canvas>
 
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
-            @Html.Partial(MVC.Shared.Views.Dashboard.VerwijderKnop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
         </div>
 
         <div class="col-md-5">
 
             <canvas id="MultiLineChart"></canvas>
 
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
-            @Html.Partial(MVC.Shared.Views.Dashboard.VerwijderKnop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
         </div>
 
         <div class="col-md-2">
@@ -158,8 +158,8 @@
     <script src="~/Scripts/Chart.js"></script>
     <script src="~/Scripts/Common.js"></script>
 
-    @Html.Partial(MVC.Shared.Views.Dashboard.BeheerScripts)
-    @Html.Partial(MVC.Shared.Views.Grafieken.Grafieken)
+    @Html.Partial("~/Views/Shared/Dashboard/BeheerScripts.cshtml")
+    @Html.Partial("~/Views/Shared/Grafieken/Grafieken.cshtml")
 
 
     @*@Html.Partial("HorizontaalStaafdiagram")

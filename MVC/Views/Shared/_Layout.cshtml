@@ -36,15 +36,15 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                @Html.ActionLink("Home", MVC.Home.Index(), new { @class = "navbar-brand" })
+                @Html.ActionLink("Home", "Index", "Home", new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Dashboard", MVC.Dashboard.Index())</li>
+                    <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
 
                     @*<li>@Html.ActionLink("Beheer", MVC.Beheer.Index())</li>*@
-                    <li>@Html.ActionLink("Overzicht", MVC.Overzicht.Index())</li>
-                    <li>@Html.ActionLink("Weekly Review", MVC.WeeklyReview.Index())</li>
+                    <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
+                    <li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>
                     @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
                     {
                     <li>@Html.ActionLink("Admin", "Index", "SuperAdmin")</li>
@@ -62,7 +62,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @*<li>@Html.ActionLink("Alerts", MVC.Alerts.Index(), new { @class = "alert-image" })</li>*@
 
-                    <li>@Html.ActionLink("Profiel", MVC.Profiel.Index())</li>
+                    <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
                     @if (!Request.IsAuthenticated)
                     {
                     <li>@Html.ActionLink("Inloggen", "Login", "Account")</li>

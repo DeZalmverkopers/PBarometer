@@ -54,8 +54,8 @@
 
         <div class="col-md-5">
             <canvas id="horizontalBarChart" height="200"></canvas>
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
-            @Html.Partial(MVC.Shared.Views.Dashboard.VerwijderKnop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
             @*@Html.Partial("HorizontaalStaafdiagram")*@
 
         </div>
@@ -63,8 +63,8 @@
         <div class="col-md-5">
             <canvas id="pieChart" height="200"></canvas>
 
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
-            @Html.Partial(MVC.Shared.Views.Dashboard.VerwijderKnop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
 
         </div>
 
@@ -117,16 +117,16 @@
         <div class="col-md-5">
             <canvas id="lineChart" height="200"></canvas>
 
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
-            @Html.Partial(MVC.Shared.Views.Dashboard.VerwijderKnop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
         </div>
 
         <div class="col-md-5">
 
             <canvas id="MultiLineChart" height="200"></canvas>
 
-            @Html.Partial(MVC.Shared.Views.Dashboard.Bewerkingsknop)
-            @Html.Partial(MVC.Shared.Views.Dashboard.VerwijderKnop)
+            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
         </div>
 
         <div class="col-md-2">
@@ -137,7 +137,7 @@
     @*Rij 5*@
     <div class="row">
         <div class="col-md-5">
-            @Html.Partial(MVC.Shared.Views.GetalEnOverzicht.Getal)
+            @Html.Partial("~/Views/Shared/GetalEnOverzicht/Getal.cshtml")
 
 
 
@@ -145,7 +145,7 @@
                 @Html.Partial("VerwijderKnop")*@
         </div>
         <div class="col-md-5">
-            @Html.Partial(MVC.Shared.Views.GetalEnOverzicht.GetalTrend)
+            @Html.Partial("~/Views/Shared/GetalEnOverzicht/GetalTrend.cshtml")
 
             @*@Html.Partial("Bewerkingsknop")
                 @Html.Partial("VerwijderKnop")*@
@@ -158,14 +158,14 @@
     @*Rij 6*@
     <div class="row">
         <div class="col-md-5">
-            @Html.Partial(MVC.Shared.Views.GetalEnOverzicht.Top5)
+            @Html.Partial("~/Views/Shared/GetalEnOverzicht/Top5.cshtml")
 
             @*@Html.Partial("Bewerkingsknop")
                 @Html.Partial("VerwijderKnop")*@
         </div>
 
         <div class="col-md-5">
-            @Html.Partial(MVC.Shared.Views.GetalEnOverzicht.Top10)
+            @Html.Partial("~/Views/Shared/GetalEnOverzicht/Top10.cshtml")
 
             @*@Html.Partial("Bewerkingsknop")
                 @Html.Partial("VerwijderKnop")*@
@@ -215,8 +215,8 @@
     <script src="~/Scripts/Chart.js"></script>
     <script src="~/Scripts/Common.js"></script>
 
-    @Html.Partial(MVC.Shared.Views.Dashboard.BeheerScripts)
-    @Html.Partial(MVC.Shared.Views.Grafieken.Grafieken)
+    @Html.Partial("~/Views/Shared/Dashboard/BeheerScripts.cshtml")
+    @Html.Partial("~/Views/Shared/Grafieken/Grafieken.cshtml")
 
 
 
