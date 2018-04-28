@@ -25,22 +25,16 @@ namespace BL
             repository.CreateGrafiek(grafiek);
         }
 
-        public List<Grafiek> GetGrafieken(int dashboardId, bool dashboard = false, bool items = false)
+        public IEnumerable<Grafiek> GetGrafieken(bool dashboard = false, bool items = false)
         {
             InitNonExistingRepo();
+            return repository.ReadGrafieken(dashboard, items);
+        }
 
-            IEnumerable<Grafiek> alleGrafieken = repository.ReadGrafieken(dashboard, items);
-            List<Grafiek> grafieken = new List<Grafiek>();
-
-            foreach (Grafiek grafiek in alleGrafieken)
-            {
-                if (grafiek.DashboardId == dashboardId)
-                {
-                    grafieken.Add(grafiek);
-                }
-            }
-
-            return grafieken;
+        public IEnumerable<Grafiek> GetGrafieken(string gebruikersId, bool dashboard = false, bool items = false)
+        {
+            InitNonExistingRepo();
+            return repository.ReadGrafieken(dashboard, items).Where(a => a.Gebruiker != null && a.Gebruiker.Id.Equals(gebruikersId));
         }
 
         public Grafiek GetGrafiek(int id, bool dashboard = false, bool items = false)

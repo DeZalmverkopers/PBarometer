@@ -1,4 +1,5 @@
-﻿using Domain.Dashboards;
+﻿//Bart
+using Domain.Dashboards;
 using Domain.Deelplatformen;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -13,10 +14,9 @@ namespace Domain.IdentityFramework
 
         public int? DeelplatformId { get; set; }
         public Deelplatform Deelplatform { get; set; }
-
+        public List<Alert> Alerts { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public List<Alert> Alerts { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

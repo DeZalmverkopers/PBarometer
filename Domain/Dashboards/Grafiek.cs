@@ -1,4 +1,5 @@
 ﻿using Domain.Gemonitordeitems;
+using Domain.IdentityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace Domain.Dashboards
 {
-  public class Grafiek
-  {
-    //GrafiekId: Het Id van de Grafiek.
-    public int GrafiekId { get; set; }
-
-    //Foreign keys
-    //Dashboard: Het Dashboard waartoe de Grafiek behoort.
-    //GemonitordeItems: De GemonitordeItems die de Grafiek gebruikt.
-    public Dashboard Dashboard { get; set; }
-    public int DashboardId { get; set; }
-    public List<GemonitordItem> GemonitordeItems { get; set; }
-
-    public Grafiek()
+    public class Grafiek
     {
-      GemonitordeItems = new List<GemonitordItem>();
+        //GrafiekId: Het Id van de Grafiek.
+        public int GrafiekId { get; set; }
+
+        //Foreign keys
+        //Dashboard: Het Dashboard waartoe de Grafiek behoort.
+        //GemonitordeItems: De GemonitordeItems die de Grafiek gebruikt.
+        public Dashboard Dashboard { get; set; }
+        public int DashboardId { get; set; }
+        public List<GemonitordItem> GemonitordeItems { get; set; }
+        public ApplicationUser Gebruiker { get; set; }
+        public Grafiek()
+        {
+            GemonitordeItems = new List<GemonitordItem>();
+        }
     }
-  }
 }

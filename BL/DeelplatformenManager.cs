@@ -8,38 +8,41 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-  public class DeelplatformenManager
-  {
-    private readonly DeelplatformenRepository repository;
-
-    public DeelplatformenManager()
+    public class DeelplatformenManager
     {
-      repository = new DeelplatformenRepository();
-    }
+        private readonly DeelplatformenRepository repository;
 
-    public void AddDeelplatform(Deelplatform deelplatform)
-    {
-      repository.CreateDeelplatform(deelplatform);
-    }
+        public DeelplatformenManager()
+        {
+            repository = new DeelplatformenRepository();
+        }
 
-    public IEnumerable<Deelplatform> GetDeelplatformen()
-    {
-      return repository.ReadDeelplatformen();
-    }
+        public void AddDeelplatform(Deelplatform deelplatform)
+        {
+            repository.CreateDeelplatform(deelplatform);
+        }
 
-    public Deelplatform GetDeelplatformByName(string naam)
-    {
-      return repository.ReadDeelplatformByName(naam);
-    }
+        public IEnumerable<Deelplatform> GetDeelplatformen()
+        {
+            return repository.ReadDeelplatformen();
+        }
 
-    public void ChangeDeelplatform(Deelplatform deelplatform)
-    {
-      repository.UpdateDeelplatform(deelplatform);
-    }
+        public Deelplatform GetDeelplatformByName(string naam)
+        {
+            return repository.ReadDeelplatformByName(naam);
+        }
+        public Deelplatform GetDeelplatform(int id)
+        {
+            return repository.ReadDeelplatform(id);
+        }
+        public void ChangeDeelplatform(Deelplatform deelplatform)
+        {
+            repository.UpdateDeelplatform(deelplatform);
+        }
 
-    public void RemoveDeelplatform(Deelplatform deelplatform)
-    {
-      repository.DeleteDeelplatform(deelplatform);
+        public void RemoveDeelplatform(Deelplatform deelplatform)
+        {
+            repository.DeleteDeelplatform(deelplatform);
+        }
     }
-  }
 }

@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using MVC.App_Start;
+using MVC.Models.Android;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +26,9 @@ using static MVC.Controllers.AccountController;
 namespace MVC.Controllers.Api
 {
     public class AndroidController : ApiController
-    {   
-        [Authorize]
+    {
+
+
         [Route("api/Deelplatformen")]
         public IHttpActionResult GetDeelplatformen()
         {
@@ -40,12 +43,29 @@ namespace MVC.Controllers.Api
                 return Ok(deelplatformen);
             }
         }
-/*
-        [Route("api/Grafieken/")]
-        public IHttpActionResult GetGrafieken(string deelplatformnaam, string gebruikersnaam)
+
+        [Route("api/DeelplatformenAfbeelding")]
+        public IHttpActionResult GetDeelplatformAfbeelding(int deelplatformId)
         {
+            DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+            Deelplatform deelplatform = deelplatformenManager.GetDeelplatform(deelplatformId);
+            if (deelplatform == null)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            else
+            {
+                return Ok(deelplatform.Afbeelding);
+            }
+        }
+
+        [Authorize]
+        [Route("api/Grafieken")]
+        public IHttpActionResult GetGrafieken(int deelplatformId)
+        {
+
             GrafiekenManager grafiekenManager = new GrafiekenManager();
-            List<Grafiek> grafieken = grafiekenManager.GetGrafieken().ToList();
+            List<Grafiek> grafieken = grafiekenManager.GetGrafieken(User.Identity.GetUserId()).ToList();
             if (grafieken == null || grafieken.Count() == 0)
             {
                 return StatusCode(HttpStatusCode.NoContent);
@@ -54,6 +74,34 @@ namespace MVC.Controllers.Api
             {
                 return Ok(grafieken);
             }
-        }*/
+        }
+        [Authorize]
+        [Route("api/Alerts")]
+        public IHttpActionResult GetAlerts(int deelplatformId)
+        {
+            AlertManager alertManager = new AlertManager();
+            List<Alert> alerts = alertManager.GetMobieleAlerts(User.Identity.GetUserId(), true, true).ToList();
+            List<AlertDTO> alertDTOs = new List<AlertDTO>();
+
+            foreach (var alert in alerts)
+            {
+                alertDTOs.Add(new AlertDTO()
+                {
+                    Beschrijving = alert.Beschrijving,
+                    Geactiveerd = alert.Geactiveerd,
+                    Onderwerp = alert.GemonitordItem.Naam,
+                    Triggered = alert.Triggered,
+                    TriggerRedenen = alert.TriggerRedenen
+                });
+            }
+            if (alerts == null || alerts.Count() == 0)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            else
+            {
+                return Ok(alertDTOs);
+            }
+        }
     }
 }
