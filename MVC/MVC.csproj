@@ -382,6 +382,8 @@
     <Content Include="obj\Debug\Tsc.out" />
     <Content Include="obj\Release\MVC.csproj.CoreCompileInputs.cache" />
     <Content Include="obj\Release\MVC.csprojResolveAssemblyReference.cache" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -506,6 +508,9 @@
     <Content Include="Views\Alerts\EditEenvoudigeAlertBody.cshtml" />
     <Content Include="Views\Alerts\Index.cshtml" />
     <Content Include="Views\Alerts\LegeIndex.cshtml" />
+    <None Include="Web.CustomProfile.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
