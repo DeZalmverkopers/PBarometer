@@ -59,22 +59,23 @@ namespace MVC.Controllers.Api
             }
         }
 
-        [Authorize]
-        [Route("api/Grafieken")]
-        public IHttpActionResult GetGrafieken(int deelplatformId)
-        {
+        //[Authorize]
+        //[Route("api/Grafieken")]
+        //public IHttpActionResult GetGrafieken(int deelplatformId)
+        //{
 
-            GrafiekenManager grafiekenManager = new GrafiekenManager();
-            List<Grafiek> grafieken = grafiekenManager.GetGrafieken(User.Identity.GetUserId()).ToList();
-            if (grafieken == null || grafieken.Count() == 0)
-            {
-                return StatusCode(HttpStatusCode.NoContent);
-            }
-            else
-            {
-                return Ok(grafieken);
-            }
-        }
+        //    GrafiekenManager grafiekenManager = new GrafiekenManager();
+        //    List<Grafiek> grafieken = grafiekenManager.GetGrafieken(User.Identity.GetUserId()).ToList();
+        //    if (grafieken == null || grafieken.Count() == 0)
+        //    {
+        //        return StatusCode(HttpStatusCode.NoContent);
+        //    }
+        //    else
+        //    {
+        //        return Ok(grafieken);
+        //    }
+        //}
+
         [Authorize]
         [Route("api/Alerts")]
         public IHttpActionResult GetAlerts(int deelplatformId)

@@ -15,7 +15,7 @@ namespace DAL
 
     public GemonitordeItemsRepository()
     {
-            context = new EF.DbContext();
+      context = new EF.DbContext();
     }
 
     public GemonitordeItemsRepository(UnitOfWork uow)
@@ -31,14 +31,14 @@ namespace DAL
 
     public IEnumerable<GemonitordItem> ReadGemonitordeItems(bool grafieken = false)
     {
-      if (!grafieken) return context.GemonitordeItems.Include("DetailItems").AsEnumerable();
-      else return context.GemonitordeItems.Include("Grafieken").Include("DetailItems").AsEnumerable();
+      if (!grafieken) return context.GemonitordeItems.Include("DetailItems").Include("ItemHistorieken").AsEnumerable();
+      else return context.GemonitordeItems.Include("Grafieken").Include("DetailItems").Include("ItemHistorieken").AsEnumerable();
     }
 
     public GemonitordItem ReadGemonitordItem(int id, bool grafieken = false)
     {
-      if (!grafieken) return context.GemonitordeItems.Include("DetailItems").AsEnumerable().SingleOrDefault(i => i.GemonitordItemId == id);
-      else return context.GemonitordeItems.Include("Grafieken").Include("DetailItems").AsEnumerable().SingleOrDefault(i => i.GemonitordItemId == id);
+      if (!grafieken) return context.GemonitordeItems.Include("DetailItems").Include("ItemHistorieken").AsEnumerable().SingleOrDefault(i => i.GemonitordItemId == id);
+      else return context.GemonitordeItems.Include("Grafieken").Include("DetailItems").Include("ItemHistorieken").AsEnumerable().SingleOrDefault(i => i.GemonitordItemId == id);
     }
 
     public void UpdateGemonitordItem(GemonitordItem gemonitordItem)

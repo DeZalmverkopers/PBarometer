@@ -13,8 +13,9 @@ namespace BL.IdentityFramework
   {
     public ApplicationUserManager() : base(new UserStore<ApplicationUser>(new DbContext()))
     {
-      CreateFirstAdmin();
-      CreateFirstSuperAdmin();
+      //CreateFirstAdmin();
+      //CreateFirstSuperAdmin();
+      CreateUsers();
     }
 
     private void CreateFirstAdmin()
@@ -93,6 +94,58 @@ namespace BL.IdentityFramework
       if (!rolesForUser.Contains(role2.Name))
       {
         var result = this.AddToRole(user.Id, role2.Name);
+      }
+    }
+
+    private void CreateUsers()
+    {
+      var roleManager = new ApplicationRoleManager();
+      string name = "jelle@example.com";
+      string password = "Jelle@123456";
+      string rolename = "Gebruiker";
+
+      var role = roleManager.FindByName(rolename);
+      if (role == null)
+      {
+        role = new IdentityRole(rolename);
+        roleManager.Create(role);
+      }
+
+      var user = this.FindByName(name);
+      if (user == null)
+      {
+        user = new ApplicationUser { UserName = name, Email = name, DeelplatformId = 1 };
+        var result = this.Create(user, password);
+        result = this.SetLockoutEnabled(user.Id, false);
+      }
+      var rolesForUser = this.GetRoles(user.Id);
+      if (!rolesForUser.Contains(role.Name))
+      {
+        var result = this.AddToRole(user.Id, role.Name);
+      }
+
+      name = "bart@example.com";
+      password = "Bart@123456";
+      rolename = "Gebruiker";
+
+      role = roleManager.FindByName(rolename);
+      if (role == null)
+      {
+        role = new IdentityRole(rolename);
+        roleManager.Create(role);
+      }
+
+      user = this.FindByName(name);
+      if (user == null)
+      {
+        user = new ApplicationUser { UserName = name, Email = name, DeelplatformId = 1 };
+        var result = this.Create(user, password);
+        result = this.SetLockoutEnabled(user.Id, false);
+      }
+      rolesForUser = this.GetRoles(user.Id);
+      if (!rolesForUser.Contains(role.Name))
+      {
+        var result = this.AddToRole(user.Id, role.Name);
       }
     }
 

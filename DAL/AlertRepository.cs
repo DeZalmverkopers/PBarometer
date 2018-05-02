@@ -15,7 +15,7 @@ namespace DAL
 
     public AlertRepository()
     {
-            context = new EF.DbContext();
+      context = new EF.DbContext();
     }
 
     public AlertRepository(UnitOfWork uow)

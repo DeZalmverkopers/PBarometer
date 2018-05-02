@@ -15,7 +15,7 @@ namespace DAL
 
     public GrafiekenRepository()
     {
-            context = new EF.DbContext();
+      context = new EF.DbContext();
     }
 
     public GrafiekenRepository(UnitOfWork uow)
@@ -35,6 +35,14 @@ namespace DAL
       if (!dashboard && items) return context.Grafieken.Include("Items").AsEnumerable();
       if (dashboard && !items) return context.Grafieken.Include("Dashboard").AsEnumerable();
       else return context.Grafieken.Include("Dashboard").Include("Items").AsEnumerable();
+    }
+
+    public IEnumerable<Grafiek> ReadGrafieken(int dashboardId, bool dashboard, bool items)
+    {
+      if (!dashboard && !items) return context.Grafieken.AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
+      if (!dashboard && items) return context.Grafieken.Include("Items").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
+      if (dashboard && !items) return context.Grafieken.Include("Dashboard").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
+      else return context.Grafieken.Include("Dashboard").Include("Items").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
     }
 
     public Grafiek ReadGrafiek(int id, bool dashboard, bool items)
