@@ -1,8 +1,6 @@
 ﻿using BL.IdentityFramework;
 using Domain.IdentityFramework;
 using Microsoft.AspNet.Identity.Owin;
-using MVC.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,53 +17,74 @@ namespace MVC.Controllers
     // GET: SuperAdmin
     public virtual ActionResult Index()
     {
-      List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
-      List<SuperAdminUserViewModel> userViewModels = new List<SuperAdminUserViewModel>();
-      foreach (var user in users)
-      {
-        userViewModels.Add(new SuperAdminUserViewModel
-        {
-          Email = user.Email,
-        }
-        );
-      }
-      return View(userViewModels);
+      return View();
     }
 
     public virtual ActionResult LaadGemonitordeItemsBeheren()
     {
-      return PartialView("GemonitordeItemsBeheren");
+      return PartialView("~/Views/Shared/AdminSuperadmin/GemonitordeItemsBeheren.cshtml");
     }
 
     public virtual ActionResult LaadData()
     {
-      return PartialView("DataImporterenEnExporteren");
+      return PartialView("~/Views/Shared/AdminSuperadmin/DataImporterenEnExporteren.cshtml");
     }
 
     public virtual ActionResult LaadGebruikersactiviteit()
     {
-      return PartialView("GebruikersactiviteitMonitoren");
+      return PartialView("~/Views/Shared/AdminSuperadmin/GebruikersactiviteitMonitoren.cshtml");
     }
 
     public virtual ActionResult LaadLayout()
     {
-      return PartialView("LayoutAanpassen");
+      return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml");
     }
 
     public virtual ActionResult LaadMediabronnen()
     {
-      return PartialView("SocialeMediabronnenInstellen");
+      return PartialView("~/Views/Shared/Superadmin/SocialeMediabronnenInstellen.cshtml");
     }
 
     public virtual ActionResult LaadGebruikersgegevens()
     {
-      return PartialView("GebruikersgegevensNakijken");
+      return PartialView("~/Views/Shared/Superadmin/GebruikersgegevensNakijken.cshtml");
     }
 
     public virtual ActionResult LaadDeelplatform()
     {
-      return PartialView("DeelplatformAanmaken");
+      return PartialView("~/Views/Shared/Superadmin/DeelplatformAanmaken.cshtml");
     }
 
+    public virtual ActionResult LaadGebruikers()
+    {
+      List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
+      List<Models.SuperAdminUserViewModel> userViewModels = new List<Models.SuperAdminUserViewModel>();
+
+      foreach (var user in users)
+      {
+        if (!user.Email.Equals("superadmin@example.com"))
+        {
+          userViewModels.Add(new Models.SuperAdminUserViewModel
+          {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            Roles = user.Roles
+          }
+            );
+        }
+      }
+      return PartialView("~/Views/Shared/AdminSuperadmin/LaadGebruikers.cshtml", userViewModels);
+    }
+
+    [HttpPost]
+    public virtual void LaadGebruikers(Models.SuperAdminUserViewModel model)
+    {
+      List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
+      foreach (var user in users)
+      {
+        //TODO
+      }
+    }
   }
 }

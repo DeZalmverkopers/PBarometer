@@ -13,5 +13,8 @@ namespace Domain.Deelplatformen
     public int AantalDagenHistoriek { get; set; }
     public DateTime LaatsteSynchronisatie { get; set; }
     public byte[] Afbeelding { get; set; }
+
+    public bool OverzichtAdded { get; set; }
+    public bool WeeklyReviewAdded { get; set; }
   }
 }

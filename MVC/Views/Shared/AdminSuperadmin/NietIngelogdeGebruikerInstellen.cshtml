@@ -1,0 +1,26 @@
+﻿@model MVC.Models.SettingsNotLoggedInViewModel
+
+@{
+  ViewBag.Title = "NietIngelogdeGebruikerInstellen";
+}
+
+<h3>Instellingen voor niet-ingelogde gebruikers</h3>
+
+@using (Html.BeginForm("Index", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+<div>
+    @Html.CheckBoxFor(m => m.OverzichtAdded)
+    @Html.LabelFor(m => m.OverzichtAdded)
+</div>
+
+<div>
+    @Html.CheckBoxFor(m => m.WeeklyReviewAdded)
+    @Html.LabelFor(m => m.WeeklyReviewAdded)
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Opslaan" class="btn btn-primary btn-algemene-layout" />
+    </div>
+</div>
+}
