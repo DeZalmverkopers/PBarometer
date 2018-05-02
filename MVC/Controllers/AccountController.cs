@@ -7,12 +7,10 @@ using reCAPTCHA.MVC;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web;
-using MVC;
-using MVC.Models;
 
 namespace MVC.Controllers
 {
-    public partial class AccountController : Controller
+  public partial class AccountController : Controller
   {
     public AccountController()
     {
@@ -93,7 +91,7 @@ namespace MVC.Controllers
       PrivateKey = "6LfotVAUAAAAAI8plTIiw3g2g8jy311qRtkgMaEp",
       ErrorMessage = "U bent een robot.",
       RequiredMessage = "De captcha moet ingevuld worden.")]
-    public virtual async Task<ActionResult> Register(RegisterViewModel model)
+    public virtual async Task<ActionResult> Register(Models.RegisterViewModel model)
     {
       if (model.Email != null)
       {
@@ -147,7 +145,7 @@ namespace MVC.Controllers
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public virtual async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+    public virtual async Task<ActionResult> ForgotPassword(Models.ForgotPasswordViewModel model)
     {
       if (ModelState.IsValid)
       {
@@ -186,7 +184,7 @@ namespace MVC.Controllers
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public virtual async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+    public virtual async Task<ActionResult> ResetPassword(Models.ResetPasswordViewModel model)
     {
       if (!ModelState.IsValid)
       {
@@ -230,7 +228,7 @@ namespace MVC.Controllers
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public virtual async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+    public virtual async Task<ActionResult> ExternalLoginConfirmation(Models.ExternalLoginConfirmationViewModel model, string returnUrl)
     {
       if (User.Identity.IsAuthenticated)
       {
@@ -292,7 +290,7 @@ namespace MVC.Controllers
           // If the user does not have an account, then prompt the user to create an account
           ViewBag.ReturnUrl = returnUrl;
           ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-          return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+          return View("ExternalLoginConfirmation", new Models.ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
       }
     }
 

@@ -56,25 +56,30 @@
 
 
                     @*<li>@Html.ActionLink("Overzicht", MVC.Overzicht.Index())</li>*@
+                    @*@if ((bool?)ViewBag.OverzichtAdded == true)
+                    {*@
                     <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
-
+                    @*}*@
 
                     @*<li>@Html.ActionLink("Weekly Review", MVC.WeeklyReview.Index())</li>*@
+                    @*@if ((bool?)ViewBag.WeeklyReviewAdded == true)
+                    {*@
                     <li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>
+                    @*}*@
 
 
 
                     @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
                     {
-                        @*<li>@Html.ActionLink("Superadmin", MVC.SuperAdmin.Index())</li>*@
-                        <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
+                    @*<li>@Html.ActionLink("Superadmin", MVC.SuperAdmin.Index())</li>*@
+                    <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
                     }
                     else
                     {
                         if (User.IsInRole("Admin"))
                         {
-                            @*<li>@Html.ActionLink("Admin", MVC.Admin.Index())</li>*@
-                            <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                        @*<li>@Html.ActionLink("Admin", MVC.Admin.Index())</li>*@
+                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
                         }
                     }
 
@@ -91,23 +96,23 @@
 
                     @if (!Request.IsAuthenticated)
                     {
-                        @*<li>@Html.ActionLink("Inloggen", MVC.Account.Login())</li>*@
-                        <li>@Html.ActionLink("Inloggen", "Login", "Account")</li>
+                    @*<li>@Html.ActionLink("Inloggen", MVC.Account.Login())</li>*@
+                    <li>@Html.ActionLink("Inloggen", "Login", "Account")</li>
 
-                        @*<li>@Html.ActionLink("Registreren", MVC.Account.Register())</li>*@
-                        <li>@Html.ActionLink("Registreren", "Register", "Account")</li>
+                    @*<li>@Html.ActionLink("Registreren", MVC.Account.Register())</li>*@
+                    <li>@Html.ActionLink("Registreren", "Register", "Account")</li>
                     }
                     else
                     {
-                        @*<li>@Html.ActionLink("Profiel", MVC.Profiel.Index())</li>*@
-                        <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
+                    @*<li>@Html.ActionLink("Profiel", MVC.Profiel.Index())</li>*@
+                    <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
 
                         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                         {
-                            @Html.AntiForgeryToken()
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Uitloggen</a></li>
-                            </ul>
+                        @Html.AntiForgeryToken()
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Uitloggen</a></li>
+                        </ul>
                         }
 
                     }
@@ -138,7 +143,7 @@
         $("#alertID").click(function () {
             $("#alertInhoudID").toggle()
         });
-        
+
         $(document).ready(function () {
             $("#alertInhoudID").hide()
         })

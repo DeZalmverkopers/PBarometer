@@ -63,6 +63,18 @@ textarea {
     width: 250px
 }
 
+.btn-blauw {
+    background-color: #3b5998
+}
+
+.btn-rood {
+    background-color: #dd4b39
+}
+
+.btn-groen {
+    background-color: #00aced
+}
+
 .button-xx-large {
     margin-top: 10px;
     margin-bottom: 10px;
