@@ -34,11 +34,18 @@ namespace MVC.Controllers
       List<GemonitordItem> gemonitordeItems = gemonitordeItemsManager.GetGemonitordeItems(1).ToList();
       GrafiekenManager grafiekenManager = new GrafiekenManager();
 
-      List<GemonitordItem> grafiekItems1 = new List<GemonitordItem>()
-        {
-          gemonitordeItems.ElementAt(0),
-          gemonitordeItems.ElementAt(1),
-          gemonitordeItems.ElementAt(2)
+      List<GrafiekItem> grafiekItems1 = new List<GrafiekItem>()
+      {
+        new GrafiekItem(){ ItemId = gemonitordeItems.ElementAt(0).GemonitordItemId },
+        new GrafiekItem(){ ItemId = gemonitordeItems.ElementAt(1).GemonitordItemId },
+        new GrafiekItem(){ ItemId = gemonitordeItems.ElementAt(2).GemonitordItemId }
+      };
+
+      List<GrafiekWaarde> waarden1 = new List<GrafiekWaarde>()
+      {
+        GrafiekWaarde.Objectiviteit,
+        GrafiekWaarde.Polariteit,
+        GrafiekWaarde.Objectiviteit
       };
 
       Grafiek grafiek1 = new Grafiek()
@@ -55,22 +62,24 @@ namespace MVC.Controllers
         XTitel = "Items",
         YOorsprongNul = true,
         YTitel = "Waarden",
-        Items = grafiekItems1,
-        Waarden = new List<GrafiekWaarde>
-        {
-        GrafiekWaarde.Objectiviteit,
-        GrafiekWaarde.Polariteit,
-        GrafiekWaarde.Objectiviteit
-        }
+        GrafiekItems = grafiekItems1,
+        Waarden = waarden1
       };
 
       grafiekenManager.AddGrafiek(grafiek1);
 
-      List<GemonitordItem> grafiekItems2 = new List<GemonitordItem>()
-        {
-          gemonitordeItems.ElementAt(3),
-          gemonitordeItems.ElementAt(4),
-          gemonitordeItems.ElementAt(5)
+      List<GrafiekItem> grafiekItems2 = new List<GrafiekItem>()
+      {
+        new GrafiekItem(){ ItemId = gemonitordeItems.ElementAt(3).GemonitordItemId },
+        new GrafiekItem(){ ItemId = gemonitordeItems.ElementAt(4).GemonitordItemId },
+        new GrafiekItem(){ ItemId = gemonitordeItems.ElementAt(5).GemonitordItemId }
+      };
+
+      List<GrafiekWaarde> waarden2 = new List<GrafiekWaarde>()
+      {
+        GrafiekWaarde.Objectiviteit,
+        GrafiekWaarde.Polariteit,
+        GrafiekWaarde.Objectiviteit
       };
 
       Grafiek grafiek2 = new Grafiek()
@@ -87,13 +96,8 @@ namespace MVC.Controllers
         XTitel = "Items",
         YOorsprongNul = true,
         YTitel = "Waarden",
-        Items = grafiekItems2,
-        Waarden = new List<GrafiekWaarde>
-        {
-        GrafiekWaarde.Objectiviteit,
-        GrafiekWaarde.Polariteit,
-        GrafiekWaarde.Objectiviteit
-        }
+        GrafiekItems = grafiekItems2,
+        Waarden = waarden2
       };
 
       grafiekenManager.AddGrafiek(grafiek2);

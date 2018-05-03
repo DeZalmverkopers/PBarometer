@@ -43,13 +43,14 @@ namespace BL
         List<GemonitordItem> grafiekItems = new List<GemonitordItem>();
 
         #region Kijk na welke items tot de grafiek behoren, vul de grafiekItems met items en hun historieken
-        foreach (GemonitordItem item in grafiek.Items)
+        foreach (GrafiekItem item in grafiek.GrafiekItems)
         {
           foreach (GemonitordItem gevuldItem in alleItems)
           {
-            if (gevuldItem.GemonitordItemId == item.GemonitordItemId)
+            if (gevuldItem.GemonitordItemId == item.GrafiekItemId)
             {
               grafiekItems.Add(gevuldItem);
+              grafiek.Items.Add(gevuldItem); //Mogelijk niet nodig
             }
           }
         }

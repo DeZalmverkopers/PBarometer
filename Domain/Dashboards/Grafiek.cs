@@ -33,7 +33,9 @@ namespace Domain.Dashboards
     //GemonitordeItems: De GemonitordeItems die de Grafiek gebruikt.
     public Dashboard Dashboard { get; set; }
     public int DashboardId { get; set; }
+    [NotMapped]
     public List<GemonitordItem> Items { get; set; }
+    public List<GrafiekItem> GrafiekItems { get; set; }
     
     [NotMapped]
     public List<GrafiekWaarde> Waarden
@@ -55,6 +57,7 @@ namespace Domain.Dashboards
       LegendeLijst = new List<string>();
       Data = new Dictionary<int, List<dynamic>>();
       Items = new List<GemonitordItem>();
+      GrafiekItems = new List<GrafiekItem>();
       Waarden = new List<GrafiekWaarde>();
     }
   }

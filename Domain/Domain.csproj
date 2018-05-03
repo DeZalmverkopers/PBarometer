@@ -85,6 +85,7 @@
     <Compile Include="Dashboards\Alert.cs" />
     <Compile Include="Dashboards\Dashboard.cs" />
     <Compile Include="Dashboards\Grafiek.cs" />
+    <Compile Include="Dashboards\GrafiekItem.cs" />
     <Compile Include="Dashboards\GrafiekType.cs" />
     <Compile Include="Dashboards\GrafiekWaarde.cs" />
     <Compile Include="Deelplatformen\Deelplatform.cs" />

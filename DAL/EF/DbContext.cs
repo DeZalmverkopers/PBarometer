@@ -45,6 +45,7 @@ namespace DAL.EF
       modelBuilder.Entity<Bericht>().ToTable("Berichten");
       modelBuilder.Entity<Dashboard>().ToTable("Dashboards");
       modelBuilder.Entity<Grafiek>().ToTable("Grafieken");
+      modelBuilder.Entity<GrafiekItem>().ToTable("GrafiekDetails");
       modelBuilder.Entity<Gebruiker>().ToTable("Gebruikers");
       modelBuilder.Entity<DetailItem>().ToTable("DetailItems");
       modelBuilder.Entity<GemonitordItem>().ToTable("GemonitordeItems");
