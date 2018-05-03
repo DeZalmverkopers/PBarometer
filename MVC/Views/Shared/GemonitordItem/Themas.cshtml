@@ -1,11 +1,56 @@
-﻿
-<h3>Thema's</h3>
-
-@foreach (var thema in ViewBag.Themas)
-{
-    <div>
-        <button class="btn btn-primary btn-algemene-layout">@thema.Naam</button>
-    </div>
+﻿@{
+    ViewBag.Title = "Themas";
 }
 
 
+
+<input type="text" id="zoekBalkThemas" onkeyup="zoekFunctieThemas()" placeholder="Zoek op naam..." class="form-control">
+
+<div class="table-container">
+    <table class="table table-hover" id="themasTabel">
+        <thead>
+            <tr>
+                <th>
+                    <p>Thema</p>
+                </th>
+                <th>
+                    <p>Totaal aantal vermeldingen</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var thema in ViewBag.Themas)
+            {
+                <tr onclick="location.href='@Url.Action("ThemaDetails", new { id = thema.GemonitordItemId})'">
+                    <td>
+                        @thema.Naam
+                    </td>
+                    <td>
+                        @thema.TotaalAantalVermeldingen
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function zoekFunctieThemas() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("zoekBalkThemas");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("themasTabel");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

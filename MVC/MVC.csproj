@@ -506,6 +506,8 @@
     <Content Include="Views\Alerts\EditEenvoudigeAlertBody.cshtml" />
     <Content Include="Views\Alerts\Index.cshtml" />
     <Content Include="Views\Alerts\LegeIndex.cshtml" />
+    <Content Include="Views\Overzicht\PersoonDetailsBody.cshtml" />
+    <Content Include="Views\Overzicht\PersoonDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

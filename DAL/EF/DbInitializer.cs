@@ -61,19 +61,14 @@ namespace DAL.EF
                 Rol = Rol.ADMIN
             };
 
-            Deelplatform deelplatform = new Deelplatform()
-            {
-                Naam = "Politieke Barometer",
-                LaatsteSynchronisatie = DateTime.Now.AddYears(-100),
-                AantalDagenHistoriek = 14,
-            };
+            
 
             context.Gebruikers.Add(jelle);
             context.Gebruikers.Add(bart);
             context.Gebruikers.Add(arne);
             context.Gebruikers.Add(seppe);
             context.Gebruikers.Add(glenn);
-            context.Deelplatformen.Add(deelplatform);
+        
 
             context.SaveChanges();
         }

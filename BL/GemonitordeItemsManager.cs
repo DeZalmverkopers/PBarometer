@@ -26,7 +26,11 @@ namespace BL
             InitNonExistingRepo();
             repository.CreateGemonitordItem(gemonitordItem);
         }
-
+        public Persoon GetPersoon(int id, bool organisatie)
+        {
+            InitNonExistingRepo();
+            return repository.ReadPersoon(id, organisatie);
+        }
 
         public IEnumerable<GemonitordItem> GetGemonitordeItems(int deelplatformId, bool grafieken = false)
         {
@@ -46,10 +50,10 @@ namespace BL
             return repository.ReadGemonitordeItems(grafieken).Where(a => a is Organisatie && a.DeelplatformId == deelplatformId);
         }
 
-        public IEnumerable<GemonitordItem> GetThemas(int deelplatformId, bool grafieken = false)
+        public IEnumerable<Thema> GetThemas(int deelplatformId, bool grafieken = false)
         {
             InitNonExistingRepo();
-            return repository.ReadGemonitordeItems(grafieken).Where(a => a is Thema && a.DeelplatformId == deelplatformId);
+            return repository.ReadGemonitordeItems(grafieken).Where(a => a is Thema && a.DeelplatformId == deelplatformId).Cast<Thema>();
         }
 
         public GemonitordItem GetGemonitordItem(int id, bool grafieken = false)
@@ -138,8 +142,8 @@ namespace BL
             {
                 item.BerekenEigenschappen();
                 repository.UpdateGemonitordItem(item);
+                //MaakHistorieken(item, aantalDagenHistoriek, syncDatum);
             }
-            SaveItemHistoriek(syncDatum);
             AlertManager alertManager = new AlertManager();
             alertManager.GenereerAlerts();
         }
@@ -165,21 +169,54 @@ namespace BL
         }
 
 
-        private void SaveItemHistoriek(DateTime syncDatum)
+        private void MaakHistorieken(GemonitordItem item, int aantalDagenHistoriek, DateTime syncDatum)
         {
-            DateTime nu = syncDatum;
-            foreach (var item in repository.ReadGemonitordeItems().ToList())
+            DateTime startDatum;
+            if (item.ItemHistorieken == null || item.ItemHistorieken.Count < 1 ||
+                item.ItemHistorieken.OrderBy(a => a.HistoriekDatum).FirstOrDefault().HistoriekDatum < syncDatum.AddDays(aantalDagenHistoriek))
             {
-                ItemHistoriek historiek = new ItemHistoriek()
+                startDatum = syncDatum.AddDays(-aantalDagenHistoriek);
+            }
+            else
+            {
+                startDatum = item.ItemHistorieken.OrderByDescending(a => a.HistoriekDatum).FirstOrDefault().HistoriekDatum;
+            }
+            DateTime startUur = startDatum;
+            while (startUur < syncDatum)
+            {
+                DateTime grensUur = startUur.AddHours(1);
+                List<DetailItem> relevanteDetailItems = item.DetailItems.Where(a => a.BerichtDatum > startUur && a.BerichtDatum < grensUur).ToList();
+                if (relevanteDetailItems.Count > 0)
                 {
-                    GemPolariteit = item.GemPolariteit,
-                    GemObjectiviteit = item.GemObjectiviteit,
-                    AantalVermeldingen = item.TotaalAantalVermeldingen,
-                    SynchronisatieDatum = syncDatum
-                };
-                item.ItemHistorieken.Add(historiek);
-                repository.UpdateGemonitordItem(item);
-            };
+                    item.ItemHistorieken.Add(new ItemHistoriek()
+                    {
+                        HistoriekDatum = startDatum,
+                        AantalVermeldingen = relevanteDetailItems.Count,
+                        AantalBerichtenVanMannen = relevanteDetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("m")).Count(),
+                        AantalBerichtenVanVrouwen = relevanteDetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("f")).Count(),
+                        GemObjectiviteit = relevanteDetailItems.Average(a => a.Objectiviteit),
+                        GemPolariteit = relevanteDetailItems.Average(a => a.Polariteit),
+                    });
+                }
+                else
+                {
+                    item.ItemHistorieken.Add(new ItemHistoriek()
+                    {
+                        HistoriekDatum = startUur,
+                        AantalVermeldingen = 0,
+                        AantalBerichtenVanMannen = 0,
+                        AantalBerichtenVanVrouwen = 0,
+                        GemObjectiviteit = 0.5,
+                        GemPolariteit = 0
+                    });
+                }
+                
+                startUur = grensUur;
+                
+            }
+            item.ItemHistorieken.RemoveAll(a => a.HistoriekDatum < startDatum);
+
+            ChangeGemonitordItem(item);
         }
 
         public void InitNonExistingRepo(bool uow = false)
