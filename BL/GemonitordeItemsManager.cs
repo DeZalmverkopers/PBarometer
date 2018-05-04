@@ -125,7 +125,7 @@ namespace BL
             }
         }
 
-        public void AddGekruisdItem(GemonitordItem item1, GemonitordItem item2, string naam, int deelplatformId)
+        public void AddGekruistItem(GemonitordItem item1, GemonitordItem item2, string naam, int deelplatformId)
         {
             InitNonExistingRepo();
             GemonitordItem gekruistItem = new GekruistItem { Naam = naam, DeelplatformId = deelplatformId, Item1 = item1, Item2 = item2 };

@@ -1,4 +1,5 @@
 ﻿using Domain.Gebruikers;
+using Domain.IdentityFramework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,7 +20,7 @@ namespace Domain.Dashboards
     //Foreign keys
     //Gebruiker: De eigenaar van het Dashboard.
     //Grafieken: De Grafieken die bij het Dashboard horen.
-    public Gebruiker Gebruiker { get; set; }
+    public ApplicationUser Gebruiker { get; set; }
     public int GebruikerId { get; set; }
     public List<Grafiek> Grafieken { get; set; }
 
