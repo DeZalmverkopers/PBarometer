@@ -1,15 +1,7 @@
-﻿@{
-    ViewBag.Title = "Personen";
-}
-
-
-
-<input type="text" id="zoekBalkPersonen" onkeyup="zoekFunctie()" placeholder="Zoek op naam..." class="form-control">
-
-
+﻿<input type="text" id="zoekBalkPersonenOrganisatie" onkeyup="zoekFunctiePersonenOrganisatie()" placeholder="Zoek op naam..." class="form-control">
 
 <div class="table-container">
-    <table class="table table-hover" id="personenTabel">
+    <table class="table table-hover" id="personenTabelOrganisatie">
         <thead>
             <tr>
                 <th>
@@ -23,7 +15,7 @@
         <tbody>
             @foreach (var persoon in ViewBag.Personen)
             {
-                <tr onclick="showModal('#persoonDetails', '#persoonDetailsBody', @persoon.GemonitordItemId)">
+                <tr data-dismiss="modal" onclick="showModalPersoonDetails('#persoonDetailsOrganisatie', '#persoonDetailsOrganisatieBody', @persoon.GemonitordItemId)">
                     <td>
                         @persoon.Naam
                     </td>
@@ -37,18 +29,15 @@
 </div>
 
 
-<div id="persoonDetails" class="modal fade" tabindex="-1" role="dialog" data-url='@Url.Action("PersoonDetails","Overzicht")'>
-    <div class="modal-dialog modal-sm" id="persoonDetailsBody">
-    </div>
-</div>
+
 
 
 <script>
-    function zoekFunctie() {
+    function zoekFunctiePersonenOrganisatie() {
         var input, filter, table, tr, td, i;
-        input = document.getElementById("zoekBalkPersonen");
+        input = document.getElementById("zoekBalkPersonenOrganisatie");
         filter = input.value.toUpperCase();
-        table = document.getElementById("personenTabel");
+        table = document.getElementById("personenTabelOrganisatie");
         tr = table.getElementsByTagName("tr");
 
         for (i = 0; i < tr.length; i++) {
@@ -63,13 +52,5 @@
         }
     }
 </script>
-<script>
-    function showModal(persoonDetails, persoonDetailsBody, id) {
-        var url = $(persoonDetails).data('url');
 
-        $.get(url, { id: id }, function (data) {
-            $(persoonDetailsBody).html(data);
-            $(persoonDetails).modal('show');
-        });
-    }
-</script>
+
