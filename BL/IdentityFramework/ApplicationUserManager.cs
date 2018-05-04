@@ -13,7 +13,7 @@ namespace BL.IdentityFramework
   {
     public ApplicationUserManager() : base(new UserStore<ApplicationUser>(new DbContext()))
     {
-      CreateFirstAdmin();
+      //CreateFirstAdmin();
       CreateFirstSuperAdmin();
     }
 

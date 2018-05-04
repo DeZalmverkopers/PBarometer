@@ -6,12 +6,10 @@
 
 <h2>Gebruikers</h2>
 
-@using (Html.BeginForm("Index", "SuperAdmin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
 <table class="table">
     <tr>
         <th>
-            Admin?
+            @Html.DisplayNameFor(model => model.IsAdmin)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
@@ -22,13 +20,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
+        <th>
+            Verander recht
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
     <tr>
         <td>
-            @Html.CheckBoxFor(modelItem => item.IsAdmin)
+            @Html.DisplayFor(modelItem => item.IsAdmin)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
@@ -39,13 +40,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
+        <td>
+            <button class="btn btn-primary bewerken" onclick="location.href='@Url.Action("SlaAdminOp", "Superadmin", new { email = @item.Email, setAdmin = !@item.IsAdmin })'">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+        </td>
     </tr>
     }
 </table>
-
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Opslaan" class="btn btn-primary btn-algemene-layout" />
-    </div>
-</div>
-}
