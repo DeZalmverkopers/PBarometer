@@ -1,7 +1,7 @@
 ﻿@*Seppe*@
 
 @{
-    ViewBag.Title = "SuperAdmin";
+  ViewBag.Title = "SuperAdmin";
 }
 
 <h1>Superadmin</h1>
@@ -12,7 +12,7 @@
         <div class="col-md-12">*@
     <div class="row">
         <div class="col-md-6">
-            @Html.Partial("AdminSuperadmin.AdminKnoppen")
+            @Html.Partial("~/Views/Shared/AdminSuperadmin/AdminKnoppen.cshtml")
             <div>
                 <button class="btn btn-primary btn-algemene-layout" id="btnMediabronnen">Sociale mediabronnen instellen</button>
             </div>
@@ -21,6 +21,9 @@
             </div>
             <div>
                 <button class="btn btn-primary btn-algemene-layout" id="btnDeelplatform">Deelplatform aanmaken</button>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-algemene-layout" id="btnAdmins">Admins instellen</button>
             </div>
         </div>
         <div class="col-md-6" id="divResultaat">
@@ -32,7 +35,7 @@
 </div>
 
 @section scripts {
-    @Html.Partial("AdminSuperadminScripts")
+    @Html.Partial("~/Views/Shared/AdminSuperadmin/AdminSuperadminScripts.cshtml")
 
     <script type="text/javascript">
         $("#btnMediabronnen").click(function () {
@@ -53,6 +56,14 @@
     <script type="text/javascript">
         $("#btnDeelplatform").click(function () {
         $.get('@Url.Action("LaadDeelplatform", "SuperAdmin")', {}, function (resultaat) {
+            $("#divResultaat").html(resultaat);
+        });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $("#btnAdmins").click(function () {
+        $.get('@Url.Action("LaadGebruikers", "SuperAdmin")', {}, function (resultaat) {
             $("#divResultaat").html(resultaat);
         });
         });

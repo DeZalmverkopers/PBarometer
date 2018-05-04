@@ -1,28 +1,64 @@
 ﻿using Domain.Gemonitordeitems;
-using Domain.IdentityFramework;
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Dashboards
 {
-    public class Grafiek
-    {
-        //GrafiekId: Het Id van de Grafiek.
-        public int GrafiekId { get; set; }
+  public class Grafiek
+  {
+    public int GrafiekId { get; set; }
 
-        //Foreign keys
-        //Dashboard: Het Dashboard waartoe de Grafiek behoort.
-        //GemonitordeItems: De GemonitordeItems die de Grafiek gebruikt.
-        public Dashboard Dashboard { get; set; }
-        public int DashboardId { get; set; }
-        public List<GemonitordItem> GemonitordeItems { get; set; }
-        public ApplicationUser Gebruiker { get; set; }
-        public Grafiek()
-        {
-            GemonitordeItems = new List<GemonitordItem>();
-        }
+    public string Titel { get; set; }
+
+    public bool ToonLegende { get; set; }
+    public bool ToonXAs { get; set; }
+    public bool ToonYAs { get; set; }
+
+    public bool XOorsprongNul { get; set; }
+    public bool YOorsprongNul { get; set; }
+
+    public string XTitel { get; set; }
+    public string YTitel { get; set; }
+    public bool XOnder { get; set; }
+
+    public List<string> LegendeLijst { get; set; }
+    public Dictionary<int, List<dynamic>> Data { get; set; }
+
+    public int Periode { get; set; }
+    public GrafiekType Type { get; set; }
+
+    //Foreign keys
+    //Dashboard: Het Dashboard waartoe de Grafiek behoort.
+    //GemonitordeItems: De GemonitordeItems die de Grafiek gebruikt.
+    public Dashboard Dashboard { get; set; }
+    public int DashboardId { get; set; }
+    [NotMapped]
+    public List<GemonitordItem> Items { get; set; }
+    public List<GrafiekItem> GrafiekItems { get; set; }
+    
+    [NotMapped]
+    public List<GrafiekWaarde> Waarden
+    {
+      get
+      {
+        return WaardenJSON == null ? null : JsonConvert.DeserializeObject<List<GrafiekWaarde>>(WaardenJSON);
+      }
+      set
+      {
+        WaardenJSON = JsonConvert.SerializeObject(value);
+      }
     }
+
+    public string WaardenJSON { get; set; }
+
+    public Grafiek()
+    {
+      LegendeLijst = new List<string>();
+      Data = new Dictionary<int, List<dynamic>>();
+      Items = new List<GemonitordItem>();
+      GrafiekItems = new List<GrafiekItem>();
+      Waarden = new List<GrafiekWaarde>();
+    }
+  }
 }

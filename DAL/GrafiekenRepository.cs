@@ -15,7 +15,7 @@ namespace DAL
 
     public GrafiekenRepository()
     {
-            context = new EF.DbContext();
+      context = new EF.DbContext();
     }
 
     public GrafiekenRepository(UnitOfWork uow)
@@ -37,12 +37,20 @@ namespace DAL
       else return context.Grafieken.Include("Dashboard").Include("Items").AsEnumerable();
     }
 
+    public IEnumerable<Grafiek> ReadGrafieken(int dashboardId, bool dashboard, bool items)
+    {
+      if (!dashboard && !items) return context.Grafieken.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
+      if (!dashboard && items) return context.Grafieken/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
+      if (dashboard && !items) return context.Grafieken.Include("Dashboard").Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
+      else return context.Grafieken.Include("Dashboard")/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
+    }
+
     public Grafiek ReadGrafiek(int id, bool dashboard, bool items)
     {
-      if (!dashboard && !items) return context.Grafieken.AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
-      if (!dashboard && items) return context.Grafieken.Include("Items").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
-      if (dashboard && !items) return context.Grafieken.Include("Dashboard").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
-      else return context.Grafieken.Include("Dashboard").Include("Items").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
+      if (!dashboard && !items) return context.Grafieken.Include("GrafiekItems").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
+      if (!dashboard && items) return context.Grafieken/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
+      if (dashboard && !items) return context.Grafieken.Include("Dashboard").Include("GrafiekItems").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
+      else return context.Grafieken.Include("Dashboard")/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
     }
 
     public void UpdateGrafiek(Grafiek grafiek)

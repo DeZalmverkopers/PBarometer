@@ -1,4 +1,4 @@
-﻿using DAL.EF;
+using DAL.EF;
 using Domain.Gemonitordeitems;
 using System;
 using System.Collections.Generic;
@@ -29,17 +29,17 @@ namespace DAL
             context.SaveChanges();
         }
 
-        public IEnumerable<GemonitordItem> ReadGemonitordeItems(bool grafieken = false)
-        {
-            if (!grafieken) return context.GemonitordeItems.Include("DetailItems").AsEnumerable();
-            else return context.GemonitordeItems.Include("Grafieken").Include("DetailItems").AsEnumerable();
-        }
+    public IEnumerable<GemonitordItem> ReadGemonitordeItems(bool grafieken = false)
+    {
+      if (!grafieken) return context.GemonitordeItems.Include("DetailItems").Include("ItemHistorieken").AsEnumerable();
+      else return context.GemonitordeItems.Include("Grafieken").Include("DetailItems").Include("ItemHistorieken").AsEnumerable();
+    }
 
-        public GemonitordItem ReadGemonitordItem(int id, bool grafieken = false)
-        {
-            if (!grafieken) return context.GemonitordeItems.Include("DetailItems").AsEnumerable().SingleOrDefault(i => i.GemonitordItemId == id);
-            else return context.GemonitordeItems.Include("Grafieken").Include("DetailItems").AsEnumerable().SingleOrDefault(i => i.GemonitordItemId == id);
-        }
+    public GemonitordItem ReadGemonitordItem(int id, bool grafieken = false)
+    {
+      if (!grafieken) return context.GemonitordeItems.Include("DetailItems").Include("ItemHistorieken").AsEnumerable().SingleOrDefault(i => i.GemonitordItemId == id);
+      else return context.GemonitordeItems.Include("Grafieken").Include("DetailItems").Include("ItemHistorieken").AsEnumerable().SingleOrDefault(i => i.GemonitordItemId == id);
+    }
 
         public void UpdateGemonitordItem(GemonitordItem gemonitordItem)
         {
