@@ -63,6 +63,18 @@ textarea {
     width: 250px
 }
 
+.btn-blauw {
+    background-color: #3b5998
+}
+
+.btn-rood {
+    background-color: #dd4b39
+}
+
+.btn-groen {
+    background-color: #00aced
+}
+
 .button-xx-large {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -184,7 +196,34 @@ span.noti {
     cursor: pointer
 }
 
-span.count {
-    position: relative;
-    top: -3px
+.table-container {
+    height: 72vh;
 }
+
+    .table-container table {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+        width: 100%;
+    }
+
+        .table-container table thead {
+            flex: 0 0 auto;
+            width: calc(100% - 0.9em);
+        }
+
+        .table-container table tbody {
+            flex: 1 1 auto;
+            display: block;
+            overflow-y: scroll;
+        }
+
+            .table-container table tbody tr {
+                width: 100%;
+                cursor: pointer;
+            }
+
+            .table-container table thead, .table-container table tbody tr {
+                display: table;
+                table-layout: fixed;
+            }

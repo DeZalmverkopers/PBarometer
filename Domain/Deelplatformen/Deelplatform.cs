@@ -24,5 +24,7 @@ namespace Domain.Deelplatformen
       Gebruikers = new List<ApplicationUser>();
       GemonitordeItems = new List<GemonitordItem>();
     }
+    public bool OverzichtAdded { get; set; }
+    public bool WeeklyReviewAdded { get; set; }
   }
 }

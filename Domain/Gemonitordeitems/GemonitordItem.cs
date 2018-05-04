@@ -1,17 +1,11 @@
 ﻿using Domain.Dashboards;
 using Domain.Deelplatformen;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Gemonitordeitems
 {
-    public class GemonitordItem
+  public class GemonitordItem
     {
         public int GemonitordItemId { get; set; }
 
@@ -25,6 +19,9 @@ namespace Domain.Gemonitordeitems
         public int TotaalAantalVermeldingen { get; set; }
         public double GemPolariteit { get; set; }
         public double GemObjectiviteit { get; set; }
+        public string MeestVoorkomendeURL { get; set; }
+        public int AantalBerichtenVanMannen { get; set; }
+        public int AantalBerichtenVanVrouwen { get; set; }
         public virtual List<ItemHistoriek> ItemHistorieken { get; set; }
 
         //Foreign keys
@@ -42,11 +39,13 @@ namespace Domain.Gemonitordeitems
         }
         public virtual void BerekenEigenschappen()
         {
-            if (DetailItems != null)
+            if (DetailItems != null && DetailItems.Count > 0)
             {
                 TotaalAantalVermeldingen = DetailItems.Count;
                 BerekenGemiddeldeObjectiviteit();
                 BerekenGemiddeldePolariteit();
+                BepaalMeestVoorkomendeURL();
+                BerekenTotaalAantalVrouwenEnMannen();
                 if (ItemHistorieken != null && ItemHistorieken.Count > 0 && TotaalAantalVermeldingen > 0)
                 {
                     BerekenPolTrend();
@@ -67,7 +66,30 @@ namespace Domain.Gemonitordeitems
             }
 
         }
-        protected virtual void BerekenGemiddeldePolariteit()
+
+        private void BerekenTotaalAantalVrouwenEnMannen()
+        {
+            AantalBerichtenVanMannen = DetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("m")).Count();
+            AantalBerichtenVanVrouwen = DetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("f")).Count();
+        }
+
+        private void BepaalMeestVoorkomendeURL()
+        {
+            var url = DetailItems.Where(a => a.AndereEigenschappen["urls"].FirstOrDefault() != null).GroupBy(a => a.AndereEigenschappen["urls"].
+            FirstOrDefault()).OrderByDescending(b => b.Count()).FirstOrDefault();
+
+            if (url != null)
+            {
+                MeestVoorkomendeURL = url.Key;
+            }
+            else
+            {
+                MeestVoorkomendeURL = null;
+            }
+            
+        }
+
+        private void BerekenGemiddeldePolariteit()
         {
             if (DetailItems.Count > 0)
             {
@@ -81,7 +103,7 @@ namespace Domain.Gemonitordeitems
                 GemPolariteit = gemiddelde / teller;
             }
         }
-        protected virtual void BerekenGemiddeldeObjectiviteit()
+        private void BerekenGemiddeldeObjectiviteit()
         {
             if (DetailItems.Count > 0)
             {
@@ -95,48 +117,64 @@ namespace Domain.Gemonitordeitems
                 GemObjectiviteit = gemiddelde / teller;
             }
         }
-        protected virtual void BerekenPolTrend()
+        private void BerekenPolTrend()
         {
-            double vorigePolariteit = ItemHistorieken.Last().GemPolariteit;
-            if (GemPolariteit > vorigePolariteit * 0.95 && GemPolariteit < vorigePolariteit * 1.05)
+            double gemLaatstePolariteit;
+            double gemPolariteitPositief = GemPolariteit + 1;
+            if (DetailItems.Count > 10)
+            {
+                gemLaatstePolariteit = DetailItems.OrderBy(a => a.BerichtDatum).Take(DetailItems.Count / 10).Average(a => a.Objectiviteit) + 1;
+                if (gemLaatstePolariteit > 0.95 * gemPolariteitPositief && gemLaatstePolariteit < 0.95 * gemPolariteitPositief)
+                {
+                    PolariteitsTrend = Trend.NEUTRAL;
+                }
+                else if (gemLaatstePolariteit > gemPolariteitPositief * 1.05)
+                {
+                    PolariteitsTrend = Trend.UP;
+                }
+                else
+                {
+                    PolariteitsTrend = Trend.DOWN;
+                }
+            }
+            else
             {
                 PolariteitsTrend = Trend.NEUTRAL;
             }
-            else if (GemPolariteit > vorigePolariteit * 1.05)
-            {
-                PolariteitsTrend = Trend.UP;
-            }
-            else
-            {
-                PolariteitsTrend = Trend.DOWN;
-            }
         }
 
-        protected virtual void BerekenObjTrend()
+        private void BerekenObjTrend()
         {
-            double vorigeObjectiviteit = ItemHistorieken.Last().GemObjectiviteit;
-            if (GemObjectiviteit > vorigeObjectiviteit * 0.95 && GemObjectiviteit < vorigeObjectiviteit * 1.05)
+            double gemLaatsteObjectiviteit;
+            if (DetailItems.Count > 10)
             {
+                gemLaatsteObjectiviteit = DetailItems.OrderBy(a => a.BerichtDatum).Take(DetailItems.Count / 10).Average(a => a.Objectiviteit);
+                if (gemLaatsteObjectiviteit > 0.95 * GemObjectiviteit && gemLaatsteObjectiviteit < 0.95 * GemObjectiviteit)
+                {
+                    ObjectiviteitsTrend = Trend.NEUTRAL;
+                }
+                else if (gemLaatsteObjectiviteit > GemObjectiviteit * 1.05)
+                {
+                    ObjectiviteitsTrend = Trend.UP;
+                }
+                else
+                {
+                    ObjectiviteitsTrend = Trend.DOWN;
+                }
+            }
+            else {
                 ObjectiviteitsTrend = Trend.NEUTRAL;
             }
-            else if (GemObjectiviteit > vorigeObjectiviteit * 1.05)
-            {
-                ObjectiviteitsTrend = Trend.UP;
-            }
-            else
-            {
-                ObjectiviteitsTrend = Trend.DOWN;
-            }
         }
 
-        protected virtual void BerekenVermeldingenTrend()
+        private void BerekenVermeldingenTrend()
         {
             int vorigAantalVermeldingen = ItemHistorieken.Last().AantalVermeldingen;
-            if (TotaalAantalVermeldingen > vorigAantalVermeldingen * 0.95 && TotaalAantalVermeldingen < vorigAantalVermeldingen * 1.05)
+            if (TotaalAantalVermeldingen > vorigAantalVermeldingen * 0.9 && TotaalAantalVermeldingen < vorigAantalVermeldingen * 1.10)
             {
                 VermeldingenTrend = Trend.NEUTRAL;
             }
-            else if (TotaalAantalVermeldingen > vorigAantalVermeldingen * 1.05)
+            else if (TotaalAantalVermeldingen > vorigAantalVermeldingen * 1.10)
             {
                 VermeldingenTrend = Trend.UP;
             }

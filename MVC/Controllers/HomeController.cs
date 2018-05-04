@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using BL;
+using MVC.Controllers.Api;
 using MVC.Models;
 using BL.IdentityFramework;
 using MVC.Controllers.Api;

@@ -1,4 +1,4 @@
-﻿using Domain.Dashboards;
+using Domain.Dashboards;
 using Domain.Deelplatformen;
 using Domain.Gebruikers;
 using Domain.Gemonitordeitems;
@@ -23,6 +23,8 @@ namespace DAL.EF
       };
 
       context.Deelplatformen.Add(deelplatform);
+      context.SaveChanges();
+
       context.SaveChanges();
     }
   }

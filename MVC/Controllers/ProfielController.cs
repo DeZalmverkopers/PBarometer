@@ -1,15 +1,10 @@
 ﻿using BL.IdentityFramework;
-using Domain.IdentityFramework;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using MVC.Models;
-using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -73,7 +68,7 @@ namespace MVC.Controllers
           : "";
 
       var userId = User.Identity.GetUserId();
-      var model = new IndexViewModel
+      var model = new Models.IndexViewModel
       {
         Logins = await UserManager.GetLoginsAsync(userId),
         BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
@@ -88,7 +83,7 @@ namespace MVC.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public virtual async Task<ActionResult> ChangeName(ChangeNameViewModel model)
+    public virtual async Task<ActionResult> ChangeName(Models.ChangeNameViewModel model)
     {
       if (!ModelState.IsValid)
       {
@@ -115,7 +110,7 @@ namespace MVC.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public virtual async Task<ActionResult> ChangeEmail(ChangeEmailViewModel model)
+    public virtual async Task<ActionResult> ChangeEmail(Models.ChangeEmailViewModel model)
     {
       if (!ModelState.IsValid)
       {
@@ -149,7 +144,7 @@ namespace MVC.Controllers
     // POST: /Profiel/ChangePassword
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public virtual async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+    public virtual async Task<ActionResult> ChangePassword(Models.ChangePasswordViewModel model)
     {
       if (!ModelState.IsValid)
       {

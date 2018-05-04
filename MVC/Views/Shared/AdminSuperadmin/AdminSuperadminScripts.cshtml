@@ -30,3 +30,10 @@
         });
 </script>
 
+<script type="text/javascript">
+        $("#btnNietIngelogd").click(function () {
+        $.get('@Url.Action("LaadNietIngelogd", "Admin")', {}, function (resultaat) {
+            $("#divResultaat").html(resultaat);
+        });
+        });
+</script>
