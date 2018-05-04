@@ -508,6 +508,11 @@
     <Content Include="Views\Alerts\LegeIndex.cshtml" />
     <Content Include="Views\Overzicht\PersoonDetailsBody.cshtml" />
     <Content Include="Views\Overzicht\PersoonDetails.cshtml" />
+    <Content Include="Views\Overzicht\OrganisatieDetailsBody.cshtml" />
+    <Content Include="Views\Overzicht\OrganisatieDetails.cshtml" />
+    <Content Include="Views\Overzicht\OrganisatieDetailsBodyPersonen.cshtml" />
+    <Content Include="Views\Overzicht\ThemaDetails.cshtml" />
+    <Content Include="Views\Overzicht\ThemaDetailsBody.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
