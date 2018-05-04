@@ -54,5 +54,14 @@ namespace DAL
       context.Deelplatformen.Remove(deelplatform);
       context.SaveChanges();
     }
+
+    public void UpdateSettings(bool OverzichtAdded, bool WeeklyReviewAdded)
+    {
+      foreach (Deelplatform deelplatform in ReadDeelplatformen())
+      {
+        context.Entry(deelplatform).State = EntityState.Modified;
+      }
+      context.SaveChanges();
+    }
   }
 }
