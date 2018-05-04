@@ -50,6 +50,12 @@ namespace BL
       return repository.ReadGemonitordeItems(grafieken).Where(a => a is Organisatie && a.DeelplatformId == deelplatformId);
     }
 
+    //public IEnumerable<GemonitordItem> GetThemas(int deelplatformId, bool grafieken = false)
+    //{
+    //  InitNonExistingRepo();
+    //  return repository.ReadGemonitordeItems(grafieken).Where(a => a is Thema && a.DeelplatformId == deelplatformId);
+    //}
+
     public IEnumerable<Thema> GetThemas(int deelplatformId, bool grafieken = false)
     {
       InitNonExistingRepo();
