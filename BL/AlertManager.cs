@@ -115,13 +115,13 @@ namespace BL
             foreach (var historiek in historieken)
             {
                 DateTime currentTime = DateTime.Now;
-                if ((currentTime - historiek.SynchronisatieDatum).Days <= alert.MinStijgingPeriode)
+                if ((currentTime - historiek.HistoriekDatum).Days <= alert.MinStijgingPeriode)
                 {
                     relevanteHistorieken.Add(historiek);
                 }
 
-                if ((currentTime - historiek.SynchronisatieDatum).Days >= alert.MinStijgingPeriode
-                  && (currentTime - historiek.SynchronisatieDatum).Days < alert.MinStijgingPeriode * 2)
+                if ((currentTime - historiek.HistoriekDatum).Days >= alert.MinStijgingPeriode
+                  && (currentTime - historiek.HistoriekDatum).Days < alert.MinStijgingPeriode * 2)
                 {
                     vorigeHistorieken.Add(historiek);
                 }
@@ -157,13 +157,13 @@ namespace BL
             foreach (var historiek in historieken)
             {
                 DateTime currentTime = DateTime.Now;
-                if ((currentTime - historiek.SynchronisatieDatum).Days <= alert.MinDalingPeriode)
+                if ((currentTime - historiek.HistoriekDatum).Days <= alert.MinDalingPeriode)
                 {
                     relevanteHistorieken.Add(historiek);
                 }
 
-                if ((currentTime - historiek.SynchronisatieDatum).Days >= alert.MinDalingPeriode
-                  && (currentTime - historiek.SynchronisatieDatum).Days < alert.MinDalingPeriode * 2)
+                if ((currentTime - historiek.HistoriekDatum).Days >= alert.MinDalingPeriode
+                  && (currentTime - historiek.HistoriekDatum).Days < alert.MinDalingPeriode * 2)
                 {
                     vorigeHistorieken.Add(historiek);
                 }
@@ -197,7 +197,7 @@ namespace BL
             //Zoek de relevante historieken.
             foreach (var historiek in historieken)
             {
-                if ((DateTime.Now - historiek.SynchronisatieDatum).Days <= alert.BelangrijkheidsPeriode)
+                if ((DateTime.Now - historiek.HistoriekDatum).Days <= alert.BelangrijkheidsPeriode)
                 {
                     relevanteHistorieken.Add(historiek);
                 }
@@ -231,7 +231,7 @@ namespace BL
             //Zoek de relevante historieken.
             foreach (var historiek in historieken)
             {
-                if ((DateTime.Now - historiek.SynchronisatieDatum).Days <= alert.PolariteitsPeriode)
+                if ((DateTime.Now - historiek.HistoriekDatum).Days <= alert.PolariteitsPeriode)
                 {
                     relevanteHistorieken.Add(historiek);
                 }
@@ -266,7 +266,7 @@ namespace BL
             //Zoek de relevante historieken.
             foreach (var historiek in historieken)
             {
-                if ((DateTime.Now - historiek.SynchronisatieDatum).Days <= alert.ObjectiviteitsPeriode)
+                if ((DateTime.Now - historiek.HistoriekDatum).Days <= alert.ObjectiviteitsPeriode)
                 {
                     relevanteHistorieken.Add(historiek);
                 }
