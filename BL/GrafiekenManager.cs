@@ -67,7 +67,7 @@ namespace BL
           #region Zoek naar de historieken
           foreach (ItemHistoriek historiek in item.ItemHistorieken)
           {
-            if ((huidigeTijd - historiek.SynchronisatieDatum).Days <= grafiek.Periode)
+            if ((huidigeTijd - historiek.HistoriekDatum).Days <= grafiek.Periode)
             {
               historieken.Add(historiek);
             }

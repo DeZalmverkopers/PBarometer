@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DAL.EF
 {
-  internal class DbInitializer : DropCreateDatabaseAlways<DbContext>
+  internal class DbInitializer : DropCreateDatabaseIfModelChanges<DbContext>
   {
     protected override void Seed(DbContext context)
     {
