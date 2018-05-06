@@ -197,7 +197,7 @@ namespace BL
         {
           item.ItemHistorieken.Add(new ItemHistoriek()
           {
-            HistoriekDatum = startDatum,
+            HistoriekDatum = startUur,
             AantalVermeldingen = relevanteDetailItems.Count,
             AantalBerichtenVanMannen = relevanteDetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("m")).Count(),
             AantalBerichtenVanVrouwen = relevanteDetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("f")).Count(),
