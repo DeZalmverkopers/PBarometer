@@ -52,17 +52,13 @@ namespace Domain.Gemonitordeitems
                     BerekenObjTrend();
                     BerekenVermeldingenTrend();
                 }
-                else
-                {
-                    PolariteitsTrend = Trend.NEUTRAL;
-                    ObjectiviteitsTrend = Trend.NEUTRAL;
-                    VermeldingenTrend = Trend.NEUTRAL;
-                }
-
             }
             else
             {
                 TotaalAantalVermeldingen = 0;
+                PolariteitsTrend = Trend.NEUTRAL;
+                ObjectiviteitsTrend = Trend.NEUTRAL;
+                VermeldingenTrend = Trend.NEUTRAL;
             }
 
         }
