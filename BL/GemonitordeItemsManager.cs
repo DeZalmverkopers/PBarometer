@@ -50,6 +50,12 @@ namespace BL
       return repository.ReadGemonitordeItems(grafieken).Where(a => a is Organisatie && a.DeelplatformId == deelplatformId);
     }
 
+    //public IEnumerable<GemonitordItem> GetThemas(int deelplatformId, bool grafieken = false)
+    //{
+    //  InitNonExistingRepo();
+    //  return repository.ReadGemonitordeItems(grafieken).Where(a => a is Thema && a.DeelplatformId == deelplatformId);
+    //}
+
     public IEnumerable<Thema> GetThemas(int deelplatformId, bool grafieken = false)
     {
       InitNonExistingRepo();
@@ -191,7 +197,7 @@ namespace BL
         {
           item.ItemHistorieken.Add(new ItemHistoriek()
           {
-            HistoriekDatum = startDatum,
+            HistoriekDatum = startUur,
             AantalVermeldingen = relevanteDetailItems.Count,
             AantalBerichtenVanMannen = relevanteDetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("m")).Count(),
             AantalBerichtenVanVrouwen = relevanteDetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("f")).Count(),

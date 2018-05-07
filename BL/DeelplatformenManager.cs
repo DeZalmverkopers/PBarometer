@@ -52,9 +52,14 @@ namespace BL
       repository.UpdateSettings(settings.OverzichtAdded, settings.WeeklyReviewAdded);
     }
 
-    public void ChangeAchtergrond(string kleur)
+    public string GetAchtergrondkleur()
     {
-      repository.UpdateAchtergrond(kleur);
+      return repository.ReadAchtergrondkleur();
+    }
+
+    public void ChangeAchtergrondkleur(string kleur)
+    {
+      repository.UpdateAchtergrondkleur(kleur);
     }
   }
 }

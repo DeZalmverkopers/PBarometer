@@ -91,7 +91,9 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadLayout()
     {
-      return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml");
+      LayoutViewModel model = new LayoutViewModel();
+      model.kleur = new DeelplatformenManager().GetAchtergrondkleur();
+      return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml", model);
     }
 
     public virtual ActionResult LaadNietIngelogd()
@@ -116,7 +118,7 @@ namespace MVC.Controllers
     [HttpGet]
     public virtual ActionResult SlaAchtergrondOp(string kleur)
     {
-      new DeelplatformenManager().ChangeAchtergrond(kleur);
+      new DeelplatformenManager().ChangeAchtergrondkleur(kleur);
       string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
       return RedirectToAction("Index", controller);
     }

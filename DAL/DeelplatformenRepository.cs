@@ -1,9 +1,6 @@
-﻿using DAL.EF;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Domain.Deelplatformen;
 using System.Data.Entity;
 
@@ -69,7 +66,12 @@ namespace DAL
       context.SaveChanges();
     }
 
-    public void UpdateAchtergrond(string kleur)
+    public string ReadAchtergrondkleur()
+    {
+      return ReadDeelplatform(1).Achtergrondkleur;
+    }
+
+    public void UpdateAchtergrondkleur(string kleur)
     {
       foreach (Deelplatform deelplatform in ReadDeelplatformen())
       {
