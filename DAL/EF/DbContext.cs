@@ -45,6 +45,7 @@ namespace DAL.EF
       modelBuilder.Entity<Bericht>().ToTable("Berichten");
       modelBuilder.Entity<Dashboard>().ToTable("Dashboards");
       modelBuilder.Entity<Grafiek>().ToTable("Grafieken");
+      modelBuilder.Entity<GrafiekItem>().ToTable("GrafiekDetails");
       modelBuilder.Entity<Gebruiker>().ToTable("Gebruikers");
       modelBuilder.Entity<DetailItem>().ToTable("DetailItems");
       modelBuilder.Entity<GemonitordItem>().ToTable("GemonitordeItems");
@@ -60,7 +61,7 @@ namespace DAL.EF
 
       //  modelBuilder.Entity<Alert>().HasRequired(alert => alert.GemonitordItem).WithMany(gemonitordItem => gemonitordItem.Alerts);
       //  modelBuilder.Entity<GemonitordItem>().HasMany(gemonitordItem => gemonitordItem.Alerts).WithRequired(alert => alert.GemonitordItem);
-      modelBuilder.Entity<Gebruiker>().HasOptional(gebruiker => gebruiker.Dashboard).WithRequired(dashboard => dashboard.Gebruiker);
+      modelBuilder.Entity<ApplicationUser>().HasOptional(gebruiker => gebruiker.Dashboard).WithRequired(dashboard => dashboard.Gebruiker);
 
       //  modelBuilder.Entity<Dashboard>().HasMany(dashboard => dashboard.Grafieken).WithRequired(grafiek => grafiek.Dashboard);
       //  modelBuilder.Entity<Grafiek>().HasRequired(grafiek => grafiek.Dashboard).WithMany(dashboard => dashboard.Grafieken);
@@ -68,18 +69,18 @@ namespace DAL.EF
       //  modelBuilder.Entity<Grafiek>().HasMany(grafiek => grafiek.GemonitordeItems).WithMany(gemonitordItem => gemonitordItem.Grafieken);
       //  modelBuilder.Entity<GemonitordItem>().HasMany(gemonitordItem => gemonitordItem.Grafieken).WithMany(grafiek => grafiek.GemonitordeItems);
 
-      //modelBuilder.Entity<GemonitordItem>().HasMany(gemonitordItem => gemonitordItem.DetailItems).WithRequired(detailItem => detailItem.GemonitordeItems);
+      //  modelBuilder.Entity<GemonitordItem>().HasMany(gemonitordItem => gemonitordItem.DetailItems).WithRequired(detailItem => detailItem.GemonitordeItems);
       //  modelBuilder.Entity<DetailItem>().HasRequired(detailItem => detailItem.GemonitordItem).WithMany(gemonitordItem => gemonitordItem.DetailItems);
 
       //  modelBuilder.Entity<GemonitordItem>().HasMany(gemonitordItem => gemonitordItem.ItemHistorieken).WithRequired(itemHistoriek => itemHistoriek.GemonitordItem);
       //  modelBuilder.Entity<ItemHistoriek>().HasRequired(itemHistoriek => itemHistoriek.GemonitordItem).WithMany(gemonitordItem => gemonitordItem.ItemHistorieken);
     }
 
-    //public override int SaveChanges()
-    //{
-    //  if (delaySave) return -1;
-    //  return base.SaveChanges();
-    //}
+    public override int SaveChanges()
+    {
+      if (delaySave) return -1;
+      return base.SaveChanges();
+    }
 
     internal int CommitChanges()
     {

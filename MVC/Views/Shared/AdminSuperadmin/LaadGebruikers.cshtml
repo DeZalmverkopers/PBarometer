@@ -41,8 +41,8 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            <button class="btn btn-primary bewerken" onclick="location.href='@Url.Action("SlaAdminOp", "Superadmin", new { email = @item.Email, setAdmin = !@item.IsAdmin })'">
-                <span class="glyphicon glyphicon-pencil"></span>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("SlaAdminOp", "Superadmin", new { email = @item.Email, setAdmin = !@item.IsAdmin })'">
+                <span>Verander</span>
             </button>
         </td>
     </tr>

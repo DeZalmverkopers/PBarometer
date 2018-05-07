@@ -1,8 +1,75 @@
-﻿<h3>Personen</h3>
-
-@foreach (var persoon in ViewBag.Personen)
-{
-    <div>
-        <button class="btn btn-primary btn-algemene-layout">@persoon.Naam</button>
-    </div>
+﻿@{
+    ViewBag.Title = "Personen";
 }
+
+
+
+<input type="text" id="zoekBalkPersonen" onkeyup="zoekFunctie()" placeholder="Zoek op naam..." class="form-control">
+
+
+
+<div class="table-container">
+    <table class="table table-hover" id="personenTabel">
+        <thead>
+            <tr>
+                <th>
+                    <p>Persoon</p>
+                </th>
+                <th>
+                    <p>Vermeldingen</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var persoon in ViewBag.Personen)
+            {
+                <tr onclick="showModal('#persoonDetails', '#persoonDetailsBody', @persoon.GemonitordItemId)">
+                    <td>
+                        @persoon.Naam
+                    </td>
+                    <td>
+                        @persoon.TotaalAantalVermeldingen
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div id="persoonDetails" class="modal fade" tabindex="-1" role="dialog" data-url='@Url.Action("PersoonDetails","Overzicht")'>
+    <div class="modal-dialog modal-sm" id="persoonDetailsBody">
+    </div>
+</div>
+
+
+<script>
+    function zoekFunctie() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("zoekBalkPersonen");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("personenTabel");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script>
+    function showModal(persoonDetails, persoonDetailsBody, id) {
+        var url = $(persoonDetails).data('url');
+
+        $.get(url, { id: id }, function (data) {
+            $(persoonDetailsBody).html(data);
+            $(persoonDetails).modal('show');
+        });
+    }
+</script>

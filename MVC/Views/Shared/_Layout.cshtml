@@ -56,18 +56,10 @@
 
 
                     @*<li>@Html.ActionLink("Overzicht", MVC.Overzicht.Index())</li>*@
-                    @*@if ((bool?)ViewBag.OverzichtAdded == true)
-                    {*@
                     <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
-                    @*}*@
 
                     @*<li>@Html.ActionLink("Weekly Review", MVC.WeeklyReview.Index())</li>*@
-                    @*@if ((bool?)ViewBag.WeeklyReviewAdded == true)
-                    {*@
                     <li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>
-                    @*}*@
-
-
 
                     @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
                     {

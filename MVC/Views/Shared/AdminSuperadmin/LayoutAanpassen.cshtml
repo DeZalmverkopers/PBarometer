@@ -16,21 +16,22 @@
 </div>
 
 <div>
-    <button class="btn btn-primary btn-algemene-layout">Opslaan</button>
+    <button id="btnOpslaan" class="btn btn-primary btn-algemene-layout">Opslaan</button>
 </div>
 
-
-
-@section scripts {
-
-    @*<script type="text/javascript">
+@*<script type="text/javascript">
         $("#colorID").change(function () {
             var clr = $(this).val();
             $("body").css("background-color", clr);
         });
     </script>*@
 
-}
+<script type="text/javascript">
+    $("#btnOpslaan").click(function () {
+        var clr = $("#colorID").val();
+        $("body").css("background-color", clr);
+    });
+</script>
 
 
 

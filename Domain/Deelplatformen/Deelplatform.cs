@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Domain.Gemonitordeitems;
+using Domain.IdentityFramework;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Deelplatformen
 {
@@ -14,6 +13,14 @@ namespace Domain.Deelplatformen
     public DateTime LaatsteSynchronisatie { get; set; }
     public byte[] Afbeelding { get; set; }
 
+    public List<ApplicationUser> Gebruikers { get; set; }
+    public List<GemonitordItem> GemonitordeItems { get; set; }
+
+    public Deelplatform()
+    {
+      Gebruikers = new List<ApplicationUser>();
+      GemonitordeItems = new List<GemonitordItem>();
+    }
     public bool OverzichtAdded { get; set; }
     public bool WeeklyReviewAdded { get; set; }
   }

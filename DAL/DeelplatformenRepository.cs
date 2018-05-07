@@ -15,7 +15,7 @@ namespace DAL
 
     public DeelplatformenRepository()
     {
-            context = new EF.DbContext();
+      context = new EF.DbContext();
     }
     public DeelplatformenRepository(UnitOfWork uow)
     {
@@ -55,7 +55,21 @@ namespace DAL
       context.SaveChanges();
     }
 
+    public Settings ReadSettings()
+    {
+      return new Settings(ReadDeelplatform(1).OverzichtAdded, ReadDeelplatform(1).WeeklyReviewAdded);
+    }
+
     public void UpdateSettings(bool OverzichtAdded, bool WeeklyReviewAdded)
+    {
+      foreach (Deelplatform deelplatform in ReadDeelplatformen())
+      {
+        context.Entry(deelplatform).State = EntityState.Modified;
+      }
+      context.SaveChanges();
+    }
+
+    public void UpdateAchtergrond(string kleur)
     {
       foreach (Deelplatform deelplatform in ReadDeelplatformen())
       {

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web;
 using MVC.Models;
+using Domain.Dashboards;
+using Domain.Deelplatformen;
+using System.Collections.Generic;
 
 namespace MVC.Controllers
 {
@@ -99,7 +102,8 @@ namespace MVC.Controllers
         var user = UserManager.FindByEmail(model.Email);
         if (ModelState.IsValid && user == null && model != null)
         {
-          var newUser = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+          var newUser = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName,
+            DashboardId = 1, DeelplatformId = 1 };
           var userResult = await UserManager.CreateAsync(newUser, model.Password);
           if (userResult.Succeeded)
           {
