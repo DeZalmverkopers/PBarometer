@@ -1,42 +1,69 @@
-﻿@*@{
-        var teller = 0;
-    }*@
+﻿<div>
+    <canvas id="barChart" height="250"></canvas>
+    @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+    @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
+</div>
 
-@*<canvas id=@teller></canvas>*@
-
-<canvas id="barChart" height="250"></canvas>
-@Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
-@Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
 
 <script>
     //Staafdiagram
-    @*var c = document.getElementById(@teller);*@
 
-    //var c = document.getElementById("")
-    //var ctx = c.getContext("2d");
-
+    var labels = @Html.Raw(Json.Encode(ViewBag.labels));
+    var data = @Html.Raw(Json.Encode(ViewBag.data));
+    var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.grafiektitel));
 
     var ctx = $("#barChart");
     //var tData = $.getValues("/Grafiek/BarChartData");
-    var tData = $.getValues("/Grafiek/BarChartVergelijking");
+    //var tData = $.getValues("/Grafiek/BarChartVergelijkingOpMoment");
     var myNewBarChart = new Chart(ctx, {
         options: {
             title: {
                 display: true,
-                text: "TEST",
-
-                //fontColor: '#0000ff',
-                //fontFamily: "Lucida Console",
-                fontSize: 20
+                text: grafiekTitel,
+                //text: "testgrafiek",
+                fontSize: 18
             },
             legend: {
                 display: false
+            },
+
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
         },
         type: 'bar',
-        data: tData
+
+
+        data: {
+            //labels: ["Item a", "Item b", "Item c", "Item d", "Item e"],
+
+            labels: labels,
+
+            datasets: [
+                {
+
+                //data: [28, 48, 40, 19, 86],
+
+                data: data,
+                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+                bordercolor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+                borderWidth: 4
+                }
+
+            ]
+        }
 
     });
+
 </script>
+
+
+
+
+
 
 

@@ -1,0 +1,153 @@
+﻿<label>
+    Wat wilt u toevoegen?
+</label>
+
+<div>
+    <button id="btnGrafiekenKeuze" class="btn btn-primary btn-algemene-layout">Grafieken</button>
+    <button id="btnStatistiekenKeuze" class="btn btn-primary btn-algemene-layout">Statistieken</button>
+</div>
+
+<div id="divKeuzeGrafiekStatistiek">
+
+
+</div>
+
+
+<div>
+    <h4 id="titelKeuze"></h4>
+
+    <div id="divInhoud">
+
+    </div>
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+        $("#btnGrafiekenKeuze").click(function () {
+           $.get('@Url.Action("LaadGrafiekenKeuze", "Dashboard")', {}, function (resultaat) {
+               $("#divKeuzeGrafiekStatistiek").html(resultaat);
+           
+                });
+        });
+
+        $("#btnStatistiekenKeuze").click(function () {
+             $.get('@Url.Action("LaadStatistiekenKeuze", "Dashboard")', {}, function (resultaat) {
+                 $("#divKeuzeGrafiekStatistiek").html(resultaat);
+          
+                });
+        });
+</script>
+
+
+
+
+@*
+    <div>
+            <label>Persoon</label>
+            @Html.DropDownList("Dashboard", ViewBag.Personen as List<SelectListItem>)
+        </div>
+
+        <div>
+            <label>Thema's</label>
+            @Html.DropDownList("Dashboard", ViewBag.Themas as List<SelectListItem>)
+        </div>
+
+        <div>
+            <label>Organisaties</label>
+            @Html.DropDownList("Dashboard", ViewBag.Organisaties as List<SelectListItem>)
+        </div>
+
+    <div>
+            <label>X-as</label>
+            @Html.DropDownList("Dashboard", ViewBag.XWaarden as List<SelectListItem>)
+
+            @Html.DropDownList("Dashboard", ViewBag.XWaarden as List<SelectListItem>)
+
+        </div>
+
+    <div>
+            <label>Y-as</label>
+            @Html.DropDownList("Dashboard", ViewBag.YWaarden as List<SelectListItem>)
+
+            @Html.DropDownList("Dashboard", ViewBag.YWaarden as List<SelectListItem>)
+
+        </div>
+
+    <div>
+            <label>Titel</label>
+            <input id="inputTitel" type="text" />
+        </div>
+
+
+
+
+
+    <h4>Grafiek toevoegen</h4>
+
+    <div>
+        <label>Grafiektype</label>
+        tml.DropDownList("Dashboard", ViewBag.Grafiektypes as List<SelectListItem>)
+        <select id="inputGrafiektype">
+            <option>staafdiagram</option>
+            <option>multistaafdiagram</option>
+            <option>donutdiagram</option>
+        </select>
+    </div>
+
+
+
+
+        $("#btnToevoegenOpslaan").click(function () {
+
+                var grafiektype = $("#inputGrafiektype").val();
+                var titel = $("#inputTitel").val();
+
+                if (grafiektype == "staafdiagram") {
+                     $.get('@Url.Action("LaadStaafdiagram", "Dashboard")', {}, function (resultaat) {
+                                    //$("#elementen").append("<div class=row><div class=col-md-5>" + resultaat + "</div></div>");
+                                    $("#elementen").append("<div class=col-md-5>" + resultaat + "</div>");
+
+
+                                    myNewBarChart.options.title.text = titel;
+                                    myNewBarChart.update();
+                     });
+                }
+                else if (grafiektype == "multistaafdiagram") {
+                    $.get('@Url.Action("LaadStaafdiagramMulti", "Dashboard")', {}, function (resultaat) {
+                                    //$("#elementen").append("<div class=row><div class=col-md-5>" + resultaat + "</div></div>");
+                                    $("#elementen").append("<div class=col-md-5>" + resultaat + "</div>");
+
+
+                                    myNewMultiBarChart.options.title.text = titel;
+                                    myNewMultiBarChart.update();
+                     });
+                } else if (grafiektype == "donutdiagram") {
+                    $.get('@Url.Action("LaadStaafdiagramHorizontaalMulti", "Dashboard")', {}, function (resultaat) {
+                                    //$("#elementen").append("<div class=row><div class=col-md-5>" + resultaat + "</div></div>");
+                                    $("#elementen").append("<div class=col-md-5>" + resultaat + "</div>");
+
+                                    myNewHorizontalMultiBarChart.options.title.text = titel;
+                                    myNewHorizontalMultiBarChart.update();
+                     });
+                }
+
+            });
+
+
+
+    <script type="text/javascript">
+
+        </script>
+
+
+        <script type="text/javascript">
+
+
+
+        </script>*@
+
+

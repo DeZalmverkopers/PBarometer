@@ -1,0 +1,182 @@
+﻿<div>
+    <label>Wat wilt u vergelijken?</label>
+    <select id="itemType">
+        <option hidden selected>Selecteer een optie</option>
+        <option>Persoon</option>
+        <option>Organisatie</option>
+        <option>Thema</option>
+    </select>
+</div>
+
+
+<div id="aantalItemsVergelijken">
+    <label>Hoeveel items wilt u vergelijken?</label>
+
+    <select id="aantalItems">
+        <option hidden selected>Selecteer een optie</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+</div>
+
+<div id="divSelectie"></div>
+
+@*<div>
+    <label>Welke data wilt u vergelijken voor deze items?</label>
+
+    <select id="gewensteData">
+        <option></option>
+        <option></option>
+        <option></option>
+    </select>
+</div>*@
+
+
+<div>
+    <label>Selecteer een datum en een tijdstip</label>
+    <input id="inputDatumTijd" type="datetime-local"/>
+</div>
+
+
+<script>
+    var vergelijkingskeuze = "";
+
+
+    $("#itemType").change(function () {
+
+        var keuze = $("#itemType").val();
+
+        switch (keuze) {
+            case "Persoon":
+                vergelijkingskeuze = "Persoon";
+
+                break;
+
+            case "Organisatie":
+                vergelijkingskeuze = "Organisatie";
+
+                break;
+
+            case "Thema":
+                vergelijkingskeuze = "Thema";
+
+        }
+    });
+
+
+    $("#aantalItems").change(function () {
+
+                        var aantalItems = $("#aantalItems").val();
+
+                        switch (aantalItems) {
+                            case "1":
+
+                                switch (vergelijkingskeuze) {
+                                    case "Persoon":
+                                        $.get('@Url.Action("LaadPersonen1Item", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                        break;
+                                    case "Organisatie":
+                                        $.get('@Url.Action("LaadOrganisaties1Item", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                        break;
+
+                                    case "Thema":
+                                        $.get('@Url.Action("LaadThemas1Item", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                }
+                                break;
+
+
+
+                            case "2":
+                                switch (vergelijkingskeuze) {
+                                    case "Persoon":
+                                        $.get('@Url.Action("LaadPersonen2Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                        break;
+                                    case "Organisatie":
+                                        $.get('@Url.Action("LaadOrganisaties2Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                        break;
+
+                                    case "Thema":
+                                        $.get('@Url.Action("LaadThemas2Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                }
+                                break;
+
+                            case "3":
+                                switch (vergelijkingskeuze) {
+                                    case "Persoon":
+                                        $.get('@Url.Action("LaadPersonen3Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                        break;
+                                    case "Organisatie":
+                                        $.get('@Url.Action("LaadOrganisaties3Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                        break;
+
+                                    case "Thema":
+                                        $.get('@Url.Action("LaadThemas3Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                }
+                                break;
+
+                            case "4":
+                                 switch (vergelijkingskeuze) {
+                                    case "Persoon":
+                                        $.get('@Url.Action("LaadPersonen4Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                        break;
+                                    case "Organisatie":
+                                        $.get('@Url.Action("LaadOrganisaties4Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                        break;
+
+                                    case "Thema":
+                                        $.get('@Url.Action("LaadThemas4Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                }
+                                break;
+
+                            case "5":
+                                switch (vergelijkingskeuze) {
+                                    case "Persoon":
+                                        $.get('@Url.Action("LaadPersonen5Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                        break;
+                                    case "Organisatie":
+                                        $.get('@Url.Action("LaadOrganisaties5Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                        break;
+
+                                    case "Thema":
+                                        $.get('@Url.Action("LaadThemas5Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+                                }
+
+                        }
+
+                    });
+
+</script>
+
