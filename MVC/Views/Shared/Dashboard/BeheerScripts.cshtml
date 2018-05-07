@@ -19,7 +19,7 @@
 <script type="text/javascript">
         $(".bewerken").click(function () {
         $.get('@Url.Action("LaadGrafiekAanpassen", "Dashboard")', {}, function (resultaat) {
-            $("#btnVerbergen").show()
+            //$("#btnVerbergen").show()
             $("#divGrafiekBeheren").html(resultaat);
         });
         });

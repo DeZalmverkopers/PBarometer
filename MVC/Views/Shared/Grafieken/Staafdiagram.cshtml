@@ -1,42 +1,26 @@
-﻿@*@{
-        var teller = 0;
-    }*@
+﻿<canvas id="barChart"></canvas>
 
-@*<canvas id=@teller></canvas>*@
-
-<canvas id="barChart" height="250"></canvas>
-@Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
-@Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
 
 <script>
-    //Staafdiagram
-    @*var c = document.getElementById(@teller);*@
-
-    //var c = document.getElementById("")
+    //Horizontaal staafdiagram
+    //var c = document.getElementById("");
     //var ctx = c.getContext("2d");
 
-
     var ctx = $("#barChart");
-    //var tData = $.getValues("/Grafiek/BarChartData");
-    var tData = $.getValues("/Grafiek/BarChartVergelijking");
-    var myNewBarChart = new Chart(ctx, {
+    var tData = $.getValues("/Grafiek/BarChartData");
+    var myBarChart = new Chart(ctx, {
         options: {
             title: {
                 display: true,
                 text: "TEST",
 
-                //fontColor: '#0000ff',
-                //fontFamily: "Lucida Console",
-                fontSize: 20
             },
             legend: {
                 display: false
             }
         },
-        type: 'bar',
+        type: 'horizontalBar',
         data: tData
-
     });
 </script>
-
 

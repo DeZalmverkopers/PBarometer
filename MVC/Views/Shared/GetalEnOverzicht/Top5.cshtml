@@ -1,14 +1,21 @@
-﻿@{ 
-  var item = "item";
-  var trend = "neutraal";
+﻿@{
+    var items = new List<String>()
+{
+"item 1",
+"item 2",
+"item 3",
+"item 4",
+"item 5"
+};
+
 }
 
-<h3>Top 5</h3>
+<h3>@ViewBag.Titel</h3>
 
 <ol>
-    <li>@item / @trend</li>
-    <li>@item / @trend</li>
-    <li>@item / @trend</li>
-    <li>@item / @trend</li>
-    <li>@item / @trend</li>
+    @foreach (var element in items)
+    {
+        <li>@element</li>
+    }
 </ol>
+

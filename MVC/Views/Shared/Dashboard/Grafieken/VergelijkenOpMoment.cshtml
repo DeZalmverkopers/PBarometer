@@ -1,0 +1,491 @@
+﻿<div>
+    <label>Wat wilt u vergelijken?</label>
+    <select id="itemType">
+        <option hidden selected>Selecteer een optie</option>
+        <option>Persoon</option>
+        <option>Organisatie</option>
+        <option>Thema</option>
+    </select>
+</div>
+
+
+<div id="aantalItemsVergelijken">
+    <label>Hoeveel items wilt u vergelijken?</label>
+
+    <select id="aantalItems">
+        <option hidden selected>Selecteer een optie</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+</div>
+
+<div id="divSelectie"></div>
+
+@*<div>
+        <label>Welke data wilt u vergelijken voor deze items?</label>
+
+        <select id="gewensteData">
+            <option></option>
+            <option></option>
+            <option></option>
+        </select>
+    </div>*@
+
+
+@*<div>
+        <label>Selecteer een datum en een tijdstip</label>
+        <input id="inputDatumTijd" type="datetime-local" />
+    </div>*@
+
+<div>
+    <label>Geef een grafiektitel in</label>
+    <input type="text" id="grafiektitel" />
+
+</div>
+
+<div class="onzichtbaar" id="divToevoegenOpslaan">
+    <button id="btnToevoegenOpslaan" class="btn btn-primary btn-algemene-layout">Opslaan</button>
+</div>
+
+<script>
+    var vergelijkingskeuze;
+    var typeAantal;
+
+
+    $("#itemType").change(function () {
+
+        var keuze = $("#itemType").val();
+
+        switch (keuze) {
+            case "Persoon":
+                vergelijkingskeuze = "Persoon";
+
+                break;
+
+            case "Organisatie":
+                vergelijkingskeuze = "Organisatie";
+
+                break;
+
+            case "Thema":
+                vergelijkingskeuze = "Thema";
+
+        }
+    });
+
+
+    $("#aantalItems").change(function () {
+
+                        var aantalItems = $("#aantalItems").val();
+
+                        switch (aantalItems) {
+                            case "1":
+
+                                switch (vergelijkingskeuze) {
+                                    case "Persoon":
+                                        $.get('@Url.Action("LaadPersonen1Item", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "persoon1item";
+
+                                        break;
+                                    case "Organisatie":
+                                        $.get('@Url.Action("LaadOrganisaties1Item", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "organisatie1item";
+
+                                        break;
+
+                                    case "Thema":
+                                        $.get('@Url.Action("LaadThemas1Item", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "thema1item";
+                                }
+                                break;
+
+
+
+                            case "2":
+                                switch (vergelijkingskeuze) {
+                                    case "Persoon":
+                                        $.get('@Url.Action("LaadPersonen2Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "persoon2items"
+
+                                        break;
+
+
+                                    case "Organisatie":
+                                        $.get('@Url.Action("LaadOrganisaties2Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "organisatie2items";
+
+                                        break;
+
+                                    case "Thema":
+                                        $.get('@Url.Action("LaadThemas2Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "thema2items";
+
+                                }
+                                break;
+
+                            case "3":
+                                switch (vergelijkingskeuze) {
+                                    case "Persoon":
+                                        $.get('@Url.Action("LaadPersonen3Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "persoon3items"
+
+                                        break;
+
+
+                                    case "Organisatie":
+                                        $.get('@Url.Action("LaadOrganisaties3Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "organisatie3items";
+
+                                        break;
+
+                                    case "Thema":
+                                        $.get('@Url.Action("LaadThemas3Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "thema3items";
+
+
+                                }
+                                break;
+
+                            case "4":
+                                 switch (vergelijkingskeuze) {
+                                    case "Persoon":
+                                        $.get('@Url.Action("LaadPersonen4Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                         });
+
+                                        typeAantal = "persoon4items"
+
+                                        break;
+                                    case "Organisatie":
+                                        $.get('@Url.Action("LaadOrganisaties4Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                         });
+
+                                        typeAantal = "organisatie4items";
+
+                                        break;
+
+                                    case "Thema":
+                                        $.get('@Url.Action("LaadThemas4Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "thema4items";
+
+
+                                }
+                                break;
+
+                            case "5":
+                                switch (vergelijkingskeuze) {
+                                    case "Persoon":
+                                        $.get('@Url.Action("LaadPersonen5Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "persoon5items"
+
+                                        break;
+                                    case "Organisatie":
+                                        $.get('@Url.Action("LaadOrganisaties5Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "organisatie5items";
+
+                                        break;
+
+                                    case "Thema":
+                                        $.get('@Url.Action("LaadThemas5Items", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "thema5items";
+
+                                }
+
+                        }
+
+                                $("#divToevoegenOpslaan").show();
+
+
+    });
+
+
+
+
+    $("#btnToevoegenOpslaan").click(function () {
+
+        var link;
+
+        switch (typeAantal) {
+            case "persoon1item":
+
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment1Item", "Dashboard", new { grafiektitel = "replaceGrafiektitel", item1 = "replaceItem1" }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                link = tempLink.replace("replaceItem1", $("#persoon1").val() );
+
+            break;
+
+            case "persoon2items":
+
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment2Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#persoon1").val());
+
+                link = templink2.replace("replaceItem2", $("#persoon2").val());
+
+
+            break;
+
+            case "persoon3items":
+
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment3Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#persoon1").val());
+
+
+                var templink3 = templink2.replace("replaceItem2", $("#persoon2").val())
+
+                link = templink3.replace("replaceItem3", $("#persoon3").val());
+
+                              break;
+
+            case "persoon4items":
+
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment4Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3",
+                               item4 = "replaceItem4"
+
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#persoon1").val());
+
+                var templink3 = templink2.replace("replaceItem2", $("#persoon2").val())
+
+                var templink4 = templink3.replace("replaceItem3", $("#persoon3").val())
+
+                link = templink4.replace("replaceItem4", $("#persoon4").val())
+
+
+
+                break;
+
+            case "persoon5items":
+
+                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment5Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3",
+                               item4 = "replaceItem4",
+                               item5 = "replaceItem5"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#persoon1").val());
+
+                var templink3 = templink2.replace("replaceItem2", $("#persoon2").val())
+
+                var templink4 = templink3.replace("replaceItem3", $("#persoon3").val())
+
+                var templink5 = templink4.replace("replaceItem4", $("#persoon4").val())
+
+                link = templink5.replace("replaceItem5", $("#persoon5").val())
+
+                break;
+
+
+             case "organisatie1item":
+
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment1Item", "Dashboard", new { grafiektitel = "replaceGrafiektitel", item1 = "replaceItem1" }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                link = tempLink.replace("replaceItem1", $("#organisatie1").val() );
+
+            break;
+
+            case "organisatie2items":
+
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment2Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
+
+                link = templink2.replace("replaceItem2", $("#organisatie2").val());
+
+                break;
+
+            case "organisatie3items":
+
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment3Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
+
+
+                var templink3 = templink2.replace("replaceItem2", $("#organisatie2").val())
+
+                link = templink3.replace("replaceItem3", $("#organisatie3").val());
+
+                break;
+
+            case "organisatie4items":
+
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment4Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3",
+                               item4 = "replaceItem4"
+
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
+
+                var templink3 = templink2.replace("replaceItem2", $("#organisatie2").val())
+
+                var templink4 = templink3.replace("replaceItem3", $("#organisatie3").val())
+
+                link = templink4.replace("replaceItem4", $("#organisatie4").val())
+
+                break;
+
+            case "organisatie5items":
+
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment5Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3",
+                               item4 = "replaceItem4",
+                               item5 = "replaceItem5"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
+
+                var templink3 = templink2.replace("replaceItem2", $("#organisatie2").val())
+
+                var templink4 = templink3.replace("replaceItem3", $("#organisatie3").val())
+
+                var templink5 = templink4.replace("replaceItem4", $("#organisatie4").val())
+
+                link = templink5.replace("replaceItem5", $("#organisatie5").val())
+
+                break;
+
+
+
+
+            case "thema1item":
+
+                 link = '@Url.Action("LaadVergelijkingOpMoment1Item", "Dashboard", new { grafiektitel = "replaceGrafiektitel", item1 = "replaceItem1" })'
+                     .replace("replaceGrafiektitel", $("#grafiektitel").val()).replace("replaceItem1", $("#thema1").val());
+
+                        break;
+
+            case "thema2items":
+
+
+
+                break;
+
+            case "thema3items":
+
+
+
+                break;
+
+            case "thema4items":
+
+
+
+                break;
+
+            case "thema5items":
+
+
+
+                break;
+        }
+
+
+
+        $.get(link, {}, function (resultaat) {
+            $("#elementen").append("<div class=col-md-6>" + resultaat + "</div>");
+
+        });
+
+
+        $("#modalGrafiekToevoegen").modal('hide');
+
+                });
+
+
+</script>
+
