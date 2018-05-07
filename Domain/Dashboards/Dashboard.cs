@@ -20,8 +20,8 @@ namespace Domain.Dashboards
     //Foreign keys
     //Gebruiker: De eigenaar van het Dashboard.
     //Grafieken: De Grafieken die bij het Dashboard horen.
-    public ApplicationUser Gebruiker { get; set; }
-    public int GebruikerId { get; set; }
+    //public ApplicationUser Gebruiker { get; set; }
+    //public int GebruikerId { get; set; }
     public List<Grafiek> Grafieken { get; set; }
 
     public Dashboard()
