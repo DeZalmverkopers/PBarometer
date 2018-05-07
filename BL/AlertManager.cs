@@ -81,6 +81,7 @@ namespace BL
                          (alert.VermeldingenTrend != null && alert.VermeldingenTrend.Equals(alert.GemonitordItem.VermeldingenTrend)))
                     {
                         alert.Triggered = true;
+                        ChangeAlert(alert);
                     }
                 }
                 else if (alert.Geactiveerd)
@@ -128,7 +129,7 @@ namespace BL
             }
 
             //Bereken de daling aan de hand van de relevante historieken en trigger de Alert wanneer nodig.
-            if (vorigeHistorieken.Count != 0)
+            if (vorigeHistorieken.Count != 0 && relevanteHistorieken.First().AantalVermeldingen != 0)
             {
                 double huidigPercentage = ((relevanteHistorieken.Last().AantalVermeldingen / relevanteHistorieken.First().AantalVermeldingen) * 100) - 100;
                 double vorigePercentage = ((vorigeHistorieken.Last().AantalVermeldingen / vorigeHistorieken.First().AantalVermeldingen) * 100) - 100;
