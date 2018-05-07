@@ -33,8 +33,19 @@ namespace MVC.Controllers
             {
                 ViewBag.Geboortedatum = "Onbekend";
             }
-            ViewBag.Website = persoon.Website != null && persoon.Website.Length > 0;
-            
+            ViewBag.Website = false;
+            if (persoon.Website != null && persoon.Website.Length > 0)
+            {
+                ViewBag.Website = true;
+                if (!persoon.Website.Substring(0,4).Equals("http"))
+                {
+                    ViewBag.WebsiteURL = "http://" + persoon.Website;
+                }
+                else
+                {
+                    ViewBag.WebsiteURL = persoon.Website;
+                }
+            }
             ViewBag.GemPolariteit = Math.Round(persoon.GemPolariteit, 2);
             ViewBag.GemObjectiviteit = Math.Round(persoon.GemObjectiviteit, 2);
             if (persoon.Organisatie != null)
