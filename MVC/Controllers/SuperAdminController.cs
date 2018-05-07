@@ -1,6 +1,8 @@
 ﻿using BL.IdentityFramework;
 using Domain.IdentityFramework;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using MVC.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -58,18 +60,36 @@ namespace MVC.Controllers
     public virtual ActionResult LaadGebruikers()
     {
       List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
-      List<Models.SuperAdminUserViewModel> userViewModels = new List<Models.SuperAdminUserViewModel>();
+      List<SuperAdminUserViewModel> userViewModels = new List<SuperAdminUserViewModel>();
+      var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-      foreach (var user in users)
+      foreach (ApplicationUser user in users)
       {
-        if (!user.Email.Equals("superadmin@example.com"))
+        bool ok = true;
+        var roles = userManager.GetRoles(user.Id);
+        foreach (string role in roles)
         {
-          userViewModels.Add(new Models.SuperAdminUserViewModel
+          if (role.Equals("SuperAdmin"))
           {
+            ok = false;
+          }
+        }
+        if (ok)
+        {
+          bool isAdmin = false;
+          foreach (string role in roles)
+          {
+            if (role.Equals("Admin"))
+            {
+              isAdmin = true;
+            }
+          }
+          userViewModels.Add(new SuperAdminUserViewModel
+          {
+            IsAdmin = isAdmin,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Email = user.Email,
-            Roles = user.Roles
+            Email = user.Email
           }
             );
         }
@@ -77,14 +97,33 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/AdminSuperadmin/LaadGebruikers.cshtml", userViewModels);
     }
 
-    [HttpPost]
-    public virtual void LaadGebruikers(Models.SuperAdminUserViewModel model)
+    [HttpGet]
+    public virtual ActionResult SlaAdminOp(string email, bool setAdmin)
     {
+      ApplicationRoleManager roleManager = new ApplicationRoleManager();
+      var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
       List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
-      foreach (var user in users)
+
+      ApplicationUser user = users.Find(u => u.Email.Equals(email));
+      var roles = userManager.GetRoles(user.Id);
+      bool isAdmin = false;
+      foreach (string role in roles)
       {
-        //TODO
+        if (role.Equals("Admin"))
+        {
+          isAdmin = true;
+        }
       }
+      var adminRole = roleManager.FindByName("Admin");
+      if (!isAdmin && setAdmin)
+      {
+        userManager.AddToRole(user.Id, adminRole.Name);
+      }
+      else if (isAdmin && !setAdmin)
+      {
+        userManager.RemoveFromRole(user.Id, adminRole.Name);
+      }
+      return RedirectToAction("Index");
     }
   }
 }

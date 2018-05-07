@@ -241,6 +241,7 @@
     <Compile Include="Models\Android\AlertDTO.cs" />
     <Compile Include="Models\ChartDatasets.cs" />
     <Compile Include="Models\ExternalLoginConfirmationViewModel.cs" />
+    <Compile Include="Models\LayoutViewModel.cs" />
     <Compile Include="Models\ProfielViewModels.cs" />
     <Compile Include="Models\SettingsNotLoggedInViewModel.cs" />
     <Compile Include="Models\SuperAdminUserViewModel.cs" />
@@ -499,7 +500,6 @@
     <Content Include="Views\Alerts\EditEenvoudigeAlertBody.cshtml" />
     <Content Include="Views\Alerts\Index.cshtml" />
     <Content Include="Views\Alerts\LegeIndex.cshtml" />
-
     <Content Include="Views\Overzicht\PersoonDetailsBody.cshtml" />
     <Content Include="Views\Overzicht\PersoonDetails.cshtml" />
     <Content Include="Views\Overzicht\OrganisatieDetailsBody.cshtml" />
@@ -507,7 +507,6 @@
     <Content Include="Views\Overzicht\OrganisatieDetailsBodyPersonen.cshtml" />
     <Content Include="Views\Overzicht\ThemaDetails.cshtml" />
     <Content Include="Views\Overzicht\ThemaDetailsBody.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
