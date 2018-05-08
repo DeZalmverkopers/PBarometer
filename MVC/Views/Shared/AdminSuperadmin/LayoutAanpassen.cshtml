@@ -26,7 +26,7 @@
             <label>Afbeelding startscherm</label>
         </td>
         <td>
-            <input type="file" />
+            <input type="file" id="myFile" name="myFile" />
         </td>
     </tr>
 </table>
@@ -44,10 +44,18 @@
 </script>
 
 @*<script type="text/javascript">
-    $("#btnOpslaan").click(function () {
-        @Url.Action("SlaAchtergrondOp", "Admin", new { kleur = Model.kleur });
-    });
-</script>*@
+        $("#fileID").change(function () {
+            var file = $("#fileID").val();
+            $("body").add("background", file);
+            Model.file = file;
+        });
+    </script>*@
+
+@*<script type="text/javascript">
+        $("#btnOpslaan").click(function () {
+            @Url.Action("SlaAchtergrondOp", "Admin", new { kleur = Model.kleur });
+        });
+    </script>*@
 
 
 
