@@ -18,8 +18,7 @@ namespace MVC.Controllers
     GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
     List<SelectListItem> selects;
     List<GemonitordItem> items;
-
-
+    List<Thema> themas;
     HomeController homeController = new HomeController();
 
     // GET: Dashboard
@@ -91,14 +90,14 @@ namespace MVC.Controllers
 
 
 
-      //items = itemManager.GetThemas(1).ToList();
-      //selects = new List<SelectListItem>();
-      //foreach (var item in items)
-      //{
-      //  selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-      //}
+      themas = itemManager.GetThemas(1).ToList();
+      selects = new List<SelectListItem>();
+      foreach (var item in themas)
+      {
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+      }
 
-      //ViewBag.Themas = selects;
+      ViewBag.Themas = selects;
 
 
       items = itemManager.GetOrganisaties(1).ToList();
@@ -241,6 +240,18 @@ namespace MVC.Controllers
       }
     }
 
+
+
+
+    public void LaadThema(List<Thema> items)
+    {
+      selects = new List<SelectListItem>();
+      foreach (var item in items)
+      {
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+      }
+    }
+
     public virtual ActionResult LaadOrganisaties1Item()
     {
       LaadItem(itemManager.GetOrganisaties(1).ToList());
@@ -338,50 +349,51 @@ namespace MVC.Controllers
 
     }
 
-    //public virtual ActionResult LaadThemas1Item()
-    //{
-    //  LaadItem(itemManager.GetThemas(1).ToList());
 
-    //  ViewBag.Themas = selects;
+    public virtual ActionResult LaadThemas1Item()
+    {
+      LaadThema(itemManager.GetThemas(1).ToList());
 
-    //  return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas1Item.cshtml", ViewBag);
-    //}
+      ViewBag.Themas = selects;
 
-    //public virtual ActionResult LaadThemas2Items()
-    //{
-    //  LaadItem(itemManager.GetThemas(1).ToList());
+      return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas1Item.cshtml", ViewBag);
+    }
 
-    //  ViewBag.Themas = selects;
+    public virtual ActionResult LaadThemas2Items()
+    {
+      LaadThema(itemManager.GetThemas(1).ToList());
 
-    //  return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas2Items.cshtml", ViewBag);
-    //}
+      ViewBag.Themas = selects;
 
-    //public virtual ActionResult LaadThemas3Items()
-    //{
-    //  LaadItem(itemManager.GetThemas(1).ToList());
+      return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas2Items.cshtml", ViewBag);
+    }
 
-    //  ViewBag.Themas = selects;
+    public virtual ActionResult LaadThemas3Items()
+    {
+      LaadThema(itemManager.GetThemas(1).ToList());
 
-    //  return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas3Items.cshtml", ViewBag);
-    //}
+      ViewBag.Themas = selects;
 
-    //public virtual ActionResult LaadThemas4Items()
-    //{
-    //  LaadItem(itemManager.GetThemas(1).ToList());
+      return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas3Items.cshtml", ViewBag);
+    }
 
-    //  ViewBag.Themas = selects;
+    public virtual ActionResult LaadThemas4Items()
+    {
+      LaadThema(itemManager.GetThemas(1).ToList());
 
-    //  return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas4Items.cshtml", ViewBag);
-    //}
+      ViewBag.Themas = selects;
 
-    //public virtual ActionResult LaadThemas5Items()
-    //{
-    //  LaadItem(itemManager.GetThemas(1).ToList());
+      return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas4Items.cshtml", ViewBag);
+    }
 
-    //  ViewBag.Themas = selects;
+    public virtual ActionResult LaadThemas5Items()
+    {
+      LaadThema(itemManager.GetThemas(1).ToList());
 
-    //  return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas5Items.cshtml", ViewBag);
-    //}
+      ViewBag.Themas = selects;
+
+      return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas5Items.cshtml", ViewBag);
+    }
 
 
 
@@ -448,27 +460,27 @@ namespace MVC.Controllers
     //}
 
 
-    public virtual ActionResult LaadVergelijkingOpMoment1Item(string grafiektitel, string item1)
-    {
+    //public virtual ActionResult LaadVergelijkingOpMoment1Item(string grafiektitel, string item1)
+    //{
 
-      var gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
+    //  var gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
 
-      foreach (var element in gemonitordeItems)
-      {
-        if (element.Naam.Equals(item1))
-        {
-          ViewBag.Item1Naam = element.Naam;
-          //ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item1Vermeldingen = 15;
+    //  foreach (var element in gemonitordeItems)
+    //  {
+    //    if (element.Naam.Equals(item1))
+    //    {
+    //      ViewBag.Item1Naam = element.Naam;
+    //      //ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
+    //      ViewBag.Item1Vermeldingen = 15;
 
-        }
+    //    }
 
-      }
+    //  }
 
-      ViewBag.Grafiektitel = grafiektitel;
+    //  ViewBag.Grafiektitel = grafiektitel;
 
-      return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram1Item.cshtml", ViewBag);
-    }
+    //  return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram1Item.cshtml", ViewBag);
+    //}
 
 
 
@@ -482,15 +494,15 @@ namespace MVC.Controllers
         if (element.Naam.Equals(item1))
         {
           ViewBag.Item1Naam = element.Naam;
-          //ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item1Vermeldingen = 5;
+          ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item1Vermeldingen = 5;
 
         }
         if (element.Naam.Equals(item2))
         {
           ViewBag.Item2Naam = element.Naam;
-          //ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item2Vermeldingen = 10;
+          ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item2Vermeldingen = 10;
 
         }
       }
@@ -513,22 +525,22 @@ namespace MVC.Controllers
         if (element.Naam.Equals(item1))
         {
           ViewBag.Item1Naam = element.Naam;
-          //ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item1Vermeldingen = 5;
+          ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item1Vermeldingen = 5;
 
         }
         if (element.Naam.Equals(item2))
         {
           ViewBag.Item2Naam = element.Naam;
-          //ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item2Vermeldingen = 10;
+          ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item2Vermeldingen = 10;
 
         }
         if (element.Naam.Equals(item3))
         {
           ViewBag.Item3Naam = element.Naam;
-          ////ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item3Vermeldingen = 15;
+          ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item3Vermeldingen = 15;
 
         }
       }
@@ -551,29 +563,29 @@ namespace MVC.Controllers
         if (element.Naam.Equals(item1))
         {
           ViewBag.Item1Naam = element.Naam;
-          //ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item1Vermeldingen = 5;
+          ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item1Vermeldingen = 5;
 
         }
         if (element.Naam.Equals(item2))
         {
           ViewBag.Item2Naam = element.Naam;
-          //ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item2Vermeldingen = 10;
+          ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item2Vermeldingen = 10;
 
         }
         if (element.Naam.Equals(item3))
         {
           ViewBag.Item3Naam = element.Naam;
-          //ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item3Vermeldingen = 15;
+          ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item3Vermeldingen = 15;
 
         }
         if (element.Naam.Equals(item4))
         {
           ViewBag.Item4Naam = element.Naam;
-          //ViewBag.Item4Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item4Vermeldingen = 20;
+          ViewBag.Item4Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item4Vermeldingen = 20;
 
         }
       }
@@ -596,36 +608,36 @@ namespace MVC.Controllers
         if (element.Naam.Equals(item1))
         {
           ViewBag.Item1Naam = element.Naam;
-          //ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item1Vermeldingen = 5;
+          ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item1Vermeldingen = 5;
 
         }
         if (element.Naam.Equals(item2))
         {
           ViewBag.Item2Naam = element.Naam;
-          //ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item2Vermeldingen = 10;
+          ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item2Vermeldingen = 10;
 
         }
         if (element.Naam.Equals(item3))
         {
           ViewBag.Item3Naam = element.Naam;
-          //ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item3Vermeldingen = 15;
+          ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item3Vermeldingen = 15;
 
         }
         if (element.Naam.Equals(item4))
         {
           ViewBag.Item4Naam = element.Naam;
-          //ViewBag.Item4Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item4Vermeldingen = 20;
+          ViewBag.Item4Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item4Vermeldingen = 20;
 
         }
         if (element.Naam.Equals(item5))
         {
           ViewBag.Item5Naam = element.Naam;
-          //ViewBag.Item5Vermeldingen = element.TotaalAantalVermeldingen;
-          ViewBag.Item5Vermeldingen = 25;
+          ViewBag.Item5Vermeldingen = element.TotaalAantalVermeldingen;
+          //ViewBag.Item5Vermeldingen = 25;
 
         }
       }
