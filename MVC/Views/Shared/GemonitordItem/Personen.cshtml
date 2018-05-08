@@ -3,9 +3,15 @@
 }
 
 
+<input type="text" id="zoekBalkPersonen" onkeyup="zoekFunctie()" placeholder="Zoek op naam..." class="form-control col col-md-6">
+@if (User.IsInRole("Admin"))
+{
 
-<input type="text" id="zoekBalkPersonen" onkeyup="zoekFunctie()" placeholder="Zoek op naam..." class="form-control">
+    <button type="button" class="btn btn-secondary col-sm-offset-5" onclick="location.href='@Url.Action("MaakPersoon", "Overzicht")'">
+        <span class="glyphicon glyphicon-plus"></span> Maak een persoon aan
+    </button>
 
+}
 
 
 <div class="table-container">
@@ -29,6 +35,16 @@
                     </td>
                     <td>
                         @persoon.TotaalAantalVermeldingen
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("PasPersoonAan", "Overzicht",new { id = persoon.GemonitordItemId})'">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("VerwijderItem", "Overzicht",new { id = persoon.GemonitordItemId})'">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        }
                     </td>
                 </tr>
             }

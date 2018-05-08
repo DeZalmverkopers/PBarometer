@@ -225,6 +225,7 @@
     <Compile Include="Controllers\GemonitordItemController.cs" />
     <Compile Include="Controllers\GrafiekController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\Overzicht\OrganisatieViewModel.cs" />
     <Compile Include="Controllers\OverzichtController.cs" />
     <Compile Include="Controllers\OverzichtdetailController.cs" />
     <Compile Include="Controllers\ProfielController.cs" />
@@ -242,6 +243,8 @@
     <Compile Include="Models\ChartDatasets.cs" />
     <Compile Include="Models\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\LayoutViewModel.cs" />
+    <Compile Include="Models\Overzicht\PersoonViewModel.cs" />
+    <Compile Include="Models\Overzicht\ThemaViewModel.cs" />
     <Compile Include="Models\ProfielViewModels.cs" />
     <Compile Include="Models\SettingsNotLoggedInViewModel.cs" />
     <Compile Include="Models\SuperAdminUserViewModel.cs" />
@@ -509,6 +512,12 @@
     <Content Include="Views\Overzicht\ThemaDetailsBody.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\LaadGebruikers.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\NietIngelogdeGebruikerInstellen.cshtml" />
+    <Content Include="Views\Overzicht\MaakPersoon.cshtml" />
+    <Content Include="Views\Overzicht\MaakThema.cshtml" />
+    <Content Include="Views\Overzicht\MaakOrganisatie.cshtml" />
+    <Content Include="Views\Overzicht\PasPersoonAan.cshtml" />
+    <Content Include="Views\Overzicht\PasThemaAan.cshtml" />
+    <Content Include="Views\Overzicht\PasOrganisatieAan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
