@@ -126,7 +126,7 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Grafieken/Grafieken.cshtml");
     }
 
-    public ActionResult VoegGrafiekToeEnUpdateDashboard(int deelplatformId, string titel, int periode, bool toonLegende, bool toonXAs, bool toonYAs, string type,
+    public ActionResult VoegGrafiekToeEnUpdateDashboard(int deelplatformId, string titel, int periode, bool toonLegende, bool toonXAs, bool toonYAs, int keuze,
       string xTitel, string yTitel, bool xOnder, bool xOorsprongNul, bool yOorsprongNul, int dashboardId,
       string item1 = null, string waarde1 = "Vermeldingen",
       string item2 = null, string waarde2 = "Vermeldingen",
@@ -148,6 +148,16 @@ namespace MVC.Controllers
         (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
         (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true)
       };
+
+      GrafiekKeuze grafiekKeuze = GrafiekKeuze.VergelijkingItemsOp1Moment;
+      switch (keuze)
+      {
+        case 1: grafiekKeuze = GrafiekKeuze.KruisingTaart ;break;
+        case 2: grafiekKeuze = GrafiekKeuze.KruisingBar; break;
+        case 3: grafiekKeuze = GrafiekKeuze.EvolutieAantalVermeldingen1Item; break;
+        case 4: grafiekKeuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd; break;
+        case 5: grafiekKeuze = GrafiekKeuze.VergelijkingItemsOp1Moment; break;
+      }
 
       int teller = 0;
       foreach (string itemString in itemStrings)
@@ -173,7 +183,7 @@ namespace MVC.Controllers
         ToonLegende = toonLegende,
         ToonXAs = toonXAs,
         ToonYAs = toonYAs,
-        Type = (GrafiekType) Enum.Parse(typeof(GrafiekType), type, true),
+        Keuze = grafiekKeuze,
         XTitel = xTitel,
         YTitel = yTitel,
         Waarden = waarden,

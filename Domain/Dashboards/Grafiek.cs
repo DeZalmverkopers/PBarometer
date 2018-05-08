@@ -22,11 +22,16 @@ namespace Domain.Dashboards
     public string YTitel { get; set; }
     public bool XOnder { get; set; }
 
+    [NotMapped]
     public List<string> LegendeLijst { get; set; }
+    [NotMapped]
+    public List<dynamic> XLabels { get; set; }
     public Dictionary<int, List<dynamic>> Data { get; set; }
 
     public int Periode { get; set; }
+    [NotMapped]
     public GrafiekType Type { get; set; }
+    public GrafiekKeuze Keuze { get; set; }
 
     //Foreign keys
     //Dashboard: Het Dashboard waartoe de Grafiek behoort.
@@ -59,6 +64,7 @@ namespace Domain.Dashboards
       Items = new List<GemonitordItem>();
       GrafiekItems = new List<GrafiekItem>();
       Waarden = new List<GrafiekWaarde>();
+      XLabels = new List<dynamic>();
     }
   }
 }
