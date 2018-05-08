@@ -14,7 +14,6 @@
 
     <select id="aantalItems">
         <option hidden selected>Selecteer een optie</option>
-        <option>1</option>
         <option>2</option>
         <option>3</option>
         <option>4</option>
@@ -100,7 +99,7 @@
                         var aantalItems = $("#aantalItems").val();
 
                         switch (aantalItems) {
-                            case "1":
+                            @*case "1":
 
                                 switch (vergelijkingskeuze) {
                                     case "Persoon":
@@ -129,7 +128,7 @@
                                         typeAantal = "thema1item";
 
                                 }
-                                break;
+                                break;*@
 
 
 
@@ -268,14 +267,14 @@
         var link;
 
         switch (typeAantal) {
-            case "persoon1item":
+            @*case "persoon1item":
 
                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingDoorheenTijd1Item", "Dashboard", new { grafiektitel = "replaceGrafiektitel", item1 = "replaceItem1" }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 link = tempLink.replace("replaceItem1", $("#persoon1").val() );
 
-            break;
+            break;*@
 
             case "persoon2items":
 
@@ -365,14 +364,14 @@
                 break;
 
 
-             case "organisatie1item":
+             @*case "organisatie1item":
 
                  var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingDoorheenTijd1Item", "Dashboard", new { grafiektitel = "replaceGrafiektitel", item1 = "replaceItem1" }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 link = tempLink.replace("replaceItem1", $("#organisatie1").val() );
 
-            break;
+            break;*@
 
             case "organisatie2items":
 
@@ -461,34 +460,94 @@
 
 
 
-            case "thema1item":
+            @*case "thema1item":
 
                  link = '@Url.Action("LaadVergelijkingOpMoment1Item", "Dashboard", new { grafiektitel = "replaceGrafiektitel", item1 = "replaceItem1" })'
                      .replace("replaceGrafiektitel", $("#grafiektitel").val()).replace("replaceItem1", $("#thema1").val());
 
-                        break;
+                        break;*@
 
             case "thema2items":
 
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingDoorheenTijd2Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
+                var templink2 = tempLink.replace("replaceItem1", $("#thema1").val());
+
+                link = templink2.replace("replaceItem2", $("#thema2").val());
 
                 break;
 
             case "thema3items":
 
+                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingDoorheenTijd3Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
+                var templink2 = tempLink.replace("replaceItem1", $("#thema1").val());
+
+
+                var templink3 = templink2.replace("replaceItem2", $("#thema2").val())
+
+                link = templink3.replace("replaceItem3", $("#thema3").val());
 
                 break;
 
             case "thema4items":
 
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingDoorheenTijd4Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3",
+                               item4 = "replaceItem4"
 
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#thema1").val());
+
+                var templink3 = templink2.replace("replaceItem2", $("#thema2").val())
+
+                var templink4 = templink3.replace("replaceItem3", $("#thema3").val())
+
+                link = templink4.replace("replaceItem4", $("#thema4").val())
 
                 break;
 
             case "thema5items":
 
+                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment5Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3",
+                               item4 = "replaceItem4",
+                               item5 = "replaceItem5"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
+                var templink2 = tempLink.replace("replaceItem1", $("#thema1").val());
+
+                var templink3 = templink2.replace("replaceItem2", $("#thema2").val())
+
+                var templink4 = templink3.replace("replaceItem3", $("#thema3").val())
+
+                var templink5 = templink4.replace("replaceItem4", $("#thema4").val())
+
+                link = templink5.replace("replaceItem5", $("#thema5").val())
 
                 break;
         }
