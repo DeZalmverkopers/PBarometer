@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Dashboards;
+using Domain.Deelplatformen;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Models
 {
@@ -34,11 +37,6 @@ namespace MVC.Models
     [Required]
     [Display(Name = "Achternaam")]
     public string LastName { get; set; }
-
-    public string GetUserName()
-    {
-      return FirstName + " " + LastName;
-    }
 
     [Required]
     [EmailAddress]

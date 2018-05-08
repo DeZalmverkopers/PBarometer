@@ -89,6 +89,7 @@
     <Compile Include="Dashboards\GrafiekType.cs" />
     <Compile Include="Dashboards\GrafiekWaarde.cs" />
     <Compile Include="Deelplatformen\Deelplatform.cs" />
+    <Compile Include="Deelplatformen\Settings.cs" />
     <Compile Include="Gebruikers\Gebruiker.cs" />
     <Compile Include="Gebruikers\Rol.cs" />
     <Compile Include="Gemonitordeitems\GekruistItem.cs" />

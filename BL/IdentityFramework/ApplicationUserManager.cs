@@ -13,8 +13,8 @@ namespace BL.IdentityFramework
   {
     public ApplicationUserManager() : base(new UserStore<ApplicationUser>(new DbContext()))
     {
-      //CreateFirstAdmin();
-      //CreateFirstSuperAdmin();
+      CreateFirstAdmin();
+      CreateFirstSuperAdmin();
       CreateUsers();
     }
 
@@ -38,7 +38,7 @@ namespace BL.IdentityFramework
       var user = this.FindByName(name);
       if (user == null)
       {
-        user = new ApplicationUser { UserName = name, Email = name };
+                user = new ApplicationUser { UserName = name, Email = name };
         var result = this.Create(user, password);
         result = this.SetLockoutEnabled(user.Id, false);
       }

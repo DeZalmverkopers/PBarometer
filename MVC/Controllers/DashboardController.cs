@@ -941,155 +941,138 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Grafieken/Grafieken.cshtml");
     }
 
-
-//public virtual ActionResult LaadStaafdiagram(string grafiektitel)
-    //{
-    //  ViewBag.labels = new string[] { "item1", "item2", "item3", "item4", "item5" };
-    //  ViewBag.data = new double[] { 50, 40, 70, 30, 60 };
-    //  ViewBag.grafiektitel = grafiektitel;
-
-    //  return PartialView("~/Views/Shared/Grafieken/Staafdiagram.cshtml", ViewBag);
-    //}
-
-
-    public ActionResult VoegGrafiekToeEnUpdateDashboard(string titel, int periode, bool toonLegende, bool toonXAs, bool toonYAs, GrafiekType type,
+    public ActionResult VoegGrafiekToeEnUpdateDashboard(int deelplatformId, string titel, int periode, bool toonLegende, bool toonXAs, bool toonYAs, string type)
+    {
       string xTitel, string yTitel, bool xOnder, bool xOorsprongNul, bool yOorsprongNul, int dashboardId,
-      GemonitordItem item1 = null, GrafiekWaarde waarde1 = GrafiekWaarde.Vermeldingen,
-      GemonitordItem item2 = null, GrafiekWaarde waarde2 = GrafiekWaarde.Vermeldingen,
-      GemonitordItem item3 = null, GrafiekWaarde waarde3 = GrafiekWaarde.Vermeldingen,
-      GemonitordItem item4 = null, GrafiekWaarde waarde4 = GrafiekWaarde.Vermeldingen,
-      GemonitordItem item5 = null, GrafiekWaarde waarde5 = GrafiekWaarde.Vermeldingen)
+      string item1 = null, string waarde1 = "Vermeldingen",
+      string item2 = null, string waarde2 = "Vermeldingen",
+      string item3 = null, string waarde3 = "Vermeldingen",
+      string item4 = null, string waarde4 = "Vermeldingen",
+      string item5 = null, string waarde5 = "Vermeldingen")
     {
       GrafiekenManager grafiekenManager = new GrafiekenManager();
+      GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
       List<GrafiekItem> grafiekItems = new List<GrafiekItem>();
+      List<GemonitordItem> items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
       List<GrafiekWaarde> waarden = new List<GrafiekWaarde>();
-      Grafiek grafiek;
 
-      if (item1 != null)
+      List<string> itemStrings = new List<string>() { item1, item2, item3, item4, item5 };
+      List<GrafiekWaarde> tijdelijkeWaarden = new List<GrafiekWaarde>() {
+        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true)
+      };
+
+      int teller = 0;
+      foreach (string itemString in itemStrings)
       {
-        grafiekItems.Add(new GrafiekItem() { ItemId = item1.GemonitordItemId });
-        waarden.Add(waarde1);
-
-        if (item2 != null)
+        if (itemString != null)
         {
-          grafiekItems.Add(new GrafiekItem() { ItemId = item2.GemonitordItemId });
-          waarden.Add(waarde2);
+          foreach (GemonitordItem item in items)
+          {
+            if (item.Naam.Equals(itemString))
+            {
+              grafiekItems.Add(new GrafiekItem { ItemId = item.GemonitordItemId });
+              waarden.Add(tijdelijkeWaarden.ElementAt(teller));
+            }
+          }
         }
-
-        if (item3 != null)
-        {
-          grafiekItems.Add(new GrafiekItem() { ItemId = item3.GemonitordItemId });
-          waarden.Add(waarde3);
-        }
-
-        if (item4 != null)
-        {
-          grafiekItems.Add(new GrafiekItem() { ItemId = item4.GemonitordItemId });
-          waarden.Add(waarde4);
-        }
-
-        if (item5 != null)
-        {
-          grafiekItems.Add(new GrafiekItem() { ItemId = item5.GemonitordItemId });
-          waarden.Add(waarde5);
-        }
-
-        grafiek = new Grafiek()
-        {
-          Titel = titel,
-          Periode = periode,
-          ToonLegende = toonLegende,
-          ToonXAs = toonXAs,
-          ToonYAs = toonYAs,
-          Type = type,
-          XTitel = xTitel,
-          YTitel = yTitel,
-          Waarden = waarden,
-          XOnder = xOnder,
-          XOorsprongNul = xOorsprongNul,
-          YOorsprongNul = yOorsprongNul,
-          DashboardId = dashboardId,
-          GrafiekItems = grafiekItems
-        };
-
-        grafiekenManager.AddGrafiek(grafiek);
+        teller++;
       }
 
+      Grafiek grafiek = new Grafiek()
+      {
+        Titel = titel,
+        Periode = periode,
+        ToonLegende = toonLegende,
+        ToonXAs = toonXAs,
+        ToonYAs = toonYAs,
+        Type = (GrafiekType) Enum.Parse(typeof(GrafiekType), type, true),
+        XTitel = xTitel,
+        YTitel = yTitel,
+        Waarden = waarden,
+        XOnder = xOnder,
+        XOorsprongNul = xOorsprongNul,
+        YOorsprongNul = yOorsprongNul,
+        DashboardId = dashboardId,
+        GrafiekItems = grafiekItems
+      };
+
+      grafiekenManager.AddGrafiek(grafiek);
       return RedirectToAction("Index");
     }
 
-    public ActionResult UpdateGrafiekEnUpdateDashboard(int id, string titel, int periode, bool toonLegende, bool toonXAs, bool toonYAs, GrafiekType type,
+    public ActionResult UpdateGrafiekEnUpdateDashboard(int grafiekId, int deelplatformId, string titel, int periode, bool toonLegende, bool toonXAs, bool toonYAs, string type,
       string xTitel, string yTitel, bool xOnder, bool xOorsprongNul, bool yOorsprongNul, int dashboardId,
-      GemonitordItem item1 = null, GrafiekWaarde waarde1 = GrafiekWaarde.Vermeldingen,
-      GemonitordItem item2 = null, GrafiekWaarde waarde2 = GrafiekWaarde.Vermeldingen,
-      GemonitordItem item3 = null, GrafiekWaarde waarde3 = GrafiekWaarde.Vermeldingen,
-      GemonitordItem item4 = null, GrafiekWaarde waarde4 = GrafiekWaarde.Vermeldingen,
-      GemonitordItem item5 = null, GrafiekWaarde waarde5 = GrafiekWaarde.Vermeldingen)
+      string item1 = null, string waarde1 = "Vermeldingen",
+      string item2 = null, string waarde2 = "Vermeldingen",
+      string item3 = null, string waarde3 = "Vermeldingen",
+      string item4 = null, string waarde4 = "Vermeldingen",
+      string item5 = null, string waarde5 = "Vermeldingen")
     {
       GrafiekenManager grafiekenManager = new GrafiekenManager();
+      GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
       List<GrafiekItem> grafiekItems = new List<GrafiekItem>();
+      List<GemonitordItem> items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
       List<GrafiekWaarde> waarden = new List<GrafiekWaarde>();
-      Grafiek grafiek;
 
-      if (item1 != null)
+      List<string> itemStrings = new List<string>() { item1, item2, item3, item4, item5 };
+      List<GrafiekWaarde> tijdelijkeWaarden = new List<GrafiekWaarde>() {
+        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true)
+      };
+
+      int teller = 0;
+      foreach (string itemString in itemStrings)
       {
-        grafiekItems.Add(new GrafiekItem() { ItemId = item1.GemonitordItemId });
-        waarden.Add(waarde1);
-
-        if (item2 != null)
+        if (itemString != null)
         {
-          grafiekItems.Add(new GrafiekItem() { ItemId = item2.GemonitordItemId });
-          waarden.Add(waarde2);
+          foreach (GemonitordItem item in items)
+          {
+            if (item.Naam.Equals(itemString))
+            {
+              grafiekItems.Add(new GrafiekItem { ItemId = item.GemonitordItemId });
+              waarden.Add(tijdelijkeWaarden.ElementAt(teller));
+            }
+          }
         }
-
-        if (item3 != null)
-        {
-          grafiekItems.Add(new GrafiekItem() { ItemId = item3.GemonitordItemId });
-          waarden.Add(waarde3);
-        }
-
-        if (item4 != null)
-        {
-          grafiekItems.Add(new GrafiekItem() { ItemId = item4.GemonitordItemId });
-          waarden.Add(waarde4);
-        }
-
-        if (item5 != null)
-        {
-          grafiekItems.Add(new GrafiekItem() { ItemId = item5.GemonitordItemId });
-          waarden.Add(waarde5);
-        }
-
-        grafiek = new Grafiek()
-        {
-          GrafiekId = id,
-          Titel = titel,
-          Periode = periode,
-          ToonLegende = toonLegende,
-          ToonXAs = toonXAs,
-          ToonYAs = toonYAs,
-          Type = type,
-          XTitel = xTitel,
-          YTitel = yTitel,
-          Waarden = waarden,
-          XOnder = xOnder,
-          XOorsprongNul = xOorsprongNul,
-          YOorsprongNul = yOorsprongNul,
-          DashboardId = dashboardId,
-          GrafiekItems = grafiekItems
-        };
-
-        grafiekenManager.ChangeGrafiek(grafiek);
+        teller++;
       }
+
+      Grafiek grafiek = new Grafiek()
+      {
+        GrafiekId = grafiekId,
+        Titel = titel,
+        Periode = periode,
+        ToonLegende = toonLegende,
+        ToonXAs = toonXAs,
+        ToonYAs = toonYAs,
+        Type = (GrafiekType)Enum.Parse(typeof(GrafiekType), type, true),
+        XTitel = xTitel,
+        YTitel = yTitel,
+        Waarden = waarden,
+        XOnder = xOnder,
+        XOorsprongNul = xOorsprongNul,
+        YOorsprongNul = yOorsprongNul,
+        DashboardId = dashboardId,
+        GrafiekItems = grafiekItems
+      };
+
+      grafiekenManager.ChangeGrafiek(grafiek);
       return RedirectToAction("Index");
     }
 
-    public ActionResult VerwijderGrafiekEnUpdateDashboard(int id)
+    public ActionResult VerwijderGrafiekEnUpdateDashboard(int grafiekId)
     {
       GrafiekenManager grafiekenManager = new GrafiekenManager();
       Grafiek grafiek = new Grafiek()
       {
-        GrafiekId = id
+        GrafiekId = grafiekId
       };
 
       grafiekenManager.RemoveGrafiek(grafiek);

@@ -1,13 +1,6 @@
-using Domain.Dashboards;
 using Domain.Deelplatformen;
-using Domain.Gebruikers;
-using Domain.Gemonitordeitems;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.EF
 {

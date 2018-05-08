@@ -1,6 +1,7 @@
 ﻿using DAL;
 using Domain.Deelplatformen;
 using System.Collections.Generic;
+using System;
 
 namespace BL
 {
@@ -41,9 +42,24 @@ namespace BL
       repository.DeleteDeelplatform(deelplatform);
     }
 
-    public void ChangeSettings(bool OverzichtAdded, bool WeeklyReviewAdded)
+    public Settings GetSettings()
     {
-      repository.UpdateSettings(OverzichtAdded, WeeklyReviewAdded);
+      return repository.ReadSettings();
+    }
+
+    public void ChangeSettings(Settings settings)
+    {
+      repository.UpdateSettings(settings.OverzichtAdded, settings.WeeklyReviewAdded);
+    }
+
+    public string GetAchtergrondkleur()
+    {
+      return repository.ReadAchtergrondkleur();
+    }
+
+    public void ChangeAchtergrondkleur(string kleur)
+    {
+      repository.UpdateAchtergrondkleur(kleur);
     }
   }
 }

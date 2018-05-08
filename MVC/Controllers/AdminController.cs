@@ -1,5 +1,7 @@
 ﻿using BL;
+using Domain.Deelplatformen;
 using Domain.Gemonitordeitems;
+using MVC.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -89,20 +91,36 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadLayout()
     {
-      return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml");
+      LayoutViewModel model = new LayoutViewModel();
+      model.kleur = new DeelplatformenManager().GetAchtergrondkleur();
+      return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml", model);
     }
 
     public virtual ActionResult LaadNietIngelogd()
     {
-      return PartialView("~/Views/Shared/AdminSuperadmin/NietIngelogdeGebruikerInstellen.cshtml");
+      SettingsNotLoggedInViewModel model = new SettingsNotLoggedInViewModel();
+      Settings settings = new DeelplatformenManager().GetSettings();
+      model.OverzichtAdded = settings.OverzichtAdded;
+      model.WeeklyReviewAdded = settings.WeeklyReviewAdded;
+      return PartialView("~/Views/Shared/AdminSuperadmin/NietIngelogdeGebruikerInstellen.cshtml", model);
     }
 
-    [HttpPost]
-    public virtual void LaadNietIngelogd(Models.SettingsNotLoggedInViewModel model)
+    [HttpGet]
+    public virtual ActionResult SlaInstellingenOp(bool OverzichtAdded, bool WeeklyReviewAdded)
     {
-      ViewBag.OverzichtAdded = model.OverzichtAdded;
-      ViewBag.WeeklyReviewAdded = model.WeeklyReviewAdded;
-      new DeelplatformenManager().ChangeSettings(model.OverzichtAdded, model.WeeklyReviewAdded);
+      ViewBag.OverzichtAdded = OverzichtAdded;
+      ViewBag.WeeklyReviewAdded = WeeklyReviewAdded;
+      new DeelplatformenManager().ChangeSettings(new Settings(OverzichtAdded, WeeklyReviewAdded));
+      string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
+      return RedirectToAction("Index", controller);
+    }
+
+    [HttpGet]
+    public virtual ActionResult SlaAchtergrondOp(string kleur)
+    {
+      new DeelplatformenManager().ChangeAchtergrondkleur(kleur);
+      string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
+      return RedirectToAction("Index", controller);
     }
   }
 }

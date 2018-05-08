@@ -21,7 +21,7 @@
         <tbody>
             @foreach (var thema in ViewBag.Themas)
             {
-                <tr onclick="location.href='@Url.Action("ThemaDetails", new { id = thema.GemonitordItemId})'">
+                <tr onclick="showModal('#themaDetails', '#themaDetailsBody', @thema.GemonitordItemId)">
                     <td>
                         @thema.Naam
                     </td>
@@ -32,6 +32,11 @@
             }
         </tbody>
     </table>
+</div>
+
+<div id="themaDetails" class="modal fade" tabindex="-1" role="dialog" data-url='@Url.Action("ThemaDetails","Overzicht")'>
+    <div class="modal-dialog modal-sm" id="themaDetailsBody">
+    </div>
 </div>
 
 <script>
