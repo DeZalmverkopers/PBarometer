@@ -88,17 +88,23 @@ namespace MVC.Controllers
                 Geactiveerd = true,
                 EenvoudigeAlert = true
             };
-
+            Trend trend;
+            switch (createBasicAlertViewModel.Trend)
+            {
+                case "Stijgend": trend = Trend.UP; break;
+                case "Dalend": trend = Trend.DOWN; break;
+                default: trend = Trend.DOWN; break;
+            }
             switch (createBasicAlertViewModel.Eigenschap)
             {
                 case "Polariteit":
-                    alert.PolariteitsTrend = createBasicAlertViewModel.Trend;
+                    alert.PolariteitsTrend = trend;
                     break;
                 case "Objectiviteit":
-                    alert.ObjectiviteitsTrend = createBasicAlertViewModel.Trend;
+                    alert.ObjectiviteitsTrend = trend;
                     break;
                 case "Aantal Vermeldingen":
-                    alert.VermeldingenTrend = createBasicAlertViewModel.Trend;
+                    alert.VermeldingenTrend = trend;
                     break;
             }
 
@@ -111,134 +117,141 @@ namespace MVC.Controllers
             return RedirectToAction("Index");
         }
 
-    //GET: Edit
-    [HttpGet]
-    public virtual ActionResult EditComplexeAlert(int id)
-    {
-      Alert alert = alertManager.GetAlert(id);
-      CreateAlertViewModel createAlertViewModel = new CreateAlertViewModel()
-      {
-        Id = id,
-        Beschrijving = alert.Beschrijving,
-        BelangrijkheidsPeriode = alert.BelangrijkheidsPeriode,
-        BelangrijkWaarde = alert.BelangrijkWaarde,
-        NietBelangrijkWaarde = alert.NietBelangrijkWaarde,
-        Mail = alert.Mail,
-        Mobiel = alert.Mobiel,
-        MaxObjectiviteit = alert.MaxObjectiviteit,
-        MinObjectiviteit = alert.MinObjectiviteit,
-        ObjectiviteitsPeriode = alert.ObjectiviteitsPeriode,
-        MaxPolariteit = alert.MaxPolariteit,
-        MinPolariteit = alert.MinPolariteit,
-        PolariteitsPeriode = alert.PolariteitsPeriode,
-        MinDaling = alert.MinDaling,
-        MinDalingPeriode = alert.MinDalingPeriode,
-        MinStijging = alert.MinStijging,
-        MinStijgingPeriode = alert.MinStijging,
-      };
+        //GET: Edit
+        [HttpGet]
+        public virtual ActionResult EditComplexeAlert(int id)
+        {
+            Alert alert = alertManager.GetAlert(id);
+            CreateAlertViewModel createAlertViewModel = new CreateAlertViewModel()
+            {
+                Id = id,
+                Beschrijving = alert.Beschrijving,
+                BelangrijkheidsPeriode = alert.BelangrijkheidsPeriode,
+                BelangrijkWaarde = alert.BelangrijkWaarde,
+                NietBelangrijkWaarde = alert.NietBelangrijkWaarde,
+                Mail = alert.Mail,
+                Mobiel = alert.Mobiel,
+                MaxObjectiviteit = alert.MaxObjectiviteit,
+                MinObjectiviteit = alert.MinObjectiviteit,
+                ObjectiviteitsPeriode = alert.ObjectiviteitsPeriode,
+                MaxPolariteit = alert.MaxPolariteit,
+                MinPolariteit = alert.MinPolariteit,
+                PolariteitsPeriode = alert.PolariteitsPeriode,
+                MinDaling = alert.MinDaling,
+                MinDalingPeriode = alert.MinDalingPeriode,
+                MinStijging = alert.MinStijging,
+                MinStijgingPeriode = alert.MinStijging,
+            };
 
-      List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
-      var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
+            List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
+            var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
 
-      ViewBag.Onderwerp = ItemsSelectlist;
+            ViewBag.Onderwerp = ItemsSelectlist;
 
-      return PartialView("EditComplexeAlert", createAlertViewModel);
-    }
+            return PartialView("EditComplexeAlert", createAlertViewModel);
+        }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public virtual ActionResult EditComplexeAlert(CreateAlertViewModel alertViewModel)
-    {
-      Alert alert = alertManager.GetAlert(alertViewModel.Id);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult EditComplexeAlert(CreateAlertViewModel alertViewModel)
+        {
+            Alert alert = alertManager.GetAlert(alertViewModel.Id);
 
-      GemonitordItem gemonitordItem = gemonitordeItemsManager.GetGemonitordItem(1, alertViewModel.Onderwerp);
+            GemonitordItem gemonitordItem = gemonitordeItemsManager.GetGemonitordItem(1, alertViewModel.Onderwerp);
 
-      alert.Beschrijving = alertViewModel.Beschrijving;
-      alert.EenvoudigeAlert = false;
-      alert.Geactiveerd = true;
-      alert.BelangrijkheidsPeriode = alertViewModel.BelangrijkheidsPeriode;
-      alert.BelangrijkWaarde = alertViewModel.BelangrijkWaarde;
-      alert.NietBelangrijkWaarde = alertViewModel.NietBelangrijkWaarde;
-      alert.Mail = alertViewModel.Mail;
-      alert.Mobiel = alertViewModel.Mobiel;
-      alert.MaxObjectiviteit = alertViewModel.MaxObjectiviteit;
-      alert.MinObjectiviteit = alertViewModel.MinObjectiviteit;
-      alert.ObjectiviteitsPeriode = alertViewModel.ObjectiviteitsPeriode;
-      alert.MaxPolariteit = alertViewModel.MaxPolariteit;
-      alert.MinPolariteit = alertViewModel.MinPolariteit;
-      alert.PolariteitsPeriode = alertViewModel.PolariteitsPeriode;
-      alert.MinDaling = alertViewModel.MinDaling;
-      alert.MinDalingPeriode = alertViewModel.MinDalingPeriode;
-      alert.MinStijging = alertViewModel.MinStijging;
-      alert.MinStijgingPeriode = alertViewModel.MinStijging;
-      alert.GemonitordItemId = gemonitordItem.GemonitordItemId;
-      alert.Triggered = false;
-      alertManager.ChangeAlert(alert);
+            alert.Beschrijving = alertViewModel.Beschrijving;
+            alert.EenvoudigeAlert = false;
+            alert.Geactiveerd = true;
+            alert.BelangrijkheidsPeriode = alertViewModel.BelangrijkheidsPeriode;
+            alert.BelangrijkWaarde = alertViewModel.BelangrijkWaarde;
+            alert.NietBelangrijkWaarde = alertViewModel.NietBelangrijkWaarde;
+            alert.Mail = alertViewModel.Mail;
+            alert.Mobiel = alertViewModel.Mobiel;
+            alert.MaxObjectiviteit = alertViewModel.MaxObjectiviteit;
+            alert.MinObjectiviteit = alertViewModel.MinObjectiviteit;
+            alert.ObjectiviteitsPeriode = alertViewModel.ObjectiviteitsPeriode;
+            alert.MaxPolariteit = alertViewModel.MaxPolariteit;
+            alert.MinPolariteit = alertViewModel.MinPolariteit;
+            alert.PolariteitsPeriode = alertViewModel.PolariteitsPeriode;
+            alert.MinDaling = alertViewModel.MinDaling;
+            alert.MinDalingPeriode = alertViewModel.MinDalingPeriode;
+            alert.MinStijging = alertViewModel.MinStijging;
+            alert.MinStijgingPeriode = alertViewModel.MinStijging;
+            alert.GemonitordItemId = gemonitordItem.GemonitordItemId;
+            alert.Triggered = false;
+            alertManager.ChangeAlert(alert);
 
-      return RedirectToAction("Index");
-    }
+            return RedirectToAction("Index");
+        }
 
-    [HttpGet]
-    public virtual ActionResult EditEenvoudigeAlert(int id)
-    {
-      Alert alert = alertManager.GetAlert(id, gemonitordItem: true);
+        [HttpGet]
+        public virtual ActionResult EditEenvoudigeAlert(int id)
+        {
+            Alert alert = alertManager.GetAlert(id, gemonitordItem: true);
 
-      ViewBag.Eigenschappen = new List<string>() { "Polariteit", "Objectiviteit", "Aantal Vermeldingen" }.Select(x => new SelectListItem() { Text = x, Value = x });
-      ViewBag.Trend = new List<string>() { "Stijgend", "Dalend", "Neutraal" }.Select(x => new SelectListItem() { Text = x, Value = x });
-      List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
-      var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
+            ViewBag.Eigenschappen = new List<string>() { "Polariteit", "Objectiviteit", "Aantal Vermeldingen" }.Select(x => new SelectListItem() { Text = x, Value = x });
+            ViewBag.Trend = new List<string>() { "Stijgend", "Dalend", "Neutraal" }.Select(x => new SelectListItem() { Text = x, Value = x });
+            List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
+            var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
 
-      ViewBag.Onderwerp = ItemsSelectlist;
-      CreateBasicAlertViewModel alertViewModel = new CreateBasicAlertViewModel()
-      {
-        Id = id,
-        Beschrijving = alert.Beschrijving,
-        Mail = alert.Mail,
-        Mobiel = alert.Mobiel,
-        Onderwerp = alert.GemonitordItem.Naam,
-      };
-      return PartialView("EditEenvoudigeAlert", alertViewModel);
-    }
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public virtual ActionResult EditEenvoudigeAlert(CreateBasicAlertViewModel alertViewModel)
-    {
-      Alert alert = alertManager.GetAlert(alertViewModel.Id);
-      GemonitordItem gemonitordItem = gemonitordeItemsManager.GetGemonitordItem(1, alertViewModel.Onderwerp);
-      alert.Beschrijving = alertViewModel.Beschrijving;
-      alert.GemonitordItemId = gemonitordItem.GemonitordItemId;
-      alert.Mail = alertViewModel.Mail;
-      alert.Mobiel = alertViewModel.Mobiel;
-      alert.Triggered = false;
-      switch (alertViewModel.Eigenschap)
-      {
-        case "Polariteit":
-          alert.PolariteitsTrend = alertViewModel.Trend;
-          break;
-        case "Objectiviteit":
-          alert.ObjectiviteitsTrend = alertViewModel.Trend;
-          break;
-        case "Aantal Vermeldingen":
-          alert.VermeldingenTrend = alertViewModel.Trend;
-          break;
-      }
-      alertManager.ChangeAlert(alert);
-      return RedirectToAction("Index");
-    }
+            ViewBag.Onderwerp = ItemsSelectlist;
+            CreateBasicAlertViewModel alertViewModel = new CreateBasicAlertViewModel()
+            {
+                Id = id,
+                Beschrijving = alert.Beschrijving,
+                Mail = alert.Mail,
+                Mobiel = alert.Mobiel,
+                Onderwerp = alert.GemonitordItem.Naam,
+            };
+            return PartialView("EditEenvoudigeAlert", alertViewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult EditEenvoudigeAlert(CreateBasicAlertViewModel alertViewModel)
+        {
+            Alert alert = alertManager.GetAlert(alertViewModel.Id);
+            GemonitordItem gemonitordItem = gemonitordeItemsManager.GetGemonitordItem(1, alertViewModel.Onderwerp);
+            alert.Beschrijving = alertViewModel.Beschrijving;
+            alert.GemonitordItemId = gemonitordItem.GemonitordItemId;
+            alert.Mail = alertViewModel.Mail;
+            alert.Mobiel = alertViewModel.Mobiel;
+            alert.Triggered = false;
+            Trend trend;
+            switch (alertViewModel.Trend)
+            {
+                case "Stijgend": trend = Trend.UP; break;
+                case "Dalend": trend = Trend.DOWN; break;
+                default: trend = Trend.DOWN; break;
+            }
+            switch (alertViewModel.Eigenschap)
+            {
+                case "Polariteit":
+                    alert.PolariteitsTrend = trend;
+                    break;
+                case "Objectiviteit":
+                    alert.ObjectiviteitsTrend = trend;
+                    break;
+                case "Aantal Vermeldingen":
+                    alert.VermeldingenTrend = trend;
+                    break;
+            }
+            alertManager.ChangeAlert(alert);
+            return RedirectToAction("Index");
+        }
 
-    //GET: CreateAlert
-    [HttpGet]
-    public virtual ActionResult CreateAlert()
-    {
-      List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
-      var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
+        //GET: CreateAlert
+        [HttpGet]
+        public virtual ActionResult CreateAlert()
+        {
+            List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
+            var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
 
-      ViewBag.Onderwerp = ItemsSelectlist;
+            ViewBag.Onderwerp = ItemsSelectlist;
 
-      return PartialView();
-    }
-    //POST: CreateAlert
-    [HttpPost]
+            return PartialView();
+        }
+        //POST: CreateAlert
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual ActionResult CreateAlert(CreateAlertViewModel alertViewModel)
         {
@@ -282,20 +295,20 @@ namespace MVC.Controllers
             ViewBag.Onderwerp = ItemsSelectlist;
             return View();
         }
-    [HttpGet]
-    public virtual ActionResult VerwijderAlert(int id)
-    {
-      alertManager.RemoveAlert(alertManager.GetAlert(id));
-      return RedirectToAction("Index");
-    }
-    [HttpGet]
-    public virtual ActionResult ToggleActivatie(int id)
-    {
-      Alert alert = alertManager.GetAlert(id);
-      alert.Geactiveerd = !alert.Geactiveerd;
-      alertManager.ChangeAlert(alert);
+        [HttpGet]
+        public virtual ActionResult VerwijderAlert(int id)
+        {
+            alertManager.RemoveAlert(alertManager.GetAlert(id));
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public virtual ActionResult ToggleActivatie(int id)
+        {
+            Alert alert = alertManager.GetAlert(id);
+            alert.Geactiveerd = !alert.Geactiveerd;
+            alertManager.ChangeAlert(alert);
 
-      return RedirectToAction("Index");
+            return RedirectToAction("Index");
+        }
     }
-  }
 }

@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: white;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -195,6 +196,9 @@ span.noti {
     font-size: 35px;
     cursor: pointer
 }
+
+
+
 
 .table-container {
     height: 72vh;

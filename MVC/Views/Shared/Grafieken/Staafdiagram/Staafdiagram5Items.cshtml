@@ -1,0 +1,94 @@
+﻿<div>
+    <canvas id="barChart" height="250"></canvas>
+    @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+    @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
+</div>
+
+
+<script>
+    //Staafdiagram
+
+    var item1 = @Html.Raw(Json.Encode(ViewBag.Item1Naam));
+    var data1 = @Html.Raw(Json.Encode(ViewBag.Item1Vermeldingen));
+    var item2 = @Html.Raw(Json.Encode(ViewBag.Item2Naam));
+    var data2 = @Html.Raw(Json.Encode(ViewBag.Item2Vermeldingen));
+    var item3 = @Html.Raw(Json.Encode(ViewBag.Item3Naam));
+    var data3 = @Html.Raw(Json.Encode(ViewBag.Item3Vermeldingen));
+    var item4 = @Html.Raw(Json.Encode(ViewBag.Item4Naam));
+    var data4 = @Html.Raw(Json.Encode(ViewBag.Item4Vermeldingen));
+    var item5 = @Html.Raw(Json.Encode(ViewBag.Item5Naam));
+    var data5 = @Html.Raw(Json.Encode(ViewBag.Item5Vermeldingen));
+
+
+    var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
+
+
+    var ctx = $("#barChart");
+    //var tData = $.getValues("/Grafiek/BarChartData");
+    //var tData = $.getValues("/Grafiek/BarChartVergelijkingOpMoment");
+    var myNewBarChart = new Chart(ctx, {
+        options: {
+            title: {
+                display: true,
+                text: grafiekTitel,
+                //text: "testgrafiek",
+                fontSize: 18
+            },
+            legend: {
+                display: false
+            },
+
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }]
+            }
+        },
+        type: 'bar',
+
+        data: {
+            //labels: ["Item a", "Item b", "Item c", "Item d", "Item e"],
+
+            labels: [item1, item2, item3, item4, item5],
+            //labels: labels,
+
+            datasets: [
+                {
+                data: [data1, data2, data3, data4, data5],
+                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+                bordercolor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+                borderWidth: 4
+                }
+
+            ]
+        }
+
+    });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

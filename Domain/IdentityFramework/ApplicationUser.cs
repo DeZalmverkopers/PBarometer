@@ -22,7 +22,7 @@ namespace Domain.IdentityFramework
     public ApplicationUser()
     {
       Dashboard = new Dashboard();
-      Alerts = new List<Alert>();
+      //Alerts = new List<Alert>();
     }
 
     public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

@@ -21,7 +21,7 @@
         <tbody>
             @foreach (var organisatie in ViewBag.Organisaties)
             {
-                <tr onclick="location.href='@Url.Action("OrganisatieDetails", new { id = organisatie.GemonitordItemId})'">
+                <tr onclick="showModal('#organisatieDetails', '#organisatieDetailsBody', @organisatie.GemonitordItemId)">
                     <td>
                         @organisatie.Naam
                     </td>
@@ -32,6 +32,16 @@
             }
         </tbody>
     </table>
+</div>
+
+<div id="organisatieDetails" class="modal fade" tabindex="-1" role="dialog" data-url='@Url.Action("OrganisatieDetails","Overzicht")'>
+    <div class="modal-dialog modal-sm" id="organisatieDetailsBody">
+    </div>
+</div>
+
+<div id="persoonDetailsOrganisatie" class="modal fade" tabindex="-1" role="dialog" data-url='@Url.Action("PersoonDetails","Overzicht")'>
+    <div class="modal-dialog modal-sm" id="persoonDetailsOrganisatieBody">
+    </div>
 </div>
 
 <script>
@@ -52,6 +62,15 @@
                 }
             }
         }
+    }
+</script>
+<script>
+    function showModalPersoonDetails(persoonDetails, persoonDetailsBody, id) {
+        var url = $(persoonDetails).data('url');
+        $.get(url, { id: id }, function (data) {
+            $(persoonDetailsBody).html(data);
+            $(persoonDetails).modal('show');
+        });
     }
 </script>
 

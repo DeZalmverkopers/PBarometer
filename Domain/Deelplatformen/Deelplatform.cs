@@ -2,9 +2,6 @@
 using Domain.IdentityFramework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Deelplatformen
 {
@@ -15,6 +12,7 @@ namespace Domain.Deelplatformen
     public int AantalDagenHistoriek { get; set; }
     public DateTime LaatsteSynchronisatie { get; set; }
     public byte[] Afbeelding { get; set; }
+    public string Achtergrondkleur { get; set; }
 
     public List<ApplicationUser> Gebruikers { get; set; }
     public List<GemonitordItem> GemonitordeItems { get; set; }

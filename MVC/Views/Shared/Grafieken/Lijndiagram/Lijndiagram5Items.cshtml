@@ -1,0 +1,109 @@
+﻿<div>
+    <canvas id="lineChart" height="250"></canvas>
+    @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+    @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
+</div>
+
+
+<script>
+
+    @*var item1 = @Html.Raw(Json.Encode(ViewBag.Item1Naam))*@
+    var dagen = @Html.Raw(Json.Encode(ViewBag.ItemDagen));
+    var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
+
+    var item1 = @Html.Raw(Json.Encode(ViewBag.Item1Naam));
+    var data1 = @Html.Raw(Json.Encode(ViewBag.Item1Data));
+
+    var item2 = @Html.Raw(Json.Encode(ViewBag.Item2Naam));
+    var data2 = @Html.Raw(Json.Encode(ViewBag.Item2Data));
+
+    var item3 = @Html.Raw(Json.Encode(ViewBag.Item3Naam));
+    var data3 = @Html.Raw(Json.Encode(ViewBag.Item3Data));
+
+    var item4 = @Html.Raw(Json.Encode(ViewBag.Item4Naam));
+    var data4 = @Html.Raw(Json.Encode(ViewBag.Item4Data));
+
+    var item5 = @Html.Raw(Json.Encode(ViewBag.Item5Naam));
+    var data5 = @Html.Raw(Json.Encode(ViewBag.Item5Data));
+
+
+    var ctx = $("#lineChart");
+    var myLineChart = new Chart(ctx, {
+
+        options: {
+            title: {
+                display: true,
+                text: grafiekTitel,
+                fontSize: 18
+
+
+            },
+            legend: {
+                display: true
+            },
+
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }]
+            }
+
+        },
+        type: 'line',
+
+        data: {
+
+        labels: dagen,
+
+        datasets: [
+            {
+                label: item1,
+                data: data1,
+                //backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+                bordercolor: ["#3e95cd"],
+                borderWidth: 4
+            },
+
+            {
+                label: item2,
+                data: data2,
+                //backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+                bordercolor: ["#8e5ea2"],
+                borderWidth: 4
+            },
+
+            {
+                label: item3,
+                data: data3,
+                //backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+                bordercolor: ["#3cba9f"],
+                borderWidth: 4
+            },
+
+            {
+                label: item4,
+                data: data4,
+                //backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+                bordercolor: ["#e8c3b9"],
+                borderWidth: 4
+            },
+
+            {
+                label: item5,
+                data: data5,
+                //backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+                bordercolor: ["#c45850"],
+                borderWidth: 4
+            }
+        ]
+        }
+
+
+    });
+</script>
+
+

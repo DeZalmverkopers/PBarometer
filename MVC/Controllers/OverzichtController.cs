@@ -23,7 +23,7 @@ namespace MVC.Controllers
         {
             var persoon = gemonitordeItemsManager.GetPersoon(id, true) as Persoon;
             ViewBag.Persoon = persoon;
-            ViewBag.Facebook = persoon.Facebook != null && persoon.Facebook.Length > 0;
+            ViewBag.HeeftFacebook = persoon.Facebook != null && persoon.Facebook.Length > 0;
             ViewBag.Twitter = persoon.TwitterHandle != null && persoon.TwitterHandle.Length > 0;
             if (persoon.Geboortedatum.HasValue)
             {
@@ -33,8 +33,19 @@ namespace MVC.Controllers
             {
                 ViewBag.Geboortedatum = "Onbekend";
             }
-            ViewBag.Website = persoon.Website != null && persoon.Website.Length > 0;
-            
+            ViewBag.Website = false;
+            if (persoon.Website != null && persoon.Website.Length > 0)
+            {
+                ViewBag.Website = true;
+                if (!persoon.Website.Substring(0,4).Equals("http"))
+                {
+                    ViewBag.WebsiteURL = "http://" + persoon.Website;
+                }
+                else
+                {
+                    ViewBag.WebsiteURL = persoon.Website;
+                }
+            }
             ViewBag.GemPolariteit = Math.Round(persoon.GemPolariteit, 2);
             ViewBag.GemObjectiviteit = Math.Round(persoon.GemObjectiviteit, 2);
             if (persoon.Organisatie != null)
@@ -61,16 +72,71 @@ namespace MVC.Controllers
             {
                 ViewBag.Postcode = "Onbekend";
             }
+            if (persoon.MeestVoorkomendeURL != null && persoon.MeestVoorkomendeURL.Length > 0)
+            {
+                ViewBag.HeeftMeestVoorkomendeURL = true;
+                ViewBag.MeestVoorkomendeURL = persoon.MeestVoorkomendeURL;
+                if (persoon.MeestVoorkomendeURL.Length > 20)
+                {
+                    ViewBag.MeestVoorkomendeURL = persoon.MeestVoorkomendeURL.Substring(0, 20) + "...";
+                }
+            }
+            else
+            {
+                ViewBag.HeeftMeestVoorkomendeURL = false;    
+            }
+
+
             return PartialView("PersoonDetails", ViewBag);
         }
         public ActionResult OrganisatieDetails(int id)
         {
             var organisatie = gemonitordeItemsManager.GetGemonitordItem(id) as Organisatie;
             ViewBag.Organisatie = organisatie;
-            ViewBag.Personen = organisatie.Personen;
+            ViewBag.Personen = organisatie.Personen.OrderByDescending(a => a.TotaalAantalVermeldingen);
             ViewBag.GemPolariteit = Math.Round(organisatie.GemPolariteit, 2);
             ViewBag.GemObjectiviteit = Math.Round(organisatie.GemObjectiviteit, 2);
+            if (organisatie.MeestVoorkomendeURL != null && organisatie.MeestVoorkomendeURL.Length > 0)
+            {
+                ViewBag.HeeftMeestVoorkomendeURL = true;
+                ViewBag.MeestVoorkomendeURL = organisatie.MeestVoorkomendeURL;
+                if (organisatie.MeestVoorkomendeURL.Length > 20)
+                {
+                    ViewBag.MeestVoorkomendeURL = organisatie.MeestVoorkomendeURL.Substring(0, 20) + "...";
+                }
+            }
+            else
+            {
+                ViewBag.HeeftMeestVoorkomendeURL = false;
+            }
             return PartialView("OrganisatieDetails", ViewBag);
+        }
+        public ActionResult ThemaDetails(int id)
+        {
+            var thema = gemonitordeItemsManager.GetGemonitordItem(id) as Thema;
+            ViewBag.Thema = thema;
+            string kernwoorden = "";
+            foreach (string item in thema.KernWoorden.OrderBy(a => a))
+            {
+                kernwoorden += item + ", ";
+            }
+            ViewBag.Kernwoorden = kernwoorden.Substring(0, kernwoorden.Length - 2);
+            ViewBag.GemPolariteit = Math.Round(thema.GemPolariteit, 2);
+            ViewBag.GemObjectiviteit = Math.Round(thema.GemObjectiviteit, 2);
+            if (thema.MeestVoorkomendeURL != null && thema.MeestVoorkomendeURL.Length > 0)
+            {
+                ViewBag.HeeftMeestVoorkomendeURL = true;
+                ViewBag.MeestVoorkomendeURL = thema.MeestVoorkomendeURL;
+                if (thema.MeestVoorkomendeURL.Length > 20)
+                {
+                    ViewBag.MeestVoorkomendeURL = thema.MeestVoorkomendeURL.Substring(0, 20) + "...";
+                }
+            }
+            else
+            {
+                ViewBag.HeeftMeestVoorkomendeURL = false;
+            }
+            return PartialView("ThemaDetails", ViewBag);
         }
     }
 }

@@ -6,21 +6,26 @@
 
 <h3>Instellingen voor niet-ingelogde gebruikers</h3>
 
-@using (Html.BeginForm("Index", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-<div>
-    @Html.CheckBoxFor(m => m.OverzichtAdded)
-    @Html.LabelFor(m => m.OverzichtAdded)
-</div>
+<table class="table">
+    <tr>
+        <td>
+            @Html.CheckBoxFor(m => m.OverzichtAdded)
+        </td>
+        <td>
+            @Html.LabelFor(m => m.OverzichtAdded)
+        </td>
+    </tr>
 
-<div>
-    @Html.CheckBoxFor(m => m.WeeklyReviewAdded)
-    @Html.LabelFor(m => m.WeeklyReviewAdded)
-</div>
+    <tr>
+        <td>
+            @Html.CheckBoxFor(m => m.WeeklyReviewAdded)
+        </td>
+        <td>
+            @Html.LabelFor(m => m.WeeklyReviewAdded)
+        </td>
+    </tr>
+</table>
 
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Opslaan" class="btn btn-primary btn-algemene-layout" />
-    </div>
-</div>
-}
+<button class="btn btn-primary btn-algemene-layout" onclick="location.href='@Url.Action("SlaInstellingenOp", "Admin", new { OverzichtAdded = Model.OverzichtAdded, WeeklyReviewAdded = Model.WeeklyReviewAdded })'">
+    <span>Opslaan</span>
+</button>

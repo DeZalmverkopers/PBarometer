@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Models
 {
@@ -17,8 +15,5 @@ namespace MVC.Models
 
     [Display(Name = "E-mailadres")]
     public string Email { get; set; }
-
-    [Display(Name = "Rollen")]
-    public ICollection<IdentityUserRole> Roles { get; set; }
   }
 }
