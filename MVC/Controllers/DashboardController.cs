@@ -941,8 +941,7 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Grafieken/Grafieken.cshtml");
     }
 
-    public ActionResult VoegGrafiekToeEnUpdateDashboard(int deelplatformId, string titel, int periode, bool toonLegende, bool toonXAs, bool toonYAs, string type)
-    {
+    public ActionResult VoegGrafiekToeEnUpdateDashboard(int deelplatformId, string titel, int periode, bool toonLegende, bool toonXAs, bool toonYAs, string type,
       string xTitel, string yTitel, bool xOnder, bool xOorsprongNul, bool yOorsprongNul, int dashboardId,
       string item1 = null, string waarde1 = "Vermeldingen",
       string item2 = null, string waarde2 = "Vermeldingen",
@@ -989,7 +988,7 @@ namespace MVC.Controllers
         ToonLegende = toonLegende,
         ToonXAs = toonXAs,
         ToonYAs = toonYAs,
-        Type = (GrafiekType) Enum.Parse(typeof(GrafiekType), type, true),
+        Type = (GrafiekType)Enum.Parse(typeof(GrafiekType), type, true),
         XTitel = xTitel,
         YTitel = yTitel,
         Waarden = waarden,
