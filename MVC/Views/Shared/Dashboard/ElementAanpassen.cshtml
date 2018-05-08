@@ -1,0 +1,49 @@
+﻿<div>
+    <label>X-as</label>
+    @*@Html.DropDownList("Beheer", ViewBag.XWaarden as List<SelectListItem>)*@
+    <select id="inputXas">
+        <option>data1</option>
+        <option>data2</option>
+        <option>data3</option>
+    </select>
+</div>
+
+
+<div>
+    <label>Y-as</label>
+    @*@Html.DropDownList("Dashboard", ViewBag.YWaarden as List<SelectListItem>)*@
+
+</div>
+
+<div>
+    <label>Titel</label>
+    <input id="inputTitel" type="text" />
+</div>
+
+<div>
+    <button type="button" data-toggle="collapse" data-target="#demo" class="btn btn-primary btn-algemene-layout">Geavanceerde instellingen</button>
+    <div id="demo" class="collapse">
+        <h4>Geavanceerde instellingen</h4>
+        <button class="btn btn-primary">Assen wisselen</button>
+        <div>
+            <label>Schaal aanpassen</label>
+            @Html.DropDownList("Beheer", ViewBag.Schaalopties as List<SelectListItem>)
+        </div>
+    </div>
+</div>
+
+<div>
+    <button class="btn btn-primary btn-algemene-layout" id="btnAanpassenOpslaan">Opslaan</button>
+</div>
+
+
+
+<script src="~/Scripts/EigenScripts.js"></script>
+
+<script type="text/javascript">
+    $("#btnAanpassenOpslaan").click(function () {
+        grafiekWijzigen(myNewBarChart);
+    
+        $("#modalGrafiekAanpassen").modal('hide');
+    });
+</script>

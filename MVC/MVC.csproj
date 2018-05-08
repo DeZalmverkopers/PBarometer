@@ -220,13 +220,10 @@
     <Compile Include="Controllers\Alerts\AlertsController.cs" />
     <Compile Include="Controllers\Api\AndroidController.cs" />
     <Compile Include="Controllers\Api\TextgainController.cs" />
-    <Compile Include="Controllers\BeheerController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\GemonitordItemController.cs" />
-    <Compile Include="Controllers\GrafiekController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OverzichtController.cs" />
-    <Compile Include="Controllers\OverzichtdetailController.cs" />
     <Compile Include="Controllers\ProfielController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\WeeklyReviewController.cs" />
@@ -338,7 +335,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\TheVoice.jpg" />
     <Content Include="images\alert.png" />
+    <Content Include="images\K3.jpg" />
+    <Content Include="images\PolitiekeBarometer.jpg" />
     <Content Include="images\uhno.jpg" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -352,6 +352,7 @@
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\EigenScripts.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -429,11 +430,7 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Beheer\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Grafiek\Index.cshtml" />
-    <Content Include="Views\Home\Items.cshtml" />
-    <Content Include="Views\Overzichtdetail\Index.cshtml" />
     <Content Include="Views\Overzicht\Index.cshtml" />
     <Content Include="Views\Profiel\AccountDeleted.cshtml" />
     <Content Include="Views\Profiel\ChangeEmail.cshtml" />
@@ -451,8 +448,8 @@
     <Content Include="Views\Shared\Dashboard\BeheerScripts.cshtml" />
     <Content Include="Views\Shared\Dashboard\Bewerkingsknop.cshtml" />
     <Content Include="Views\Shared\Dashboard\BewerkingsknopScripts.cshtml" />
-    <Content Include="Views\Shared\Dashboard\GrafiekAanpassen.cshtml" />
-    <Content Include="Views\Shared\Dashboard\GrafiekToevoegen.cshtml" />
+    <Content Include="Views\Shared\Dashboard\ElementAanpassen.cshtml" />
+    <Content Include="Views\Shared\Dashboard\ElementToevoegen.cshtml" />
     <Content Include="Views\Shared\Dashboard\VerwijderKnop.cshtml" />
     <Content Include="Views\Shared\GemonitordItem\Organisaties.cshtml" />
     <Content Include="Views\Shared\GemonitordItem\Personen.cshtml" />
@@ -469,7 +466,6 @@
     <Content Include="Views\Shared\Grafieken\HorizontaalStaafdiagramMulti.cshtml" />
     <Content Include="Views\Shared\Grafieken\Lijndiagram.cshtml" />
     <Content Include="Views\Shared\Grafieken\LijndiagramMulti.cshtml" />
-    <Content Include="Views\Shared\Grafieken\Staafdiagram.cshtml" />
     <Content Include="Views\Shared\Grafieken\StaafdiagramMulti.cshtml" />
     <Content Include="Views\Shared\Grafieken\Taartdiagram.cshtml" />
     <Content Include="Views\Shared\Grafieken\TaartdiagramMulti.cshtml" />
@@ -509,10 +505,50 @@
     <Content Include="Views\Overzicht\ThemaDetailsBody.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\LaadGebruikers.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\NietIngelogdeGebruikerInstellen.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Organisaties\Organisaties1Item.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Organisaties\Organisaties2Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Organisaties\Organisaties3Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Organisaties\Organisaties4Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Organisaties\Organisaties5Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Personen\Personen1Item.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Personen\Personen2Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Personen\Personen3Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Personen\Personen4Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Personen\Personen5Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Themas\Themas1Item.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Themas\Themas2Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Themas\Themas3Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Themas\Themas4Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Dropdown\Themas\Themas5Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Grafieken\AantalTweets.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Grafieken\GrafiekenKeuze.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Grafieken\ItemsKruisen.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Grafieken\VergelijkenDoorheenDeTijd.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Grafieken\VergelijkenOpMoment.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Statistieken\GetalKeuze.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Statistieken\GetalTrendKeuze.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Statistieken\StatistiekenKeuze.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Statistieken\Top10Keuze.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Statistieken\Top5Keuze.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram1Item.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram2Items.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram5Items.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram4Items.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Staafdiagram.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram1Item.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram2Items.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram3Items.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram4Items.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram5Items.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Lijndiagram\LijndiagramAantalTweets.cshtml" />
+    <None Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram3Items.cshtml" />
+    <None Include="Web.CustomProfile.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\GemonitordItem\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
