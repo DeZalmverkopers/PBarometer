@@ -9,5 +9,8 @@ namespace MVC.Models
 
     [Display(Name = "Weekly Review")]
     public bool WeeklyReviewAdded { get; set; }
+
+    [Display(Name = "Alerts")]
+    public bool AlertsAdded { get; set; }
   }
 }
