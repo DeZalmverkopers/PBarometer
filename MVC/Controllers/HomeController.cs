@@ -54,12 +54,12 @@ namespace MVC.Controllers
       Grafiek grafiek1 = new Grafiek()
       {
         DashboardId = 1,
-        Periode = 4,
+        Periode = 20,
         Titel = "Grafiek van de coole items",
         ToonLegende = true,
         ToonXAs = true,
         ToonYAs = true,
-        Type = GrafiekType.line,
+        Keuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd,
         XOnder = false,
         XOorsprongNul = true,
         XTitel = "Items",
@@ -88,12 +88,12 @@ namespace MVC.Controllers
       Grafiek grafiek2 = new Grafiek()
       {
         DashboardId = 1,
-        Periode = 4,
+        Periode = 20,
         Titel = "Nog een grafiekje van de coole items",
         ToonLegende = true,
         ToonXAs = true,
         ToonYAs = true,
-        Type = GrafiekType.bar,
+        Keuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd,
         XOnder = false,
         XOorsprongNul = true,
         XTitel = "Items",

@@ -19,7 +19,7 @@
                 @*<span class="noti glyphicon glyphicon-bell"><span class="count">&nbsp;</span></span>*@
                 <span class="noti glyphicon glyphicon-bell" id="alertID" onclick="location.href='@Url.Action("Index", "Alerts")'"><span class="count">&nbsp;</span></span>
 
-                <div class="noti-content onzichtbaar" id="alertInhoudID">
+                @*<div class="noti-content onzichtbaar" id="alertInhoudID">
                     <div class="noti-top-arrow"></div>
                     <ul id="notiContent">
                         <li>dummy</li>
@@ -33,7 +33,7 @@
                         <li>dummy</li>
                         <li>dummy</li>
                     </ul>
-                </div>
+                </div>*@
 
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -44,43 +44,41 @@
                 </button>
 
                 @* @Html.ActionLink("Home", MVC.Home.Index(), new { @class = "navbar-brand" })*@
-                @Html.ActionLink("Home", "Index", "Home", new { @class = "navbar-brand" })
+                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "navbar-brand" })
 
 
             </div>
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Dashboard", MVC.Dashboard.Index())</li>*@
                     <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
 
 
-                    @*<li>@Html.ActionLink("Overzicht", MVC.Overzicht.Index())</li>*@
+                    @*@if ((bool?)ViewBag.OverzichtAdded == true)
+                    {*@
                     <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
 
-                    @*<li>@Html.ActionLink("Weekly Review", MVC.WeeklyReview.Index())</li>*@
+
+                    @*@if ((bool?)ViewBag.WeeklyReviewAdded == true)
+                    {*@
                     <li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>
 
                     @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
                     {
-                    @*<li>@Html.ActionLink("Superadmin", MVC.SuperAdmin.Index())</li>*@
                     <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
                     }
                     else
                     {
                         if (User.IsInRole("Admin"))
                         {
-                        @*<li>@Html.ActionLink("Admin", MVC.Admin.Index())</li>*@
                         <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
                         }
                     }
 
-                    @*<li>@Html.ActionLink("Admin", MVC.Admin.Index())</li>
-                        <li>@Html.ActionLink("Superadmin", MVC.SuperAdmin.Index())</li>*@
+
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    @*<li>@Html.ActionLink("Alerts", MVC.Alerts.Index(), new { @class = "alert-image" })</li>*@
 
 
 
@@ -88,10 +86,8 @@
 
                     @if (!Request.IsAuthenticated)
                     {
-                    @*<li>@Html.ActionLink("Inloggen", MVC.Account.Login())</li>*@
                     <li>@Html.ActionLink("Inloggen", "Login", "Account")</li>
 
-                    @*<li>@Html.ActionLink("Registreren", MVC.Account.Register())</li>*@
                     <li>@Html.ActionLink("Registreren", "Register", "Account")</li>
                     }
                     else

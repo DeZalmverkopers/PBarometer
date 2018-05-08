@@ -21,7 +21,7 @@ namespace Domain.IdentityFramework
 
     public ApplicationUser()
     {
-      //Dashboard = new Dashboard();
+      Dashboard = new Dashboard();
       //Alerts = new List<Alert>();
     }
 

@@ -61,7 +61,7 @@ namespace DAL.EF
 
       //  modelBuilder.Entity<Alert>().HasRequired(alert => alert.GemonitordItem).WithMany(gemonitordItem => gemonitordItem.Alerts);
       //  modelBuilder.Entity<GemonitordItem>().HasMany(gemonitordItem => gemonitordItem.Alerts).WithRequired(alert => alert.GemonitordItem);
-      modelBuilder.Entity<ApplicationUser>().HasOptional(gebruiker => gebruiker.Dashboard).WithRequired(dashboard => dashboard.Gebruiker);
+      //modelBuilder.Entity<ApplicationUser>().HasOptional(gebruiker => gebruiker.Dashboard).WithRequired(dashboard => dashboard.Gebruiker);
 
       //  modelBuilder.Entity<Dashboard>().HasMany(dashboard => dashboard.Grafieken).WithRequired(grafiek => grafiek.Dashboard);
       //  modelBuilder.Entity<Grafiek>().HasRequired(grafiek => grafiek.Dashboard).WithMany(dashboard => dashboard.Grafieken);
