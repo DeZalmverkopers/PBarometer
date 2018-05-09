@@ -16,24 +16,7 @@
             <div class="navbar-header">
 
 
-                @*<span class="noti glyphicon glyphicon-bell"><span class="count">&nbsp;</span></span>*@
                 <span class="noti glyphicon glyphicon-bell" id="alertID" onclick="location.href='@Url.Action("Index", "Alerts")'"><span class="count">&nbsp;</span></span>
-
-                @*<div class="noti-content onzichtbaar" id="alertInhoudID">
-                    <div class="noti-top-arrow"></div>
-                    <ul id="notiContent">
-                        <li>dummy</li>
-                        <li>dummy</li>
-                        <li>dummy</li>
-                        <li>dummy</li>
-                        <li>dummy</li>
-                        <li>dummy</li>
-                        <li>dummy</li>
-                        <li>dummy</li>
-                        <li>dummy</li>
-                        <li>dummy</li>
-                    </ul>
-                </div>*@
 
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -43,7 +26,6 @@
 
                 </button>
 
-                @* @Html.ActionLink("Home", MVC.Home.Index(), new { @class = "navbar-brand" })*@
                 @Html.ActionLink("Home", "Index", "Home", null, new { @class = "navbar-brand" })
 
 
@@ -54,14 +36,8 @@
                     <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
 
 
-                    @*@if ((bool?)ViewBag.OverzichtAdded == true)
-                    {*@
                     <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
 
-
-                    @*@if ((bool?)ViewBag.WeeklyReviewAdded == true)
-                    {*@
-                    <li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>
 
                     @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
                     {
@@ -92,7 +68,6 @@
                     }
                     else
                     {
-                    @*<li>@Html.ActionLink("Profiel", MVC.Profiel.Index())</li>*@
                     <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
 
                         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -113,34 +88,13 @@
         @RenderBody()
         <hr />
         <footer>
-            @*<p>&copy; @DateTime.Now.Year - Politieke Barometer</p>*@
             <p>&copy; Politieke Barometer</p>
         </footer>
     </div>
 
-
-    @*<script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
-        <script src="/signalr/hubs"></script>*@
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
-
-    <script type="text/javascript">
-        $("#alertID").click(function () {
-            $("#alertInhoudID").toggle()
-        });
-
-        $(document).ready(function () {
-            $("#alertInhoudID").hide()
-        })
-
-        $(window).load(function () {
-            $("#alertInhoudID").hide()
-        });
-    </script>
-
 
 </body>
 </html>
