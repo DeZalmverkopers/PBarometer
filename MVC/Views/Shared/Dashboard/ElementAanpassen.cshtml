@@ -24,7 +24,12 @@
     <button type="button" data-toggle="collapse" data-target="#demo" class="btn btn-primary btn-algemene-layout">Geavanceerde instellingen</button>
     <div id="demo" class="collapse">
         <h4>Geavanceerde instellingen</h4>
-        <button class="btn btn-primary">Assen wisselen</button>
+
+
+        @*<button class="btn btn-primary" id="btnAssenWisselen">Assen wisselen</button>*@
+
+        <input type="checkbox" id="chkAssenWisselen">Assen wisselen (als horizontaal staafdiagram weergeven)<br>
+
         <div>
             <label>Schaal aanpassen</label>
             @Html.DropDownList("Beheer", ViewBag.Schaalopties as List<SelectListItem>)
@@ -41,9 +46,63 @@
 <script src="~/Scripts/EigenScripts.js"></script>
 
 <script type="text/javascript">
+    //function assenWisselen(teWijzigenGrafieks) {
+    //    if (document.getElementById('chkAssenWisselen').checked) {
+    //        teWijzigenGrafiek.destroy();
+    //        teWijzigenGrafiek = new Chart(ctx, {
+    //            type: 'horizontalBar',
+    //            data: chartData,
+    //            options: chartOptions
+    //        });
+    //    } else {
+    //        teWijzigenGrafiek.destroy();
+    //        teWijzigenGrafiek = new Chart(ctx, {
+    //            type: 'bar',
+    //            data: chartData,
+    //            options: chartOptions
+    //        });
+    //    }
+
+    //}
+
+
     $("#btnAanpassenOpslaan").click(function () {
+
+        //if (document.getElementById('chkAssenWisselen').checked) {
+        //    myNewBarChart.destroy();
+        //    myNewBarChart = new Chart(ctx, {
+        //    type: 'horizontalBar',
+        //    data: chartData,
+        //    options: chartOptions
+        //    });
+        //} else {
+        //    myNewBarChart.destroy();
+        //    myNewBarChart = new Chart(ctx, {
+        //        type: 'bar',
+        //        data: chartData,
+        //        options: chartOptions
+        //    });
+        //}
+
         grafiekWijzigen(myNewBarChart);
-    
+
+
         $("#modalGrafiekAanpassen").modal('hide');
     });
+
+
+
+    //document.getElementById('btnAssenWisselen').onclick = function () {
+
+    //    myChart.destroy();
+    //    myChart = new Chart(ctx, {
+    //        type: 'horizontalBar',
+    //        data: chartData,
+    //        options: chartOptions
+    //    });
+    //};
+
+
 </script>
+
+

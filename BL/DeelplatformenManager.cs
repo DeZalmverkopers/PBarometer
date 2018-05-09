@@ -47,10 +47,25 @@ namespace BL
       return repository.ReadSettings();
     }
 
-    public void ChangeSettings(Settings settings)
+    public void ChangeOverzichtAdded(bool OverzichtAdded)
     {
-      repository.UpdateSettings(settings.OverzichtAdded, settings.WeeklyReviewAdded);
+      repository.UpdateOverzichtAdded(OverzichtAdded);
     }
+
+    public void ChangeWeeklyReviewAdded(bool WeeklyReviewAdded)
+    {
+      repository.UpdateWeeklyReviewAdded(WeeklyReviewAdded);
+    }
+
+    public void ChangeAlertsAdded(bool AlertsAdded)
+    {
+      repository.UpdateAlertsAdded(AlertsAdded);
+    }
+
+    //public void ChangeSettings(Settings settings)
+    //{
+    //  repository.UpdateSettings(settings.OverzichtAdded, settings.WeeklyReviewAdded, settings.AlertsAdded);
+    //}
 
     public string GetAchtergrondkleur()
     {
