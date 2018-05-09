@@ -261,18 +261,10 @@ namespace MVC.Controllers
             {
                 Persoon persoon = gemonitordeItemsManager.GetPersoon(persoonViewModel.Id, false);
                 Organisatie organisatie = gemonitordeItemsManager.GetOrganisatie(persoonViewModel.NaamOrganisatie);
-                string orgNaam;
-                if (persoonViewModel.Naam == null)
+                
+                if (organisatie == null && persoonViewModel.NaamOrganisatie != null)
                 {
-                    orgNaam = "Onbekend";
-                }
-                else
-                {
-                    orgNaam = persoonViewModel.NaamOrganisatie;
-                }
-                if (organisatie == null)
-                {
-                    gemonitordeItemsManager.AddOrganisatie(orgNaam, 1, new List<string>() { persoonViewModel.Naam });
+                    gemonitordeItemsManager.AddOrganisatie(persoonViewModel.NaamOrganisatie, 1, new List<string>() { persoonViewModel.Naam });
                 }
 
                 persoon.TwitterHandle = persoonViewModel.TwitterHandle;
@@ -282,7 +274,7 @@ namespace MVC.Controllers
                 persoon.Postcode = persoonViewModel.Postcode;
                 persoon.Naam = persoonViewModel.Naam;
                 persoon.Website = persoonViewModel.Website;
-                persoon.OrganisatieId = gemonitordeItemsManager.GetOrganisatie(orgNaam).GemonitordItemId;
+                persoon.OrganisatieId = gemonitordeItemsManager.GetOrganisatie(persoonViewModel.NaamOrganisatie).GemonitordItemId;
                 gemonitordeItemsManager.ChangeGemonitordItem(persoon);
                 return RedirectToAction("Index");
             }
@@ -346,7 +338,10 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 Organisatie organisatie = gemonitordeItemsManager.GetGemonitordItem(organisatieViewModel.Id) as Organisatie;
-                organisatie.Personen = gemonitordeItemsManager.GetPersonen(1, organisatieViewModel.Leden.Split(',').ToList()).ToList();
+                if (organisatieViewModel.Leden != null)
+                {
+                    organisatie.Personen = gemonitordeItemsManager.GetPersonen(1, organisatieViewModel.Leden.Split(',').ToList()).ToList();
+                }
                 organisatie.Naam = organisatieViewModel.Naam;
                 gemonitordeItemsManager.ChangeGemonitordItem(organisatie);
                 return RedirectToAction("Index");

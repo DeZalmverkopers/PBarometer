@@ -17,6 +17,6 @@ namespace Domain.Gemonitordeitems
         public string Gemeente { get; set; }
         public Organisatie Organisatie { get; set; }
         [ForeignKey("Organisatie")]
-        public int OrganisatieId { get; set; }
+        public int? OrganisatieId { get; set; }
     }
 }

@@ -22,8 +22,13 @@
                     <p>Organisatie</p>
                 </th>
                 <th>
-                    <p>Totaal aantal vermeldingen</p>
+                    <p>Vermeldingen</p>
                 </th>
+                @if (User.IsInRole("Admin"))
+                {
+                    <th>
+                    </th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -35,19 +40,20 @@
                     </td>
                     <td>
                         @organisatie.TotaalAantalVermeldingen
-
                     </td>
-                    <td>
-                        @if (User.IsInRole("Admin"))
-                        {   
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
                             <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("PasOrganisatieAan", "Overzicht",new { id = organisatie.GemonitordItemId})'">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </button>
                             <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("VerwijderItem", "Overzicht",new { id = organisatie.GemonitordItemId})'">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>
-                        }
-                    </td>
+                        </td>
+                    }
+
                 </tr>
             }
         </tbody>

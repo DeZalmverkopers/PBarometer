@@ -40,6 +40,11 @@ namespace MVC.Controllers.Api
             }
             else
             {
+                List<DeelplatformDTO> deelplatformDTOs = new List<DeelplatformDTO>();
+                foreach (var deelplatform in deelplatformen)
+                {
+                    deelplatformDTOs.Add(new DeelplatformDTO() { Naam = deelplatform.Naam, Id = deelplatform.DeelplatformId });
+                }
                 return Ok(deelplatformen);
             }
         }
@@ -78,7 +83,7 @@ namespace MVC.Controllers.Api
 
         [Authorize]
         [Route("api/Alerts")]
-        public IHttpActionResult GetAlerts(int deelplatformId)
+        public IHttpActionResult GetAlerts()
         {
             AlertManager alertManager = new AlertManager();
             List<Alert> alerts = alertManager.GetMobieleAlerts(User.Identity.GetUserId(), true, true).ToList();
@@ -89,10 +94,10 @@ namespace MVC.Controllers.Api
                 alertDTOs.Add(new AlertDTO()
                 {
                     Beschrijving = alert.Beschrijving,
-                    Geactiveerd = alert.Geactiveerd,
+                    Id = alert.AlertId,
                     Onderwerp = alert.GemonitordItem.Naam,
                     Triggered = alert.Triggered,
-                    TriggerRedenen = alert.TriggerRedenen
+                    Geactiveerd = alert.Geactiveerd
                 });
             }
             if (alerts == null || alerts.Count() == 0)

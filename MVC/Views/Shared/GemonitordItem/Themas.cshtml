@@ -21,7 +21,7 @@
                     <p>Thema</p>
                 </th>
                 <th>
-                    <p>Totaal aantal vermeldingen</p>
+                    <p>Vermeldingen</p>
                 </th>
                 @if (User.IsInRole("Admin"))
                 {
@@ -40,19 +40,20 @@
                     </td>
                     <td>
                         @thema.TotaalAantalVermeldingen
-
                     </td>
-                    <td>
-                        @if (User.IsInRole("Admin"))
-                        {
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
                             <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("PasThemaAan", "Overzicht",new { id = thema.GemonitordItemId})'">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </button>
                             <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("VerwijderItem", "Overzicht",new { id = thema.GemonitordItemId})'">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>
-                        }
-                    </td>
+                        </td>
+                    }
+
                 </tr>
             }
         </tbody>
