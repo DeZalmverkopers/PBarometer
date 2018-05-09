@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using BL;
 using MVC.Controllers.Api;
-using MVC.Models;
-using BL.IdentityFramework;
-using MVC.Controllers.Api;
-using BL;
 using Domain.Dashboards;
 using Domain.Gemonitordeitems;
 using System.Linq;
+using Domain.Deelplatformen;
 
 namespace MVC.Controllers
 {
@@ -17,7 +13,10 @@ namespace MVC.Controllers
   {
     public virtual ActionResult Index()
     {
-      return View();
+      DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+      List<Deelplatform> deelplatformen = deelplatformenManager.GetDeelplatformen().ToList();
+      ViewBag.Deelplatformen = deelplatformen;
+      return View(ViewBag);
     }
 
     public virtual ActionResult AddItems()
