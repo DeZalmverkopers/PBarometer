@@ -24,5 +24,6 @@ namespace Domain.Deelplatformen
     }
     public bool OverzichtAdded { get; set; }
     public bool WeeklyReviewAdded { get; set; }
+    public bool AlertsAdded { get; set; }
   }
 }

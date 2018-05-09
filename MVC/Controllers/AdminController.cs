@@ -13,9 +13,10 @@ using System.Web.Mvc;
 namespace MVC.Controllers
 {
   [Authorize(Roles = "Admin")]
-  [RequireHttps]
   public partial class AdminController : Controller
   {
+    DeelplatformenManager manager = new DeelplatformenManager();
+
     // GET: Admin
     public virtual ActionResult Index()
     {
@@ -92,25 +93,43 @@ namespace MVC.Controllers
     public virtual ActionResult LaadLayout()
     {
       LayoutViewModel model = new LayoutViewModel();
-      model.kleur = new DeelplatformenManager().GetAchtergrondkleur();
+      model.kleur = manager.GetAchtergrondkleur();
       return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml", model);
     }
 
     public virtual ActionResult LaadNietIngelogd()
     {
       SettingsNotLoggedInViewModel model = new SettingsNotLoggedInViewModel();
-      Settings settings = new DeelplatformenManager().GetSettings();
+      Settings settings = manager.GetSettings();
       model.OverzichtAdded = settings.OverzichtAdded;
       model.WeeklyReviewAdded = settings.WeeklyReviewAdded;
+      model.AlertsAdded = settings.AlertsAdded;
       return PartialView("~/Views/Shared/AdminSuperadmin/NietIngelogdeGebruikerInstellen.cshtml", model);
     }
 
     [HttpGet]
-    public virtual ActionResult SlaInstellingenOp(bool OverzichtAdded, bool WeeklyReviewAdded)
+    public virtual ActionResult SlaOverzichtAddedOp (bool OverzichtAdded)
     {
       ViewBag.OverzichtAdded = OverzichtAdded;
+      manager.ChangeOverzichtAdded(OverzichtAdded);
+      string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
+      return RedirectToAction("Index", controller);
+    }
+
+    [HttpGet]
+    public virtual ActionResult SlaWeeklyReviewAddedOp(bool WeeklyReviewAdded)
+    {
       ViewBag.WeeklyReviewAdded = WeeklyReviewAdded;
-      new DeelplatformenManager().ChangeSettings(new Settings(OverzichtAdded, WeeklyReviewAdded));
+      manager.ChangeWeeklyReviewAdded(WeeklyReviewAdded);
+      string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
+      return RedirectToAction("Index", controller);
+    }
+
+    [HttpGet]
+    public virtual ActionResult SlaAlertsAddedOp(bool AlertsAdded)
+    {
+      ViewBag.AlertsAdded = AlertsAdded;
+      manager.ChangeAlertsAdded(AlertsAdded);
       string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
       return RedirectToAction("Index", controller);
     }
@@ -118,7 +137,7 @@ namespace MVC.Controllers
     [HttpGet]
     public virtual ActionResult SlaAchtergrondOp(string kleur)
     {
-      new DeelplatformenManager().ChangeAchtergrondkleur(kleur);
+      manager.ChangeAchtergrondkleur(kleur);
       string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
       return RedirectToAction("Index", controller);
     }

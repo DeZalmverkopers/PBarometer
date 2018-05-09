@@ -15,9 +15,9 @@
         <div class="container">
             <div class="navbar-header">
 
+                         
+                <span class="noti glyphicon glyphicon-bell" id="alertID" onclick="location.href='@Url.Action("Index", "Alerts")'"><span class="count">&nbsp;</span></span>
 
-                @*<span class="noti glyphicon glyphicon-bell" id="alertID" onclick="location.href='@Url.Action("Index", "Alerts")'"></span>*@
-                
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -46,7 +46,7 @@
                     <li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>
 
 
-                    @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                   @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
                     {
                         <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
                     }
@@ -75,7 +75,6 @@
                     }
                     else
                     {
-                        @*<li>@Html.ActionLink("Profiel", MVC.Profiel.Index())</li>*@
                         <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
 
                         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -96,34 +95,13 @@
         @RenderBody()
         <hr />
         <footer>
-            @*<p>&copy; @DateTime.Now.Year - Politieke Barometer</p>*@
             <p>&copy; Politieke Barometer</p>
         </footer>
     </div>
 
-
-    @*<script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
-        <script src="/signalr/hubs"></script>*@
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
-
-    @*<script type="text/javascript">
-        $("#alertID").click(function () {
-            $("#alertInhoudID").toggle()
-        });
-
-        $(document).ready(function () {
-            $("#alertInhoudID").hide()
-        })
-
-        $(window).load(function () {
-            $("#alertInhoudID").hide()
-        });
-    </script>*@
-
 
 </body>
 </html>
