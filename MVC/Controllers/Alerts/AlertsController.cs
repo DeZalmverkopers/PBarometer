@@ -320,7 +320,8 @@ namespace MVC.Controllers
       return RedirectToAction("Index");
     }
 
-    public virtual bool IsTriggered()
+    [HttpGet]
+    public JsonResult IsTriggered()
     {
       bool triggered = false;
       ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
@@ -333,7 +334,7 @@ namespace MVC.Controllers
           break;
         }
       }
-      return triggered;
+      return Json(new { status = triggered });
     }
   }
 }
