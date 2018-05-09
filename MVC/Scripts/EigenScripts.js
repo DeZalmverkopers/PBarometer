@@ -32,6 +32,7 @@ function grafiekWijzigen(teWijzigenGrafiek) {
     }
 
     teWijzigenGrafiek.options.title.text = titel;
+
     teWijzigenGrafiek.update();
 }
 

@@ -1,67 +1,70 @@
-﻿<div>
-    <canvas id="barChart" height="250"></canvas>
+﻿<div class="myChartDiv">
+    <canvas id="barChart" width="600" height="400"></canvas>
     @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
     @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
 </div>
 
-
 <script>
-    //Staafdiagram
 
     var item1 = @Html.Raw(Json.Encode(ViewBag.Item1Naam));
     var data1 = @Html.Raw(Json.Encode(ViewBag.Item1Vermeldingen));
     var item2 = @Html.Raw(Json.Encode(ViewBag.Item2Naam));
     var data2 = @Html.Raw(Json.Encode(ViewBag.Item2Vermeldingen));
-    
+
     var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
 
+    var chartData = {
 
-    var ctx = $("#barChart");
-    //var tData = $.getValues("/Grafiek/BarChartData");
-    //var tData = $.getValues("/Grafiek/BarChartVergelijkingOpMoment");
-    var myNewBarChart = new Chart(ctx, {
-        options: {
-            title: {
-                display: true,
-                text: grafiekTitel,
-                //text: "testgrafiek",
-                fontSize: 18
-            },
-            legend: {
-                display: false
-            },
+        labels: [item1, item2],
 
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        },
-        type: 'bar',
-
-        data: {
-            //labels: ["Item a", "Item b", "Item c", "Item d", "Item e"],
-
-            labels: [item1, item2],
-            //labels: labels,
-
-            datasets: [
-                {
+        datasets: [
+            {
                 data: [data1, data2],
+                //data: [9, 10],
                 backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
                 bordercolor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
                 borderWidth: 4
+            }
+
+        ]
+
+    };
+
+
+    var chartOptions = {
+        title: {
+            display: true,
+            text: grafiekTitel,
+            //text: "testgrafiek",
+            fontSize: 18
+        },
+        legend: {
+            display: false
+        },
+
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
                 }
+            }],
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        },
+    }
 
-            ]
-        }
-
+    var ctx = $("#barChart");
+    //var ctx = document.getElementById("myChart");
+    var myNewBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: chartOptions,
     });
 
 </script>
-
 
 
 
