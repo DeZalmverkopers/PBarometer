@@ -64,29 +64,29 @@ namespace MVC.Controllers.Api
             }
         }
 
-        //[Authorize]
-        //[Route("api/Grafieken")]
-        //public IHttpActionResult GetGrafieken(int deelplatformId)
-        //{
+        [Authorize]
+        [Route("api/Grafieken")]
+        public IHttpActionResult GetGrafieken(int deelplatformId)
+        {
 
-        //    GrafiekenManager grafiekenManager = new GrafiekenManager();
-        //    List<Grafiek> grafieken = grafiekenManager.GetGrafieken(User.Identity.GetUserId()).ToList();
-        //    if (grafieken == null || grafieken.Count() == 0)
-        //    {
-        //        return StatusCode(HttpStatusCode.NoContent);
-        //    }
-        //    else
-        //    {
-        //        return Ok(grafieken);
-        //    }
-        //}
+            DashboardsManager dashboardsManager = new DashboardsManager();
+            List<Grafiek> grafieken = dashboardsManager.GetDashboardVanGebruikerMetGrafieken(User.Identity.GetUserId(), deelplatformId).Grafieken;
+            if (grafieken == null || grafieken.Count() == 0)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            else
+            {
+                return Ok(grafieken);
+            }
+        }
 
         [Authorize]
         [Route("api/Alerts")]
-        public IHttpActionResult GetAlerts()
+        public IHttpActionResult GetAlerts(int deelplatformId)
         {
             AlertManager alertManager = new AlertManager();
-            List<Alert> alerts = alertManager.GetMobieleAlerts(User.Identity.GetUserId(), true, true).ToList();
+            List<Alert> alerts = alertManager.GetMobieleAlerts(User.Identity.GetUserId(),deelplatformId, true, true).ToList();
             List<AlertDTO> alertDTOs = new List<AlertDTO>();
 
             foreach (var alert in alerts)

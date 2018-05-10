@@ -8,38 +8,42 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-  public class DashboardsManager
-  {
-    private readonly DashboardsRepository repository;
-
-    public DashboardsManager()
+    public class DashboardsManager
     {
-      repository = new DashboardsRepository();
-    }
+        private readonly DashboardsRepository repository;
 
-    public void AddDashboard(Dashboard dashboard)
-    {
-      repository.CreateDashboard(dashboard);
-    }
+        public DashboardsManager()
+        {
+            repository = new DashboardsRepository();
+        }
 
-    public IEnumerable<Dashboard> GetDashboards(bool gebruiker = false, bool grafieken = false)
-    {
-      return repository.ReadDashboards(gebruiker, grafieken);
-    }
+        public void AddDashboard(Dashboard dashboard)
+        {
+            repository.CreateDashboard(dashboard);
+        }
 
-    public Dashboard GetDashboard(int id, bool gebruiker = false, bool grafieken = false)
-    {
-      return repository.ReadDashboard(id, gebruiker, grafieken);
-    }
+        public IEnumerable<Dashboard> GetDashboards(bool gebruiker = false, bool grafieken = false)
+        {
+            return repository.ReadDashboards(gebruiker, grafieken);
+        }
 
-    public void ChangeDashboard(Dashboard dashboard)
-    {
-      repository.UpdateDashboard(dashboard);
-    }
+        public Dashboard GetDashboard(int id, bool gebruiker = false, bool grafieken = false)
+        {
+            return repository.ReadDashboard(id, gebruiker, grafieken);
+        }
+        public Dashboard GetDashboardVanGebruikerMetGrafieken(string gebruikersId, int deelplatformId)
+        {
+            return repository.ReadDashboards(true, true).Where(a =>a.Gebruiker != null && a.Gebruiker.Id.Equals(gebruikersId) && a.DeelplatformId == deelplatformId).FirstOrDefault();
+        }
 
-    public void RemoveDashboard(Dashboard dashboard)
-    {
-      repository.DeleteDashboard(dashboard);
+        public void ChangeDashboard(Dashboard dashboard)
+        {
+            repository.UpdateDashboard(dashboard);
+        }
+
+        public void RemoveDashboard(Dashboard dashboard)
+        {
+            repository.DeleteDashboard(dashboard);
+        }
     }
-  }
 }
