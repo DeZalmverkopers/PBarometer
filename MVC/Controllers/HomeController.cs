@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using BL;
 using MVC.Controllers.Api;
-using MVC.Models;
-using BL.IdentityFramework;
-using MVC.Controllers.Api;
-using BL;
 using Domain.Dashboards;
 using Domain.Gemonitordeitems;
 using System.Linq;
+using Domain.Deelplatformen;
 
 namespace MVC.Controllers
 {
@@ -17,7 +13,10 @@ namespace MVC.Controllers
   {
     public virtual ActionResult Index()
     {
-      return View();
+      DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+      List<Deelplatform> deelplatformen = deelplatformenManager.GetDeelplatformen().ToList();
+      ViewBag.Deelplatformen = deelplatformen;
+      return View(ViewBag);
     }
 
     public virtual ActionResult AddItems()
@@ -54,12 +53,12 @@ namespace MVC.Controllers
       Grafiek grafiek1 = new Grafiek()
       {
         DashboardId = 1,
-        Periode = 4,
+        Periode = 20,
         Titel = "Grafiek van de coole items",
         ToonLegende = true,
         ToonXAs = true,
         ToonYAs = true,
-        Type = GrafiekType.line,
+        Keuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd,
         XOnder = false,
         XOorsprongNul = true,
         XTitel = "Items",
@@ -88,12 +87,12 @@ namespace MVC.Controllers
       Grafiek grafiek2 = new Grafiek()
       {
         DashboardId = 1,
-        Periode = 4,
+        Periode = 20,
         Titel = "Nog een grafiekje van de coole items",
         ToonLegende = true,
         ToonXAs = true,
         ToonYAs = true,
-        Type = GrafiekType.bar,
+        Keuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd,
         XOnder = false,
         XOorsprongNul = true,
         XTitel = "Items",

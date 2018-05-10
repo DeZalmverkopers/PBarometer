@@ -76,14 +76,53 @@ namespace BL
 
           #region Voeg de waarden van de historieken en plaats ze in de Dictionary
           GrafiekWaarde huidigeWaarde = grafiek.Waarden.ElementAt(sleutel);
-          foreach (ItemHistoriek historiek in historieken)
+
+          if (grafiek.Keuze == GrafiekKeuze.EvolutieAantalVermeldingen1Item)
           {
-            if (huidigeWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(historiek.AantalVermeldingen);
-            if (huidigeWaarde == GrafiekWaarde.Polariteit) waarden.Add(historiek.GemPolariteit);
-            if (huidigeWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historiek.GemObjectiviteit);
+            foreach (ItemHistoriek historiek in historieken)
+            {
+              waarden.Add(historiek.AantalVermeldingen);
+              grafiek.XLabels.Add(historiek.HistoriekDatum);
+            }
+            grafiek.Type = GrafiekType.line;
+            grafiek.LegendeLijst.Add(item.Naam);
           }
 
-          grafiek.LegendeLijst.Add(item.Naam + " - " + huidigeWaarde);
+          if (grafiek.Keuze == GrafiekKeuze.VergelijkingItemsDoorheenDeTijd)
+          {
+            foreach (ItemHistoriek historiek in historieken)
+            {
+              if (huidigeWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(historiek.AantalVermeldingen);
+              if (huidigeWaarde == GrafiekWaarde.Polariteit) waarden.Add(historiek.GemPolariteit);
+              if (huidigeWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historiek.GemObjectiviteit);
+              grafiek.XLabels.Add(historiek.HistoriekDatum);
+            }
+            grafiek.Type = GrafiekType.line;
+            grafiek.LegendeLijst.Add(item.Naam + " - " + huidigeWaarde);
+          }
+
+          if (grafiek.Keuze == GrafiekKeuze.VergelijkingItemsOp1Moment)
+          {
+            foreach (ItemHistoriek historiek in historieken)
+            {
+              if (huidigeWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(historiek.AantalVermeldingen);
+              if (huidigeWaarde == GrafiekWaarde.Polariteit) waarden.Add(historiek.GemPolariteit);
+              if (huidigeWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historiek.GemObjectiviteit);
+              grafiek.XLabels.Add(item.Naam);
+            }
+            grafiek.Type = GrafiekType.bar;
+          }
+
+          if (grafiek.Keuze == GrafiekKeuze.KruisingTaart)
+          {
+            grafiek.Type = GrafiekType.pie;
+          }
+
+          if (grafiek.Keuze == GrafiekKeuze.KruisingBar)
+          {
+            grafiek.Type = GrafiekType.bar;
+          }
+
           grafiek.Data.Add(sleutel, waarden);
           //Sleutel verhogen na het toevoegen om bugs te vermijden
           ++sleutel;

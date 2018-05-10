@@ -1,0 +1,65 @@
+﻿<div>
+    <canvas id="lineChartAantalTweets" height="250"></canvas>
+    @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+    @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
+</div>
+
+
+<script>
+
+    @*var labels = @Html.Raw(Json.Encode(ViewBag.Labels));
+    var item1 = @Html.Raw(Json.Encode(ViewBag.Item1Naam));
+    var data1 = @Html.Raw(Json.Encode(ViewBag.Item1Vermeldingen));*@
+
+    var dagen = @Html.Raw(Json.Encode(ViewBag.ItemDagen));
+    var aantalTweets = @Html.Raw(Json.Encode(ViewBag.ItemAantalTweets));
+    var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
+
+
+    var ctx = $("#lineChartAantalTweets");
+    var myLineChart = new Chart(ctx, {
+
+        options: {
+            title: {
+                display: true,
+                text: grafiekTitel + " - aantal tweets",
+                fontSize: 18
+            },
+            legend: {
+                display: false
+            },
+
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }]
+            }
+
+        },
+        type: 'line',
+
+        data: {
+
+        labels: dagen,
+
+        datasets: [
+            {
+                data: aantalTweets,
+                //backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+                bordercolor: ["#3e95cd"],
+                borderWidth: 4
+            }
+
+        ]
+        }
+
+
+    });
+</script>
+
+
+

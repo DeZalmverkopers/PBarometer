@@ -54,10 +54,10 @@ namespace DAL
 
     public Settings ReadSettings()
     {
-      return new Settings(ReadDeelplatform(1).OverzichtAdded, ReadDeelplatform(1).WeeklyReviewAdded);
+      return new Settings(ReadDeelplatform(1).OverzichtAdded, ReadDeelplatform(1).WeeklyReviewAdded, ReadDeelplatform(1).AlertsAdded);
     }
 
-    public void UpdateSettings(bool OverzichtAdded, bool WeeklyReviewAdded)
+    public void UpdateOverzichtAdded(bool OverzichtAdded)
     {
       foreach (Deelplatform deelplatform in ReadDeelplatformen())
       {
@@ -65,6 +65,33 @@ namespace DAL
       }
       context.SaveChanges();
     }
+
+    public void UpdateWeeklyReviewAdded(bool WeeklyReviewAdded)
+    {
+      foreach (Deelplatform deelplatform in ReadDeelplatformen())
+      {
+        context.Entry(deelplatform).State = EntityState.Modified;
+      }
+      context.SaveChanges();
+    }
+
+    public void UpdateAlertsAdded(bool AlertsAdded)
+    {
+      foreach (Deelplatform deelplatform in ReadDeelplatformen())
+      {
+        context.Entry(deelplatform).State = EntityState.Modified;
+      }
+      context.SaveChanges();
+    }
+
+    //public void UpdateSettings(bool OverzichtAdded, bool WeeklyReviewAdded, bool AlertsAdded)
+    //{
+    //  foreach (Deelplatform deelplatform in ReadDeelplatformen())
+    //  {
+    //    context.Entry(deelplatform).State = EntityState.Modified;
+    //  }
+    //  context.SaveChanges();
+    //}
 
     public string ReadAchtergrondkleur()
     {

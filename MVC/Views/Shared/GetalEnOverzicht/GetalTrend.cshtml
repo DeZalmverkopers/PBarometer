@@ -1,27 +1,13 @@
-﻿@{
-    var aantalTweets = 0;
-    var aantalVermeldingen = 0;
-
-    var trendTweets = "neutraal";
-    var trendVermeldingen = "neutraal";
-}
-
-<h3>Item</h3>
+﻿<h3>
+    @ViewBag.ItemNaam
+</h3>
 
 <div>
     <div>
-        Aantal tweets: @aantalTweets
+        Aantal tweets: @ViewBag.ItemVermeldingen
     </div>
     <div>
-        Trend: @trendTweets
+        Trend: @ViewBag.ItemTrend
     </div>
-    <br />
-    <div>
-        Aantal vermeldingen: @aantalVermeldingen
-    </div>
-    <div>
-        Trend: @trendVermeldingen
-    </div>
+
 </div>
-
-
