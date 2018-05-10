@@ -114,7 +114,7 @@ namespace BL.IdentityFramework
       var user = this.FindByName(name);
       if (user == null)
       {
-        user = new ApplicationUser { UserName = name, Email = name, DeelplatformId = 1 };
+        user = new ApplicationUser { UserName = name, Email = name };
         var result = this.Create(user, password);
         result = this.SetLockoutEnabled(user.Id, false);
       }
@@ -138,7 +138,7 @@ namespace BL.IdentityFramework
       user = this.FindByName(name);
       if (user == null)
       {
-        user = new ApplicationUser { UserName = name, Email = name, DeelplatformId = 1 };
+        user = new ApplicationUser { UserName = name, Email = name };
         var result = this.Create(user, password);
         result = this.SetLockoutEnabled(user.Id, false);
       }

@@ -246,11 +246,12 @@ namespace MVC.Controllers
                 Gemeente = persoon.Gemeente,
                 Postcode = persoon.Postcode,
                 Geboortedatum = persoon.Geboortedatum,
-                NaamOrganisatie = persoon.Organisatie.Naam,
                 TwitterHandle = persoon.TwitterHandle,
                 Website = persoon.Website,
                 Id = id
             };
+            persoonViewModel.NaamOrganisatie = persoon.Organisatie?.Naam;
+          
             return View(persoonViewModel);
         }
         [HttpPost]
