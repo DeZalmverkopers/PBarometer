@@ -81,7 +81,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bericht\Bericht.cs" />
     <Compile Include="Dashboards\Alert.cs" />
     <Compile Include="Dashboards\Dashboard.cs" />
     <Compile Include="Dashboards\Grafiek.cs" />
@@ -91,8 +90,6 @@
     <Compile Include="Dashboards\GrafiekWaarde.cs" />
     <Compile Include="Deelplatformen\Deelplatform.cs" />
     <Compile Include="Deelplatformen\Settings.cs" />
-    <Compile Include="Gebruikers\Gebruiker.cs" />
-    <Compile Include="Gebruikers\Rol.cs" />
     <Compile Include="Gemonitordeitems\GekruistItem.cs" />
     <Compile Include="Gemonitordeitems\GemonitordItem.cs" />
     <Compile Include="Gemonitordeitems\DetailItem.cs" />

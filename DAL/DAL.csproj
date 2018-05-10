@@ -79,13 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlertRepository.cs" />
-    <Compile Include="BerichtenRepository.cs" />
     <Compile Include="DashboardsRepository.cs" />
     <Compile Include="DeelplatformenRepository.cs" />
     <Compile Include="EF\DbConfiguration.cs" />
     <Compile Include="EF\DbContext.cs" />
     <Compile Include="EF\DbInitializer.cs" />
-    <Compile Include="GebruikersRepository.cs" />
     <Compile Include="GemonitordeItemsRepository.cs" />
     <Compile Include="GrafiekenRepository.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />

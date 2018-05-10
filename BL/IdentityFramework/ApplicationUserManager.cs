@@ -1,18 +1,25 @@
 ﻿using DAL.EF;
+using Domain.Dashboards;
+using Domain.Deelplatformen;
 using Domain.IdentityFramework;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BL.IdentityFramework
 {
   // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
   public class ApplicationUserManager : UserManager<ApplicationUser>
   {
+    private DeelplatformenManager deelplatformenManager;
+
     public ApplicationUserManager() : base(new UserStore<ApplicationUser>(new DbContext()))
     {
+      deelplatformenManager = new DeelplatformenManager();
       CreateFirstAdmin();
       CreateFirstSuperAdmin();
       CreateUsers();
@@ -20,7 +27,15 @@ namespace BL.IdentityFramework
 
     private void CreateFirstAdmin()
     {
-      //Create User=admin@example.com with password=Admin@123456 in the Admin role        
+      //Create User=admin@example.com with password=Admin@123456 in the Admin role
+
+      List<Deelplatform> deelplatformen = deelplatformenManager.GetDeelplatformen().ToList();
+      List<Dashboard> dashboards = new List<Dashboard>();
+
+      foreach (Deelplatform deelplatform in deelplatformen)
+      {
+        dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
+      }
 
       var roleManager = new ApplicationRoleManager();
       const string name = "admin@example.com";
@@ -38,7 +53,7 @@ namespace BL.IdentityFramework
       var user = this.FindByName(name);
       if (user == null)
       {
-                user = new ApplicationUser { UserName = name, Email = name };
+        user = new ApplicationUser { UserName = name, Email = name, Dashboards = dashboards };
         var result = this.Create(user, password);
         result = this.SetLockoutEnabled(user.Id, false);
       }
@@ -54,6 +69,14 @@ namespace BL.IdentityFramework
     private void CreateFirstSuperAdmin()
     {
       //Create User=superadmin@example.com with password=SuperAdmin@123456 in the SuperAdmin role        
+
+      List<Deelplatform> deelplatformen = deelplatformenManager.GetDeelplatformen().ToList();
+      List<Dashboard> dashboards = new List<Dashboard>();
+
+      foreach (Deelplatform deelplatform in deelplatformen)
+      {
+        dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
+      }
 
       var roleManager = new ApplicationRoleManager();
       const string name = "superadmin@example.com";
@@ -79,7 +102,7 @@ namespace BL.IdentityFramework
       var user = this.FindByName(name);
       if (user == null)
       {
-        user = new ApplicationUser { UserName = name, Email = name };
+        user = new ApplicationUser { UserName = name, Email = name, Dashboards = dashboards };
         var result = this.Create(user, password);
         result = this.SetLockoutEnabled(user.Id, false);
       }
@@ -99,6 +122,14 @@ namespace BL.IdentityFramework
 
     private void CreateUsers()
     {
+      List<Deelplatform> deelplatformen = deelplatformenManager.GetDeelplatformen().ToList();
+      List<Dashboard> dashboards = new List<Dashboard>();
+
+      foreach (Deelplatform deelplatform in deelplatformen)
+      {
+        dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
+      }
+
       var roleManager = new ApplicationRoleManager();
       string name = "jelle@example.com";
       string password = "Jelle@123456";
@@ -114,7 +145,7 @@ namespace BL.IdentityFramework
       var user = this.FindByName(name);
       if (user == null)
       {
-        user = new ApplicationUser { UserName = name, Email = name, DeelplatformId = 1 };
+        user = new ApplicationUser { UserName = name, Email = name, Dashboards = dashboards };
         var result = this.Create(user, password);
         result = this.SetLockoutEnabled(user.Id, false);
       }
@@ -138,7 +169,7 @@ namespace BL.IdentityFramework
       user = this.FindByName(name);
       if (user == null)
       {
-        user = new ApplicationUser { UserName = name, Email = name, DeelplatformId = 1 };
+        user = new ApplicationUser { UserName = name, Email = name, Dashboards = dashboards };
         var result = this.Create(user, password);
         result = this.SetLockoutEnabled(user.Id, false);
       }
