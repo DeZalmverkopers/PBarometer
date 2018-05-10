@@ -11,8 +11,9 @@ namespace Domain.IdentityFramework
 {
   public class ApplicationUser : IdentityUser
   {
-    
-    public List<Dashboard> Dashboards { get; set; }
+    public Deelplatform Deelplatform { get; set; }
+    public int? DeelplatformId { get; set; }
+    public Dashboard Dashboard { get; set; }
     public int DashboardId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -20,7 +21,7 @@ namespace Domain.IdentityFramework
 
     public ApplicationUser()
     {
-      Dashboards = new List<Dashboard>();
+      Dashboard = new Dashboard();
       //Alerts = new List<Alert>();
     }
 
