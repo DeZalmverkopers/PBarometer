@@ -1,5 +1,4 @@
-﻿using Domain.Deelplatformen;
-using Domain.Gebruikers;
+﻿using Domain.Gebruikers;
 using Domain.Gemonitordeitems;
 using Domain.IdentityFramework;
 using System;
@@ -74,8 +73,6 @@ namespace Domain.Dashboards
         public int GemonitordItemId { get; set; }
         public GemonitordItem GemonitordItem { get; set; }
         public ApplicationUser Gebruiker { get; set; }
-        public int DeelplatformId { get; set; }
-        public Deelplatform Deelplatform { get; set; }
 
         public Alert()
         {

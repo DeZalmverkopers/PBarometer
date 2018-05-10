@@ -35,18 +35,18 @@ namespace BL
             return repository.ReadAlerts(gebruiker, gemonitordItem);
         }
 
-        public IEnumerable<Alert> GetAlerts(string userId, int deelplatformId)
+        public IEnumerable<Alert> GetAlerts(string userId, bool gebruiker = false, bool gemonitordItem = false)
         {
             InitNonExistingRepo();
 
-            return repository.ReadAlerts(true, true).Where(a => a.Gebruiker != null && a.Gebruiker.Id.Equals(userId) && a.DeelplatformId == deelplatformId);
+            return repository.ReadAlerts(gebruiker, gemonitordItem).Where(a => a.Gebruiker != null && a.Gebruiker.Id.Equals(userId));
         }
 
-        public IEnumerable<Alert> GetMobieleAlerts(string userId, int deelplatformId, bool gebruiker = false, bool gemonitordItem = false)
+        public IEnumerable<Alert> GetMobieleAlerts(string userId, bool gebruiker = false, bool gemonitordItem = false)
         {
             InitNonExistingRepo();
 
-            return repository.ReadAlerts(gebruiker, gemonitordItem).Where(a => a.Mobiel && a.Gebruiker != null && a.Gebruiker.Id.Equals(userId) && a.DeelplatformId == deelplatformId);
+            return repository.ReadAlerts(gebruiker, gemonitordItem).Where(a => a.Mobiel && a.Gebruiker != null && a.Gebruiker.Id.Equals(userId));
         }
 
         public Alert GetAlert(int id, bool gebruiker = false, bool gemonitordItem = false)
