@@ -54,13 +54,14 @@ namespace DAL.EF
       modelBuilder.Entity<IdentityUserLogin>().HasKey(l => l.UserId);
       modelBuilder.Entity<IdentityRole>().HasKey(r => r.Id);
       modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+       
 
       //Foreign keys
       //modelBuilder.Entity<Alert>().HasRequired(alert => alert.Gebruiker).WithMany(gebruiker => gebruiker.Alerts);
       //modelBuilder.Entity<Gebruiker>().HasMany(gebruiker => gebruiker.Alerts).WithRequired(alert => alert.Gebruiker);
 
       //  modelBuilder.Entity<Alert>().HasRequired(alert => alert.GemonitordItem).WithMany(gemonitordItem => gemonitordItem.Alerts);
-      //  modelBuilder.Entity<GemonitordItem>().HasMany(gemonitordItem => gemonitordItem.Alerts).WithRequired(alert => alert.GemonitordItem);
+      modelBuilder.Entity<GemonitordItem>().HasMany(gemonitordItem => gemonitordItem.Alerts).WithRequired(alert => alert.GemonitordItem).WillCascadeOnDelete(true);
       //modelBuilder.Entity<ApplicationUser>().HasOptional(gebruiker => gebruiker.Dashboard).WithRequired(dashboard => dashboard.Gebruiker);
 
       //  modelBuilder.Entity<Dashboard>().HasMany(dashboard => dashboard.Grafieken).WithRequired(grafiek => grafiek.Dashboard);

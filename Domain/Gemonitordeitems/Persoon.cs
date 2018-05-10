@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,5 +16,7 @@ namespace Domain.Gemonitordeitems
         public string Postcode { get; set; }
         public string Gemeente { get; set; }
         public Organisatie Organisatie { get; set; }
+        [ForeignKey("Organisatie")]
+        public int? OrganisatieId { get; set; }
     }
 }
