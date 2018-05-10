@@ -1,7 +1,5 @@
-﻿using Domain.Bericht;
-using Domain.Dashboards;
+﻿using Domain.Dashboards;
 using Domain.Deelplatformen;
-using Domain.Gebruikers;
 using Domain.Gemonitordeitems;
 using Domain.IdentityFramework;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -17,10 +15,6 @@ namespace DAL.EF
     private readonly bool delaySave;
 
     //Database Sets
-    public DbSet<Bericht> Berichten { get; set; }
-
-    public DbSet<Gebruiker> Gebruikers { get; set; }
-
     public DbSet<Alert> Alerts { get; set; }
     public DbSet<Dashboard> Dashboards { get; set; }
     public DbSet<Grafiek> Grafieken { get; set; }
@@ -42,11 +36,9 @@ namespace DAL.EF
 
       //Tabelnamen
       modelBuilder.Entity<Alert>().ToTable("Alerts");
-      modelBuilder.Entity<Bericht>().ToTable("Berichten");
       modelBuilder.Entity<Dashboard>().ToTable("Dashboards");
       modelBuilder.Entity<Grafiek>().ToTable("Grafieken");
       modelBuilder.Entity<GrafiekItem>().ToTable("GrafiekDetails");
-      modelBuilder.Entity<Gebruiker>().ToTable("Gebruikers");
       modelBuilder.Entity<DetailItem>().ToTable("DetailItems");
       modelBuilder.Entity<GemonitordItem>().ToTable("GemonitordeItems");
       modelBuilder.Entity<ItemHistoriek>().ToTable("ItemHistorieken");

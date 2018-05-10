@@ -11,6 +11,7 @@ using MVC.Models;
 using Domain.Dashboards;
 using Domain.Deelplatformen;
 using System.Collections.Generic;
+using BL;
 
 namespace MVC.Controllers
 {
@@ -102,8 +103,12 @@ namespace MVC.Controllers
         var user = UserManager.FindByEmail(model.Email);
         if (ModelState.IsValid && user == null && model != null)
         {
-          var newUser = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName,
-            DashboardId = 1, DeelplatformId = 1 };
+          var newUser = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+          DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+          foreach (var item in deelplatformenManager.GetDeelplatformen())
+          {
+            newUser.Dashboards.Add(new Dashboard() { DeelplatformId = item.DeelplatformId });
+          }
           var userResult = await UserManager.CreateAsync(newUser, model.Password);
           if (userResult.Succeeded)
           {

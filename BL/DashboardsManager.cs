@@ -31,6 +31,10 @@ namespace BL
     {
       return repository.ReadDashboard(id, gebruiker, grafieken);
     }
+    public Dashboard GetDashboardVanGebruikerMetGrafieken(string gebruikersId, int deelplatformId)
+    {
+      return repository.ReadDashboards(true, true).Where(a => a.Gebruiker != null && a.Gebruiker.Id.Equals(gebruikersId) && a.DeelplatformId == deelplatformId).FirstOrDefault();
+    }
 
     public void ChangeDashboard(Dashboard dashboard)
     {

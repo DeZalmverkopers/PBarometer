@@ -11,18 +11,15 @@ namespace Domain.IdentityFramework
 {
   public class ApplicationUser : IdentityUser
   {
-    public Deelplatform Deelplatform { get; set; }
-    public int? DeelplatformId { get; set; }
-    public Dashboard Dashboard { get; set; }
-    public int DashboardId { get; set; }
+    public List<Dashboard> Dashboards { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public List<Alert> Alerts { get; set; }
 
     public ApplicationUser()
     {
-      Dashboard = new Dashboard();
-      //Alerts = new List<Alert>();
+      Dashboards = new List<Dashboard>();
+      Alerts = new List<Alert>();
     }
 
     public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
