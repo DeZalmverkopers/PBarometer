@@ -105,12 +105,13 @@ namespace MVC.Controllers.Api
             }
         }
 
+
         [Authorize]
         [Route("api/Alerts")]
-        public IHttpActionResult GetAlerts(int deelplatformId)
+        public IHttpActionResult GetAlerts()
         {
             AlertManager alertManager = new AlertManager();
-            List<Alert> alerts = alertManager.GetMobieleAlerts(User.Identity.GetUserId(),deelplatformId, true, true).ToList();
+            List<Alert> alerts = alertManager.GetMobieleAlerts(User.Identity.GetUserId(), true, true).ToList();
             List<AlertDTO> alertDTOs = new List<AlertDTO>();
 
             foreach (var alert in alerts)

@@ -14,12 +14,36 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
+
+
+                @*<span class="noti glyphicon glyphicon-bell"><span class="count">&nbsp;</span></span>*@
+                <span class="noti glyphicon glyphicon-bell" id="alertID" onclick="location.href='@Url.Action("Index", "Alerts")'"><span class="count">&nbsp;</span></span>
+
+                @*<div class="noti-content onzichtbaar" id="alertInhoudID">
+                <div class="noti-top-arrow"></div>
+                <ul id="notiContent">
+                    <li>dummy</li>
+                    <li>dummy</li>
+                    <li>dummy</li>
+                    <li>dummy</li>
+                    <li>dummy</li>
+                    <li>dummy</li>
+                    <li>dummy</li>
+                    <li>dummy</li>
+                    <li>dummy</li>
+                    <li>dummy</li>
+                </ul>
+            </div>*@
+
+
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+
                 </button>
 
+                @* @Html.ActionLink("Home", MVC.Home.Index(), new { @class = "navbar-brand" })*@
                 @Html.ActionLink("Home", "Index", "Home", null, new { @class = "navbar-brand" })
 
 
@@ -31,24 +55,23 @@
 
 
                     @*@if ((bool?)ViewBag.OverzichtAdded == true)
-                        {*@
+                {*@
                     <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
 
 
                     @*@if ((bool?)ViewBag.WeeklyReviewAdded == true)
-                        {*@
+                {*@
                     <li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>
 
-
-                   @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                    @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
                     {
-                        <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
+                    <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
                     }
                     else
                     {
                         if (User.IsInRole("Admin"))
                         {
-                            <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
                         }
                     }
 
@@ -63,20 +86,21 @@
 
                     @if (!Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Inloggen", "Login", "Account")</li>
+                    <li>@Html.ActionLink("Inloggen", "Login", "Account")</li>
 
-                        <li>@Html.ActionLink("Registreren", "Register", "Account")</li>
+                    <li>@Html.ActionLink("Registreren", "Register", "Account")</li>
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
+                    @*<li>@Html.ActionLink("Profiel", MVC.Profiel.Index())</li>*@
+                    <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
 
                         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                         {
-                            @Html.AntiForgeryToken()
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Uitloggen</a></li>
-                            </ul>
+                        @Html.AntiForgeryToken()
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Uitloggen</a></li>
+                        </ul>
                         }
 
                     }

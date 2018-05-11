@@ -11,7 +11,6 @@ namespace Domain.IdentityFramework
 {
   public class ApplicationUser : IdentityUser
   {
-    
     public List<Dashboard> Dashboards { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -20,7 +19,7 @@ namespace Domain.IdentityFramework
     public ApplicationUser()
     {
       Dashboards = new List<Dashboard>();
-      //Alerts = new List<Alert>();
+      Alerts = new List<Alert>();
     }
 
     public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

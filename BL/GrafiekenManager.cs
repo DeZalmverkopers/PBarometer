@@ -35,7 +35,7 @@ namespace BL
     {
       InitNonExistingRepo();
       GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
-      List<GemonitordItem> alleItems = itemManager.GetGemonitordeItems(deelplatformId, true).ToList();
+      List<GemonitordItem> alleItems = itemManager.GetGemonitordeItems(deelplatformId).ToList();
       List<Grafiek> grafieken = repository.ReadGrafieken(dashboardId, dashboard, items).ToList();
 
       foreach (Grafiek grafiek in grafieken)
