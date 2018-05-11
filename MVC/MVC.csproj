@@ -224,6 +224,7 @@
     <Compile Include="Controllers\GemonitordItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Android\DeelplatformDTO.cs" />
+    <Compile Include="Models\Android\GrafiekDTO.cs" />
     <Compile Include="Models\Overzicht\OrganisatieViewModel.cs" />
     <Compile Include="Controllers\OverzichtController.cs" />
     <Compile Include="Controllers\ProfielController.cs" />

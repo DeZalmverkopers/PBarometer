@@ -14,12 +14,10 @@ namespace Domain.Deelplatformen
     public byte[] Afbeelding { get; set; }
     public string Achtergrondkleur { get; set; }
 
-    public List<ApplicationUser> Gebruikers { get; set; }
     public List<GemonitordItem> GemonitordeItems { get; set; }
 
     public Deelplatform()
     {
-      Gebruikers = new List<ApplicationUser>();
       GemonitordeItems = new List<GemonitordItem>();
     }
     public bool OverzichtAdded { get; set; }

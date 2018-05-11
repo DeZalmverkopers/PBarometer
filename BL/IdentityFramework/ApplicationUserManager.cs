@@ -12,6 +12,7 @@ using System.Linq;
 
 namespace BL.IdentityFramework
 {
+
   // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
   public class ApplicationUserManager : UserManager<ApplicationUser>
   {
@@ -226,6 +227,6 @@ namespace BL.IdentityFramework
             new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
       }
       return manager;
+
     }
-  }
 }

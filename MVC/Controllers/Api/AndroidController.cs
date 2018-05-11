@@ -43,43 +43,67 @@ namespace MVC.Controllers.Api
                 List<DeelplatformDTO> deelplatformDTOs = new List<DeelplatformDTO>();
                 foreach (var deelplatform in deelplatformen)
                 {
-                    deelplatformDTOs.Add(new DeelplatformDTO() { Naam = deelplatform.Naam, Id = deelplatform.DeelplatformId });
+                    deelplatformDTOs.Add(new DeelplatformDTO() { Naam = deelplatform.Naam, Id = deelplatform.DeelplatformId, Afbeelding = deelplatform.Afbeelding });
                 }
                 return Ok(deelplatformen);
             }
         }
 
-        [Route("api/DeelplatformenAfbeelding")]
-        public IHttpActionResult GetDeelplatformAfbeelding(int deelplatformId)
-        {
-            DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
-            Deelplatform deelplatform = deelplatformenManager.GetDeelplatform(deelplatformId);
-            if (deelplatform == null)
-            {
-                return StatusCode(HttpStatusCode.NoContent);
-            }
-            else
-            {
-                return Ok(deelplatform.Afbeelding);
-            }
-        }
-
-        //[Authorize]
-        //[Route("api/Grafieken")]
-        //public IHttpActionResult GetGrafieken(int deelplatformId)
+        //[Route("api/DeelplatformenAfbeelding")]
+        //public IHttpActionResult GetDeelplatformAfbeelding(int deelplatformId)
         //{
-
-        //    GrafiekenManager grafiekenManager = new GrafiekenManager();
-        //    List<Grafiek> grafieken = grafiekenManager.GetGrafieken(User.Identity.GetUserId()).ToList();
-        //    if (grafieken == null || grafieken.Count() == 0)
+        //    DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+        //    Deelplatform deelplatform = deelplatformenManager.GetDeelplatform(deelplatformId);
+        //    if (deelplatform == null)
         //    {
         //        return StatusCode(HttpStatusCode.NoContent);
         //    }
         //    else
         //    {
-        //        return Ok(grafieken);
+        //        return Ok(deelplatform.Afbeelding);
         //    }
         //}
+
+        [Authorize]
+        [Route("api/Grafieken")]
+       public IHttpActionResult GetGrafieken(int deelplatformId)
+        {
+            DashboardsManager dashboardsManager = new DashboardsManager();
+            List<Grafiek> grafieken = dashboardsManager.GetDashboardVanGebruikerMetGrafieken(User.Identity.GetUserId(), deelplatformId).Grafieken;
+            List<GrafiekDTO> grafiekDTOs = new List<GrafiekDTO>();
+            if (grafieken == null || grafieken.Count() == 0)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            else
+            {
+                foreach (var grafiek in grafieken)
+                {
+                    grafiekDTOs.Add(new GrafiekDTO()
+                    {
+                        GrafiekId = grafiek.GrafiekId,
+                        Data = grafiek.Data,
+                        Keuze = grafiek.Keuze.ToString(),
+                        LegendeLijst = grafiek.LegendeLijst,
+                        Periode = grafiek.Periode,
+                        Titel = grafiek.Titel,
+                        ToonLegende = grafiek.ToonLegende,
+                        ToonXAs = grafiek.ToonXAs,
+                        ToonYAs = grafiek.ToonYAs,
+                        Type = grafiek.Type.ToString(),
+                        XTitel = grafiek.XTitel,
+                        YTitel = grafiek.YTitel,
+                        YOorsprongNul = grafiek.YOorsprongNul,
+                        XLabels = grafiek.XLabels,
+                        XOnder = grafiek.XOnder,
+                        XOorsprongNul = grafiek.XOorsprongNul,
+                        Waarden = grafiek.Waarden.Select(a => a.ToString()).ToList()
+                    });
+                }
+                return Ok(grafiekDTOs);
+            }
+        }
+
 
         [Authorize]
         [Route("api/Alerts")]
