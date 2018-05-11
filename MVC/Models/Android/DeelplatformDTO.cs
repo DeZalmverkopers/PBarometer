@@ -9,5 +9,6 @@ namespace MVC.Models.Android
     {
         public string Naam { get; set; }
         public int Id { get; set; }
+        public byte[] Afbeelding { get; set; }
     }
 }

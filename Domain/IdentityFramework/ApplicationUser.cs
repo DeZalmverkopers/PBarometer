@@ -13,7 +13,6 @@ namespace Domain.IdentityFramework
   {
     
     public List<Dashboard> Dashboards { get; set; }
-    public int DashboardId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public List<Alert> Alerts { get; set; }
