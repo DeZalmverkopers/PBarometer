@@ -45,7 +45,7 @@ namespace MVC.Controllers.Api
                 {
                     deelplatformDTOs.Add(new DeelplatformDTO() { Naam = deelplatform.Naam, Id = deelplatform.DeelplatformId, Afbeelding = deelplatform.Afbeelding });
                 }
-                return Ok(deelplatformen);
+                return Ok(deelplatformDTOs);
             }
         }
 
