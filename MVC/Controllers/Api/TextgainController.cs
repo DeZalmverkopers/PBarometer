@@ -1,5 +1,4 @@
 ﻿using BL;
-using Domain.Bericht;
 using Domain.Deelplatformen;
 using Domain.Gemonitordeitems;
 using Newtonsoft.Json;

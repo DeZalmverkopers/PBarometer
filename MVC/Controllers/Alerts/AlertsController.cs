@@ -31,7 +31,7 @@ namespace MVC.Controllers
     //GET: Alerts
     public virtual ActionResult Index()
     {
-      List<Alert> alerts = alertManager.GetAlerts(User.Identity.GetUserId(), 1).ToList();
+      List<Alert> alerts = alertManager.GetAlerts(User.Identity.GetUserId(), true, true).ToList();
       if (alerts.Count > 0)
       {
         List<AlertViewModel> alertViewModels = new List<AlertViewModel>();
