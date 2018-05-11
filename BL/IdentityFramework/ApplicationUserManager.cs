@@ -155,6 +155,12 @@ namespace BL.IdentityFramework
         var result = this.AddToRole(user.Id, role.Name);
       }
 
+      dashboards = new List<Dashboard>();
+      foreach (Deelplatform deelplatform in deelplatformen)
+      {
+        dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
+      }
+
       name = "bart@example.com";
       password = "Bart@123456";
       rolename = "Gebruiker";

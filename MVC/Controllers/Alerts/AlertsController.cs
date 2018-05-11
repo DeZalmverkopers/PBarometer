@@ -86,7 +86,8 @@ namespace MVC.Controllers
         Mail = createBasicAlertViewModel.Mail,
         Mobiel = createBasicAlertViewModel.Mobiel,
         Geactiveerd = true,
-        EenvoudigeAlert = true
+        EenvoudigeAlert = true,
+        DeelplatformId = 1
       };
       Trend trend;
       switch (createBasicAlertViewModel.Trend)

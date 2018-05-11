@@ -20,15 +20,16 @@ namespace MVC.Controllers
     List<GemonitordItem> items;
     List<Thema> themas;
     HomeController homeController = new HomeController();
+    int deelplatform;
 
     // GET: Dashboard
-    public virtual ActionResult Index()
+    public virtual ActionResult Index(int id)
     {
       //homeController.GetData();
       //GetData();
-
+      deelplatform = id;
       GrafiekenManager grafiekenManager = new GrafiekenManager();
-      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(1, 1, true, true);
+      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(id, 1, true, true);
 
       //List<string> grafieken = new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
       ViewBag.Grafieken = grafieken;
