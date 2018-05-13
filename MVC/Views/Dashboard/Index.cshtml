@@ -18,6 +18,32 @@
 
     </div>
 
+
+    @*@for (int i = 1; i < ViewBag.Grafieken.Count + 1; i++)
+        {
+
+                <div class="col-md-6">
+                    @if (i % 2 != 0)
+                    {
+                        @ViewBag.Grafieken[i - 1]
+                        
+                        @*<canvas id=@ViewBag.GafiekId></canvas>
+
+                    }
+
+                </div>
+
+                <div class="col-md-6">
+
+                    @if (i % 2 == 0)
+                    {
+                        @ViewBag.Grafieken[i - 1]
+                    }
+
+                </div>
+
+        }*@
+
 </div>
 
 
@@ -51,24 +77,24 @@
 
 
 
-@section scripts {
 
-    <script src="~/Scripts/Chart.js"></script>
-    <script src="~/Scripts/Common.js"></script>
-
-
-    @Html.Partial("~/Views/Shared/Grafieken/Grafieken.cshtml")
-    <script src="~/Scripts/EigenScripts.js"></script>
+@*<script src="~/Scripts/Chart.js"></script>
+<script src="~/Scripts/Common.js"></script>
 
 
-    <script type="text/javascript">
+@Html.Partial("~/Views/Shared/Grafieken/Grafieken.cshtml")
+<script src="~/Scripts/EigenScripts.js"></script>*@
+
+
+<script type="text/javascript">
             $("#btnToevoegen").click(function () {
                 $.get('@Url.Action("LaadElementToevoegen", "Dashboard")', {}, function (resultaat) {
                     $("#divElementToevoegen").html(resultaat);
             });
             });
-    </script>
+</script>
 
-}
+
+
 
 

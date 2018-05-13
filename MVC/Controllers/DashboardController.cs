@@ -20,17 +20,47 @@ namespace MVC.Controllers
     List<GemonitordItem> items;
     List<Thema> themas;
     HomeController homeController = new HomeController();
+    int deelplatform;
 
     // GET: Dashboard
-    public virtual ActionResult Index()
+    public virtual ActionResult Index(int id)
     {
       //homeController.GetData();
       //GetData();
-
+      deelplatform = id;
       GrafiekenManager grafiekenManager = new GrafiekenManager();
-      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(1, 1, true, true);
+      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(id, 1, true, true);
 
+      //List<string> grafieken = new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
       ViewBag.Grafieken = grafieken;
+
+      //foreach (var grafiek in grafieken)
+      //{
+      //  ViewBag.GrafiekId = grafiek.GrafiekId;
+      //  ViewBag.Titel = grafiek.Titel;
+      //  ViewBag.ToonLegende = grafiek.ToonLegende;
+      //  ViewBag.ToonXas = grafiek.ToonXAs;
+      //  ViewBag.ToonYAs = grafiek.ToonYAs;
+      //  ViewBag.XOorsprongNul = grafiek.XOorsprongNul;
+      //  ViewBag.YOorsprongNul = grafiek.YOorsprongNul;
+      //  ViewBag.XTitel = grafiek.XTitel;
+      //  ViewBag.YTitel = grafiek.YTitel;
+      //  ViewBag.XOnder = grafiek.XOnder;
+      //  ViewBag.LegendeLijst = grafiek.LegendeLijst;
+
+      //  ViewBag.XLabels = grafiek.XLabels;
+      //  ViewBag.Periode = grafiek.Periode;
+
+      //  ViewBag.Type = grafiek.Type;
+
+      //  ViewBag.Keuze = grafiek.Keuze;
+      //  ViewBag.Dashboard = grafiek.Dashboard;
+      //  ViewBag.DashboardId = grafiek.DashboardId;
+      //  ViewBag.Items = grafiek.Items;
+      //  ViewBag.GrafiekItems = grafiek.GrafiekItems;
+      //  ViewBag.Waarden = grafiek.Waarden;
+
+      //}
 
       return View();
     }
@@ -107,40 +137,40 @@ namespace MVC.Controllers
 
       ViewBag.Organisaties = selects;
 
-      List<SelectListItem> liGrafiekType = new List<SelectListItem>
-      {
-        new SelectListItem { Text = "Staafdiagram", Value = "staafdiagram" },
-        new SelectListItem { Text = "Taartdiagram", Value = "taartdiagram" },
-        new SelectListItem { Text = "Lijndiagram", Value = "lijndiagram" }
-      };
-      ViewBag.Grafiektypes = liGrafiekType;
+      //List<SelectListItem> liGrafiekType = new List<SelectListItem>
+      //{
+      //  new SelectListItem { Text = "Staafdiagram", Value = "staafdiagram" },
+      //  new SelectListItem { Text = "Taartdiagram", Value = "taartdiagram" },
+      //  new SelectListItem { Text = "Lijndiagram", Value = "lijndiagram" }
+      //};
+      //ViewBag.Grafiektypes = liGrafiekType;
 
-      List<SelectListItem> liX = new List<SelectListItem>
-      {
-        new SelectListItem { Text = "test1", Value = "test1" },
-        new SelectListItem { Text = "test2", Value = "test2" },
-        new SelectListItem { Text = "test3", Value = "test3" },
-        new SelectListItem { Text = "test4", Value = "test4" },
-        new SelectListItem { Text = "test5", Value = "test5" }
-      };
-      ViewBag.XWaarden = liX;
+      //List<SelectListItem> liX = new List<SelectListItem>
+      //{
+      //  new SelectListItem { Text = "test1", Value = "test1" },
+      //  new SelectListItem { Text = "test2", Value = "test2" },
+      //  new SelectListItem { Text = "test3", Value = "test3" },
+      //  new SelectListItem { Text = "test4", Value = "test4" },
+      //  new SelectListItem { Text = "test5", Value = "test5" }
+      //};
+      //ViewBag.XWaarden = liX;
 
-      List<SelectListItem> liY = new List<SelectListItem>
-      {
-        new SelectListItem { Text = "dummy1", Value = "test1" },
-        new SelectListItem { Text = "dummy2", Value = "test2" },
-        new SelectListItem { Text = "dummy3", Value = "test3" },
-        new SelectListItem { Text = "dummy4", Value = "test4" },
-        new SelectListItem { Text = "dummy5", Value = "test5" }
-      };
-      ViewBag.YWaarden = liY;
+      //List<SelectListItem> liY = new List<SelectListItem>
+      //{
+      //  new SelectListItem { Text = "dummy1", Value = "test1" },
+      //  new SelectListItem { Text = "dummy2", Value = "test2" },
+      //  new SelectListItem { Text = "dummy3", Value = "test3" },
+      //  new SelectListItem { Text = "dummy4", Value = "test4" },
+      //  new SelectListItem { Text = "dummy5", Value = "test5" }
+      //};
+      //ViewBag.YWaarden = liY;
 
-      List<SelectListItem> schaalopties = new List<SelectListItem>
-      {
-        new SelectListItem { Text = "dagen", Value = "dagen" },
-        new SelectListItem { Text = "weken", Value = "weken" },
-      };
-      ViewBag.Schaalopties = schaalopties;
+      //List<SelectListItem> schaalopties = new List<SelectListItem>
+      //{
+      //  new SelectListItem { Text = "dagen", Value = "dagen" },
+      //  new SelectListItem { Text = "weken", Value = "weken" },
+      //};
+      //ViewBag.Schaalopties = schaalopties;
 
       return PartialView("~/Views/Shared/Dashboard/ElementToevoegen.cshtml", ViewBag);
 
@@ -253,6 +283,8 @@ namespace MVC.Controllers
     public virtual ActionResult LaadOrganisaties1Item()
     {
       LaadItem(itemManager.GetOrganisaties(1).ToList());
+
+
 
       ViewBag.Organisaties = selects;
 

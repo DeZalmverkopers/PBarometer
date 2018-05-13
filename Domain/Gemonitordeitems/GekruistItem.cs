@@ -10,7 +10,7 @@ namespace Domain.Gemonitordeitems
 
     public override void BerekenEigenschappen()
     {
-      DetailItems = Item1.DetailItems.Concat(Item2.DetailItems).ToList();
+      DetailItems = Item1.DetailItems.Intersect(Item2.DetailItems).ToList();
       base.BerekenEigenschappen();
     }
   }

@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace DAL.EF
 {
-  internal class DbInitializer : DropCreateDatabaseIfModelChanges<DbContext>
+  internal class DbInitializer : DropCreateDatabaseAlways<DbContext>
   {
     protected override void Seed(DbContext context)
     {

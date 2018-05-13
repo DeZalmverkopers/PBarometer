@@ -1,5 +1,4 @@
 ﻿using BL;
-using Domain.Bericht;
 using Domain.Deelplatformen;
 using Domain.Gemonitordeitems;
 using Newtonsoft.Json;
@@ -44,7 +43,7 @@ namespace MVC.Controllers.Api
         themaDict.Add(thema.Naam, thema.KernWoorden);
       }
       string themaDictJson = JsonConvert.SerializeObject(themaDict);
-      string uri = "http://kdg.textgain.com/query";
+      string uri = "https://kdg.textgain.com/query";
       List<GemonitordItem> personen = gemonitordeItemsManager.GetPersonen(deelplatform.DeelplatformId).ToList();
       List<DetailItem> detailItems = new List<DetailItem>();
 

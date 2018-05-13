@@ -1,6 +1,5 @@
 ﻿//Bart
 using DAL;
-using Domain.Bericht;
 using Domain.Gemonitordeitems;
 using System;
 using System.Collections.Generic;
@@ -32,22 +31,35 @@ namespace BL
       return repository.ReadPersoon(id, organisatie);
     }
 
-    public IEnumerable<GemonitordItem> GetGemonitordeItems(int deelplatformId, bool grafieken = false)
+    public IEnumerable<GemonitordItem> GetGemonitordeItems(int deelplatformId)
     {
       InitNonExistingRepo();
-      return repository.ReadGemonitordeItems(grafieken).Where(a => a.DeelplatformId == deelplatformId);
+      return repository.ReadGemonitordeItems().Where(a => a.DeelplatformId == deelplatformId);
     }
 
-    public IEnumerable<GemonitordItem> GetPersonen(int deelplatformId, bool grafieken = false)
+    public IEnumerable<GemonitordItem> GetPersonen(int deelplatformId)
     {
       InitNonExistingRepo();
-      return repository.ReadGemonitordeItems(grafieken).Where(a => a is Persoon && a.DeelplatformId == deelplatformId);
+      return repository.ReadGemonitordeItems().Where(a => a is Persoon && a.DeelplatformId == deelplatformId);
     }
 
-    public IEnumerable<GemonitordItem> GetOrganisaties(int deelplatformId, bool grafieken = false)
+    public IEnumerable<Persoon> GetPersonen(int deelplatformId, List<string> personen)
     {
       InitNonExistingRepo();
-      return repository.ReadGemonitordeItems(grafieken).Where(a => a is Organisatie && a.DeelplatformId == deelplatformId);
+      List<Persoon> gemonitordeItems = new List<Persoon>();
+      var allePersonen = repository.ReadGemonitordeItems().Where(a => a is Persoon && a.DeelplatformId == deelplatformId);
+      foreach (var persoon in personen)
+      {
+        gemonitordeItems.Add(allePersonen.FirstOrDefault(a => a.Naam.Equals(persoon)) as Persoon);
+      }
+      return gemonitordeItems;
+
+    }
+
+    public IEnumerable<GemonitordItem> GetOrganisaties(int deelplatformId)
+    {
+      InitNonExistingRepo();
+      return repository.ReadGemonitordeItems().Where(a => a is Organisatie && a.DeelplatformId == deelplatformId);
     }
 
     //public IEnumerable<GemonitordItem> GetThemas(int deelplatformId, bool grafieken = false)
@@ -56,16 +68,16 @@ namespace BL
     //  return repository.ReadGemonitordeItems(grafieken).Where(a => a is Thema && a.DeelplatformId == deelplatformId);
     //}
 
-    public IEnumerable<Thema> GetThemas(int deelplatformId, bool grafieken = false)
+    public IEnumerable<Thema> GetThemas(int deelplatformId)
     {
       InitNonExistingRepo();
-      return repository.ReadGemonitordeItems(grafieken).Where(a => a is Thema && a.DeelplatformId == deelplatformId).Cast<Thema>();
+      return repository.ReadGemonitordeItems().Where(a => a is Thema && a.DeelplatformId == deelplatformId).Cast<Thema>();
     }
 
-    public GemonitordItem GetGemonitordItem(int id, bool grafieken = false)
+    public GemonitordItem GetGemonitordItem(int id)
     {
       InitNonExistingRepo();
-      return repository.ReadGemonitordItem(id, grafieken);
+      return repository.ReadGemonitordItem(id);
     }
     public GemonitordItem GetGemonitordItem(int deelplatformId, string naam, bool grafieken = false)
     {
@@ -84,7 +96,11 @@ namespace BL
       InitNonExistingRepo();
       repository.DeleteGemonitordItem(gemonitordItem);
     }
-
+    public void RemoveGemonitordItem(int id)
+    {
+      InitNonExistingRepo();
+      repository.DeleteGemonitordItem(GetGemonitordItem(id));
+    }
     public void AddThema(string naam, List<string> kernwoorden, int deelplatformId, bool volgbaar = true)
     {
       InitNonExistingRepo();
@@ -167,6 +183,12 @@ namespace BL
         }
         ChangeGemonitordItem(thema);
       }
+    }
+
+    public Organisatie GetOrganisatie(string naamOrganisatie)
+    {
+      InitNonExistingRepo();
+      return repository.ReadGemonitordeItems().Where(a => a.Naam.Equals(naamOrganisatie)).FirstOrDefault() as Organisatie;
     }
 
     private void VerwijderOudeDetailItems(DateTime limietDatum, int deelplatformId)

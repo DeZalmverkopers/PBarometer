@@ -87,10 +87,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlertManager.cs" />
-    <Compile Include="BerichtenManager.cs" />
     <Compile Include="DashboardsManager.cs" />
     <Compile Include="DeelplatformenManager.cs" />
-    <Compile Include="GebruikersManager.cs" />
     <Compile Include="GemonitordeItemsManager.cs" />
     <Compile Include="GrafiekenManager.cs" />
     <Compile Include="IdentityFramework\ApplicationRoleManager.cs" />

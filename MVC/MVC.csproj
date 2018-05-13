@@ -223,6 +223,9 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\GemonitordItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\Android\DeelplatformDTO.cs" />
+    <Compile Include="Models\Android\GrafiekDTO.cs" />
+    <Compile Include="Models\Overzicht\OrganisatieViewModel.cs" />
     <Compile Include="Controllers\OverzichtController.cs" />
     <Compile Include="Controllers\ProfielController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
@@ -239,6 +242,8 @@
     <Compile Include="Models\ChartDatasets.cs" />
     <Compile Include="Models\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\LayoutViewModel.cs" />
+    <Compile Include="Models\Overzicht\PersoonViewModel.cs" />
+    <Compile Include="Models\Overzicht\ThemaViewModel.cs" />
     <Compile Include="Models\ProfielViewModels.cs" />
     <Compile Include="Models\SettingsNotLoggedInViewModel.cs" />
     <Compile Include="Models\SuperAdminUserViewModels.cs" />
@@ -453,7 +458,6 @@
     <Content Include="Views\Shared\Dashboard\VerwijderKnop.cshtml" />
     <Content Include="Views\Shared\GemonitordItem\Organisaties.cshtml" />
     <Content Include="Views\Shared\GemonitordItem\Personen.cshtml" />
-    <Content Include="Views\Shared\GemonitordItem\Termen.cshtml" />
     <Content Include="Views\Shared\GemonitordItem\Themas.cshtml" />
     <Content Include="Views\Shared\GetalEnOverzicht\Getal.cshtml" />
     <Content Include="Views\Shared\GetalEnOverzicht\GetalTrend.cshtml" />
@@ -507,6 +511,12 @@
     <Content Include="Views\Shared\AdminSuperadmin\LaadGebruikers.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\LaadGebruikers.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\NietIngelogdeGebruikerInstellen.cshtml" />
+    <Content Include="Views\Overzicht\MaakPersoon.cshtml" />
+    <Content Include="Views\Overzicht\MaakThema.cshtml" />
+    <Content Include="Views\Overzicht\MaakOrganisatie.cshtml" />
+    <Content Include="Views\Overzicht\PasPersoonAan.cshtml" />
+    <Content Include="Views\Overzicht\PasThemaAan.cshtml" />
+    <Content Include="Views\Overzicht\PasOrganisatieAan.cshtml" />
     <Content Include="Views\Shared\Dashboard\Dropdown\Organisaties\Organisaties1Item.cshtml" />
     <Content Include="Views\Shared\Dashboard\Dropdown\Organisaties\Organisaties2Items.cshtml" />
     <Content Include="Views\Shared\Dashboard\Dropdown\Organisaties\Organisaties3Items.cshtml" />
@@ -594,7 +604,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61947</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44314/</IISUrl>
+          <IISUrl>http://localhost:44314/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:44314/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

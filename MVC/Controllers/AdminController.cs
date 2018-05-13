@@ -13,7 +13,6 @@ using System.Web.Mvc;
 namespace MVC.Controllers
 {
   [Authorize(Roles = "Admin")]
-  [RequireHttps]
   public partial class AdminController : Controller
   {
     DeelplatformenManager manager = new DeelplatformenManager();

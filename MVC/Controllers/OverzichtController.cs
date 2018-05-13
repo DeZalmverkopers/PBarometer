@@ -1,5 +1,6 @@
 ﻿using BL;
 using Domain.Gemonitordeitems;
+using MVC.Models.Overzicht;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace MVC.Controllers
             if (persoon.Website != null && persoon.Website.Length > 0)
             {
                 ViewBag.Website = true;
-                if (!persoon.Website.Substring(0,4).Equals("http"))
+                if (!persoon.Website.Substring(0, 4).Equals("http"))
                 {
                     ViewBag.WebsiteURL = "http://" + persoon.Website;
                 }
@@ -83,7 +84,7 @@ namespace MVC.Controllers
             }
             else
             {
-                ViewBag.HeeftMeestVoorkomendeURL = false;    
+                ViewBag.HeeftMeestVoorkomendeURL = false;
             }
 
 
@@ -138,6 +139,225 @@ namespace MVC.Controllers
             }
             return PartialView("ThemaDetails", ViewBag);
         }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult MaakPersoon()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult MaakPersoon(PersoonViewModel maakPersoonViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                string naamOrg = (maakPersoonViewModel.NaamOrganisatie ?? "Onafhankelijk");
+                Organisatie organisatie = gemonitordeItemsManager.GetOrganisatie(naamOrg);
+
+                if (organisatie == null)
+                {
+                    gemonitordeItemsManager.AddGemonitordItem(new Organisatie()
+                    {
+                        Naam = naamOrg,
+                        DeelplatformId = 1
+                    });
+                    organisatie = gemonitordeItemsManager.GetOrganisatie(naamOrg);
+                }
+                Persoon persoon = new Persoon
+                {
+                    Naam = maakPersoonViewModel.Naam,
+                    OrganisatieId = organisatie.GemonitordItemId,
+                    Gemeente = maakPersoonViewModel.Gemeente,
+                    Geboortedatum = maakPersoonViewModel.Geboortedatum,
+                    Facebook = maakPersoonViewModel.Facebook,
+                    DeelplatformId = 1,
+                    Postcode = maakPersoonViewModel.Postcode,
+                    TwitterHandle = maakPersoonViewModel.TwitterHandle,
+                    Website = maakPersoonViewModel.Website,
+                };
+                gemonitordeItemsManager.AddGemonitordItem(persoon);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult MaakThema()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public ActionResult MaakThema(ThemaViewModel maakThemaViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                string naam = maakThemaViewModel.Naam;
+                List<string> kernwoorden = maakThemaViewModel.Kernwoorden.Split(',').ToList();
+                gemonitordeItemsManager.AddThema(naam, kernwoorden, 1);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult MaakOrganisatie()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult MaakOrganisatie(OrganisatieViewModel maakOrganisatieViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                List<string> leden = maakOrganisatieViewModel.Leden.Split(',').ToList();
+                gemonitordeItemsManager.AddOrganisatie(maakOrganisatieViewModel.Naam, 1, leden);
+                return RedirectToAction("Index");
+            }
+            else return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult PasPersoonAan(int id)
+        {
+            Persoon persoon = gemonitordeItemsManager.GetPersoon(id, true);
+            PersoonViewModel persoonViewModel = new PersoonViewModel()
+            {
+                Facebook = persoon.Facebook,
+                Naam = persoon.Naam,
+                Gemeente = persoon.Gemeente,
+                Postcode = persoon.Postcode,
+                Geboortedatum = persoon.Geboortedatum,
+                NaamOrganisatie = persoon.Organisatie.Naam,
+                TwitterHandle = persoon.TwitterHandle,
+                Website = persoon.Website,
+                Id = id
+            };
+            return View(persoonViewModel);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult PasPersoonAan(PersoonViewModel persoonViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Persoon persoon = gemonitordeItemsManager.GetPersoon(persoonViewModel.Id, false);
+                Organisatie organisatie = gemonitordeItemsManager.GetOrganisatie(persoonViewModel.NaamOrganisatie);
+                
+                if (organisatie == null && persoonViewModel.NaamOrganisatie != null)
+                {
+                    gemonitordeItemsManager.AddOrganisatie(persoonViewModel.NaamOrganisatie, 1, new List<string>() { persoonViewModel.Naam });
+                }
+
+                persoon.TwitterHandle = persoonViewModel.TwitterHandle;
+                persoon.Facebook = persoonViewModel.Facebook;
+                persoon.Geboortedatum = persoonViewModel.Geboortedatum;
+                persoon.Gemeente = persoonViewModel.Gemeente;
+                persoon.Postcode = persoonViewModel.Postcode;
+                persoon.Naam = persoonViewModel.Naam;
+                persoon.Website = persoonViewModel.Website;
+                persoon.OrganisatieId = gemonitordeItemsManager.GetOrganisatie(persoonViewModel.NaamOrganisatie).GemonitordItemId;
+                gemonitordeItemsManager.ChangeGemonitordItem(persoon);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult PasThemaAan(int id)
+        {
+            Thema thema = gemonitordeItemsManager.GetGemonitordItem(id) as Thema;
+            ThemaViewModel themaViewModel = new ThemaViewModel()
+            {
+                Kernwoorden = String.Join(", ", thema.KernWoorden.ToArray()),
+                Naam = thema.Naam,
+                Id = thema.GemonitordItemId
+            };
+            return View(themaViewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult PasThemaAan(ThemaViewModel themaViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Thema thema = gemonitordeItemsManager.GetGemonitordItem(themaViewModel.Id) as Thema;
+                thema.Naam = themaViewModel.Naam;
+                thema.KernWoorden = themaViewModel.Kernwoorden.Split(',').ToList();
+                gemonitordeItemsManager.ChangeGemonitordItem(thema);
+
+                return RedirectToAction("Index");
+            }
+
+
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult PasOrganisatieAan(int id)
+        {
+            Organisatie organisatie = gemonitordeItemsManager.GetGemonitordItem(id) as Organisatie;
+            List<string> leden = organisatie.Personen.Select(a => a.Naam).ToList();
+            OrganisatieViewModel organisatieViewModel = new OrganisatieViewModel()
+            {
+                Leden = String.Join(", ", leden),
+                Naam = organisatie.Naam,
+                Id = organisatie.GemonitordItemId
+            };
+            return View(organisatieViewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult PasOrganisatieAan(OrganisatieViewModel organisatieViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Organisatie organisatie = gemonitordeItemsManager.GetGemonitordItem(organisatieViewModel.Id) as Organisatie;
+                if (organisatieViewModel.Leden != null)
+                {
+                    organisatie.Personen = gemonitordeItemsManager.GetPersonen(1, organisatieViewModel.Leden.Split(',').ToList()).ToList();
+                }
+                organisatie.Naam = organisatieViewModel.Naam;
+                gemonitordeItemsManager.ChangeGemonitordItem(organisatie);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult VerwijderItem(int id)
+        {
+            gemonitordeItemsManager.RemoveGemonitordItem(id);
+            return RedirectToAction("Index");
+        }
     }
 }
-        

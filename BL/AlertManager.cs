@@ -1,7 +1,6 @@
 ﻿//Bart 
 using DAL;
 using Domain.Dashboards;
-using Domain.Gebruikers;
 using Domain.Gemonitordeitems;
 using System;
 using System.Collections.Generic;
@@ -24,7 +23,6 @@ namespace BL
         {
             InitNonExistingRepo(true);
             repository.CreateAlert(alert);
-            //repository.CreateAlert(alert);
 
             uowManager.Save();
         }
