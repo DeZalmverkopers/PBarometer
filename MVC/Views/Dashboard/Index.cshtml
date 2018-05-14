@@ -9,9 +9,16 @@
 {
     <div class="dashboardAfbeeldingContainer elementen-centreren">
         <div class="dashboardTekst">
-            <h3>Welkom op het dashboard van @ViewBag.DeelplatformNaam</h3>
+            <h3>Welkom bij @ViewBag.DeelplatformNaam</h3>
         </div>
         <img class="deelplatformHomeAfbeelding" src="~/images/Deelplatformen/@ViewBag.Afbeelding" />
+        <button class="btn btn-primary" id="btnInloggen" onclick="location.href='@Url.Action("Login","Account", new { ReturnUrl = 
+                                                                                Url.Action(ViewContext.RouteData.Values["action"].ToString(),
+                                                                                ViewContext.RouteData.Values["controller"].ToString())})'">
+        Inloggen</button>
+        <button class="btn btn-secondary" id="btnRegistreren" onclick="location.href='@Url.Action("Register","Account", 
+                                                                                     new { ReturnUrl = Url.Action(ViewContext.RouteData.Values["action"].ToString(), 
+                                                                                     ViewContext.RouteData.Values["controller"].ToString())})'">Registreren</button>
     </div>
 }
 

@@ -171,6 +171,7 @@ h1 {
     padding: 20px;
     width: 20%;
     overflow: hidden;
+    border-radius: 25px;
 }
 
 .dashboardAfbeeldingContainer {
@@ -179,6 +180,7 @@ h1 {
     width: 100%;
     overflow: hidden;
 }
+
 .dashboardTekst {
     position: absolute;
     top: 35%;
@@ -188,6 +190,20 @@ h1 {
     padding: 20px;
     width: 40%;
     overflow: hidden;
+    border-radius: 25px;
+}
+
+#btnInloggen {
+    position: absolute;
+    top: 65%;
+    left: 38%;
+    width: 10%;
+}
+#btnRegistreren {
+    position: absolute;
+    top: 65%;
+    left: 52%;
+    width: 10%;
 }
 
 .table-container {
