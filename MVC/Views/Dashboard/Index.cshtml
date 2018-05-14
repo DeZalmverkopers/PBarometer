@@ -4,6 +4,24 @@
 
 <h1>Dashboard</h1>
 
+@*Foto voor niet ingelogde gebruikers*@
+@if (!Request.IsAuthenticated)
+{
+    <div class="dashboardAfbeeldingContainer elementen-centreren">
+        <div class="dashboardTekst">
+            <h3>Welkom bij @ViewBag.DeelplatformNaam</h3>
+        </div>
+        <img class="deelplatformHomeAfbeelding" src="~/images/Deelplatformen/@ViewBag.Afbeelding" />
+        <button class="btn btn-primary" id="btnInloggen" onclick="location.href='@Url.Action("Login","Account", new { ReturnUrl = 
+                                                                                Url.Action(ViewContext.RouteData.Values["action"].ToString(),
+                                                                                ViewContext.RouteData.Values["controller"].ToString())})'">
+        Inloggen</button>
+        <button class="btn btn-secondary" id="btnRegistreren" onclick="location.href='@Url.Action("Register","Account", 
+                                                                                     new { ReturnUrl = Url.Action(ViewContext.RouteData.Values["action"].ToString(), 
+                                                                                     ViewContext.RouteData.Values["controller"].ToString())})'">Registreren</button>
+    </div>
+}
+
 <div class="container" id="elementen">
 
     @*Rij 1*@
@@ -26,7 +44,7 @@
                     @if (i % 2 != 0)
                     {
                         @ViewBag.Grafieken[i - 1]
-                        
+
                         @*<canvas id=@ViewBag.GafiekId></canvas>
 
                     }
@@ -79,11 +97,11 @@
 
 
 @*<script src="~/Scripts/Chart.js"></script>
-<script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/Common.js"></script>
 
 
-@Html.Partial("~/Views/Shared/Grafieken/Grafieken.cshtml")
-<script src="~/Scripts/EigenScripts.js"></script>*@
+    @Html.Partial("~/Views/Shared/Grafieken/Grafieken.cshtml")
+    <script src="~/Scripts/EigenScripts.js"></script>*@
 
 
 <script type="text/javascript">

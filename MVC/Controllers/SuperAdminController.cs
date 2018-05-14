@@ -1,183 +1,270 @@
-﻿using BL.IdentityFramework;
+﻿using BL;
+using BL.IdentityFramework;
+using Domain.Dashboards;
+using Domain.Deelplatformen;
 using Domain.IdentityFramework;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using MVC.Models;
+using MVC.Models.SuperAdmin;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-//Seppe
 
 namespace MVC.Controllers
 {
-  [Authorize(Roles = "SuperAdmin")]
-  [RequireHttps]
-  public partial class SuperAdminController : Controller
-  {
-    // GET: SuperAdmin
-    public virtual ActionResult Index()
+    [Authorize(Roles = "SuperAdmin")]
+    public partial class SuperAdminController : Controller
     {
-      return View();
-    }
-
-    public virtual ActionResult LaadGemonitordeItemsBeheren()
-    {
-      return PartialView("~/Views/Shared/AdminSuperadmin/GemonitordeItemsBeheren.cshtml");
-    }
-
-    public virtual ActionResult LaadData()
-    {
-      return PartialView("~/Views/Shared/AdminSuperadmin/DataImporterenEnExporteren.cshtml");
-    }
-
-    public virtual ActionResult LaadGebruikersactiviteit()
-    {
-      return PartialView("~/Views/Shared/AdminSuperadmin/GebruikersactiviteitMonitoren.cshtml");
-    }
-
-    public virtual ActionResult LaadLayout()
-    {
-      return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml");
-    }
-
-    public virtual ActionResult LaadMediabronnen()
-    {
-      return PartialView("~/Views/Shared/Superadmin/SocialeMediabronnenInstellen.cshtml");
-    }
-
-    public virtual ActionResult LaadGebruikersgegevens()
-    {
-      List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
-      List<GebruikersViewModel> models = new List<GebruikersViewModel>();
-      var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-      foreach (ApplicationUser user in users)
-      {
-        bool ok = true;
-        var roles = userManager.GetRoles(user.Id);
-        foreach (string role in roles)
+        // GET: SuperAdmin
+        public virtual ActionResult Index()
         {
-          if (role.Equals("SuperAdmin"))
-          {
-            ok = false;
-          }
+            return View();
         }
-        if (ok)
+
+        public virtual ActionResult LaadGemonitordeItemsBeheren()
         {
-          models.Add(new GebruikersViewModel
-          {
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            Email = user.Email
-          });
+            return PartialView("~/Views/Shared/AdminSuperadmin/GemonitordeItemsBeheren.cshtml");
         }
-      }
-      return PartialView("~/Views/Shared/Superadmin/GebruikersgegevensNakijken.cshtml", models);
-    }
 
-    [HttpGet]
-    public virtual async Task<ActionResult> VerwijderGebruiker(string Email)
-    {
-      var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-      List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
-
-      ApplicationUser user = users.Find(u => u.Email.Equals(Email));
-      var logins = user.Logins;
-      var rolesForUser = userManager.GetRoles(user.Id);
-
-      foreach (var login in logins.ToList())
-      {
-        await userManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
-      }
-
-      if (rolesForUser.Count() > 0)
-      {
-        foreach (var item in rolesForUser.ToList())
+        public virtual ActionResult LaadData()
         {
-          // item should be the name of the role
-          var result = await userManager.RemoveFromRoleAsync(user.Id, item);
+            return PartialView("~/Views/Shared/AdminSuperadmin/DataImporterenEnExporteren.cshtml");
         }
-      }
 
-      userManager.Delete(user);
-      return RedirectToAction("Index");
-    }
-
-    public virtual ActionResult LaadDeelplatform()
-    {
-      return PartialView("~/Views/Shared/Superadmin/DeelplatformAanmaken.cshtml");
-    }
-
-    public virtual ActionResult LaadGebruikers()
-    {
-      List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
-      List<SuperAdminUserViewModel> userViewModels = new List<SuperAdminUserViewModel>();
-      var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-      foreach (ApplicationUser user in users)
-      {
-        bool ok = true;
-        var roles = userManager.GetRoles(user.Id);
-        foreach (string role in roles)
+        public virtual ActionResult LaadGebruikersactiviteit()
         {
-          if (role.Equals("SuperAdmin"))
-          {
-            ok = false;
-          }
+            return PartialView("~/Views/Shared/AdminSuperadmin/GebruikersactiviteitMonitoren.cshtml");
         }
-        if (ok)
+
+        public virtual ActionResult LaadLayout()
         {
-          bool isAdmin = false;
-          foreach (string role in roles)
-          {
-            if (role.Equals("Admin"))
+            return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml");
+        }
+
+        public virtual ActionResult LaadMediabronnen()
+        {
+            return PartialView("~/Views/Shared/Superadmin/SocialeMediabronnenInstellen.cshtml");
+        }
+
+        public virtual ActionResult LaadGebruikersgegevens()
+        {
+            List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
+            List<GebruikersViewModel> models = new List<GebruikersViewModel>();
+            var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            foreach (ApplicationUser user in users)
             {
-              isAdmin = true;
+                bool ok = true;
+                var roles = userManager.GetRoles(user.Id);
+                foreach (string role in roles)
+                {
+                    if (role.Equals("SuperAdmin"))
+                    {
+                        ok = false;
+                    }
+                }
+                if (ok)
+                {
+                    models.Add(new GebruikersViewModel
+                    {
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = user.Email
+                    });
+                }
             }
-          }
-          userViewModels.Add(new SuperAdminUserViewModel
-          {
-            IsAdmin = isAdmin,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            Email = user.Email
-          }
-            );
+            return PartialView("~/Views/Shared/Superadmin/GebruikersgegevensNakijken.cshtml", models);
         }
-      }
-      return PartialView("~/Views/Shared/AdminSuperadmin/LaadGebruikers.cshtml", userViewModels);
-    }
 
-    [HttpGet]
-    public virtual ActionResult SlaAdminOp(string email, bool setAdmin)
-    {
-      ApplicationRoleManager roleManager = new ApplicationRoleManager();
-      var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-      List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
-
-      ApplicationUser user = users.Find(u => u.Email.Equals(email));
-      var roles = userManager.GetRoles(user.Id);
-      bool isAdmin = false;
-      foreach (string role in roles)
-      {
-        if (role.Equals("Admin"))
+        [HttpGet]
+        public virtual async Task<ActionResult> VerwijderGebruiker(string Email)
         {
-          isAdmin = true;
+            var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
+
+            ApplicationUser user = users.Find(u => u.Email.Equals(Email));
+            var logins = user.Logins;
+            var rolesForUser = userManager.GetRoles(user.Id);
+
+            foreach (var login in logins.ToList())
+            {
+                await userManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+            }
+
+            if (rolesForUser.Count() > 0)
+            {
+                foreach (var item in rolesForUser.ToList())
+                {
+                    // item should be the name of the role
+                    var result = await userManager.RemoveFromRoleAsync(user.Id, item);
+                }
+            }
+
+            userManager.Delete(user);
+            return RedirectToAction("Index");
         }
-      }
-      var adminRole = roleManager.FindByName("Admin");
-      if (!isAdmin && setAdmin)
-      {
-        userManager.AddToRole(user.Id, adminRole.Name);
-      }
-      else if (isAdmin && !setAdmin)
-      {
-        userManager.RemoveFromRole(user.Id, adminRole.Name);
-      }
-      return RedirectToAction("Index");
+
+        public virtual ActionResult LaadDeelplatform()
+        {
+            return PartialView("~/Views/Shared/Superadmin/DeelplatformAanmaken.cshtml");
+        }
+
+        public virtual ActionResult LaadGebruikers()
+        {
+            List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
+            List<SuperAdminUserViewModel> userViewModels = new List<SuperAdminUserViewModel>();
+            var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            foreach (ApplicationUser user in users)
+            {
+                bool ok = true;
+                var roles = userManager.GetRoles(user.Id);
+                foreach (string role in roles)
+                {
+                    if (role.Equals("SuperAdmin"))
+                    {
+                        ok = false;
+                    }
+                }
+                if (ok)
+                {
+                    bool isAdmin = false;
+                    foreach (string role in roles)
+                    {
+                        if (role.Equals("Admin"))
+                        {
+                            isAdmin = true;
+                        }
+                    }
+                    userViewModels.Add(new SuperAdminUserViewModel
+                    {
+                        IsAdmin = isAdmin,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = user.Email
+                    }
+                      );
+                }
+            }
+            return PartialView("~/Views/Shared/AdminSuperadmin/LaadGebruikers.cshtml", userViewModels);
+        }
+
+        [HttpGet]
+        public virtual ActionResult SlaAdminOp(string email, bool setAdmin)
+        {
+            ApplicationRoleManager roleManager = new ApplicationRoleManager();
+            var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
+
+            ApplicationUser user = users.Find(u => u.Email.Equals(email));
+            var roles = userManager.GetRoles(user.Id);
+            bool isAdmin = false;
+            foreach (string role in roles)
+            {
+                if (role.Equals("Admin"))
+                {
+                    isAdmin = true;
+                }
+            }
+            var adminRole = roleManager.FindByName("Admin");
+            if (!isAdmin && setAdmin)
+            {
+                userManager.AddToRole(user.Id, adminRole.Name);
+            }
+            else if (isAdmin && !setAdmin)
+            {
+                userManager.RemoveFromRole(user.Id, adminRole.Name);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult MaakDeelplatform()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MaakDeelplatform(MaakDeelplatformViewModel maakDeelplatformViewModel)
+        {
+            DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+            var bestand = maakDeelplatformViewModel.Afbeelding;
+            if (ModelState.IsValid)
+            {
+                string afbeeldingPad = null;
+                if (bestand != null)
+                {
+                    var bestandsInfo = new FileInfo(maakDeelplatformViewModel.Afbeelding.FileName);
+                    if (bestandsInfo.Extension.Equals(".png") || bestandsInfo.Extension.Equals(".jpg") || bestandsInfo.Extension.Equals(".jpeg") || bestandsInfo.Extension.Equals(".gif"))
+                    {
+                        afbeeldingPad = maakDeelplatformViewModel.URLNaam + bestandsInfo.Extension;
+
+                        bestand.SaveAs(HttpContext.Server.MapPath("~/images/Deelplatformen/")
+                                                              + afbeeldingPad);
+
+                    }
+                }
+                else
+                {
+                    afbeeldingPad = "default.png";
+                }
+                deelplatformenManager.AddDeelplatform(new Deelplatform()
+                {
+                    AfbeeldingPad = afbeeldingPad,
+                    AantalDagenHistoriek = maakDeelplatformViewModel.AantalDagenHistoriek,
+                    URLnaam = maakDeelplatformViewModel.URLNaam,
+                    LaatsteSynchronisatie = DateTime.Now.AddYears(-100),
+                    Naam = maakDeelplatformViewModel.Naam
+                });
+                ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                List<Deelplatform> deelplatformen = deelplatformenManager.GetDeelplatformen().ToList(); ;
+                foreach (var user in userManager.Users.ToList())
+                {
+                    foreach (var deelplatform in deelplatformen)
+                    {
+                        user.Dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
+                    }
+                    userManager.Update(user);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult VerwijderDeelplatform(int id)
+        {
+            DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+            deelplatformenManager.RemoveDeelplatform(id);
+            return PartialView("OverzichtDeelplatformen");
+        }
+
+        [HttpGet]
+        public ActionResult PasDeelplatformAan(int id)
+        {
+            DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+            deelplatformenManager.GetDeelplatform(id);
+            return PartialView("PasDeelplatformAan", deelplatformenManager.GetDeelplatform(id));
+        }
+        [HttpPost]
+        public ActionResult PasDeelplatformAan(MaakDeelplatformViewModel deelplatformViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+                deelplatformenManager.GetDeelplatform(deelplatformViewModel.Id);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
     }
-  }
 }

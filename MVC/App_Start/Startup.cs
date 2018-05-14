@@ -54,7 +54,7 @@ namespace MVC.App_Start
 
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/api/Token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(20),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(365),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
             };
 
