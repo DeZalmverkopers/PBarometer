@@ -2,79 +2,90 @@
 using Domain.Deelplatformen;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace BL
 {
-  public class DeelplatformenManager
-  {
-    private readonly DeelplatformenRepository repository;
+    public class DeelplatformenManager
+    {
+        private readonly DeelplatformenRepository repository;
 
-    public DeelplatformenManager()
-    {
-      repository = new DeelplatformenRepository();
-    }
+        public DeelplatformenManager()
+        {
+            repository = new DeelplatformenRepository();
+        }
 
-    public void AddDeelplatform(Deelplatform deelplatform)
-    {
-      repository.CreateDeelplatform(deelplatform);
-    }
+        public void AddDeelplatform(Deelplatform deelplatform)
+        {
+            repository.CreateDeelplatform(deelplatform);
+        }
 
-    public IEnumerable<Deelplatform> GetDeelplatformen()
-    {
-      return repository.ReadDeelplatformen();
-    }
+        public IEnumerable<Deelplatform> GetDeelplatformen()
+        {
+            return repository.ReadDeelplatformen();
+        }
 
-    public Deelplatform GetDeelplatformByName(string naam)
-    {
-      return repository.ReadDeelplatformByName(naam);
-    }
-    public Deelplatform GetDeelplatform(int id)
-    {
-      return repository.ReadDeelplatform(id);
-    }
-    public void ChangeDeelplatform(Deelplatform deelplatform)
-    {
-      repository.UpdateDeelplatform(deelplatform);
-    }
+        public Deelplatform GetDeelplatformByName(string naam)
+        {
+            return repository.ReadDeelplatformByName(naam);
+        }
+        public Deelplatform GetDeelplatform(int id)
+        {
+            return repository.ReadDeelplatform(id);
+        }
+        public void ChangeDeelplatform(Deelplatform deelplatform)
+        {
+            repository.UpdateDeelplatform(deelplatform);
+        }
 
-    public void RemoveDeelplatform(Deelplatform deelplatform)
-    {
-      repository.DeleteDeelplatform(deelplatform);
-    }
+        public void RemoveDeelplatform(Deelplatform deelplatform)
+        {
+            repository.DeleteDeelplatform(deelplatform);
+        }
 
-    public Settings GetSettings()
-    {
-      return repository.ReadSettings();
-    }
+        public void RemoveDeelplatform(int id)
+        {
+            repository.DeleteDeelplatform(repository.ReadDeelplatform(id));
+        }
 
-    public void ChangeOverzichtAdded(bool OverzichtAdded)
-    {
-      repository.UpdateOverzichtAdded(OverzichtAdded);
-    }
+        public Deelplatform GetDeelplatformByURL(string url)
+        {
+            return repository.ReadDeelplatformen().FirstOrDefault(a => a.URLnaam.Equals(url, StringComparison.OrdinalIgnoreCase));
+        }
 
-    public void ChangeWeeklyReviewAdded(bool WeeklyReviewAdded)
-    {
-      repository.UpdateWeeklyReviewAdded(WeeklyReviewAdded);
-    }
+        public Settings GetSettings()
+        {
+            return repository.ReadSettings();
+        }
 
-    public void ChangeAlertsAdded(bool AlertsAdded)
-    {
-      repository.UpdateAlertsAdded(AlertsAdded);
-    }
+        public void ChangeOverzichtAdded(bool OverzichtAdded)
+        {
+            repository.UpdateOverzichtAdded(OverzichtAdded);
+        }
 
-    //public void ChangeSettings(Settings settings)
-    //{
-    //  repository.UpdateSettings(settings.OverzichtAdded, settings.WeeklyReviewAdded, settings.AlertsAdded);
-    //}
+        public void ChangeWeeklyReviewAdded(bool WeeklyReviewAdded)
+        {
+            repository.UpdateWeeklyReviewAdded(WeeklyReviewAdded);
+        }
 
-    public string GetAchtergrondkleur()
-    {
-      return repository.ReadAchtergrondkleur();
-    }
+        public void ChangeAlertsAdded(bool AlertsAdded)
+        {
+            repository.UpdateAlertsAdded(AlertsAdded);
+        }
 
-    public void ChangeAchtergrondkleur(string kleur)
-    {
-      repository.UpdateAchtergrondkleur(kleur);
+        //public void ChangeSettings(Settings settings)
+        //{
+        //  repository.UpdateSettings(settings.OverzichtAdded, settings.WeeklyReviewAdded, settings.AlertsAdded);
+        //}
+
+        public string GetAchtergrondkleur()
+        {
+            return repository.ReadAchtergrondkleur();
+        }
+
+        public void ChangeAchtergrondkleur(string kleur)
+        {
+            repository.UpdateAchtergrondkleur(kleur);
+        }
     }
-  }
 }

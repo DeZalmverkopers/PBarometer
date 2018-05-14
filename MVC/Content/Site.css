@@ -146,13 +146,49 @@ h1 {
     height: 200px;
 }
 
+.deelplatformHomeAfbeelding {
+    width: 100%;
+    margin: -200px;
+}
 
+.deelplatformHomeContainer {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
 
+    .deelplatformHomeContainer :hover {
+        opacity: 0.5;
+        cursor: pointer;
+    }
 
+.deelplatformTekst {
+    position: absolute;
+    top: 35%;
+    left: 40%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px;
+    width: 20%;
+    overflow: hidden;
+}
 
-
-
-
+.dashboardAfbeeldingContainer {
+    position: relative;
+    height: 350px;
+    width: 100%;
+    overflow: hidden;
+}
+.dashboardTekst {
+    position: absolute;
+    top: 35%;
+    left: 30%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px;
+    width: 40%;
+    overflow: hidden;
+}
 
 .table-container {
     height: 70vh;

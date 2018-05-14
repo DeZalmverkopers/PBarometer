@@ -105,9 +105,9 @@ namespace MVC.Controllers
         {
           var newUser = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
           DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
-          foreach (var item in deelplatformenManager.GetDeelplatformen())
+          foreach (var deelplatform in deelplatformenManager.GetDeelplatformen())
           {
-            newUser.Dashboards.Add(new Dashboard() { DeelplatformId = item.DeelplatformId });
+            newUser.Dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
           }
           var userResult = await UserManager.CreateAsync(newUser, model.Password);
           if (userResult.Succeeded)

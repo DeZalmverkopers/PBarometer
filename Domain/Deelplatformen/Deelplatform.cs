@@ -11,9 +11,9 @@ namespace Domain.Deelplatformen
     public string Naam { get; set; }
     public int AantalDagenHistoriek { get; set; }
     public DateTime LaatsteSynchronisatie { get; set; }
-    public byte[] Afbeelding { get; set; }
+    public string AfbeeldingPad { get; set; }
     public string Achtergrondkleur { get; set; }
-
+    public string URLnaam { get; set; }
     public List<GemonitordItem> GemonitordeItems { get; set; }
 
     public Deelplatform()

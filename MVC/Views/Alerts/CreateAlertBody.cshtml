@@ -1,9 +1,10 @@
 ﻿@model MVC.Models.Alerts.CreateAlertViewModel
 
-@using (Html.BeginForm())
+
+
+@using (Ajax.BeginForm("CreateAlert", "Alerts", new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "createComplexeAlertBody" }))
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -153,5 +154,6 @@
             </div>
         </div>
     </div>
+
 
 }
