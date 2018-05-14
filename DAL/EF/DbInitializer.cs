@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace DAL.EF
 {
-  internal class DbInitializer : DropCreateDatabaseAlways<DbContext>
+  internal class DbInitializer : DropCreateDatabaseIfModelChanges<DbContext>
   {
     protected override void Seed(DbContext context)
     {
@@ -13,6 +13,7 @@ namespace DAL.EF
         Naam = "Politieke Barometer",
         LaatsteSynchronisatie = DateTime.Now.AddYears(-100),
         AantalDagenHistoriek = 14,
+        URLnaam = "politiek"
       };
 
       context.Deelplatformen.Add(deelplatform);
