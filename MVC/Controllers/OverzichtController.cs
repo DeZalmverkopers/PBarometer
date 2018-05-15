@@ -1,4 +1,5 @@
 ﻿using BL;
+using Domain.Deelplatformen;
 using Domain.Gemonitordeitems;
 using MVC.Models.Overzicht;
 using System;
@@ -13,11 +14,25 @@ namespace MVC.Controllers
     {
         private GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
         // GET: Overzicht
+
+        public Deelplatform HuidigDeelplatform
+        {
+            get
+            {
+                return new DeelplatformenManager().GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
+            }
+        }
+        private int deelplatformId;
         public virtual ActionResult Index()
         {
-            ViewBag.Personen = gemonitordeItemsManager.GetPersonen(1).OrderByDescending(a => a.TotaalAantalVermeldingen);
-            ViewBag.Themas = gemonitordeItemsManager.GetThemas(1).OrderByDescending(a => a.TotaalAantalVermeldingen);
-            ViewBag.Organisaties = gemonitordeItemsManager.GetOrganisaties(1).OrderByDescending(a => a.TotaalAantalVermeldingen);
+            if (HuidigDeelplatform == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            deelplatformId = HuidigDeelplatform.DeelplatformId;
+            ViewBag.Personen = gemonitordeItemsManager.GetPersonen(deelplatformId).OrderByDescending(a => a.TotaalAantalVermeldingen);
+            ViewBag.Themas = gemonitordeItemsManager.GetThemas(deelplatformId).OrderByDescending(a => a.TotaalAantalVermeldingen);
+            ViewBag.Organisaties = gemonitordeItemsManager.GetOrganisaties(deelplatformId).OrderByDescending(a => a.TotaalAantalVermeldingen);
             return View();
         }
         public virtual ActionResult PersoonDetails(int id)
@@ -163,7 +178,7 @@ namespace MVC.Controllers
                     gemonitordeItemsManager.AddGemonitordItem(new Organisatie()
                     {
                         Naam = naamOrg,
-                        DeelplatformId = 1
+                        DeelplatformId = deelplatformId
                     });
                     organisatie = gemonitordeItemsManager.GetOrganisatie(naamOrg);
                 }
@@ -174,7 +189,7 @@ namespace MVC.Controllers
                     Gemeente = maakPersoonViewModel.Gemeente,
                     Geboortedatum = maakPersoonViewModel.Geboortedatum,
                     Facebook = maakPersoonViewModel.Facebook,
-                    DeelplatformId = 1,
+                    DeelplatformId = deelplatformId,
                     Postcode = maakPersoonViewModel.Postcode,
                     TwitterHandle = maakPersoonViewModel.TwitterHandle,
                     Website = maakPersoonViewModel.Website,
@@ -205,7 +220,7 @@ namespace MVC.Controllers
             {
                 string naam = maakThemaViewModel.Naam;
                 List<string> kernwoorden = maakThemaViewModel.Kernwoorden.Split(',').ToList();
-                gemonitordeItemsManager.AddThema(naam, kernwoorden, 1);
+                gemonitordeItemsManager.AddThema(naam, kernwoorden, deelplatformId);
                 return RedirectToAction("Index");
             }
             else
@@ -228,7 +243,7 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 List<string> leden = maakOrganisatieViewModel.Leden.Split(',').ToList();
-                gemonitordeItemsManager.AddOrganisatie(maakOrganisatieViewModel.Naam, 1, leden);
+                gemonitordeItemsManager.AddOrganisatie(maakOrganisatieViewModel.Naam, deelplatformId, leden);
                 return RedirectToAction("Index");
             }
             else return View();
@@ -261,10 +276,10 @@ namespace MVC.Controllers
             {
                 Persoon persoon = gemonitordeItemsManager.GetPersoon(persoonViewModel.Id, false);
                 Organisatie organisatie = gemonitordeItemsManager.GetOrganisatie(persoonViewModel.NaamOrganisatie);
-                
+
                 if (organisatie == null && persoonViewModel.NaamOrganisatie != null)
                 {
-                    gemonitordeItemsManager.AddOrganisatie(persoonViewModel.NaamOrganisatie, 1, new List<string>() { persoonViewModel.Naam });
+                    gemonitordeItemsManager.AddOrganisatie(persoonViewModel.NaamOrganisatie, deelplatformId, new List<string>() { persoonViewModel.Naam });
                 }
 
                 persoon.TwitterHandle = persoonViewModel.TwitterHandle;
@@ -340,7 +355,7 @@ namespace MVC.Controllers
                 Organisatie organisatie = gemonitordeItemsManager.GetGemonitordItem(organisatieViewModel.Id) as Organisatie;
                 if (organisatieViewModel.Leden != null)
                 {
-                    organisatie.Personen = gemonitordeItemsManager.GetPersonen(1, organisatieViewModel.Leden.Split(',').ToList()).ToList();
+                    organisatie.Personen = gemonitordeItemsManager.GetPersonen(deelplatformId, organisatieViewModel.Leden.Split(',').ToList()).ToList();
                 }
                 organisatie.Naam = organisatieViewModel.Naam;
                 gemonitordeItemsManager.ChangeGemonitordItem(organisatie);

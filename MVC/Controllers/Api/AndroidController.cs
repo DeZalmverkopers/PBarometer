@@ -43,9 +43,9 @@ namespace MVC.Controllers.Api
                 List<DeelplatformDTO> deelplatformDTOs = new List<DeelplatformDTO>();
                 foreach (var deelplatform in deelplatformen)
                 {
-                    deelplatformDTOs.Add(new DeelplatformDTO() { Naam = deelplatform.Naam, Id = deelplatform.DeelplatformId, Afbeelding = deelplatform.Afbeelding });
+                    deelplatformDTOs.Add(new DeelplatformDTO() { Naam = deelplatform.Naam, Id = deelplatform.DeelplatformId, Afbeelding = deelplatform.AfbeeldingPad});
                 }
-                return Ok(deelplatformen);
+                return Ok(deelplatformDTOs);
             }
         }
 
@@ -79,6 +79,11 @@ namespace MVC.Controllers.Api
             {
                 foreach (var grafiek in grafieken)
                 {
+                    List<string> xlabels = new List<string>();
+                    foreach (var item in grafiek.XLabels)
+                    {
+                        xlabels.Add(item.ToString());
+                    }
                     grafiekDTOs.Add(new GrafiekDTO()
                     {
                         GrafiekId = grafiek.GrafiekId,
@@ -94,7 +99,7 @@ namespace MVC.Controllers.Api
                         XTitel = grafiek.XTitel,
                         YTitel = grafiek.YTitel,
                         YOorsprongNul = grafiek.YOorsprongNul,
-                        XLabels = grafiek.XLabels,
+                        XLabels = xlabels,
                         XOnder = grafiek.XOnder,
                         XOorsprongNul = grafiek.XOorsprongNul,
                         Waarden = grafiek.Waarden.Select(a => a.ToString()).ToList()
