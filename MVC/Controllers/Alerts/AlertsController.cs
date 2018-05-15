@@ -300,7 +300,7 @@ namespace MVC.Controllers
                 }
                 user.Alerts.Add(alert);
                 UserManager.Update(user);
-                return RedirectToAction("Index");
+                return null;
             }
             List<string> items = gemonitordeItemsManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
             var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
