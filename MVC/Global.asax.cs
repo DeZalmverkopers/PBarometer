@@ -11,6 +11,7 @@ using System.Threading;
 using MVC.Controllers.Api;
 using BL;
 using System.Diagnostics;
+using Microsoft.ApplicationInsights.Extensibility;
 
 namespace MVC
 {
@@ -18,6 +19,7 @@ namespace MVC
     {
         protected void Application_Start()
         {
+            DisableApplicationInsightOnDebug();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -28,23 +30,29 @@ namespace MVC
             MyTask.Start();
         }
 
+        [Conditional("DEBUG")]
+        private static void DisableApplicationInsightOnDebug()
+        {
+            TelemetryConfiguration.Active.DisableTelemetry = true;
+        }
+
         static void TaskLoop()
         {
             while (true)
             {
                 ScheduledTask();
-                Thread.Sleep(TimeSpan.FromSeconds(10));
+                Thread.Sleep(TimeSpan.FromMinutes(1));
             }
         }
 
         static void ScheduledTask()
         {
             Debug.WriteLine("Ophalen Data - Start");
-            //TextgainController textgainController = new TextgainController();
-            //DeelplatformenManager deelplatformManager = new DeelplatformenManager();
-            //int id = deelplatformManager.GetDeelplatformByName("Politieke Barometer").DeelplatformId;
-            //textgainController.HaalBerichtenOp(deelplatformManager.GetDeelplatform(id));
-            //Debug.WriteLine("Ophalen Data - Done");
+            TextgainController textgainController = new TextgainController();
+            DeelplatformenManager deelplatformManager = new DeelplatformenManager();
+            int id = deelplatformManager.GetDeelplatformByName("Politieke Barometer").DeelplatformId;
+            textgainController.HaalBerichtenOp(deelplatformManager.GetDeelplatform(id));
+            Debug.WriteLine("Ophalen Data - Done");
         }
     }
 }
