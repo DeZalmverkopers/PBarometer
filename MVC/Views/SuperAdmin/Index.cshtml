@@ -23,6 +23,9 @@
                 <button class="btn btn-primary btn-algemene-layout" id="btnDeelplatform">Deelplatform aanmaken</button>
             </div>
             <div>
+                <button class="btn btn-primary btn-algemene-layout" id="btnDeelplatformen">Deelplatformen beheren</button>
+            </div>
+            <div>
                 <button class="btn btn-primary btn-algemene-layout" id="btnAdmins">Admins instellen</button>
             </div>
             <div>
@@ -67,6 +70,14 @@
     <script type="text/javascript">
         $("#btnAdmins").click(function () {
         $.get('@Url.Action("LaadGebruikers", "SuperAdmin")', {}, function (resultaat) {
+            $("#divResultaat").html(resultaat);
+        });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $("#btnDeelplatformen").click(function () {
+        $.get('@Url.Action("DeelplatformOverzicht", "SuperAdmin")', {}, function (resultaat) {
             $("#divResultaat").html(resultaat);
         });
         });

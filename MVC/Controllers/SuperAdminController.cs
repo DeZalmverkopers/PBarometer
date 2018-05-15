@@ -183,40 +183,34 @@ namespace MVC.Controllers
             }
             return RedirectToAction("Index");
         }
-
+        [HttpGet]
+        public virtual ActionResult DeelplatformOverzicht()
+        {
+            DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+            
+            return PartialView("OverzichtDeelplatformen", deelplatformenManager.GetDeelplatformen().Select(a => new DeelplatformOverzichtViewModel() { Id = a.DeelplatformId,Naam = a.Naam, URL = a.URLnaam}));
+        }
+        [HttpGet]
+        public ActionResult BeheerDeelplatformen()
+        {
+            return PartialView();
+        }
         [HttpGet]
         public ActionResult MaakDeelplatform()
         {
             return PartialView();
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MaakDeelplatform(MaakDeelplatformViewModel maakDeelplatformViewModel)
         {
             DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
-            var bestand = maakDeelplatformViewModel.Afbeelding;
             if (ModelState.IsValid)
             {
-                string afbeeldingPad = null;
-                if (bestand != null)
-                {
-                    var bestandsInfo = new FileInfo(maakDeelplatformViewModel.Afbeelding.FileName);
-                    if (bestandsInfo.Extension.Equals(".png") || bestandsInfo.Extension.Equals(".jpg") || bestandsInfo.Extension.Equals(".jpeg") || bestandsInfo.Extension.Equals(".gif"))
-                    {
-                        afbeeldingPad = maakDeelplatformViewModel.URLNaam + bestandsInfo.Extension;
-
-                        bestand.SaveAs(HttpContext.Server.MapPath("~/images/Deelplatformen/")
-                                                              + afbeeldingPad);
-
-                    }
-                }
-                else
-                {
-                    afbeeldingPad = "default.png";
-                }
+                
                 deelplatformenManager.AddDeelplatform(new Deelplatform()
                 {
-                    AfbeeldingPad = afbeeldingPad,
                     AantalDagenHistoriek = maakDeelplatformViewModel.AantalDagenHistoriek,
                     URLnaam = maakDeelplatformViewModel.URLNaam,
                     LaatsteSynchronisatie = DateTime.Now.AddYears(-100),
@@ -232,9 +226,32 @@ namespace MVC.Controllers
                     }
                     userManager.Update(user);
                 }
-                return RedirectToAction("Index", "Home");
+                ViewBag.Boodschap = "Het deelplatform is aangemaakt";
+                return PartialView();
             }
-            return RedirectToAction("Index");
+            return PartialView(maakDeelplatformViewModel);
+        }
+        [HttpGet]
+        public ActionResult EditDeelplatform(int id)
+        {
+            DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+            return PartialView(deelplatformenManager.GetDeelplatform(id));
+        }
+        [HttpPost]
+        public ActionResult EditDeelplatform(MaakDeelplatformViewModel deelplatformViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+                Deelplatform deelplatform = deelplatformenManager.GetDeelplatform(deelplatformViewModel.Id);
+                deelplatform.AantalDagenHistoriek = deelplatformViewModel.AantalDagenHistoriek;
+                deelplatform.Naam = deelplatformViewModel.Naam;
+                deelplatform.URLnaam = deelplatformViewModel.URLNaam;
+                deelplatformenManager.ChangeDeelplatform(deelplatform);
+                ViewBag.Boodschap = "Deelplatform is aangepast";
+                return PartialView();
+            }
+            return PartialView(deelplatformViewModel);
         }
 
         [HttpGet]
@@ -244,27 +261,5 @@ namespace MVC.Controllers
             deelplatformenManager.RemoveDeelplatform(id);
             return PartialView("OverzichtDeelplatformen");
         }
-
-        [HttpGet]
-        public ActionResult PasDeelplatformAan(int id)
-        {
-            DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
-            deelplatformenManager.GetDeelplatform(id);
-            return PartialView("PasDeelplatformAan", deelplatformenManager.GetDeelplatform(id));
-        }
-        [HttpPost]
-        public ActionResult PasDeelplatformAan(MaakDeelplatformViewModel deelplatformViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
-                deelplatformenManager.GetDeelplatform(deelplatformViewModel.Id);
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
         }
     }
-}

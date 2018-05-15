@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MVC.Models.SuperAdmin.DeelplatformOverzichtViewModel>
+
+    <div class="table-container">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Naam)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.URL)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.URL)
+                    </td>
+                    <td>
+                        <button class="btn button-secondary" onclick="location.href='@Ajax.ActionLink("EditDeelplatform","SuperAdmin",
+                                                                                    new { id = item.Id},new AjaxOptions() { HttpMethod = "GET",
+                                                                                        InsertionMode = InsertionMode.Replace, UpdateTargetId = "#divResultaat"})'">
+                        <span class="glyphicon glyphicon-edit"></span></button>
+                    </td>
+                </tr>
+            }
+
+        </table>
+        
+    </div>

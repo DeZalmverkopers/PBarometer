@@ -2,24 +2,28 @@
     ViewBag.Title = "Index";
 }
 
-<h1>Dashboard</h1>
-
 @*Foto voor niet ingelogde gebruikers*@
 @if (!Request.IsAuthenticated)
 {
-    <div class="dashboardAfbeeldingContainer elementen-centreren">
+    <div class="container-fluid dashboardAfbeeldingContainer elementen-centreren">
         <div class="dashboardTekst">
-            <h3>Welkom bij @ViewBag.DeelplatformNaam</h3>
+            <h3>@ViewBag.DeelplatformNaam</h3>
+            <hr />
+            <h4>Welkom op het <b>dashboard.</b></h4>
         </div>
         <img class="deelplatformHomeAfbeelding" src="~/images/Deelplatformen/@ViewBag.Afbeelding" />
-        <button class="btn btn-primary" id="btnInloggen" onclick="location.href='@Url.Action("Login","Account", new { ReturnUrl = 
+        <button class="btn btn-secondary" id="btnInloggen" onclick="location.href='@Url.Action("Login","Account", new { ReturnUrl = 
                                                                                 Url.Action(ViewContext.RouteData.Values["action"].ToString(),
                                                                                 ViewContext.RouteData.Values["controller"].ToString())})'">
         Inloggen</button>
-        <button class="btn btn-secondary" id="btnRegistreren" onclick="location.href='@Url.Action("Register","Account", 
+        <button class="btn btn-primary" id="btnRegistreren" onclick="location.href='@Url.Action("Register","Account", 
                                                                                      new { ReturnUrl = Url.Action(ViewContext.RouteData.Values["action"].ToString(), 
                                                                                      ViewContext.RouteData.Values["controller"].ToString())})'">Registreren</button>
     </div>
+}
+else
+{
+    <h1>Deelplatform</h1>
 }
 
 <div class="container" id="elementen">
