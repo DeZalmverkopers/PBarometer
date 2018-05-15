@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using BL;
 using Domain.Dashboards;
@@ -23,6 +22,7 @@ namespace MVC.Controllers
     int deelplatform;
 
     // GET: Dashboard
+    [Route("")]
     public virtual ActionResult Index(int id)
     {
       //homeController.GetData();

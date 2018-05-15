@@ -560,6 +560,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\GemonitordItem\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -604,9 +605,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61947</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44314/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:44314/</IISAppRootUrl>
+          <IISUrl>https://localhost:44314/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

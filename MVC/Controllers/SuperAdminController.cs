@@ -1,4 +1,6 @@
-﻿using BL.IdentityFramework;
+﻿using BL;
+using BL.IdentityFramework;
+using Domain.Deelplatformen;
 using Domain.IdentityFramework;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -17,6 +19,8 @@ namespace MVC.Controllers
   [RequireHttps]
   public partial class SuperAdminController : Controller
   {
+    public DeelplatformenManager manager = new DeelplatformenManager();
+
     // GET: SuperAdmin
     public virtual ActionResult Index()
     {
@@ -109,6 +113,12 @@ namespace MVC.Controllers
     public virtual ActionResult LaadDeelplatform()
     {
       return PartialView("~/Views/Shared/Superadmin/DeelplatformAanmaken.cshtml");
+    }
+
+    public virtual ActionResult MaakDeelplatformAan(string naam)
+    {
+      manager.AddDeelplatform(new Deelplatform() { Naam = naam });
+      return RedirectToAction("Index");
     }
 
     public virtual ActionResult LaadGebruikers()

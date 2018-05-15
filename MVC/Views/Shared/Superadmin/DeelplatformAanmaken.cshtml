@@ -1,12 +1,29 @@
 ﻿<h3>Deelplatform aanmaken</h3>
+<table class="table">
+    <tr>
+        <td>
+            <label>Naam</label>
+        </td>
+        <td>
+            <input name="tfNaam" type="text" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>URL</label>
+        </td>
+        <td>
+            <input type="text" />
+        </td>
+    </tr>
+</table>
+
 <div>
-    <label>Naam</label>
-    <input type="text"/>
+    <button id="btnAanmaken" class="btn btn-primary btn-algemene-layout" onclick="location.href='@Url.Action("MaakDeelplatformAan", "Superadmin", new { naam = Request.Form["tfNaam"] })'">Aanmaken</button>
 </div>
-<div>
-    <label>URL</label>
-    <input type="text"/>
-</div>
-<div>
-    <button class="btn btn-primary btn-algemene-layout">Aanmaken</button>
-</div>
+
+@*<script type="text/javascript">
+        $("#btnAanmaken").click(function () {
+            @Url.Action("MaakDeelplatformAan", "SuperAdmin", new { naam = Request.Form["tfNaam"] });
+            });
+    </script>*@
