@@ -1,9 +1,45 @@
-﻿<h3>
-    @ViewBag.ItemNaam
-</h3>
-
-<div>
+﻿<div id="@ViewBag.StatistiekId">
     <div>
-        Aantal tweets: @ViewBag.ItemVermeldingen
+        <h3 class="statistieken-opmaak-titel">
+            @ViewBag.ItemNaam
+        </h3>
+
     </div>
+
+    <div>
+        <div class="statistieken-opmaak-inhoud">
+            Aantal tweets: @ViewBag.ItemVermeldingen
+        </div>
+    </div>
+
+    <button id="verwijderen-@ViewBag.StatistiekId" onclick="statistiekVerwijderen(this.id)">
+        <span class="glyphicon glyphicon-remove"></span>
+    </button>
 </div>
+
+
+@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
+
+<script>
+    function statistiekVerwijderen(id) {
+        var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+        var subid;
+
+        if (lengteId == 0) {
+            subid = id.substring(id.length - 1);
+        } else if (lengteId > 0) {
+            subid = id.substring(id.indexOf("-") + 1, id.length - 1);
+        }
+
+
+        var grafiekVerwijderen = confirm("Ben je zeker dat je de statistiek wilt verwijderen?");
+        if (grafiekVerwijderen == true) {
+            $("div#" + subid).remove()
+
+            $("#verwijderen-" + subid).remove();
+           
+
+        }
+    }
+</script>
+

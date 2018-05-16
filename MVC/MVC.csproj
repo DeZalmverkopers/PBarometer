@@ -222,6 +222,7 @@
     <Compile Include="Controllers\Api\IDataController.cs" />
     <Compile Include="Controllers\Api\TextgainController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DashboardStatistiekenController.cs" />
     <Compile Include="Controllers\GemonitordItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Android\DeelplatformDTO.cs" />
@@ -231,7 +232,6 @@
     <Compile Include="Controllers\OverzichtController.cs" />
     <Compile Include="Controllers\ProfielController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
-    <Compile Include="Controllers\WeeklyReviewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -241,7 +241,6 @@
     <Compile Include="Models\Alerts\CreateAlertViewModel.cs" />
     <Compile Include="Models\Alerts\CreateBasicAlertViewModel.cs" />
     <Compile Include="Models\Android\AlertDTO.cs" />
-    <Compile Include="Models\ChartDatasets.cs" />
     <Compile Include="Models\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\LayoutViewModel.cs" />
     <Compile Include="Models\Overzicht\PersoonViewModel.cs" />
@@ -468,8 +467,6 @@
     <Content Include="Views\Shared\GetalEnOverzicht\GetalTrend.cshtml" />
     <Content Include="Views\Shared\GetalEnOverzicht\Top10.cshtml" />
     <Content Include="Views\Shared\GetalEnOverzicht\Top5.cshtml" />
-    <Content Include="Views\Shared\Grafieken\Donutdiagram.cshtml" />
-    <Content Include="Views\Shared\Grafieken\DonutdiagramMulti.cshtml" />
     <Content Include="Views\Shared\Grafieken\Grafieken.cshtml" />
     <Content Include="Views\Shared\Grafieken\HorizontaalStaafdiagram.cshtml" />
     <Content Include="Views\Shared\Grafieken\HorizontaalStaafdiagramMulti.cshtml" />
@@ -479,11 +476,9 @@
     <Content Include="Views\Shared\Grafieken\Taartdiagram.cshtml" />
     <Content Include="Views\Shared\Grafieken\TaartdiagramMulti.cshtml" />
     <Content Include="Views\Shared\LegePartialView.cshtml" />
-    <Content Include="Views\Shared\Overzicht\ZoekfunctieGrafieken.cshtml" />
     <Content Include="Views\Shared\Superadmin\GebruikersgegevensNakijken.cshtml" />
     <Content Include="Views\Shared\Superadmin\SocialeMediabronnenInstellen.cshtml" />
     <Content Include="Views\SuperAdmin\Index.cshtml" />
-    <Content Include="Views\WeeklyReview\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -537,19 +532,16 @@
     <Content Include="Views\Shared\Dashboard\Dropdown\Themas\Themas4Items.cshtml" />
     <Content Include="Views\Shared\Dashboard\Dropdown\Themas\Themas5Items.cshtml" />
     <Content Include="Views\Shared\Dashboard\Grafieken\AantalTweets.cshtml" />
-    <Content Include="Views\Shared\Dashboard\Grafieken\GrafiekenKeuze.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Grafieken\GrafiekenToevoegen.cshtml" />
     <Content Include="Views\Shared\Dashboard\Grafieken\ItemsKruisen.cshtml" />
     <Content Include="Views\Shared\Dashboard\Grafieken\VergelijkenDoorheenDeTijd.cshtml" />
     <Content Include="Views\Shared\Dashboard\Grafieken\VergelijkenOpMoment.cshtml" />
     <Content Include="Views\Shared\Dashboard\Statistieken\GetalKeuze.cshtml" />
     <Content Include="Views\Shared\Dashboard\Statistieken\GetalTrendKeuze.cshtml" />
-    <Content Include="Views\Shared\Dashboard\Statistieken\StatistiekenKeuze.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Statistieken\StatistiekToevoegen.cshtml" />
     <Content Include="Views\Shared\Dashboard\Statistieken\Top10Keuze.cshtml" />
     <Content Include="Views\Shared\Dashboard\Statistieken\Top5Keuze.cshtml" />
-    <Content Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram1Item.cshtml" />
-    <Content Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram2Items.cshtml" />
-    <Content Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram5Items.cshtml" />
-    <Content Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram4Items.cshtml" />
+    <Content Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram1Dataset.cshtml" />
     <Content Include="Views\Shared\Grafieken\Staafdiagram.cshtml" />
     <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram1Item.cshtml" />
     <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram2Items.cshtml" />
@@ -558,7 +550,9 @@
     <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram5Items.cshtml" />
     <Content Include="Views\Shared\Grafieken\Lijndiagram\LijndiagramAantalTweets.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <None Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram3Items.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Grafieken\GrafiekenNietIngelogd.cshtml" />
+    <Content Include="Views\DashboardStatistieken\Index.cshtml" />
+    <Content Include="Views\Shared\Dashboard\Statistieken\StatistiekenNietIngelogd.cshtml" />
     <Content Include="Views\SuperAdmin\MaakDeelplatform.cshtml" />
     <Content Include="Views\SuperAdmin\EditDeelplatform.cshtml" />
     <Content Include="Views\SuperAdmin\OverzichtDeelplatformen.cshtml" />

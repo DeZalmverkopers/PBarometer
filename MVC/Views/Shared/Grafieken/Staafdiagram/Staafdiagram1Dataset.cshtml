@@ -1,0 +1,72 @@
+﻿<div>
+    <canvas id="barChart1Item" height="250"></canvas>
+    @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
+    @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
+</div>
+
+
+<script>
+    //Staafdiagram
+
+    var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
+    var xLabels = @Html.Raw(Json.Encode(ViewBag.XLabels));
+    var data = @Html.Raw(Json.Encode(ViewBag.Data));
+
+
+    GrafiekOpbouwen("barChart1Item", grafiekTitel, "bar", false, true, true, true, true, false, true, 90, 0, "x", "y", xLabels,
+        null, null, null, null, null, data, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+
+    //var ctx = $("#barChart1Item");
+    ////var tData = $.getValues("/Grafiek/BarChartData");
+    ////var tData = $.getValues("/Grafiek/BarChartVergelijkingOpMoment");
+    //var myNewBarChart = new Chart(ctx, {
+    //    options: {
+    //        title: {
+    //            display: true,
+    //            text: grafiekTitel,
+    //            fontSize: 18
+    //        },
+    //        legend: {
+    //            display: false
+    //        },
+
+    //        scales: {
+    //            yAxes: [{
+    //                ticks: {
+    //                    beginAtZero: true,
+    //                }
+    //            }]
+    //        }
+    //    },
+    //    type: 'bar',
+
+    //    data: {
+    //        //labels: ["Item a", "Item b", "Item c", "Item d", "Item e"],
+
+    //        labels: [item1],
+
+    //        datasets: [
+    //            {
+
+    //            //data: [28, 48, 40, 19, 86],
+
+    //            data: [data1],
+    //            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+    //            bordercolor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+    //            borderWidth: 4
+    //            }
+
+    //        ]
+    //    }
+
+    //});
+
+</script>
+
+
+
+
+
+
+
+

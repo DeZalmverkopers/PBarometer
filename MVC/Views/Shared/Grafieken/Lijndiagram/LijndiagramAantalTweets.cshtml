@@ -1,4 +1,4 @@
-﻿<div>
+﻿<div>, 
     <canvas id="lineChartAantalTweets" height="250"></canvas>
     @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
     @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
@@ -15,50 +15,64 @@
     var aantalTweets = @Html.Raw(Json.Encode(ViewBag.ItemAantalTweets));
     var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
 
+    //GrafiekOpbouwen("lineChartAantalTweets", grafiekTitel, "line", false, true, true, true, true, false, true,
+    //    90, 90, "x", "y", dagen, null, null, null, null, null, aantalTweets, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
 
-    var ctx = $("#lineChartAantalTweets");
-    var myLineChart = new Chart(ctx, {
+    //GrafiekOpbouwen(lineChartAantalTweets, titelViewbag, typeViewbag, toonLegendeViewbag, xOorsprongNulViewbag, yOorsprongNulViewbag, toonXAsViewbag, toonYAsViewbag,
+    //    FillDatasetViewbag, LijnlegendeweergaveViewbag, XAsMaxrotatieViewbag, XAsMinrotatieViewbag, xTitelViewbag, yTitelViewbag,
+    //    xLabelsViewbag, legendelijstViewbag[0], legendelijstViewbag[1], legendelijstViewbag[2], legendelijstViewbag[3], legendelijstViewbag[4],
+    //    dataViewbag[0], dataViewbag[1], dataViewbag[2], dataViewbag[3], dataViewbag[4],
+    //    backgroundcolorViewbag[0], backgroundcolorViewbag[1], backgroundcolorViewbag[2], backgroundcolorViewbag[3], backgroundcolorViewbag[4],
+    //    bordercolorViewbag[0], bordercolorViewbag[1], bordercolorViewbag[2], bordercolorViewbag[3], bordercolorViewbag[4]
+    //);
 
-        options: {
-            title: {
-                display: true,
-                text: grafiekTitel + " - aantal tweets",
-                fontSize: 18
-            },
-            legend: {
-                display: false
-            },
+    GrafiekOpbouwen("lineChartAantalTweets", grafiekTitel, "line", false, true, true, true, true, false, true, 90, 0, "x", "y", dagen, 
+    null, null, null, null, null, aantalTweets, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
 
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        autoSkip: false,
-                        maxRotation: 90,
-                        minRotation: 90
-                    }
-                }]
-            }
+   
+    //var ctx = $("#lineChartAantalTweets");
+    //var myLineChart = new Chart(ctx, {
 
-        },
-        type: 'line',
+    //    options: {
+    //        title: {
+    //            display: true,
+    //            text: grafiekTitel + " - aantal tweets",
+    //            fontSize: 18
+    //        },
+    //        legend: {
+    //            display: false
+    //        },
 
-        data: {
+    //        scales: {
+    //            xAxes: [{
+    //                ticks: {
+    //                    autoSkip: false,
+    //                    maxRotation: 90,
+    //                    minRotation: 90
+    //                }
+    //            }]
+    //        }
 
-        labels: dagen,
+    //    },
+    //    type: 'line',
 
-        datasets: [
-            {
-                data: aantalTweets,
-                //backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
-                bordercolor: ["#3e95cd"],
-                borderWidth: 4
-            }
+    //    data: {
 
-        ]
-        }
+    //    labels: dagen,
+
+    //    datasets: [
+    //        {
+    //            data: aantalTweets,
+    //            //backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
+    //            bordercolor: ["#3e95cd"],
+    //            borderWidth: 4
+    //        }
+
+    //    ]
+    //    }
 
 
-    });
+    //});
 </script>
 
 
