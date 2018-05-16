@@ -49,7 +49,7 @@ else
 
                 <div class="col-md-6">
 
-                    <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId></canvas>
+                    <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId height="250"></canvas>
 
                     <button id="bewerken-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
                         <span class="glyphicon glyphicon-pencil"></span>
@@ -67,7 +67,7 @@ else
 
                 <div class="col-md-6">
 
-                    <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId></canvas>
+                    <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId height="250"></canvas>
 
                     <button id="bewerken-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
                         <span class="glyphicon glyphicon-pencil"></span>
@@ -228,7 +228,7 @@ else
 
         $("#modalGrafiekAanpassen").modal();
 
-        $.get('@Url.Action("LaadElementAanpassen", "Dashboard")', {}, function (resultaat) {
+        $.get('@Url.Action("LaadGrafiekAanpassen", "Dashboard")', {}, function (resultaat) {
             $("#divGrafiekAanpassen").html(resultaat);
         });
 

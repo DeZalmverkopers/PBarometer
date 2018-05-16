@@ -2,21 +2,21 @@
     var titel = $("#inputTitel").val();
 
 
-    if (document.getElementById('chkAssenWisselen').checked) {
-        teWijzigenGrafiek.destroy();
-        teWijzigenGrafiek = new Chart(ctx, {
-            type: 'horizontalBar',
-            data: chartData,
-            options: chartOptions
-        });
-    } else {
-        teWijzigenGrafiek.destroy();
-        teWijzigenGrafiek = new Chart(ctx, {
-            type: 'bar',
-            data: chartData,
-            options: chartOptions
-        });
-    }
+    //if (document.getElementById('chkAssenWisselen').checked) {
+    //    teWijzigenGrafiek.destroy();
+    //    teWijzigenGrafiek = new Chart(ctx, {
+    //        type: 'horizontalBar',
+    //        data: chartData,
+    //        options: chartOptions
+    //    });
+    //} else {
+    //    teWijzigenGrafiek.destroy();
+    //    teWijzigenGrafiek = new Chart(ctx, {
+    //        type: 'bar',
+    //        data: chartData,
+    //        options: chartOptions
+    //    });
+    //}
 
 
     //if (xAs === "data1") {
@@ -32,6 +32,8 @@
     //    teWijzigenGrafiek.data.labels = ["test1"];
     //    teWijzigenGrafiek.data.datasets[0].data = [50];
     //}
+
+   
 
     teWijzigenGrafiek.options.title.text = titel;
 
@@ -291,6 +293,14 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
 
 
     var ctx = $("#" + id);
+
+
+    //var grafiekNieuw = new Chart(ctx, {
+    //    options: grafiekopties,
+    //    type: grafiektype,
+    //    data: grafiekdata
+    //});
+
     new Chart(ctx, {
         options: grafiekopties,
         type: grafiektype,

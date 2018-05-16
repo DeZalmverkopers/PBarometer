@@ -35,25 +35,9 @@ namespace MVC.Controllers
 
     // GET: DashboardStatistieken
     public ActionResult Index()
-    {
+    {  
 
-
-      items = itemManager.GetGemonitordeItems(1).ToList();
-
-      foreach (var element in items)
-      {
-        gemonitordeItems.Add(element);
-      }
-
-      //ViewBag.Statistieken = gemonitordeItems;
-
-
-      //statistieken = new List<Statistiek>()
-      //{
-
-      //};
-
-      statistieken = statistiekenManager.GetStatistieken();
+     statistieken = statistiekenManager.GetStatistieken();
 
       ViewBag.StatistiekenViewbag = statistieken;
 
