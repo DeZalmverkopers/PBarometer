@@ -454,12 +454,7 @@
     <Content Include="Views\Shared\AdminSuperadmin\GemonitordeItemsBeheren.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\LayoutAanpassen.cshtml" />
     <Content Include="Views\Shared\CheckEmailPrompt.cshtml" />
-    <Content Include="Views\Shared\Dashboard\BeheerScripts.cshtml" />
-    <Content Include="Views\Shared\Dashboard\Bewerkingsknop.cshtml" />
-    <Content Include="Views\Shared\Dashboard\BewerkingsknopScripts.cshtml" />
-    <Content Include="Views\Shared\Dashboard\ElementAanpassen.cshtml" />
-    <Content Include="Views\Shared\Dashboard\ElementToevoegen.cshtml" />
-    <Content Include="Views\Shared\Dashboard\VerwijderKnop.cshtml" />
+    <Content Include="Views\Shared\Dashboard\GrafiekAanpassen.cshtml" />
     <Content Include="Views\Shared\GemonitordItem\Organisaties.cshtml" />
     <Content Include="Views\Shared\GemonitordItem\Personen.cshtml" />
     <Content Include="Views\Shared\GemonitordItem\Themas.cshtml" />

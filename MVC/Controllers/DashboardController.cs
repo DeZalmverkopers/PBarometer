@@ -34,7 +34,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult Index()
     {
-      
+
 
 
       if (HuidigDeelplatform == null)
@@ -59,7 +59,7 @@ namespace MVC.Controllers
       List<GemonitordItem> personen = itemManager.GetPersonen(1).ToList();
       //items = itemManager.GetGemonitordeItems(1).ToList();
 
-   
+
 
 
 
@@ -70,7 +70,7 @@ namespace MVC.Controllers
       //  grafiek1XLabels.Add(personen[i].Naam);
       //  grafiek1Datawaarden.Add(personen[i].GemPolariteit);
       //}
-      for (int i = 0; i < personen.Count; i++)
+      for (int i = 0; i < 5; i++)
       {
         grafiek1XLabels.Add(personen[i].Naam);
         grafiek1Datawaarden.Add(personen[i].GemPolariteit);
@@ -95,17 +95,12 @@ namespace MVC.Controllers
       }
 
 
-
-      //for (int i = grafiek2Itemhistorieken.Count - 13; i < grafiek2Itemhistorieken.Count; i++)
-      //{
-      //  grafiek2XLabels.Add(grafiek2Itemhistorieken[i].HistoriekDatum.ToShortDateString());
-      //  grafiek2Waarden.Add(grafiek2Itemhistorieken[i].AantalVermeldingen);
-      //}
-      for (int i = 0; i < grafiek2Itemhistorieken.Count; i++)
+      for (int i = grafiek2Itemhistorieken.Count - 10; i < grafiek2Itemhistorieken.Count; i++)
       {
         grafiek2XLabels.Add(grafiek2Itemhistorieken[i].HistoriekDatum.ToShortDateString());
         grafiek2Waarden.Add(grafiek2Itemhistorieken[i].AantalVermeldingen);
       }
+
 
 
 
@@ -123,15 +118,9 @@ namespace MVC.Controllers
         }
 
       }
-      
 
 
-      //for (int i = grafiek3Itemhistorieken.Count - 7; i < grafiek3Itemhistorieken.Count; i++)
-      //{
-      //  grafiek3XLabels.Add(grafiek3Itemhistorieken[i].HistoriekDatum.ToShortDateString());
-      //  grafiek3Waarden.Add(grafiek3Itemhistorieken[i].AantalVermeldingen);
-      //}
-      for (int i = 0; i < grafiek3Itemhistorieken.Count; i++)
+      for (int i = grafiek3Itemhistorieken.Count - 7; i < grafiek3Itemhistorieken.Count; i++)
       {
         grafiek3XLabels.Add(grafiek3Itemhistorieken[i].HistoriekDatum.ToShortDateString());
         grafiek3Waarden.Add(grafiek3Itemhistorieken[i].AantalVermeldingen);
@@ -140,114 +129,88 @@ namespace MVC.Controllers
 
 
 
+
+
+
+
+      var grafiek4items = itemManager.GetPersonen(1).ToList();
+
       List<dynamic> grafiek4XLabels = new List<dynamic>();
       List<ItemHistoriek> grafiek4Itemhistorieken = new List<ItemHistoriek>();
       List<double> grafiek4Waarden = new List<double>();
-
-      items = itemManager.GetGemonitordeItems(1).ToList();
-
       List<string> grafiek4Legendelijst = new List<string>();
 
+      List<ItemHistoriek> itemhistoriekItem1Grafiek4 = new List<ItemHistoriek>();
+      List<ItemHistoriek> itemhistoriekItem2Grafiek4 = new List<ItemHistoriek>();
+      List<ItemHistoriek> itemhistoriekItem3Grafiek4 = new List<ItemHistoriek>();
+      List<ItemHistoriek> itemhistoriekItem4Grafiek4 = new List<ItemHistoriek>();
+      List<ItemHistoriek> itemhistoriekItem5Grafiek4 = new List<ItemHistoriek>();
 
-      List<ItemHistoriek> itemhistoriekItem1 = new List<ItemHistoriek>();
-      List<ItemHistoriek> itemhistoriekItem2 = new List<ItemHistoriek>();
-      List<ItemHistoriek> itemhistoriekItem3 = new List<ItemHistoriek>();
-      List<ItemHistoriek> itemhistoriekItem4 = new List<ItemHistoriek>();
-      List<ItemHistoriek> itemhistoriekItem5 = new List<ItemHistoriek>();
-
-      List<double> waardenItem1 = new List<double>();
-      List<double> waardenItem2 = new List<double>();
-      List<double> waardenItem3 = new List<double>();
-      List<double> waardenItem4 = new List<double>();
-      List<double> waardenItem5 = new List<double>();
+      List<double> waardenItem1Grafiek4 = new List<double>();
+      List<double> waardenItem2Grafiek4 = new List<double>();
+      List<double> waardenItem3Grafiek4 = new List<double>();
+      List<double> waardenItem4Grafiek4 = new List<double>();
+      List<double> waardenItem5Grafiek4 = new List<double>();
 
       List<List<double>> alleWaarden = new List<List<double>>();
 
-      //List<DateTime> dagenItems = new List<DateTime>();
 
 
-      foreach (var element in items)
+      foreach (var element in grafiek4items)
       {
         if (element.GemonitordItemId == 2)
         {
-          itemhistoriekItem1 = element.ItemHistorieken;
+          itemhistoriekItem1Grafiek4 = element.ItemHistorieken;
           grafiek4Legendelijst.Add(element.Naam);
         }
+
         if (element.GemonitordItemId == 3)
         {
-          itemhistoriekItem2 = element.ItemHistorieken;
+          itemhistoriekItem2Grafiek4 = element.ItemHistorieken;
           grafiek4Legendelijst.Add(element.Naam);
         }
+
         if (element.GemonitordItemId == 4)
         {
-          itemhistoriekItem3 = element.ItemHistorieken;
+          itemhistoriekItem3Grafiek4 = element.ItemHistorieken;
           grafiek4Legendelijst.Add(element.Naam);
         }
+
         if (element.GemonitordItemId == 6)
         {
-          itemhistoriekItem4 = element.ItemHistorieken;
+          itemhistoriekItem4Grafiek4 = element.ItemHistorieken;
           grafiek4Legendelijst.Add(element.Naam);
         }
+
         if (element.GemonitordItemId == 7)
         {
-          itemhistoriekItem5 = element.ItemHistorieken;
+          itemhistoriekItem5Grafiek4 = element.ItemHistorieken;
           grafiek4Legendelijst.Add(element.Naam);
         }
 
       }
 
-      //for (int i = itemhistoriekItem1.Count - 5; i < itemhistoriekItem1.Count; i++)
-      //{
-      //  grafiek4XLabels.Add(itemhistoriekItem1[i].HistoriekDatum.ToShortDateString());
 
-      //  waardenItem1.Add(itemhistoriekItem1[i].AantalVermeldingen);
-      //  waardenItem2.Add(itemhistoriekItem2[i].AantalVermeldingen);
-      //  waardenItem3.Add(itemhistoriekItem3[i].AantalVermeldingen);
-      //  waardenItem4.Add(itemhistoriekItem4[i].AantalVermeldingen);
-      //  waardenItem5.Add(itemhistoriekItem5[i].AantalVermeldingen);
-
-      //  //waardenItem1.Add(itemhistoriekItem1[i].GemPolariteit);
-      //  //waardenItem2.Add(itemhistoriekItem2[i].GemPolariteit);
-      //  //waardenItem3.Add(itemhistoriekItem3[i].GemPolariteit);
-      //  //waardenItem4.Add(itemhistoriekItem4[i].GemPolariteit);
-      //  //waardenItem5.Add(itemhistoriekItem5[i].GemPolariteit);
-      //  //waardenItem1.Add(itemhistoriekItem1[i].GemObjectiviteit);
-      //  //waardenItem2.Add(itemhistoriekItem2[i].GemObjectiviteit);
-      //  //waardenItem3.Add(itemhistoriekItem3[i].GemObjectiviteit);
-      //  //waardenItem4.Add(itemhistoriekItem4[i].GemObjectiviteit);
-      //  //waardenItem5.Add(itemhistoriekItem5[i].GemObjectiviteit);
-      //}
-      for (int i = 0; i < itemhistoriekItem1.Count; i++)
+      for (int i = itemhistoriekItem2Grafiek4.Count - 5; i < itemhistoriekItem2Grafiek4.Count; i++)
       {
-        grafiek4XLabels.Add(itemhistoriekItem1[i].HistoriekDatum.ToShortDateString());
+        grafiek4XLabels.Add(itemhistoriekItem1Grafiek4[i].HistoriekDatum.ToShortDateString());
 
-        waardenItem1.Add(itemhistoriekItem1[i].AantalVermeldingen);
-        waardenItem2.Add(itemhistoriekItem2[i].AantalVermeldingen);
-        waardenItem3.Add(itemhistoriekItem3[i].AantalVermeldingen);
-        waardenItem4.Add(itemhistoriekItem4[i].AantalVermeldingen);
-        waardenItem5.Add(itemhistoriekItem5[i].AantalVermeldingen);
+        waardenItem1Grafiek4.Add(itemhistoriekItem1Grafiek4[i].AantalVermeldingen);
+        waardenItem2Grafiek4.Add(itemhistoriekItem2Grafiek4[i].AantalVermeldingen);
+        waardenItem3Grafiek4.Add(itemhistoriekItem3Grafiek4[i].AantalVermeldingen);
+        waardenItem4Grafiek4.Add(itemhistoriekItem4Grafiek4[i].AantalVermeldingen);
+        waardenItem5Grafiek4.Add(itemhistoriekItem5Grafiek4[i].AantalVermeldingen);
 
-        //waardenItem1.Add(itemhistoriekItem1[i].GemPolariteit);
-        //waardenItem2.Add(itemhistoriekItem2[i].GemPolariteit);
-        //waardenItem3.Add(itemhistoriekItem3[i].GemPolariteit);
-        //waardenItem4.Add(itemhistoriekItem4[i].GemPolariteit);
-        //waardenItem5.Add(itemhistoriekItem5[i].GemPolariteit);
-        //waardenItem1.Add(itemhistoriekItem1[i].GemObjectiviteit);
-        //waardenItem2.Add(itemhistoriekItem2[i].GemObjectiviteit);
-        //waardenItem3.Add(itemhistoriekItem3[i].GemObjectiviteit);
-        //waardenItem4.Add(itemhistoriekItem4[i].GemObjectiviteit);
-        //waardenItem5.Add(itemhistoriekItem5[i].GemObjectiviteit);
       }
 
 
 
 
-      alleWaarden.Add(waardenItem1);
-      alleWaarden.Add(waardenItem2);
-      alleWaarden.Add(waardenItem3);
-      alleWaarden.Add(waardenItem4);
-      alleWaarden.Add(waardenItem5);
-
+      alleWaarden.Add(waardenItem1Grafiek4);
+      alleWaarden.Add(waardenItem2Grafiek4);
+      alleWaarden.Add(waardenItem3Grafiek4);
+      alleWaarden.Add(waardenItem4Grafiek4);
+      alleWaarden.Add(waardenItem5Grafiek4);  
 
 
       List<dynamic> grafieken = new List<dynamic>()
@@ -257,7 +220,7 @@ namespace MVC.Controllers
       {
         GrafiekId = 1,
 
-        Titel = "Vergelijking op moment",
+        Titel = "Vergelijking op moment - gemiddelde polariteit",
         ToonLegende = false,
         ToonXAs = true,
         ToonYAs = true,
@@ -381,28 +344,8 @@ namespace MVC.Controllers
       return View();
     }
 
-    public virtual ActionResult LaadElementAanpassen()
+    public virtual ActionResult LaadGrafiekAanpassen()
     {
-      List<SelectListItem> liX = new List<SelectListItem>
-      {
-        new SelectListItem { Text = "test1", Value = "test1" },
-        new SelectListItem { Text = "test2", Value = "test2" },
-        new SelectListItem { Text = "test3", Value = "test3" },
-        new SelectListItem { Text = "test4", Value = "test4" },
-        new SelectListItem { Text = "test5", Value = "test5" }
-      };
-      ViewBag.XWaarden = liX;
-
-      List<SelectListItem> liY = new List<SelectListItem>
-      {
-        new SelectListItem { Text = "dummy1", Value = "test1" },
-        new SelectListItem { Text = "dummy2", Value = "test2" },
-        new SelectListItem { Text = "dummy3", Value = "test3" },
-        //new SelectListItem { Text = "dummy4", Value = "test4" },
-        //new SelectListItem { Text = "dummy5", Value = "test5" }
-      };
-      ViewBag.YWaarden = liY;
-
       List<SelectListItem> schaalopties = new List<SelectListItem>
       {
         new SelectListItem { Text = "dagen", Value = "dagen" },
@@ -410,7 +353,7 @@ namespace MVC.Controllers
       };
       ViewBag.Schaalopties = schaalopties;
 
-      return PartialView("~/Views/Shared/Dashboard/ElementAanpassen.cshtml", ViewBag);
+      return PartialView("~/Views/Shared/Dashboard/GrafiekAanpassen.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadLegePartialView()
@@ -427,53 +370,14 @@ namespace MVC.Controllers
 
 
 
-
-    //public virtual ActionResult LaadTop5(string item)
+    //public void LaadThema(List<Thema> items)
     //{
-    //  items = itemManager.GetGemonitordeItems(1).ToList();
-
-    //  foreach (var element in items)
+    //  selects = new List<SelectListItem>();
+    //  foreach (var item in items)
     //  {
-    //    if (element.Naam.Equals(item))
-    //    {
-    //      ViewBag.ItemNaam = element.Naam;
-    //      //ViewBag.ItemTop5 = element.
-    //    }
+    //    selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
     //  }
-
-    //  return PartialView("~/Views/Shared/GetalEnOverzicht/Top5.cshtml", ViewBag);
     //}
-
-    //public virtual ActionResult LaadTop10(string item)
-    //{
-    //  items = itemManager.GetGemonitordeItems(1).ToList();
-
-    //  foreach (var element in items)
-    //  {
-    //    if (element.Naam.Equals(item))
-    //    {
-    //      ViewBag.ItemNaam = element.Naam;
-    //      //ViewBag.ItemTop10 = element.
-    //    }
-    //  }
-
-    //  return PartialView("~/Views/Shared/GetalEnOverzicht/Top10.cshtml", ViewBag);
-    //}
-
-
-
-
-
-
-
-    public void LaadThema(List<Thema> items)
-    {
-      selects = new List<SelectListItem>();
-      foreach (var item in items)
-      {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-      }
-    }
 
     public virtual ActionResult LaadOrganisaties1Item()
     {
@@ -699,11 +603,6 @@ namespace MVC.Controllers
 
 
 
-    //public virtual ActionResult LaadStatistiekenKeuze()
-    //{
-    //  return PartialView("~/Views/Shared/Dashboard/Statistieken/StatistiekenKeuze.cshtml");
-    //}
-
     public virtual ActionResult LaadGetalKeuze()
     {
       return PartialView("~/Views/Shared/Dashboard/Statistieken/GetalKeuze.cshtml");
@@ -725,10 +624,7 @@ namespace MVC.Controllers
     }
 
 
-    //public virtual ActionResult LaadGrafiekenKeuze()
-    //{
-    //  return PartialView("~/Views/Shared/Dashboard/Grafieken/GrafiekenKeuze.cshtml");
-    //}
+
 
     public virtual ActionResult LaadAantalTweets()
     {
@@ -772,7 +668,7 @@ namespace MVC.Controllers
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
             }
-            
+
           }
 
 
@@ -790,7 +686,7 @@ namespace MVC.Controllers
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
             }
-           
+
           }
 
           break;
@@ -808,7 +704,7 @@ namespace MVC.Controllers
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
             }
-            
+
           }
 
           break;
@@ -851,7 +747,7 @@ namespace MVC.Controllers
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
             }
-            
+
           }
 
 
@@ -874,7 +770,7 @@ namespace MVC.Controllers
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
             }
-            
+
           }
 
           break;
@@ -897,7 +793,7 @@ namespace MVC.Controllers
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
             }
-            
+
           }
 
           break;
@@ -945,7 +841,7 @@ namespace MVC.Controllers
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
             }
-            
+
           }
 
 
@@ -973,7 +869,7 @@ namespace MVC.Controllers
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
             }
-           
+
           }
 
           break;
@@ -1001,7 +897,7 @@ namespace MVC.Controllers
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
             }
-            
+
           }
 
           break;
@@ -1137,34 +1033,15 @@ namespace MVC.Controllers
     }
 
 
-    //public virtual ActionResult LaadLijndiagramAantalTweets(string grafiektitel, string item)
-    //{
-
-    //  var gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
-
-    //  foreach (var element in gemonitordeItems)
-    //  {
-    //    if (element.Naam.Equals(item))
-    //    {
-    //      ViewBag.ItemDagen = 
-    //      ViewBag.ItemAantalTweets = 
-
-    //    }
-
-    //  }
-
-    //  ViewBag.Grafiektitel = grafiektitel;
-
-    //  return PartialView("~/Views/Shared/Grafieken/Lijndiagram/LijndiagramAantalTweets.cshtml", ViewBag);
-    //}
-
 
     public virtual ActionResult LaadLijndiagramAantalTweets(string grafiektitel, string item, string aantalDagen)
     {
-      //int dagen = Int32.Parse(aantalDagen);
-      List<ItemHistoriek> itemhistorieken = new List<ItemHistoriek>();
-      List<dynamic> xLabels = new List<dynamic>();
-      List<double> waarden = new List<double>();
+
+      int dagen = Int32.Parse(aantalDagen);
+
+      List<ItemHistoriek> grafiekItemhistorieken = new List<ItemHistoriek>();
+      List<dynamic> grafiekXLabels = new List<dynamic>();
+      List<double> grafiekWaarden = new List<double>();
 
       List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
 
@@ -1172,27 +1049,21 @@ namespace MVC.Controllers
       {
         if (gemonitordeItems[i].Naam.Equals(item))
         {
-          itemhistorieken = gemonitordeItems[i].ItemHistorieken;
+          grafiekItemhistorieken = gemonitordeItems[i].ItemHistorieken;
 
         }
       }
 
-      //for (int i = itemhistorieken.Count - 5; i < itemhistorieken.Count; i++)
-      //{
-      //  xLabels.Add(itemhistorieken[i].HistoriekDatum.ToShortDateString());
-      //  waarden.Add(itemhistorieken[i].AantalVermeldingen);
-      //}
-      for (int i = 0; i < itemhistorieken.Count; i++)
+
+      for (int i = grafiekItemhistorieken.Count - dagen; i < grafiekItemhistorieken.Count; i++)
       {
-        xLabels.Add(itemhistorieken[i].HistoriekDatum.ToShortDateString());
-        waarden.Add(itemhistorieken[i].AantalVermeldingen);
+        grafiekXLabels.Add(grafiekItemhistorieken[i].HistoriekDatum.ToShortDateString());
+        grafiekWaarden.Add(grafiekItemhistorieken[i].AantalVermeldingen);
       }
 
-      ViewBag.ItemDagen = xLabels;
-      ViewBag.ItemAantalTweets = waarden;
-      
-
-      ViewBag.Grafiektitel = grafiektitel;
+      ViewBag.ItemDagen = grafiekXLabels;
+      ViewBag.ItemAantalTweets = grafiekWaarden;
+      ViewBag.Grafiektitel = "titel";
 
 
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/LijndiagramAantalTweets.cshtml", ViewBag);
@@ -1207,11 +1078,14 @@ namespace MVC.Controllers
     public virtual ActionResult LaadVergelijkingDoorheenTijd2Items(string grafiektitel, string item1, string item2, string aantalDagen, string gewensteData)
     {
 
-      //int dagen = Int32.Parse(aantalDagen);
+      int dagen = Int32.Parse(aantalDagen);
 
       items = itemManager.GetGemonitordeItems(1).ToList();
 
-      List<string> legendelijst = new List<string>();
+      List<dynamic> grafiekXLabels = new List<dynamic>();
+      List<ItemHistoriek> grafiekItemhistorieken = new List<ItemHistoriek>();
+      List<double> grafiekWaarden = new List<double>();
+      List<string> grafiekLegendelijst = new List<string>();
 
       List<ItemHistoriek> itemhistoriekItem1 = new List<ItemHistoriek>();
       List<ItemHistoriek> itemhistoriekItem2 = new List<ItemHistoriek>();
@@ -1220,11 +1094,7 @@ namespace MVC.Controllers
       List<double> waardenItem1 = new List<double>();
       List<double> waardenItem2 = new List<double>();
 
-
       List<List<double>> alleWaarden = new List<List<double>>();
-
-      List<DateTime> dagenItems = new List<DateTime>();
-
 
 
       foreach (var element in items)
@@ -1232,51 +1102,26 @@ namespace MVC.Controllers
         if (element.Naam.Equals(item1))
         {
           itemhistoriekItem1 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
+          grafiekLegendelijst.Add(element.Naam);
         }
         if (element.Naam.Equals(item2))
         {
           itemhistoriekItem2 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
+          grafiekLegendelijst.Add(element.Naam);
         }
 
       }
 
-      //for (int i = itemhistoriekItem1.Count - dagen; i < itemhistoriekItem1.Count; i++)
-      //{
-      //  dagenItems.Add(itemhistoriekItem1[i].HistoriekDatum);
 
-      //  switch (gewensteData)
-      //  {
-      //    case "av":
-      //      waardenItem1.Add(itemhistoriekItem1[i].AantalVermeldingen);
-      //      waardenItem2.Add(itemhistoriekItem2[i].AantalVermeldingen);
-
-
-      //      break;
-      //    case "gp":
-      //      waardenItem1.Add(itemhistoriekItem1[i].GemPolariteit);
-      //      waardenItem2.Add(itemhistoriekItem2[i].GemPolariteit);
-
-      //      break;
-      //    case "go":
-      //      waardenItem1.Add(itemhistoriekItem1[i].GemObjectiviteit);
-      //      waardenItem2.Add(itemhistoriekItem2[i].GemObjectiviteit);
-
-      //      break;
-      //  }
-      //}
-
-      for (int i = 0; i < itemhistoriekItem1.Count; i++)
+      for (int i = itemhistoriekItem1.Count - dagen; i < itemhistoriekItem1.Count; i++)
       {
-        dagenItems.Add(itemhistoriekItem1[i].HistoriekDatum);
+        grafiekXLabels.Add(itemhistoriekItem1[i].HistoriekDatum.ToShortDateString());
 
         switch (gewensteData)
         {
           case "av":
             waardenItem1.Add(itemhistoriekItem1[i].AantalVermeldingen);
             waardenItem2.Add(itemhistoriekItem2[i].AantalVermeldingen);
-
 
             break;
           case "gp":
@@ -1290,29 +1135,32 @@ namespace MVC.Controllers
 
             break;
         }
+
       }
 
       alleWaarden.Add(waardenItem1);
       alleWaarden.Add(waardenItem2);
 
-
-      ViewBag.Waarden = alleWaarden;
-      ViewBag.Legendelijst = legendelijst;
+      ViewBag.Data = alleWaarden;
+      ViewBag.Legendelijst = grafiekLegendelijst;
       ViewBag.Grafiektitel = grafiektitel;
-
-      return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram2Items.cshtml", ViewBag);
-
+      ViewBag.XLabels = grafiekXLabels;
+      return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram5Items.cshtml", ViewBag);
     }
+
 
 
     public virtual ActionResult LaadVergelijkingDoorheenTijd3Items(string grafiektitel, string item1, string item2, string item3, string aantalDagen, string gewensteData)
     {
 
-      //int dagen = Int32.Parse(aantalDagen);
+      int dagen = Int32.Parse(aantalDagen);
 
       items = itemManager.GetGemonitordeItems(1).ToList();
 
-      List<string> legendelijst = new List<string>();
+      List<dynamic> grafiekXLabels = new List<dynamic>();
+      List<ItemHistoriek> grafiekItemhistorieken = new List<ItemHistoriek>();
+      List<double> grafiekWaarden = new List<double>();
+      List<string> grafiekLegendelijst = new List<string>();
 
       List<ItemHistoriek> itemhistoriekItem1 = new List<ItemHistoriek>();
       List<ItemHistoriek> itemhistoriekItem2 = new List<ItemHistoriek>();
@@ -1323,10 +1171,8 @@ namespace MVC.Controllers
       List<double> waardenItem2 = new List<double>();
       List<double> waardenItem3 = new List<double>();
 
+
       List<List<double>> alleWaarden = new List<List<double>>();
-
-      List<DateTime> dagenItems = new List<DateTime>();
-
 
 
       foreach (var element in items)
@@ -1334,51 +1180,25 @@ namespace MVC.Controllers
         if (element.Naam.Equals(item1))
         {
           itemhistoriekItem1 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
+          grafiekLegendelijst.Add(element.Naam);
         }
         if (element.Naam.Equals(item2))
         {
           itemhistoriekItem2 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
+          grafiekLegendelijst.Add(element.Naam);
         }
         if (element.Naam.Equals(item3))
         {
           itemhistoriekItem3 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
+          grafiekLegendelijst.Add(element.Naam);
         }
 
       }
 
-      //for (int i = itemhistoriekItem1.Count - dagen; i < itemhistoriekItem1.Count; i++)
-      //{
-      //  dagenItems.Add(itemhistoriekItem1[i].HistoriekDatum);
 
-      //  switch (gewensteData)
-      //  {
-      //    case "av":
-      //      waardenItem1.Add(itemhistoriekItem1[i].AantalVermeldingen);
-      //      waardenItem2.Add(itemhistoriekItem2[i].AantalVermeldingen);
-      //      waardenItem3.Add(itemhistoriekItem3[i].AantalVermeldingen);
-
-      //      break;
-      //    case "gp":
-      //      waardenItem1.Add(itemhistoriekItem1[i].GemPolariteit);
-      //      waardenItem2.Add(itemhistoriekItem2[i].GemPolariteit);
-      //      waardenItem3.Add(itemhistoriekItem3[i].GemPolariteit);
-
-      //      break;
-      //    case "go":
-      //      waardenItem1.Add(itemhistoriekItem1[i].GemObjectiviteit);
-      //      waardenItem2.Add(itemhistoriekItem2[i].GemObjectiviteit);
-      //      waardenItem3.Add(itemhistoriekItem3[i].GemObjectiviteit);
-
-      //      break;
-      //  }
-      //}
-
-      for (int i = 0; i < itemhistoriekItem1.Count; i++)
+      for (int i = itemhistoriekItem1.Count - dagen; i < itemhistoriekItem1.Count; i++)
       {
-        dagenItems.Add(itemhistoriekItem1[i].HistoriekDatum);
+        grafiekXLabels.Add(itemhistoriekItem1[i].HistoriekDatum.ToShortDateString());
 
         switch (gewensteData)
         {
@@ -1401,149 +1221,32 @@ namespace MVC.Controllers
 
             break;
         }
-      }
 
-        alleWaarden.Add(waardenItem1);
-      alleWaarden.Add(waardenItem2);
-      alleWaarden.Add(waardenItem3);
-
-      ViewBag.Waarden = alleWaarden;
-      ViewBag.Legendelijst = legendelijst;
-      ViewBag.Grafiektitel = grafiektitel;
-
-      return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram3Items.cshtml", ViewBag);
-
-    }
-
-
-
-    public virtual ActionResult LaadVergelijkingDoorheenTijd4Items(string grafiektitel, string item1, string item2, string item3, string item4, string aantalDagen, string gewensteData)
-    {
-
-      //int dagen = Int32.Parse(aantalDagen);
-
-      items = itemManager.GetGemonitordeItems(1).ToList();
-
-      List<string> legendelijst = new List<string>();
-
-      List<ItemHistoriek> itemhistoriekItem1 = new List<ItemHistoriek>();
-      List<ItemHistoriek> itemhistoriekItem2 = new List<ItemHistoriek>();
-      List<ItemHistoriek> itemhistoriekItem3 = new List<ItemHistoriek>();
-      List<ItemHistoriek> itemhistoriekItem4 = new List<ItemHistoriek>();
-
-      List<double> waardenItem1 = new List<double>();
-      List<double> waardenItem2 = new List<double>();
-      List<double> waardenItem3 = new List<double>();
-      List<double> waardenItem4 = new List<double>();
-
-      List<List<double>> alleWaarden = new List<List<double>>();
-
-      List<DateTime> dagenItems = new List<DateTime>();
-
-
-
-      foreach (var element in items)
-      {
-        if (element.Naam.Equals(item1))
-        {
-          itemhistoriekItem1 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
-        }
-        if (element.Naam.Equals(item2))
-        {
-          itemhistoriekItem2 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
-        }
-        if (element.Naam.Equals(item3))
-        {
-          itemhistoriekItem3 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
-        }
-        if (element.Naam.Equals(item4))
-        {
-          itemhistoriekItem4 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
-        }
-
-      }
-
-      //for (int i = itemhistoriekItem1.Count - dagen; i < itemhistoriekItem1.Count; i++)
-      //{
-      //  dagenItems.Add(itemhistoriekItem1[i].HistoriekDatum);
-
-      //  switch (gewensteData)
-      //  {
-      //    case "av":
-      //      waardenItem1.Add(itemhistoriekItem1[i].AantalVermeldingen);
-      //      waardenItem2.Add(itemhistoriekItem2[i].AantalVermeldingen);
-      //      waardenItem3.Add(itemhistoriekItem3[i].AantalVermeldingen);
-      //      waardenItem4.Add(itemhistoriekItem4[i].AantalVermeldingen);
-
-      //      break;
-      //    case "gp":
-      //      waardenItem1.Add(itemhistoriekItem1[i].GemPolariteit);
-      //      waardenItem2.Add(itemhistoriekItem2[i].GemPolariteit);
-      //      waardenItem3.Add(itemhistoriekItem3[i].GemPolariteit);
-      //      waardenItem4.Add(itemhistoriekItem4[i].GemPolariteit);
-      //      break;
-      //    case "go":
-      //      waardenItem1.Add(itemhistoriekItem1[i].GemObjectiviteit);
-      //      waardenItem2.Add(itemhistoriekItem2[i].GemObjectiviteit);
-      //      waardenItem3.Add(itemhistoriekItem3[i].GemObjectiviteit);
-      //      waardenItem4.Add(itemhistoriekItem4[i].GemObjectiviteit);
-      //      break;
-      //  }
-      //}
-
-      for (int i = 0; i < itemhistoriekItem1.Count; i++)
-      {
-        dagenItems.Add(itemhistoriekItem1[i].HistoriekDatum);
-
-        switch (gewensteData)
-        {
-          case "av":
-            waardenItem1.Add(itemhistoriekItem1[i].AantalVermeldingen);
-            waardenItem2.Add(itemhistoriekItem2[i].AantalVermeldingen);
-            waardenItem3.Add(itemhistoriekItem3[i].AantalVermeldingen);
-            waardenItem4.Add(itemhistoriekItem4[i].AantalVermeldingen);
-
-            break;
-          case "gp":
-            waardenItem1.Add(itemhistoriekItem1[i].GemPolariteit);
-            waardenItem2.Add(itemhistoriekItem2[i].GemPolariteit);
-            waardenItem3.Add(itemhistoriekItem3[i].GemPolariteit);
-            waardenItem4.Add(itemhistoriekItem4[i].GemPolariteit);
-            break;
-          case "go":
-            waardenItem1.Add(itemhistoriekItem1[i].GemObjectiviteit);
-            waardenItem2.Add(itemhistoriekItem2[i].GemObjectiviteit);
-            waardenItem3.Add(itemhistoriekItem3[i].GemObjectiviteit);
-            waardenItem4.Add(itemhistoriekItem4[i].GemObjectiviteit);
-            break;
-        }
       }
 
       alleWaarden.Add(waardenItem1);
       alleWaarden.Add(waardenItem2);
       alleWaarden.Add(waardenItem3);
-      alleWaarden.Add(waardenItem4);
 
-      ViewBag.Waarden = alleWaarden;
-      ViewBag.Legendelijst = legendelijst;
+      ViewBag.Data = alleWaarden;
+      ViewBag.Legendelijst = grafiekLegendelijst;
       ViewBag.Grafiektitel = grafiektitel;
-
-      return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram4Items.cshtml", ViewBag);
-
+      ViewBag.XLabels = grafiekXLabels;
+      return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram5Items.cshtml", ViewBag);
     }
 
-    public virtual ActionResult LaadVergelijkingDoorheenTijd5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string aantalDagen, string gewensteData)
+
+    public virtual ActionResult LaadVergelijkingDoorheenTijd4Items(string grafiektitel, string item1, string item2, string item3, string item4, string aantalDagen, string gewensteData)
     {
 
-      //int dagen = Int32.Parse(aantalDagen);
+      int dagen = Int32.Parse(aantalDagen);
 
       items = itemManager.GetGemonitordeItems(1).ToList();
 
-      List<string> legendelijst = new List<string>();
+      List<dynamic> grafiekXLabels = new List<dynamic>();
+      List<ItemHistoriek> grafiekItemhistorieken = new List<ItemHistoriek>();
+      List<double> grafiekWaarden = new List<double>();
+      List<string> grafiekLegendelijst = new List<string>();
 
       List<ItemHistoriek> itemhistoriekItem1 = new List<ItemHistoriek>();
       List<ItemHistoriek> itemhistoriekItem2 = new List<ItemHistoriek>();
@@ -1559,8 +1262,7 @@ namespace MVC.Controllers
 
       List<List<double>> alleWaarden = new List<List<double>>();
 
-      List<string> dagenItems = new List<string>();
-
+      //List<DateTime> dagenItems = new List<DateTime>();
 
 
       foreach (var element in items)
@@ -1568,64 +1270,137 @@ namespace MVC.Controllers
         if (element.Naam.Equals(item1))
         {
           itemhistoriekItem1 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
+          grafiekLegendelijst.Add(element.Naam);
         }
         if (element.Naam.Equals(item2))
         {
           itemhistoriekItem2 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
+          grafiekLegendelijst.Add(element.Naam);
         }
         if (element.Naam.Equals(item3))
         {
           itemhistoriekItem3 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
+          grafiekLegendelijst.Add(element.Naam);
         }
         if (element.Naam.Equals(item4))
         {
           itemhistoriekItem4 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
+          grafiekLegendelijst.Add(element.Naam);
+        }
+
+      }
+
+
+      for (int i = itemhistoriekItem1.Count - dagen; i < itemhistoriekItem1.Count; i++)
+      {
+        grafiekXLabels.Add(itemhistoriekItem1[i].HistoriekDatum.ToShortDateString());
+
+        switch (gewensteData)
+        {
+          case "av":
+            waardenItem1.Add(itemhistoriekItem1[i].AantalVermeldingen);
+            waardenItem2.Add(itemhistoriekItem2[i].AantalVermeldingen);
+            waardenItem3.Add(itemhistoriekItem3[i].AantalVermeldingen);
+            waardenItem4.Add(itemhistoriekItem4[i].AantalVermeldingen);
+            break;
+          case "gp":
+            waardenItem1.Add(itemhistoriekItem1[i].GemPolariteit);
+            waardenItem2.Add(itemhistoriekItem2[i].GemPolariteit);
+            waardenItem3.Add(itemhistoriekItem3[i].GemPolariteit);
+            waardenItem4.Add(itemhistoriekItem4[i].GemPolariteit);
+            break;
+          case "go":
+            waardenItem1.Add(itemhistoriekItem1[i].GemObjectiviteit);
+            waardenItem2.Add(itemhistoriekItem2[i].GemObjectiviteit);
+            waardenItem3.Add(itemhistoriekItem3[i].GemObjectiviteit);
+            waardenItem4.Add(itemhistoriekItem4[i].GemObjectiviteit);
+            break;
+        }
+
+      }
+
+
+      alleWaarden.Add(waardenItem1);
+      alleWaarden.Add(waardenItem2);
+      alleWaarden.Add(waardenItem3);
+      alleWaarden.Add(waardenItem4);
+
+
+      ViewBag.Data = alleWaarden;
+      ViewBag.Legendelijst = grafiekLegendelijst;
+      ViewBag.Grafiektitel = grafiektitel;
+      ViewBag.XLabels = grafiekXLabels;
+      return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram5Items.cshtml", ViewBag);
+    }
+
+
+
+
+
+
+    public virtual ActionResult LaadVergelijkingDoorheenTijd5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string aantalDagen, string gewensteData)
+    {
+
+      int dagen = Int32.Parse(aantalDagen);
+
+      items = itemManager.GetGemonitordeItems(1).ToList();
+
+      List<dynamic> grafiekXLabels = new List<dynamic>();
+      List<ItemHistoriek> grafiekItemhistorieken = new List<ItemHistoriek>();
+      List<double> grafiekWaarden = new List<double>();
+      List<string> grafiekLegendelijst = new List<string>();
+
+      List<ItemHistoriek> itemhistoriekItem1 = new List<ItemHistoriek>();
+      List<ItemHistoriek> itemhistoriekItem2 = new List<ItemHistoriek>();
+      List<ItemHistoriek> itemhistoriekItem3 = new List<ItemHistoriek>();
+      List<ItemHistoriek> itemhistoriekItem4 = new List<ItemHistoriek>();
+      List<ItemHistoriek> itemhistoriekItem5 = new List<ItemHistoriek>();
+
+      List<double> waardenItem1 = new List<double>();
+      List<double> waardenItem2 = new List<double>();
+      List<double> waardenItem3 = new List<double>();
+      List<double> waardenItem4 = new List<double>();
+      List<double> waardenItem5 = new List<double>();
+
+      List<List<double>> alleWaarden = new List<List<double>>();
+
+      //List<DateTime> dagenItems = new List<DateTime>();
+
+
+      foreach (var element in items)
+      {
+        if (element.Naam.Equals(item1))
+        {
+          itemhistoriekItem1 = element.ItemHistorieken;
+          grafiekLegendelijst.Add(element.Naam);
+        }
+        if (element.Naam.Equals(item2))
+        {
+          itemhistoriekItem2 = element.ItemHistorieken;
+          grafiekLegendelijst.Add(element.Naam);
+        }
+        if (element.Naam.Equals(item3))
+        {
+          itemhistoriekItem3 = element.ItemHistorieken;
+          grafiekLegendelijst.Add(element.Naam);
+        }
+        if (element.Naam.Equals(item4))
+        {
+          itemhistoriekItem4 = element.ItemHistorieken;
+          grafiekLegendelijst.Add(element.Naam);
         }
         if (element.Naam.Equals(item5))
         {
           itemhistoriekItem5 = element.ItemHistorieken;
-          legendelijst.Add(element.Naam);
+          grafiekLegendelijst.Add(element.Naam);
         }
+
       }
 
-      //for (int i = itemhistoriekItem1.Count - dagen; i < itemhistoriekItem1.Count; i++)
-      //{
-      //  dagenItems.Add(itemhistoriekItem1[i].HistoriekDatum);
 
-      //  switch (gewensteData)
-      //  {
-      //    case "av":
-      //      waardenItem1.Add(itemhistoriekItem1[i].AantalVermeldingen);
-      //      waardenItem2.Add(itemhistoriekItem2[i].AantalVermeldingen);
-      //      waardenItem3.Add(itemhistoriekItem3[i].AantalVermeldingen);
-      //      waardenItem4.Add(itemhistoriekItem4[i].AantalVermeldingen);
-      //      waardenItem5.Add(itemhistoriekItem5[i].AantalVermeldingen);
-
-      //      break;
-      //    case "gp":
-      //      waardenItem1.Add(itemhistoriekItem1[i].GemPolariteit);
-      //      waardenItem2.Add(itemhistoriekItem2[i].GemPolariteit);
-      //      waardenItem3.Add(itemhistoriekItem3[i].GemPolariteit);
-      //      waardenItem4.Add(itemhistoriekItem4[i].GemPolariteit);
-      //      waardenItem5.Add(itemhistoriekItem5[i].GemPolariteit);
-      //      break;
-      //    case "go":
-      //      waardenItem1.Add(itemhistoriekItem1[i].GemObjectiviteit);
-      //      waardenItem2.Add(itemhistoriekItem2[i].GemObjectiviteit);
-      //      waardenItem3.Add(itemhistoriekItem3[i].GemObjectiviteit);
-      //      waardenItem4.Add(itemhistoriekItem4[i].GemObjectiviteit);
-      //      waardenItem5.Add(itemhistoriekItem5[i].GemObjectiviteit);
-      //      break;
-      //  }
-      //}
-
-      for (int i = 0; i < itemhistoriekItem1.Count; i++)
+      for (int i = itemhistoriekItem1.Count - dagen; i < itemhistoriekItem1.Count; i++)
       {
-        dagenItems.Add(itemhistoriekItem1[i].HistoriekDatum);
+        grafiekXLabels.Add(itemhistoriekItem1[i].HistoriekDatum.ToShortDateString());
 
         switch (gewensteData)
         {
@@ -1635,7 +1410,6 @@ namespace MVC.Controllers
             waardenItem3.Add(itemhistoriekItem3[i].AantalVermeldingen);
             waardenItem4.Add(itemhistoriekItem4[i].AantalVermeldingen);
             waardenItem5.Add(itemhistoriekItem5[i].AantalVermeldingen);
-
             break;
           case "gp":
             waardenItem1.Add(itemhistoriekItem1[i].GemPolariteit);
@@ -1652,7 +1426,9 @@ namespace MVC.Controllers
             waardenItem5.Add(itemhistoriekItem5[i].GemObjectiviteit);
             break;
         }
+
       }
+
 
 
 
@@ -1662,12 +1438,12 @@ namespace MVC.Controllers
       alleWaarden.Add(waardenItem4);
       alleWaarden.Add(waardenItem5);
 
-      ViewBag.Data = alleWaarden;
-      ViewBag.Legendelijst = legendelijst;
-      ViewBag.Grafiektitel = grafiektitel;
-      ViewBag.XLabels = dagenItems;
-      return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram5Items.cshtml", ViewBag);
 
+      ViewBag.Data = alleWaarden;
+      ViewBag.Legendelijst = grafiekLegendelijst;
+      ViewBag.Grafiektitel = grafiektitel;
+      ViewBag.XLabels = grafiekXLabels;
+      return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram5Items.cshtml", ViewBag);
     }
 
 

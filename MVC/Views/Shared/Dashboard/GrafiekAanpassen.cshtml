@@ -1,19 +1,18 @@
-﻿<div>
-    <label>X-as</label>
-    @*@Html.DropDownList("Beheer", ViewBag.XWaarden as List<SelectListItem>)*@
-    <select id="inputXas">
-        <option>data1</option>
-        <option>data2</option>
-        <option>data3</option>
-    </select>
-</div>
+﻿@*@*<div>
+        <label>X-as</label>
+        <select id="inputXas">
+            <option>data1</option>
+            <option>data2</option>
+            <option>data3</option>
+        </select>
+    </div>
 
 
-<div>
-    <label>Y-as</label>
-    @*@Html.DropDownList("Dashboard", ViewBag.YWaarden as List<SelectListItem>)*@
+    <div>
+        <label>Y-as</label>
+        Html.DropDownList("Dashboard", ViewBag.YWaarden as List<SelectListItem>)
 
-</div>
+    </div>*@
 
 <div>
     <label>Titel</label>
@@ -21,12 +20,10 @@
 </div>
 
 <div>
-    <button type="button" data-toggle="collapse" data-target="#demo" class="btn btn-primary btn-algemene-layout">Geavanceerde instellingen</button>
-    <div id="demo" class="collapse">
+    <button type="button" data-toggle="collapse" data-target="#gi" class="btn btn-primary btn-algemene-layout">Geavanceerde instellingen</button>
+    <div id="gi" class="collapse">
         <h4>Geavanceerde instellingen</h4>
 
-
-        @*<button class="btn btn-primary" id="btnAssenWisselen">Assen wisselen</button>*@
 
         <input type="checkbox" id="chkAssenWisselen">Assen wisselen (als horizontaal staafdiagram weergeven)<br>
 
@@ -49,9 +46,11 @@
 
     $("#btnAanpassenOpslaan").click(function () {
 
-        
+
 
         grafiekWijzigen(grafiekNieuw);
+
+        //$("#1").options.title.text = "test"
 
         $("#modalGrafiekAanpassen").modal('hide');
     });
