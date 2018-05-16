@@ -219,6 +219,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Alerts\AlertsController.cs" />
     <Compile Include="Controllers\Api\AndroidController.cs" />
+    <Compile Include="Controllers\Api\IDataController.cs" />
     <Compile Include="Controllers\Api\TextgainController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DashboardStatistiekenController.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Models\ProfielViewModels.cs" />
     <Compile Include="Models\SettingsNotLoggedInViewModel.cs" />
     <Compile Include="Models\SuperAdminUserViewModels.cs" />
+    <Compile Include="Models\SuperAdmin\DeelplatformOverzichtViewModel.cs" />
     <Compile Include="Models\SuperAdmin\MaakDeelplatformViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -552,6 +554,8 @@
     <Content Include="Views\DashboardStatistieken\Index.cshtml" />
     <Content Include="Views\Shared\Dashboard\Statistieken\StatistiekenNietIngelogd.cshtml" />
     <Content Include="Views\SuperAdmin\MaakDeelplatform.cshtml" />
+    <Content Include="Views\SuperAdmin\EditDeelplatform.cshtml" />
+    <Content Include="Views\SuperAdmin\OverzichtDeelplatformen.cshtml" />
     <None Include="Web.CustomProfile.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
