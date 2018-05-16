@@ -87,7 +87,7 @@ namespace MVC.Controllers.Api
                     grafiekDTOs.Add(new GrafiekDTO()
                     {
                         GrafiekId = grafiek.GrafiekId,
-                        Data = grafiek.Data,
+                        //Data = grafiek.Data,
                         Keuze = grafiek.Keuze.ToString(),
                         LegendeLijst = grafiek.LegendeLijst,
                         Periode = grafiek.Periode,

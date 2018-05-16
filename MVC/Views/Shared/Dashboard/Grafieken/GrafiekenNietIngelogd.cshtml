@@ -1,0 +1,45 @@
+﻿@for (int i = 1; i < ViewBag.Grafieken.Count + 1; i++)
+{
+
+    <div class="col-md-6">
+        @if (i % 2 != 0)
+        {
+
+            <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId></canvas>
+
+
+
+            <button id="bewerken-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" data-target="#modalGrafiekAanpassen" data-toggle="modal">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button id="verwijderen-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        }
+    </div>
+
+    <div class="col-md-6">
+
+        @if (i % 2 == 0)
+        {
+
+            <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId></canvas>
+
+
+
+            <button id="bewerken-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" data-target="#modalGrafiekAanpassen" data-toggle="modal">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button id="verwijderen-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+
+
+        }
+
+    </div>
+
+}
+
+
+

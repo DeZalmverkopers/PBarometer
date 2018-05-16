@@ -1,0 +1,81 @@
+﻿<h1>Dashboard - statistieken</h1>
+
+<div class="container" id="elementenStatistieken">
+    @*Rij 1*@
+    <div class="row">
+        <div class="col-md-11">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary button-xx-large" id="btnToevoegen" data-target="#modalStatistiekToevoegen" data-toggle="modal">+</button>
+        </div>
+    </div>
+
+    @Html.Partial("~/Views/Shared/Dashboard/Statistieken/StatistiekenNietIngelogd.cshtml")
+
+
+    @*@for (int i = 1; i < ViewBag.Statistieken.Count + 1; i++)
+        {
+
+            <div class="col-md-6">
+                @if (i % 2 != 0)
+                {
+
+                    @ViewBag.Statistieken[i - 1].Naam
+
+                }
+            </div>
+
+            <div class="col-md-6">
+
+                @if (i % 2 == 0)
+                {
+
+                    @ViewBag.Statistieken[i - 1].Naam
+                }
+
+            </div>
+
+        }*@
+
+</div>
+
+
+
+
+<div class="modal" id="modalStatistiekToevoegen" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Statistiek toevoegen</h4>
+            </div>
+            <div class="modal-body" id="divStatistiekToevoegen">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+<script src="~/Scripts/Chart.js"></script>
+
+<script src="~/Scripts/EigenScripts.js"></script>
+
+@*<script type="text/javascript">
+                $("#btnToevoegen").click(function () {
+                    $.get('@Url.Action("LaadStatistiekToevoegen", "DashboardStatistieken")', {}, function (resultaat) {
+                        $("#divStatistiekToevoegen").html(resultaat);
+                });
+                });
+    </script>*@
+
+<script type="text/javascript">
+                $("#btnToevoegen").click(function () {
+                    $.get('@Url.Action("LaadStatistiekToevoegen", "DashboardStatistieken")', {}, function (resultaat) {
+                        $("#divStatistiekToevoegen").html(resultaat);
+                });
+                });
+</script>
+

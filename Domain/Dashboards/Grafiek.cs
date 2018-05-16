@@ -26,11 +26,16 @@ namespace Domain.Dashboards
     public List<string> LegendeLijst { get; set; }
     [NotMapped]
     public List<dynamic> XLabels { get; set; }
-    public Dictionary<int, List<dynamic>> Data { get; set; }
+    //public Dictionary<int, List<dynamic>> Data { get; set; }
+
+    public List<List<double>> Datawaarden { get; set; }
+
 
     public int Periode { get; set; }
     [NotMapped]
-    public GrafiekType Type { get; set; }
+    //public GrafiekType Type { get; set; }
+
+    public string Type { get; set; }
     public GrafiekKeuze Keuze { get; set; }
 
     //Foreign keys
@@ -41,7 +46,16 @@ namespace Domain.Dashboards
     [NotMapped]
     public List<GemonitordItem> Items { get; set; }
     public List<GrafiekItem> GrafiekItems { get; set; }
-    
+
+    public List<List<string>> Randkleur { get; set; }
+    public List<List<string>> Achtergrondkleur { get; set; }
+
+    public int XAsMaxrotatie { get; set; }
+    public int XAsMinrotatie { get; set; }
+    public bool FillDataset { get; set; }
+    public bool Lijnlegendeweergave { get; set; }
+
+
     [NotMapped]
     public List<GrafiekWaarde> Waarden
     {
@@ -60,7 +74,7 @@ namespace Domain.Dashboards
     public Grafiek()
     {
       LegendeLijst = new List<string>();
-      Data = new Dictionary<int, List<dynamic>>();
+      //Data = new Dictionary<int, List<dynamic>>();
       Items = new List<GemonitordItem>();
       GrafiekItems = new List<GrafiekItem>();
       Waarden = new List<GrafiekWaarde>();
