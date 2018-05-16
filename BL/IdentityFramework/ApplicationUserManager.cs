@@ -54,7 +54,8 @@ namespace BL.IdentityFramework
       var user = this.FindByName(name);
       if (user == null)
       {
-        user = new ApplicationUser { UserName = name, Email = name, Dashboards = dashboards };
+        user = new ApplicationUser { UserName = name, Email = name };
+        user.Dashboards = dashboards;
         var result = this.Create(user, password);
         result = this.SetLockoutEnabled(user.Id, false);
       }

@@ -27,25 +27,12 @@
             @Html.LabelFor(m => m.OverzichtAdded)
         </td>
         <td>
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("SlaOverzichtAddedOp", "Admin", new { OverzichtAdded = !Model.OverzichtAdded })'">
+            <button id="btnVeranderOverzichtAdded" class="btn btn-primary" onclick="location.href='@Url.Action("SlaOverzichtAddedOp", "Admin", new { OverzichtAdded = !Model.OverzichtAdded })'">
                 <span>Verander</span>
             </button>
         </td>
     </tr>
 
-    <tr>
-        <td>
-            @Html.DisplayFor(m => m.WeeklyReviewAdded)
-        </td>
-        <td>
-            @Html.LabelFor(m => m.WeeklyReviewAdded)
-        </td>
-        <td>
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("SlaWeeklyReviewAddedOp", "Admin", new { WeeklyReviewAdded = !Model.WeeklyReviewAdded })'">
-                <span>Verander</span>
-            </button>
-        </td>
-    </tr>
     <tr>
         <td>
             @Html.DisplayFor(m => m.AlertsAdded)
@@ -54,9 +41,21 @@
             @Html.LabelFor(m => m.AlertsAdded)
         </td>
         <td>
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("SlaAlertsAddedOp", "Admin", new { AlertsAdded = !Model.AlertsAdded })'">
+            <button id="btnVeranderAlertsAdded" class="btn btn-primary" onclick="location.href='@Url.Action("SlaAlertsAddedOp", "Admin", new { AlertsAdded = !Model.AlertsAdded })'">
                 <span>Verander</span>
             </button>
         </td>
     </tr>
 </table>
+
+<script type="text/javascript">
+    $("#btnVeranderOverzichtAdded").click(function () {
+        ViewBag.OverzichtAdded = !Model.OverzichtAdded;
+    });
+</script>
+
+<script type="text/javascript">
+    $("#btnVeranderAlertsAdded").click(function () {
+        ViewBag.AlertsAdded = !Model.AlertsAdded;
+    });
+</script>

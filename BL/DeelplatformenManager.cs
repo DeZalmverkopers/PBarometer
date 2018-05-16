@@ -2,6 +2,7 @@
 using Domain.Deelplatformen;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace BL
 {
@@ -42,6 +43,16 @@ namespace BL
       repository.DeleteDeelplatform(deelplatform);
     }
 
+    public void RemoveDeelplatform(int id)
+    {
+      repository.DeleteDeelplatform(repository.ReadDeelplatform(id));
+    }
+
+    public Deelplatform GetDeelplatformByURL(string url)
+    {
+      return repository.ReadDeelplatformen().FirstOrDefault(a => a.URLnaam.Equals(url, StringComparison.OrdinalIgnoreCase));
+    }
+
     public Settings GetSettings()
     {
       return repository.ReadSettings();
@@ -52,20 +63,10 @@ namespace BL
       repository.UpdateOverzichtAdded(OverzichtAdded);
     }
 
-    public void ChangeWeeklyReviewAdded(bool WeeklyReviewAdded)
-    {
-      repository.UpdateWeeklyReviewAdded(WeeklyReviewAdded);
-    }
-
     public void ChangeAlertsAdded(bool AlertsAdded)
     {
       repository.UpdateAlertsAdded(AlertsAdded);
     }
-
-    //public void ChangeSettings(Settings settings)
-    //{
-    //  repository.UpdateSettings(settings.OverzichtAdded, settings.WeeklyReviewAdded, settings.AlertsAdded);
-    //}
 
     public string GetAchtergrondkleur()
     {
@@ -75,6 +76,16 @@ namespace BL
     public void ChangeAchtergrondkleur(string kleur)
     {
       repository.UpdateAchtergrondkleur(kleur);
+    }
+
+    public List<FAQItem> GetFAQItems()
+    {
+      return repository.ReadFAQItems();
+    }
+
+    public void AddNieuweFAQItem(FAQItem NieuweFAQItem)
+    {
+      repository.CreateNieuweFAQItem(NieuweFAQItem);
     }
   }
 }

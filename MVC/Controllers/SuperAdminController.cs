@@ -1,17 +1,20 @@
 ﻿using BL;
 using BL.IdentityFramework;
+using Domain.Dashboards;
 using Domain.Deelplatformen;
 using Domain.IdentityFramework;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using MVC.Models;
+using MVC.Models.SuperAdmin;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-//Seppe
 
 namespace MVC.Controllers
 {
@@ -115,12 +118,6 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Superadmin/DeelplatformAanmaken.cshtml");
     }
 
-    public virtual ActionResult MaakDeelplatformAan(string naam)
-    {
-      manager.AddDeelplatform(new Deelplatform() { Naam = naam });
-      return RedirectToAction("Index");
-    }
-
     public virtual ActionResult LaadGebruikers()
     {
       List<ApplicationUser> users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.ToList();
@@ -188,6 +185,83 @@ namespace MVC.Controllers
         userManager.RemoveFromRole(user.Id, adminRole.Name);
       }
       return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult MaakDeelplatform(MaakDeelplatformViewModel maakDeelplatformViewModel)
+    {
+      var bestand = maakDeelplatformViewModel.Afbeelding;
+      if (ModelState.IsValid)
+      {
+        string afbeeldingPad = null;
+        if (bestand != null)
+        {
+          var bestandsInfo = new FileInfo(maakDeelplatformViewModel.Afbeelding.FileName);
+          if (bestandsInfo.Extension.Equals(".png") || bestandsInfo.Extension.Equals(".jpg") || bestandsInfo.Extension.Equals(".jpeg") || bestandsInfo.Extension.Equals(".gif"))
+          {
+            afbeeldingPad = maakDeelplatformViewModel.URLNaam + bestandsInfo.Extension;
+
+            bestand.SaveAs(HttpContext.Server.MapPath("~/images/Deelplatformen/")
+                                                  + afbeeldingPad);
+
+          }
+        }
+        else
+        {
+          afbeeldingPad = "default.png";
+        }
+        manager.AddDeelplatform(new Deelplatform()
+        {
+          AfbeeldingPad = afbeeldingPad,
+          AantalDagenHistoriek = maakDeelplatformViewModel.AantalDagenHistoriek,
+          URLnaam = maakDeelplatformViewModel.URLNaam,
+          LaatsteSynchronisatie = DateTime.Now.AddYears(-100),
+          Naam = maakDeelplatformViewModel.Naam
+        });
+        ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        List<Deelplatform> deelplatformen = manager.GetDeelplatformen().ToList(); ;
+        foreach (var user in userManager.Users.ToList())
+        {
+          foreach (var deelplatform in deelplatformen)
+          {
+            user.Dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
+          }
+          userManager.Update(user);
+        }
+        return RedirectToAction("Index", "Home");
+      }
+      return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public ActionResult VerwijderDeelplatform(int id)
+    {
+      DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+      deelplatformenManager.RemoveDeelplatform(id);
+      return PartialView("OverzichtDeelplatformen");
+    }
+
+    [HttpGet]
+    public ActionResult PasDeelplatformAan(int id)
+    {
+      DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+      deelplatformenManager.GetDeelplatform(id);
+      return PartialView("PasDeelplatformAan", deelplatformenManager.GetDeelplatform(id));
+    }
+    [HttpPost]
+    public ActionResult PasDeelplatformAan(MaakDeelplatformViewModel deelplatformViewModel)
+    {
+      if (ModelState.IsValid)
+      {
+        DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+        deelplatformenManager.GetDeelplatform(deelplatformViewModel.Id);
+        return RedirectToAction("Index", "Home");
+      }
+      else
+      {
+        return RedirectToAction("Index");
+      }
     }
   }
 }

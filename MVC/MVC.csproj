@@ -223,13 +223,14 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\GemonitordItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SpecifiekePaginaController.cs" />
     <Compile Include="Models\Android\DeelplatformDTO.cs" />
     <Compile Include="Models\Android\GrafiekDTO.cs" />
+    <Compile Include="Models\Home\DeelplatformViewModel.cs" />
     <Compile Include="Models\Overzicht\OrganisatieViewModel.cs" />
     <Compile Include="Controllers\OverzichtController.cs" />
     <Compile Include="Controllers\ProfielController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
-    <Compile Include="Controllers\WeeklyReviewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -246,7 +247,9 @@
     <Compile Include="Models\Overzicht\ThemaViewModel.cs" />
     <Compile Include="Models\ProfielViewModels.cs" />
     <Compile Include="Models\SettingsNotLoggedInViewModel.cs" />
+    <Compile Include="Models\Specifieke Pagina\FAQViewModel.cs" />
     <Compile Include="Models\SuperAdminUserViewModels.cs" />
+    <Compile Include="Models\SuperAdmin\MaakDeelplatformViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -393,6 +396,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -411,7 +416,6 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <None Include="T4MVC.tt.settings.xml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
@@ -475,7 +479,6 @@
     <Content Include="Views\Shared\Grafieken\TaartdiagramMulti.cshtml" />
     <Content Include="Views\Shared\LegePartialView.cshtml" />
     <Content Include="Views\Shared\Overzicht\ZoekfunctieGrafieken.cshtml" />
-    <Content Include="Views\Shared\Superadmin\DeelplatformAanmaken.cshtml" />
     <Content Include="Views\Shared\Superadmin\GebruikersgegevensNakijken.cshtml" />
     <Content Include="Views\Shared\Superadmin\SocialeMediabronnenInstellen.cshtml" />
     <Content Include="Views\SuperAdmin\Index.cshtml" />
@@ -507,8 +510,6 @@
     <Content Include="Views\Overzicht\OrganisatieDetailsBodyPersonen.cshtml" />
     <Content Include="Views\Overzicht\ThemaDetails.cshtml" />
     <Content Include="Views\Overzicht\ThemaDetailsBody.cshtml" />
-    <Content Include="Views\Shared\AdminSuperadmin\NietIngelogdeGebruikerInstellen.cshtml" />
-    <Content Include="Views\Shared\AdminSuperadmin\LaadGebruikers.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\LaadGebruikers.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\NietIngelogdeGebruikerInstellen.cshtml" />
     <Content Include="Views\Overzicht\MaakPersoon.cshtml" />
@@ -553,13 +554,19 @@
     <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram4Items.cshtml" />
     <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram5Items.cshtml" />
     <Content Include="Views\Shared\Grafieken\Lijndiagram\LijndiagramAantalTweets.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\AdminSuperadmin\FAQInstellen.cshtml" />
     <None Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram3Items.cshtml" />
+    <Content Include="Views\SuperAdmin\MaakDeelplatform.cshtml" />
+    <Content Include="Views\Shared\Superadmin\DeelplatformAanmaken.cshtml" />
+    <Content Include="Views\SpecifiekePagina\FAQ.cshtml" />
     <None Include="Web.CustomProfile.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\Deelplatformen\" />
     <Folder Include="Views\GemonitordItem\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,21 @@
+﻿@model List<MVC.Models.Specifieke_Pagina.FAQViewModel>
+
+@{
+  ViewBag.Title = "FAQ";
+}
+
+<h3>FAQ</h3>
+
+<table class="table">
+    @foreach (var vraag in Model)
+    {
+      <tr>
+          <td>
+              @Html.DisplayFor(modelItem => vraag.Vraag);
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => vraag.Antwoord);
+          </td>
+      </tr>
+    }
+</table>

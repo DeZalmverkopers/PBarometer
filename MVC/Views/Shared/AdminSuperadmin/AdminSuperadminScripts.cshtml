@@ -37,3 +37,11 @@
         });
         });
 </script>
+
+<script type="text/javascript">
+        $("#btnFAQ").click(function () {
+        $.get('@Url.Action("LaadFAQInstellen", "Admin")', {}, function (resultaat) {
+            $("#divResultaat").html(resultaat);
+        });
+        });
+</script>

@@ -13,6 +13,7 @@ namespace DAL.EF
         Naam = "Politieke Barometer",
         LaatsteSynchronisatie = DateTime.Now.AddYears(-100),
         AantalDagenHistoriek = 14,
+        URLnaam = "politiek"
       };
 
       context.Deelplatformen.Add(deelplatform);

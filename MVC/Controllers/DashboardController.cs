@@ -19,21 +19,32 @@ namespace MVC.Controllers
     List<GemonitordItem> items;
     List<Thema> themas;
     HomeController homeController = new HomeController();
-    int deelplatform;
-
-    // GET: Dashboard
-    [Route("")]
-    public virtual ActionResult Index(int id)
+    public Deelplatform HuidigDeelplatform
     {
+      get
+      {
+        return new DeelplatformenManager().GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
+      }
+    }
+    private int deelplatformId;
+    // GET: Dashboard
+    public virtual ActionResult Index()
+    {
+      if (HuidigDeelplatform == null)
+      {
+        return RedirectToAction("Index", "Home");
+      }
       //homeController.GetData();
       //GetData();
-      deelplatform = id;
+      deelplatformId = HuidigDeelplatform.DeelplatformId;
       GrafiekenManager grafiekenManager = new GrafiekenManager();
-      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(id, 1, true, true);
+      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(deelplatformId, 1, true, true);
 
       //List<string> grafieken = new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
       ViewBag.Grafieken = grafieken;
 
+      ViewBag.DeelplatformNaam = HuidigDeelplatform.Naam;
+      ViewBag.Afbeelding = HuidigDeelplatform.AfbeeldingPad ?? "default.png";
       //foreach (var grafiek in grafieken)
       //{
       //  ViewBag.GrafiekId = grafiek.GrafiekId;
@@ -105,9 +116,8 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadElementToevoegen()
     {
-
-
-      items = itemManager.GetPersonen(1).ToList();
+      int deelplatformId = HuidigDeelplatform.DeelplatformId;
+      items = itemManager.GetPersonen(deelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -118,7 +128,7 @@ namespace MVC.Controllers
 
 
 
-      themas = itemManager.GetThemas(1).ToList();
+      themas = itemManager.GetThemas(deelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in themas)
       {
@@ -128,7 +138,7 @@ namespace MVC.Controllers
       ViewBag.Themas = selects;
 
 
-      items = itemManager.GetOrganisaties(1).ToList();
+      items = itemManager.GetOrganisaties(deelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -178,7 +188,9 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadGetal(string item)
     {
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      int deelplatformId = HuidigDeelplatform.DeelplatformId;
+
+      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
       {
@@ -194,7 +206,9 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadGetalTrend(string item)
     {
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      int deelplatformId = HuidigDeelplatform.DeelplatformId;
+
+      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
       {
@@ -282,7 +296,8 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties1Item()
     {
-      LaadItem(itemManager.GetOrganisaties(1).ToList());
+
+      LaadItem(itemManager.GetOrganisaties(deelplatformId).ToList());
 
 
 
@@ -293,7 +308,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties2Items()
     {
-      LaadItem(itemManager.GetOrganisaties(1).ToList());
+      LaadItem(itemManager.GetOrganisaties(deelplatformId).ToList());
 
       ViewBag.Organisaties = selects;
 
@@ -302,7 +317,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties3Items()
     {
-      LaadItem(itemManager.GetOrganisaties(1).ToList());
+      LaadItem(itemManager.GetOrganisaties(deelplatformId).ToList());
 
       ViewBag.Organisaties = selects;
 
@@ -311,7 +326,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties4Items()
     {
-      LaadItem(itemManager.GetOrganisaties(1).ToList());
+      LaadItem(itemManager.GetOrganisaties(deelplatformId).ToList());
 
       ViewBag.Organisaties = selects;
 
@@ -320,7 +335,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties5Items()
     {
-      LaadItem(itemManager.GetOrganisaties(1).ToList());
+      LaadItem(itemManager.GetOrganisaties(deelplatformId).ToList());
 
       ViewBag.Organisaties = selects;
 
@@ -331,7 +346,7 @@ namespace MVC.Controllers
     public virtual ActionResult LaadPersonen1Item()
     {
 
-      LaadItem(itemManager.GetPersonen(1).ToList());
+      LaadItem(itemManager.GetPersonen(deelplatformId).ToList());
 
       ViewBag.Personen = selects;
 
@@ -341,7 +356,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen2Items()
     {
-      LaadItem(itemManager.GetPersonen(1).ToList());
+      LaadItem(itemManager.GetPersonen(deelplatformId).ToList());
 
       ViewBag.Personen = selects;
 
@@ -351,7 +366,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen3Items()
     {
-      LaadItem(itemManager.GetPersonen(1).ToList());
+      LaadItem(itemManager.GetPersonen(deelplatformId).ToList());
 
       ViewBag.Personen = selects;
 
@@ -361,7 +376,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen4Items()
     {
-      LaadItem(itemManager.GetPersonen(1).ToList());
+      LaadItem(itemManager.GetPersonen(deelplatformId).ToList());
 
       ViewBag.Personen = selects;
 
@@ -371,7 +386,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen5Items()
     {
-      LaadItem(itemManager.GetPersonen(1).ToList());
+      LaadItem(itemManager.GetPersonen(deelplatformId).ToList());
 
       ViewBag.Personen = selects;
 
@@ -391,7 +406,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas2Items()
     {
-      LaadThema(itemManager.GetThemas(1).ToList());
+      LaadThema(itemManager.GetThemas(deelplatformId).ToList());
 
       ViewBag.Themas = selects;
 
@@ -400,7 +415,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas3Items()
     {
-      LaadThema(itemManager.GetThemas(1).ToList());
+      LaadThema(itemManager.GetThemas(deelplatformId).ToList());
 
       ViewBag.Themas = selects;
 
@@ -409,7 +424,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas4Items()
     {
-      LaadThema(itemManager.GetThemas(1).ToList());
+      LaadThema(itemManager.GetThemas(deelplatformId).ToList());
 
       ViewBag.Themas = selects;
 
@@ -418,7 +433,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas5Items()
     {
-      LaadThema(itemManager.GetThemas(1).ToList());
+      LaadThema(itemManager.GetThemas(deelplatformId).ToList());
 
       ViewBag.Themas = selects;
 
@@ -517,7 +532,7 @@ namespace MVC.Controllers
     public virtual ActionResult LaadVergelijkingOpMoment2Items(string grafiektitel, string item1, string item2)
     {
 
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
       {
@@ -548,7 +563,7 @@ namespace MVC.Controllers
     public virtual ActionResult LaadVergelijkingOpMoment3Items(string grafiektitel, string item1, string item2, string item3)
     {
 
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
       {
@@ -586,7 +601,7 @@ namespace MVC.Controllers
     public virtual ActionResult LaadVergelijkingOpMoment4Items(string grafiektitel, string item1, string item2, string item3, string item4)
     {
 
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
       {
@@ -631,7 +646,7 @@ namespace MVC.Controllers
     public virtual ActionResult LaadVergelijkingOpMoment5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5)
     {
 
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
       {
@@ -725,7 +740,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadVergelijkingDoorheenTijd1Item(string grafiektitel, string item1)
     {
-      var gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
+      var gemonitordeItems = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in gemonitordeItems)
       {
@@ -752,7 +767,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadVergelijkingDoorheenTijd2Items(string grafiektitel, string item1, string item2)
     {
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
       {
@@ -781,7 +796,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadVergelijkingDoorheenTijd3Items(string grafiektitel, string item1, string item2, string item3)
     {
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
       {
@@ -822,7 +837,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadVergelijkingDoorheenTijd4Items(string grafiektitel, string item1, string item2, string item3, string item4)
     {
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
       {
@@ -871,7 +886,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadVergelijkingDoorheenTijd5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5)
     {
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
       {
@@ -1009,7 +1024,7 @@ namespace MVC.Controllers
       GrafiekKeuze grafiekKeuze = GrafiekKeuze.VergelijkingItemsOp1Moment;
       switch (keuze)
       {
-        case 1: grafiekKeuze = GrafiekKeuze.KruisingTaart ;break;
+        case 1: grafiekKeuze = GrafiekKeuze.KruisingTaart; break;
         case 2: grafiekKeuze = GrafiekKeuze.KruisingBar; break;
         case 3: grafiekKeuze = GrafiekKeuze.EvolutieAantalVermeldingen1Item; break;
         case 4: grafiekKeuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd; break;
@@ -1056,7 +1071,7 @@ namespace MVC.Controllers
     }
 
     public ActionResult UpdateGrafiekEnUpdateDashboard(int grafiekId, int deelplatformId, string titel,
-      int periode, bool toonLegende, bool toonXAs, bool toonYAs, int keuze,string xTitel, string yTitel,
+      int periode, bool toonLegende, bool toonXAs, bool toonYAs, int keuze, string xTitel, string yTitel,
       bool xOnder, bool xOorsprongNul, bool yOorsprongNul, int dashboardId,
       string item1 = null, string waarde1 = "Vermeldingen",
       string item2 = null, string waarde2 = "Vermeldingen",
@@ -1157,6 +1172,7 @@ namespace MVC.Controllers
       gemonitordeItemsManager.AddThema("Fiscaliteit", new List<string>() { "belastingen", "tax", "btw", "sociale zekerheid" }, id);
       gemonitordeItemsManager.AddThema("Milieu", new List<string>() { "kernenergie", "zonnenergie", "steenkool", "luchtvervuiling", "windenergie" }, id);
       TextgainController textgainController = new TextgainController();
+      textgainController.HaalBerichtenOp(deelplatformenManager.GetDeelplatform(id));
     }
   }
 }

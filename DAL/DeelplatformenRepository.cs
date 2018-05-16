@@ -54,44 +54,26 @@ namespace DAL
 
     public Settings ReadSettings()
     {
-      return new Settings(ReadDeelplatform(1).OverzichtAdded, ReadDeelplatform(1).WeeklyReviewAdded, ReadDeelplatform(1).AlertsAdded);
+      return new Settings(ReadDeelplatform(1).OverzichtAdded, ReadDeelplatform(1).AlertsAdded);
     }
 
     public void UpdateOverzichtAdded(bool OverzichtAdded)
     {
-      foreach (Deelplatform deelplatform in ReadDeelplatformen())
+      foreach (Deelplatform deelplatform in context.Deelplatformen)
       {
-        context.Entry(deelplatform).State = EntityState.Modified;
-      }
-      context.SaveChanges();
-    }
-
-    public void UpdateWeeklyReviewAdded(bool WeeklyReviewAdded)
-    {
-      foreach (Deelplatform deelplatform in ReadDeelplatformen())
-      {
-        context.Entry(deelplatform).State = EntityState.Modified;
+        deelplatform.OverzichtAdded = OverzichtAdded;
       }
       context.SaveChanges();
     }
 
     public void UpdateAlertsAdded(bool AlertsAdded)
     {
-      foreach (Deelplatform deelplatform in ReadDeelplatformen())
+      foreach (Deelplatform deelplatform in context.Deelplatformen)
       {
-        context.Entry(deelplatform).State = EntityState.Modified;
+        deelplatform.AlertsAdded = AlertsAdded;
       }
       context.SaveChanges();
     }
-
-    //public void UpdateSettings(bool OverzichtAdded, bool WeeklyReviewAdded, bool AlertsAdded)
-    //{
-    //  foreach (Deelplatform deelplatform in ReadDeelplatformen())
-    //  {
-    //    context.Entry(deelplatform).State = EntityState.Modified;
-    //  }
-    //  context.SaveChanges();
-    //}
 
     public string ReadAchtergrondkleur()
     {
@@ -100,9 +82,23 @@ namespace DAL
 
     public void UpdateAchtergrondkleur(string kleur)
     {
-      foreach (Deelplatform deelplatform in ReadDeelplatformen())
+      foreach (Deelplatform deelplatform in context.Deelplatformen)
       {
-        context.Entry(deelplatform).State = EntityState.Modified;
+        deelplatform.Achtergrondkleur = kleur;
+      }
+      context.SaveChanges();
+    }
+
+    public List<FAQItem> ReadFAQItems()
+    {
+      return ReadDeelplatform(1).FAQItems;
+    }
+
+    public void CreateNieuweFAQItem(FAQItem NieuweFAQItem)
+    {
+      foreach (Deelplatform deelplatform in context.Deelplatformen)
+      {
+        deelplatform.FAQItems.Add(NieuweFAQItem);
       }
       context.SaveChanges();
     }

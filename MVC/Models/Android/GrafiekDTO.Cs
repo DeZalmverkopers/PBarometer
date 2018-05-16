@@ -23,7 +23,7 @@ namespace MVC.Models.Android
         public bool XOnder { get; set; }
 
         public List<string> LegendeLijst { get; set; }
-        public List<dynamic> XLabels { get; set; }
+        public List<string> XLabels { get; set; }
         public Dictionary<int, List<dynamic>> Data { get; set; }
         public List<string> Waarden { get; set; }
         public int Periode { get; set; }

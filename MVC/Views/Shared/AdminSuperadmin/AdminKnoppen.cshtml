@@ -3,14 +3,22 @@
         <button id="btnGemonitordeItems" class="btn btn-primary btn-algemene-layout">Gemonitorde items beheren</button>
     </div>
     <div>
-        <button id="btnData" class="btn btn-primary btn-algemene-layout">Data importeren en exporteren</button></div>
+        <button id="btnData" class="btn btn-primary btn-algemene-layout">Data importeren en exporteren</button>
+    </div>
     <div>
         <button id="btnGebruikersactiviteit" class="btn btn-primary btn-algemene-layout">Gebruikersactiviteit monitoren</button>
     </div>
     <div>
-        <button id="btnLayout" class="btn btn-primary btn-algemene-layout" >Layout aanpassen</button>
+        <button id="btnLayout" class="btn btn-primary btn-algemene-layout">Layout aanpassen</button>
     </div>
     <div>
         <button id="btnNietIngelogd" class="btn btn-primary btn-algemene-layout">Instellingen niet-ingelogde gebruiker</button>
     </div>
+    <div>
+        <button id="btnFAQ" class="btn btn-primary btn-algemene-layout">FAQ instellen</button>
+    </div>
 </div>
+
+@section scripts {
+    @Html.Partial("~/Views/Shared/AdminSuperadmin/AdminSuperadminScripts.cshtml")
+}

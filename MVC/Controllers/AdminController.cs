@@ -2,6 +2,7 @@
 using Domain.Deelplatformen;
 using Domain.Gemonitordeitems;
 using MVC.Models;
+using MVC.Models.Specifieke_Pagina;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,24 @@ namespace MVC.Controllers
   [Authorize(Roles = "Admin")]
   public partial class AdminController : Controller
   {
+
     DeelplatformenManager manager = new DeelplatformenManager();
+
+    public Deelplatform HuidigDeelplatform
+    {
+      get
+      {
+        return manager.GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
+      }
+    }
 
     // GET: Admin
     public virtual ActionResult Index()
     {
+      if (HuidigDeelplatform == null)
+      {
+        return RedirectToAction("Index", "Home");
+      }
       return View();
     }
 
@@ -39,14 +53,15 @@ namespace MVC.Controllers
     {
       if (Path.GetExtension(bestand.FileName).Equals(".json"))
       {
+        int deelplatformId = HuidigDeelplatform.DeelplatformId;
         GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
         string dataUitBestand = new StreamReader(bestand.InputStream).ReadToEnd();
         var personen = JArray.Parse(dataUitBestand);
         foreach (var persoon in personen)
         {
-          List<GemonitordItem> organisaties = gemonitordeItemsManager.GetOrganisaties(1).ToList();
+          List<GemonitordItem> organisaties = gemonitordeItemsManager.GetOrganisaties(deelplatformId).ToList();
           var persoonDict = persoon.ToObject<Dictionary<string, dynamic>>();
-          var personenUitDb = gemonitordeItemsManager.GetPersonen(1);
+          var personenUitDb = gemonitordeItemsManager.GetPersonen(deelplatformId);
           if (personenUitDb.FirstOrDefault(a => a.Naam.Equals(persoonDict["full_name"])) == null)
           {
             DateTime.TryParse(persoonDict["dateOfBirth"], out DateTime geboorteDatum);
@@ -59,7 +74,7 @@ namespace MVC.Controllers
               Gemeente = persoonDict["town"],
               Facebook = persoonDict["facebook"],
               Volgbaar = true,
-              DeelplatformId = 1,
+              DeelplatformId = deelplatformId,
               Geboortedatum = geboorteDatum
             };
             Organisatie organisatie = organisaties.FirstOrDefault(a => a.Naam.Equals(persoonDict["organisation"])) as Organisatie;
@@ -73,7 +88,7 @@ namespace MVC.Controllers
               organisatie = new Organisatie()
               {
                 Naam = persoonDict["organisation"],
-                DeelplatformId = 1
+                DeelplatformId = deelplatformId
               };
               organisatie.Personen.Add(toeTeVoegenPersoon);
               gemonitordeItemsManager.AddGemonitordItem(organisatie);
@@ -102,44 +117,59 @@ namespace MVC.Controllers
       SettingsNotLoggedInViewModel model = new SettingsNotLoggedInViewModel();
       Settings settings = manager.GetSettings();
       model.OverzichtAdded = settings.OverzichtAdded;
-      model.WeeklyReviewAdded = settings.WeeklyReviewAdded;
       model.AlertsAdded = settings.AlertsAdded;
       return PartialView("~/Views/Shared/AdminSuperadmin/NietIngelogdeGebruikerInstellen.cshtml", model);
     }
 
     [HttpGet]
-    public virtual ActionResult SlaOverzichtAddedOp (bool OverzichtAdded)
+    public virtual ActionResult SlaOverzichtAddedOp(bool OverzichtAdded)
     {
-      ViewBag.OverzichtAdded = OverzichtAdded;
       manager.ChangeOverzichtAdded(OverzichtAdded);
-      string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
-      return RedirectToAction("Index", controller);
-    }
-
-    [HttpGet]
-    public virtual ActionResult SlaWeeklyReviewAddedOp(bool WeeklyReviewAdded)
-    {
-      ViewBag.WeeklyReviewAdded = WeeklyReviewAdded;
-      manager.ChangeWeeklyReviewAdded(WeeklyReviewAdded);
-      string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
-      return RedirectToAction("Index", controller);
+      LaadNietIngelogd();
+      return RedirectToAction("Index", User.IsInRole("SuperAdmin") ? "Superadmin" : "Admin");
     }
 
     [HttpGet]
     public virtual ActionResult SlaAlertsAddedOp(bool AlertsAdded)
     {
-      ViewBag.AlertsAdded = AlertsAdded;
       manager.ChangeAlertsAdded(AlertsAdded);
-      string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
-      return RedirectToAction("Index", controller);
+      LaadNietIngelogd();
+      return RedirectToAction("Index", User.IsInRole("SuperAdmin") ? "Superadmin" : "Admin");
     }
 
     [HttpGet]
     public virtual ActionResult SlaAchtergrondOp(string kleur)
     {
       manager.ChangeAchtergrondkleur(kleur);
-      string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
-      return RedirectToAction("Index", controller);
+      return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml");
+    }
+
+    public virtual ActionResult LaadFAQInstellen()
+    {
+      List<FAQViewModel> models = new List<FAQViewModel>();
+      List<FAQItem> FAQItems = manager.GetFAQItems();
+      if (FAQItems != null)
+      {
+        foreach (var FAQItem in manager.GetFAQItems())
+        {
+          models.Add(new FAQViewModel() { Vraag = FAQItem.Vraag });
+        }
+      }
+      return PartialView("~/Views/Shared/AdminSuperadmin/FAQInstellen.cshtml", models);
+    }
+
+    [HttpGet]
+    public virtual ActionResult VerwijderFAQItem(string vraag)
+    {
+      return PartialView("~/Views/Shared/AdminSuperadmin/FAQInstellen.cshtml");
+    }
+
+    [HttpGet]
+    public virtual ActionResult VoegFAQItemToe(string NieuweVraag, string Antwoord)
+    {
+      manager.AddNieuweFAQItem(new FAQItem(NieuweVraag, Antwoord));
+      LaadFAQInstellen();
+      return RedirectToAction("Index", User.IsInRole("SuperAdmin") ? "Superadmin" : "Admin");
     }
   }
 }
