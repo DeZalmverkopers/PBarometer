@@ -84,7 +84,9 @@ namespace BL
               waarden.Add(historiek.AantalVermeldingen);
               grafiek.XLabels.Add(historiek.HistoriekDatum);
             }
-            grafiek.Type = GrafiekType.line;
+            //grafiek.Type = GrafiekType.line;
+
+            grafiek.Type = "line";
             grafiek.LegendeLijst.Add(item.Naam);
           }
 
@@ -97,7 +99,7 @@ namespace BL
               if (huidigeWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historiek.GemObjectiviteit);
               grafiek.XLabels.Add(historiek.HistoriekDatum);
             }
-            grafiek.Type = GrafiekType.line;
+            grafiek.Type = "line";
             grafiek.LegendeLijst.Add(item.Naam + " - " + huidigeWaarde);
           }
 
@@ -110,20 +112,20 @@ namespace BL
               if (huidigeWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historiek.GemObjectiviteit);
               grafiek.XLabels.Add(item.Naam);
             }
-            grafiek.Type = GrafiekType.bar;
+            grafiek.Type = "bar";
           }
 
           if (grafiek.Keuze == GrafiekKeuze.KruisingTaart)
           {
-            grafiek.Type = GrafiekType.pie;
+            grafiek.Type = "pie";
           }
 
           if (grafiek.Keuze == GrafiekKeuze.KruisingBar)
           {
-            grafiek.Type = GrafiekType.bar;
+            grafiek.Type = "bar";
           }
 
-          grafiek.Data.Add(sleutel, waarden);
+          //grafiek.Data.Add(sleutel, waarden);
           //Sleutel verhogen na het toevoegen om bugs te vermijden
           ++sleutel;
           #endregion
