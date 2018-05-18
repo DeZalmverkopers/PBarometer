@@ -102,5 +102,14 @@ namespace DAL
       }
       context.SaveChanges();
     }
+
+    public void DeleteFAQItem(FAQItem FAQItem)
+    {
+      foreach (Deelplatform deelplatform in context.Deelplatformen)
+      {
+        deelplatform.FAQItems.Remove(FAQItem);
+      }
+      context.SaveChanges();
+    }
   }
 }

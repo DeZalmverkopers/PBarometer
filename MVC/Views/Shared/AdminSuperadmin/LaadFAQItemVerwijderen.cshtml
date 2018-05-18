@@ -1,0 +1,27 @@
+﻿@model IEnumerable<MVC.Models.Specifieke_Pagina.FAQViewModel>
+
+<h3>FAQ instellen</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Vraag)
+        </th>
+        <th>
+            Verwijderen
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vraag)
+        </td>
+        <td>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("VerwijderFAQItem", "Admin", new { vraag = @item.Vraag })'">
+                <span>Verwijder</span>
+            </button>
+        </td>
+    </tr>
+    }
+</table>

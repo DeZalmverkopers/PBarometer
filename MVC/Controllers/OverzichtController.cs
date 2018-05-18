@@ -178,7 +178,7 @@ namespace MVC.Controllers
                     gemonitordeItemsManager.AddGemonitordItem(new Organisatie()
                     {
                         Naam = naamOrg,
-                        DeelplatformId = deelplatformId
+                        DeelplatformId = HuidigDeelplatform.DeelplatformId
                     });
                     organisatie = gemonitordeItemsManager.GetOrganisatie(naamOrg);
                 }
@@ -189,7 +189,7 @@ namespace MVC.Controllers
                     Gemeente = maakPersoonViewModel.Gemeente,
                     Geboortedatum = maakPersoonViewModel.Geboortedatum,
                     Facebook = maakPersoonViewModel.Facebook,
-                    DeelplatformId = deelplatformId,
+                    DeelplatformId = HuidigDeelplatform.DeelplatformId,
                     Postcode = maakPersoonViewModel.Postcode,
                     TwitterHandle = maakPersoonViewModel.TwitterHandle,
                     Website = maakPersoonViewModel.Website,

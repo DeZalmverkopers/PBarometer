@@ -13,7 +13,7 @@ namespace MVC.Controllers
 {
     public partial class HomeController : Controller
     {
-    
+
 
         public virtual ActionResult Index()
         {
@@ -151,7 +151,7 @@ namespace MVC.Controllers
                 GrafiekWaarde.Objectiviteit
             };
             DashboardsManager dashboardsManager = new DashboardsManager();
-            int dashboardId = dashboardsManager.GetDashboardVanGebruikerMetGrafieken(User.Identity.GetUserId(),id).DashboardId;
+            int dashboardId = dashboardsManager.GetDashboardVanGebruikerMetGrafieken(User.Identity.GetUserId(), id).DashboardId;
             Grafiek grafiek1 = new Grafiek()
             {
                 DashboardId = dashboardId,

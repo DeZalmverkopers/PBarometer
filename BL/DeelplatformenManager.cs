@@ -87,5 +87,10 @@ namespace BL
     {
       repository.CreateNieuweFAQItem(NieuweFAQItem);
     }
+
+    public void RemoveFAQItem(FAQItem FAQItem)
+    {
+      repository.DeleteFAQItem(FAQItem);
+    }
   }
 }

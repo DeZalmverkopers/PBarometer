@@ -146,6 +146,18 @@ h1 {
     height: 200px;
 }
 
+.statistieken-opmaak-titel {
+    font-family: 'Bookman Old Style';
+    font-variant: small-caps
+}
+
+.statistieken-opmaak-inhoud {
+    font-family: 'Palatino Linotype'
+}
+
+
+
+
 .deelplatformHomeAfbeelding {
     width: 100%;
     margin: -200px;
@@ -177,13 +189,15 @@ h1 {
 .dashboardAfbeeldingContainer {
     position: relative;
     height: 350px;
-    width: 100%;
+    width: 100vw;
+    margin-left: -50vw;
+    left:50%;
     overflow: hidden;
 }
 
 .dashboardTekst {
     position: absolute;
-    top: 35%;
+    top: 23%;
     left: 30%;
     background: rgba(0, 0, 0, 0.5);
     color: white;
@@ -195,13 +209,13 @@ h1 {
 
 #btnInloggen {
     position: absolute;
-    top: 65%;
+    top: 72%;
     left: 38%;
     width: 10%;
 }
 #btnRegistreren {
     position: absolute;
-    top: 65%;
+    top: 72%;
     left: 52%;
     width: 10%;
 }

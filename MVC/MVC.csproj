@@ -219,6 +219,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Alerts\AlertsController.cs" />
     <Compile Include="Controllers\Api\AndroidController.cs" />
+    <Compile Include="Controllers\Api\IDataController.cs" />
     <Compile Include="Controllers\Api\TextgainController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\GemonitordItemController.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="Models\SettingsNotLoggedInViewModel.cs" />
     <Compile Include="Models\Specifieke Pagina\FAQViewModel.cs" />
     <Compile Include="Models\SuperAdminUserViewModels.cs" />
+    <Compile Include="Models\SuperAdmin\DeelplatformOverzichtViewModel.cs" />
     <Compile Include="Models\SuperAdmin\MaakDeelplatformViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -343,6 +345,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\Deelplatformen\default.png" />
+    <Content Include="images\Deelplatformen\platform.png" />
     <Content Include="images\TheVoice.jpg" />
     <Content Include="images\alert.png" />
     <Content Include="images\K3.jpg" />
@@ -555,18 +559,20 @@
     <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram5Items.cshtml" />
     <Content Include="Views\Shared\Grafieken\Lijndiagram\LijndiagramAantalTweets.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\AdminSuperadmin\FAQInstellen.cshtml" />
+    <Content Include="Views\Shared\AdminSuperadmin\LaadFAQItemVerwijderen.cshtml" />
+    <Content Include="Views\Shared\AdminSuperadmin\LaadFAQItemToevoegen.cshtml" />
     <None Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram3Items.cshtml" />
     <Content Include="Views\SuperAdmin\MaakDeelplatform.cshtml" />
     <Content Include="Views\Shared\Superadmin\DeelplatformAanmaken.cshtml" />
     <Content Include="Views\SpecifiekePagina\FAQ.cshtml" />
+    <Content Include="Views\SuperAdmin\EditDeelplatform.cshtml" />
+    <Content Include="Views\SuperAdmin\OverzichtDeelplatformen.cshtml" />
     <None Include="Web.CustomProfile.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="images\Deelplatformen\" />
     <Folder Include="Views\GemonitordItem\" />
   </ItemGroup>
   <ItemGroup>

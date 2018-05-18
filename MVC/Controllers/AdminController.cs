@@ -144,7 +144,8 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml");
     }
 
-    public virtual ActionResult LaadFAQInstellen()
+    [HttpGet]
+    public ActionResult LaadFAQItemVerwijderen()
     {
       List<FAQViewModel> models = new List<FAQViewModel>();
       List<FAQItem> FAQItems = manager.GetFAQItems();
@@ -155,20 +156,32 @@ namespace MVC.Controllers
           models.Add(new FAQViewModel() { Vraag = FAQItem.Vraag });
         }
       }
-      return PartialView("~/Views/Shared/AdminSuperadmin/FAQInstellen.cshtml", models);
+      return PartialView("~/Views/Shared/AdminSuperadmin/LaadFAQItemVerwijderen.cshtml", models);
+    }
+
+    [HttpPost]
+    public ActionResult LaadFAQItemVerwijderen(FAQViewModel model)
+    {
+      if (ModelState.IsValid)
+      {
+        manager.RemoveFAQItem(new FAQItem() { Vraag = model.Vraag, Antwoord = model.Antwoord });
+      }
+      return RedirectToAction("Index", User.IsInRole("SuperAdmin") ? "Superadmin" : "Admin");
     }
 
     [HttpGet]
-    public virtual ActionResult VerwijderFAQItem(string vraag)
+    public ActionResult LaadFAQItemToevoegen()
     {
-      return PartialView("~/Views/Shared/AdminSuperadmin/FAQInstellen.cshtml");
+      return PartialView("~/Views/Shared/AdminSuperadmin/LaadFAQItemToevoegen.cshtml");
     }
 
-    [HttpGet]
-    public virtual ActionResult VoegFAQItemToe(string NieuweVraag, string Antwoord)
+    [HttpPost]
+    public ActionResult LaadFAQItemToevoegen(FAQViewModel model)
     {
-      manager.AddNieuweFAQItem(new FAQItem(NieuweVraag, Antwoord));
-      LaadFAQInstellen();
+      if (ModelState.IsValid)
+      {
+        manager.AddNieuweFAQItem(new FAQItem() { Vraag = model.Vraag, Antwoord = model.Antwoord });
+      }
       return RedirectToAction("Index", User.IsInRole("SuperAdmin") ? "Superadmin" : "Admin");
     }
   }

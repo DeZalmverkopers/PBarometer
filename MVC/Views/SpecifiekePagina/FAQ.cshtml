@@ -7,14 +7,22 @@
 <h3>FAQ</h3>
 
 <table class="table">
-    @foreach (var vraag in Model)
+    <tr>
+        <th>
+            Vraag
+        </th>
+        <th>
+            Antwoord
+        </th>
+    </tr>
+    @foreach (var FAQItem in Model)
     {
       <tr>
           <td>
-              @Html.DisplayFor(modelItem => vraag.Vraag);
+              @Html.DisplayFor(modelItem => FAQItem.Vraag)
           </td>
           <td>
-              @Html.DisplayFor(modelItem => vraag.Antwoord);
+              @Html.DisplayFor(modelItem => FAQItem.Antwoord)
           </td>
       </tr>
     }

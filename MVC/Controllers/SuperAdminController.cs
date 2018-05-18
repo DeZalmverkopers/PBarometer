@@ -187,6 +187,24 @@ namespace MVC.Controllers
       return RedirectToAction("Index");
     }
 
+    [HttpGet]
+    public virtual ActionResult DeelplatformOverzicht()
+    {
+      return PartialView("OverzichtDeelplatformen", manager.GetDeelplatformen().Select(a => new DeelplatformOverzichtViewModel() { Id = a.DeelplatformId, Naam = a.Naam, URL = a.URLnaam }));
+    }
+
+    [HttpGet]
+    public ActionResult BeheerDeelplatformen()
+    {
+      return PartialView();
+    }
+
+    [HttpGet]
+    public ActionResult MaakDeelplatform()
+    {
+      return View();
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public ActionResult MaakDeelplatform(MaakDeelplatformViewModel maakDeelplatformViewModel)
@@ -235,10 +253,32 @@ namespace MVC.Controllers
     }
 
     [HttpGet]
-    public ActionResult VerwijderDeelplatform(int id)
+    public ActionResult EditDeelplatform(int id)
     {
       DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
-      deelplatformenManager.RemoveDeelplatform(id);
+      return PartialView(deelplatformenManager.GetDeelplatform(id));
+    }
+    [HttpPost]
+    public ActionResult EditDeelplatform(MaakDeelplatformViewModel deelplatformViewModel)
+    {
+      if (ModelState.IsValid)
+      {
+        DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+        Deelplatform deelplatform = deelplatformenManager.GetDeelplatform(deelplatformViewModel.Id);
+        deelplatform.AantalDagenHistoriek = deelplatformViewModel.AantalDagenHistoriek;
+        deelplatform.Naam = deelplatformViewModel.Naam;
+        deelplatform.URLnaam = deelplatformViewModel.URLNaam;
+        deelplatformenManager.ChangeDeelplatform(deelplatform);
+        ViewBag.Boodschap = "Deelplatform is aangepast";
+        return PartialView();
+      }
+      return PartialView(deelplatformViewModel);
+    }
+
+    [HttpGet]
+    public ActionResult VerwijderDeelplatform(int id)
+    {
+      manager.RemoveDeelplatform(id);
       return PartialView("OverzichtDeelplatformen");
     }
 
