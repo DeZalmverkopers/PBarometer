@@ -16,27 +16,30 @@
 
 <div>
     <label>Titel</label>
-    <input id="inputTitel" type="text" />
+    <input id="inputTitel" type="text"/>
 </div>
 
 <div>
-    <button type="button" data-toggle="collapse" data-target="#gi" class="btn btn-primary btn-algemene-layout">Geavanceerde instellingen</button>
-    <div id="gi" class="collapse">
-        <h4>Geavanceerde instellingen</h4>
+        <button type="button" data-toggle="collapse" data-target="#gi" class="btn btn-primary btn-algemene-layout">Geavanceerde instellingen</button>
+        <div id="gi" class="collapse">
+            <h4>Geavanceerde instellingen</h4>
 
 
-        <input type="checkbox" id="chkAssenWisselen">Assen wisselen (als horizontaal staafdiagram weergeven)<br>
+            <input type="checkbox" id="chkAssenWisselen">Assen wisselen (als horizontaal staafdiagram weergeven)<br>
 
-        <div>
-            <label>Schaal aanpassen</label>
-            @Html.DropDownList("Beheer", ViewBag.Schaalopties as List<SelectListItem>)
+            @*<div>
+                <label>Schaal aanpassen</label>
+                @Html.DropDownList("Beheer", ViewBag.Schaalopties as List<SelectListItem>)
+            </div>*@
         </div>
     </div>
-</div>
 
 <div>
     <button class="btn btn-primary btn-algemene-layout" id="btnAanpassenOpslaan">Opslaan</button>
 </div>
+
+
+@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
 
 
 
@@ -47,12 +50,16 @@
     $("#btnAanpassenOpslaan").click(function () {
 
 
+        @*grafiekWijzigen(@Html.Raw(Json.Encode(ViewBag.AlleGrafieken)), @Html.Raw(Json.Encode(ViewBag.AanTePassenGrafiekId)));*@
 
-        grafiekWijzigen(grafiekNieuw);
+        @*grafiekWijzigen(@Html.Raw(Json.Encode(ViewBag.AlleGrafieken)), @Html.Raw(Json.Encode(ViewBag.AanTePassenGrafiekId)));*@
+        grafiekWijzigen(@Html.Raw(Json.Encode(ViewBag.AanTePassenGrafiek)));
 
-        //$("#1").options.title.text = "test"
 
+        $("#inputTitel").val("");
         $("#modalGrafiekAanpassen").modal('hide');
+        
+
     });
 
 

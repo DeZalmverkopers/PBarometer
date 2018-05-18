@@ -4,6 +4,7 @@
 
 <h1>Dashboard - statistieken</h1>
 
+
 <div class="container" id="elementenStatistieken">
     @*Rij 1*@
     <div class="row">
@@ -14,118 +15,59 @@
         </div>
     </div>
 
-    @Html.Partial("~/Views/Shared/Dashboard/Statistieken/StatistiekenNietIngelogd.cshtml")
 
-
-
-
-    @*@for (int i = 1; i < ViewBag.StatistiekenViewbag.Count + 1; i++)
+    @foreach (var item in ViewBag.StatistiekenViewbag)
+    {
+        if (item.SoortStatistiek == "getal")
         {
-            if (ViewBag.StatistiekenViewbag[i - 1].SoortStatistiek == "getal")
-            {
-                <div class="col-md-6">
-                    @if (i % 2 != 0)
-                    {
-                        @Html.Action("LaadGetalViaId", "DashboardStatistieken", new { id = ViewBag.StatistiekenViewbag[i - 1].StatistiekId })
+            <div class="col-md-6">
+
+                @Html.Action("LaadGetalViaId", "DashboardStatistieken", new { id = item.StatistiekId })
+
+            </div>
 
 
-                    }
-                </div>
+        }
+        else if (item.SoortStatistiek == "getalTrend")
+        {
+            <div class="col-md-6">
 
-                <div class="col-md-6">
 
-                    @if (i % 2 == 0)
-                    {
-
-                        @Html.Action("LaadGetalViaId", "DashboardStatistieken", new { id = ViewBag.StatistiekenViewbag[i - 1].StatistiekId })
+                @Html.Action("LaadGetalTrendViaId", "DashboardStatistieken", new { id = item.StatistiekId })
 
 
 
-                    }
-
-                </div>
-            }
-            else if (ViewBag.StatistiekenViewbag[i - 1].SoortStatistiek == "getalTrend")
-            {
-                <div class="col-md-6">
-                    @if (i % 2 != 0)
-                    {
-                        @Html.Action("LaadGetalTrendViaId", "DashboardStatistieken", new { id = ViewBag.StatistiekenViewbag[i - 1].StatistiekId })
+            </div>
 
 
-                    }
-                </div>
+        }
+        else if (item.SoortStatistiek == "top5")
+        {
+            <div class="col-md-6">
 
-                <div class="col-md-6">
-
-                    @if (i % 2 == 0)
-                    {
-
-                        @Html.Action("LaadGetalTrendViaId", "DashboardStatistieken", new { id = ViewBag.StatistiekenViewbag[i - 1].StatistiekId })
+                @Html.Action("LaadTop5ViaId", "DashboardStatistieken", new { id = item.StatistiekId })
 
 
 
-                    }
-
-                </div>
-            }
-            else if (ViewBag.StatistiekenViewbag[i - 1].SoortStatistiek == "top5")
-            {
-                <div class="col-md-6">
-                    @if (i % 2 != 0)
-                    {
-                        @Html.Action("LaadTop5ViaId", "DashboardStatistieken", new { id = ViewBag.StatistiekenViewbag[i - 1].StatistiekId })
+            </div>
 
 
-                    }
-                </div>
+        }
+        else if (item.SoortStatistiek == "top10")
+        {
+            <div class="col-md-6">
 
-                <div class="col-md-6">
+                @Html.Action("LaadTop10ViaId", "DashboardStatistieken", new { id = item.StatistiekId })
 
-                    @if (i % 2 == 0)
-                    {
-
-                        @Html.Action("LaadTop5ViaId", "DashboardStatistieken", new { id = ViewBag.StatistiekenViewbag[i - 1].StatistiekId })
-
-
-
-                    }
-
-                </div>
-            }
-            else if (ViewBag.StatistiekenViewbag[i - 1].SoortStatistiek == "top10")
-            {
-                <div class="col-md-6">
-                    @if (i % 2 != 0)
-                    {
-                        @Html.Action("LaadTop10ViaId", "DashboardStatistieken", new { id = ViewBag.StatistiekenViewbag[i - 1].StatistiekId })
+            </div>
+        }
 
 
-                    }
-                </div>
-
-                <div class="col-md-6">
-
-                    @if (i % 2 == 0)
-                    {
-
-                        @Html.Action("LaadTop10ViaId", "DashboardStatistieken", new { id = ViewBag.StatistiekenViewbag[i - 1].StatistiekId })
-
-
-
-                    }
-
-                </div>
-            }
-
-
-        }*@
-
+    }
 
 
 
 </div>
-
 
 
 
@@ -165,4 +107,3 @@
                 });
                 });
 </script>
-

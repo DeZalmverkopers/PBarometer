@@ -24,20 +24,42 @@ namespace MVC.Controllers
     List<GemonitordItem> gemonitordeItems = new List<GemonitordItem>();
     StatistiekenManager statistiekenManager = new StatistiekenManager();
 
-    public Deelplatform HuidigDeelplatform
-    {
-      get
-      {
-        return new DeelplatformenManager().GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
-      }
-    }
+    //public Deelplatform HuidigDeelplatform
+    //{
+    //  get
+    //  {
+    //    return new DeelplatformenManager().GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
+    //  }
+    //}
 
 
     // GET: DashboardStatistieken
     public ActionResult Index()
-    {  
+    {
+      GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
+      statistieken = statistiekenManager.GetStatistieken();
 
-     statistieken = statistiekenManager.GetStatistieken();
+      //List<Statistiek> statistieken = new List<Statistiek>()
+      //{
+      //  new Statistiek()
+      //  {
+      //    StatistiekId   = 1,
+      //    GemonitordItem = new GemonitordItem()
+      //    {
+      //      Naam = "gi1"
+      //    },
+      //    SoortStatistiek = "getal"
+      //  },
+      //  new Statistiek()
+      //  {
+      //    StatistiekId = 2,
+      //    GemonitordItem = new GemonitordItem()
+      //    {
+      //      Naam = "gi1"
+      //    },
+      //    SoortStatistiek = "getalTrend"
+      //  }
+      //};
 
       ViewBag.StatistiekenViewbag = statistieken;
 
@@ -74,9 +96,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadGetal(string item)
     {
-      int deelplatformId = HuidigDeelplatform.DeelplatformId;
+      //int deelplatformId = HuidigDeelplatform.DeelplatformId;
 
-      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+      //items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+
+      items = itemManager.GetGemonitordeItems(1).ToList();
 
       GemonitordItem gemonitordItem = new GemonitordItem();
 
@@ -105,9 +129,12 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadGetalTrend(string item)
     {
-      int deelplatformId = HuidigDeelplatform.DeelplatformId;
+      //int deelplatformId = HuidigDeelplatform.DeelplatformId;
 
-      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+      //items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+
+      items = itemManager.GetGemonitordeItems(1).ToList();
+
 
       GemonitordItem gemonitordItem = new GemonitordItem();
 
@@ -157,9 +184,12 @@ namespace MVC.Controllers
     public virtual ActionResult LaadTop5(string item)
     {
 
-      int deelplatformId = HuidigDeelplatform.DeelplatformId;
+      //int deelplatformId = HuidigDeelplatform.DeelplatformId;
 
-      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+      //items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+
+      items = itemManager.GetGemonitordeItems(1).ToList();
+
 
       GemonitordItem gemonitordItem = new GemonitordItem();
 
@@ -189,9 +219,12 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadTop10(string item)
     {
-      int deelplatformId = HuidigDeelplatform.DeelplatformId;
+      //int deelplatformId = HuidigDeelplatform.DeelplatformId;
 
-      items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+      //items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+
+      items = itemManager.GetGemonitordeItems(1).ToList();
+
 
       GemonitordItem gemonitordItem = new GemonitordItem();
 
