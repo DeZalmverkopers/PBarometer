@@ -13,13 +13,16 @@
             <h4>Welkom op het <b>dashboard.</b></h4>
         </div>
         <img class="deelplatformHomeAfbeelding" src="~/images/Deelplatformen/@ViewBag.Afbeelding" />
-        <button class="btn btn-secondary" id="btnInloggen" onclick="location.href='@Url.Action("Login","Account", new { ReturnUrl = 
+        <button class="btn btn-secondary" id="btnInloggen" onclick="location.href='@Url.Action("Login","Account", new { ReturnUrl =
                                                                                 Url.Action(ViewContext.RouteData.Values["action"].ToString(),
                                                                                 ViewContext.RouteData.Values["controller"].ToString())})'">
-        Inloggen</button>
-        <button class="btn btn-primary" id="btnRegistreren" onclick="location.href='@Url.Action("Register","Account", 
-                                                                                     new { ReturnUrl = Url.Action(ViewContext.RouteData.Values["action"].ToString(), 
-                                                                                     ViewContext.RouteData.Values["controller"].ToString())})'">Registreren</button>
+            Inloggen
+        </button>
+        <button class="btn btn-primary" id="btnRegistreren" onclick="location.href='@Url.Action("Register","Account",
+                                                                                     new { ReturnUrl = Url.Action(ViewContext.RouteData.Values["action"].ToString(),
+                                                                                     ViewContext.RouteData.Values["controller"].ToString())})'">
+            Registreren
+        </button>
     </div>
 }
 else
@@ -41,7 +44,7 @@ else
 
 
 
-    @for (int i = 1; i < ViewBag.Grafieken.Count + 1; i++)
+    @*@for (int i = 1; i < ViewBag.Grafieken.Count + 1; i++)
         {
 
             if (i % 2 != 0)
@@ -81,26 +84,48 @@ else
             }
 
 
-        }
+        }*@
+
+    @foreach (var grafiek in ViewBag.Grafieken)
+    {
+        <div class="col-md-6">
+
+            <canvas id="@grafiek.GrafiekId" height="250"></canvas>
+
+            <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+
+            <button id="verwijderen-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+
+        </div>
+    }
 
     
+
+    <div>
+        resultaat kruising @ViewBag.GekruistItem
+    </div>
+
 
 </div>
 
 
 <div class="modal" id="modalGrafiekToevoegen" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Grafiek toevoegen</h4>
-                </div>
-                <div class="modal-body" id="divGrafiekToevoegen">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Grafiek toevoegen</h4>
+            </div>
+            <div class="modal-body" id="divGrafiekToevoegen">
 
-                </div>
             </div>
         </div>
-
     </div>
+
+</div>
 
 
 
@@ -124,12 +149,13 @@ else
 
 <script src="~/Scripts/Chart.js"></script>
 
+<script src="~/Scripts/EigenScripts.js"></script>
 
-    @*<script src="~/Scripts/Common.js"></script>
+@*<script src="~/Scripts/Common.js"></script>
 
 
     @Html.Partial("~/Views/Shared/Grafieken/Grafieken.cshtml")*@
-    <script src="~/Scripts/EigenScripts.js"></script>
+
 
 
 
@@ -141,7 +167,7 @@ else
                         $("#divGrafiekToevoegen").html(resultaat);
                 });
                 });
-    </script>
+</script>
 
 
 
@@ -188,33 +214,12 @@ else
              bordercolorViewbag[0], bordercolorViewbag[1], bordercolorViewbag[2], bordercolorViewbag[3], bordercolorViewbag[4]
          );
      }
-             
-                    
-</script>
 
+
+</script>
 
 <script>
-    function grafiekVerwijderen(id) {
-        var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
-        var subid;
-
-        if (lengteId == 0) {
-            subid = id.substring(id.length - 1);
-        } else if (lengteId > 0) {
-            subid = id.substring(id.indexOf("-") + 1, id.length - 1);
-        }
-
-        var grafiekVerwijderen = confirm("Ben je zeker dat je de grafiek wilt verwijderen?");
-        if (grafiekVerwijderen == true) {
-            $("canvas#" + subid).remove()
-
-            $("#verwijderen-" + subid).remove();
-            $("#bewerken-" + subid).remove();
-
-        }
-    }
-
-    function grafiekBewerken(id) {
+        function grafiekBewerken(id) {
 
         var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
         var subid;
@@ -226,12 +231,18 @@ else
         }
 
 
-        $("#modalGrafiekAanpassen").modal();
+         var link = '@Html.Raw(Url.Action("LaadGrafiekAanpassen", "Dashboard",
+                    new { id = "replaceId"}
+                 ))'.replace("replaceId", subid);
 
-        $.get('@Url.Action("LaadGrafiekAanpassen", "Dashboard")', {}, function (resultaat) {
-            $("#divGrafiekAanpassen").html(resultaat);
-        });
 
-    }
+         $.get(link, {}, function (resultaat) {
+             $("#divGrafiekAanpassen").html(resultaat);
+         });
 
+         $("#modalGrafiekAanpassen").modal();
+
+
+        }
 </script>
+

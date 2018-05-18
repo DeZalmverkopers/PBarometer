@@ -39,52 +39,55 @@
 
 
                     @if (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
-                    {
-
-                        <li>@Html.ActionLink("Dashboard - grafieken", "Index", "Dashboard")</li>
+    {
 
 
-                        @*<li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Dashboard
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>@Html.ActionLink("Storage", "Add", "Storage")</li>
-                                    <li>@Html.ActionLink("Storage", "View", "Storage")</li>
-                                </ul>
-                            </li>*@
+                <li>@Html.ActionLink("Dashboard - grafieken", "Index", "Dashboard")</li>
+
+                <li>@Html.ActionLink("Dashboard - statistieken", "Index", "DashboardStatistieken")</li>
 
 
-                    }
+                @*<li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Dashboard
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <li>@Html.ActionLink("Storage", "Add", "Storage")</li>
+            <li>@Html.ActionLink("Storage", "View", "Storage")</li>
+        </ul>
+    </li>*@
 
-                    @*@if ((bool?)ViewBag.OverzichtAdded == true)
-                        {*@
+
+}
+
+                @*@if ((bool?)ViewBag.OverzichtAdded == true)
+    {*@
                     @if (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
-                    {
-                        <li>@Html.ActionLink("Dashboard - statistieken", "Index", "DashboardStatistieken")</li>
-
-                        <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
+    {
 
 
-                    }
+                <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
 
 
-                    @*@if ((bool?)ViewBag.WeeklyReviewAdded == true)
-                        {*@
-                    @*<li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>*@
+}
+
+
+                @*@if ((bool?)ViewBag.WeeklyReviewAdded == true)
+    {*@
+                @*<li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>*@
 
                     @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
-                    {
-                        <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
-                    }
-                    else
-                    {
-                        if (User.IsInRole("Admin"))
-                        {
-                            <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-                        }
-                    }
+    {
+                <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
+}
+else
+{
+if (User.IsInRole("Admin"))
+{
+                <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+}
+}
 
                 </ul>
 
@@ -132,6 +135,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
+    @*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
 
     <script>
         $(window).load(function setImage() {

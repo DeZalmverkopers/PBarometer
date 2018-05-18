@@ -1,44 +1,88 @@
-﻿function grafiekWijzigen(teWijzigenGrafiek) {
+﻿function grafiekWijzigen(aanTePassenGrafiek) {
+  
+  
     var titel = $("#inputTitel").val();
+    var typeViewbag;
 
 
-    //if (document.getElementById('chkAssenWisselen').checked) {
-    //    teWijzigenGrafiek.destroy();
-    //    teWijzigenGrafiek = new Chart(ctx, {
-    //        type: 'horizontalBar',
-    //        data: chartData,
-    //        options: chartOptions
-    //    });
-    //} else {
-    //    teWijzigenGrafiek.destroy();
-    //    teWijzigenGrafiek = new Chart(ctx, {
-    //        type: 'bar',
-    //        data: chartData,
-    //        options: chartOptions
-    //    });
-    //}
+    var grafiekIdViewbag = aanTePassenGrafiek.GrafiekId;
+
+    if (titel === null) {
+        titelViewbag = aanTePassenGrafiek.Titel;
+    } else {
+        var titelViewbag = titel;
+    }
 
 
-    //if (xAs === "data1") {
-    //    teWijzigenGrafiek.data.labels = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"];
-    //    teWijzigenGrafiek.data.datasets[0].data = [1, 2, 3, 4, 5, 6, 7];
-    //    //myHorizontalBarChart.data.datasets[0].data[0] = 90;
-    //} else if (xAs === "data2") {
-    //    teWijzigenGrafiek.data.labels = ["Week 1", "Week 2", "Week3", "Week4"];
-    //    teWijzigenGrafiek.data.datasets[0].data = [5, 15, 25, 35];
-    //} else if (xAs === "data3") {
-    //    //teWijzigenGrafiek.data.labels = ["test1", "test2"];
-    //    //teWijzigenGrafiek.data.datasets[0].data = [50, 50];
-    //    teWijzigenGrafiek.data.labels = ["test1"];
-    //    teWijzigenGrafiek.data.datasets[0].data = [50];
-    //}
+    var type = aanTePassenGrafiek.Type;
+    if (type === "bar") {
+        if (document.getElementById('chkAssenWisselen').checked) {
+            typeViewbag = "horizontalBar";
+        } else {
+            typeViewbag = aanTePassenGrafiek.Type;
+        }
+    } else {
+        typeViewbag = aanTePassenGrafiek.Type;
+    }
 
-   
 
-    teWijzigenGrafiek.options.title.text = titel;
+    var toonLegendeViewbag = aanTePassenGrafiek.ToonLegende;
+    var toonXAsViewbag = aanTePassenGrafiek.ToonXAs;
+    var xOorsprongNulViewbag = aanTePassenGrafiek.XOorsprongNul;
+    var yOorsprongNulViewbag = aanTePassenGrafiek.YOorsprongNul;
 
-    teWijzigenGrafiek.update();
+    var toonYAsViewbag = aanTePassenGrafiek.ToonYAs;
+    var xTitelViewbag = aanTePassenGrafiek.XTitel;
+    var yTitelViewbag = aanTePassenGrafiek.YTitel;
+
+    var xLabelsViewbag = aanTePassenGrafiek.XLabels;
+
+    var dataViewbag = aanTePassenGrafiek.Datawaarden;
+    var legendelijstViewbag = aanTePassenGrafiek.LegendeLijst;
+
+    var backgroundcolorViewbag = aanTePassenGrafiek.Achtergrondkleur;
+    var bordercolorViewbag = aanTePassenGrafiek.Randkleur;
+
+
+    var FillDatasetViewbag = aanTePassenGrafiek.FillDataset;
+    var LijnlegendeweergaveViewbag = aanTePassenGrafiek.Lijnlegendeweergave;
+    var XAsMaxrotatieViewbag = aanTePassenGrafiek.XAsMaxrotatie;
+    var XAsMinrotatieViewbag = aanTePassenGrafiek.XAsMinrotatie;
+
+
+
+
+    GrafiekOpbouwen(grafiekIdViewbag, titelViewbag, typeViewbag, toonLegendeViewbag, xOorsprongNulViewbag, yOorsprongNulViewbag, toonXAsViewbag, toonYAsViewbag,
+        FillDatasetViewbag, LijnlegendeweergaveViewbag, XAsMaxrotatieViewbag, XAsMinrotatieViewbag, xTitelViewbag, yTitelViewbag,
+        xLabelsViewbag, legendelijstViewbag[0], legendelijstViewbag[1], legendelijstViewbag[2], legendelijstViewbag[3], legendelijstViewbag[4],
+        dataViewbag[0], dataViewbag[1], dataViewbag[2], dataViewbag[3], dataViewbag[4],
+        backgroundcolorViewbag[0], backgroundcolorViewbag[1], backgroundcolorViewbag[2], backgroundcolorViewbag[3], backgroundcolorViewbag[4],
+        bordercolorViewbag[0], bordercolorViewbag[1], bordercolorViewbag[2], bordercolorViewbag[3], bordercolorViewbag[4]
+    );
+
 }
+
+
+function grafiekVerwijderen(id) {
+    var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+    var subid;
+
+    if (lengteId === 0) {
+        subid = id.substring(id.length - 1);
+    } else if (lengteId > 0) {
+        subid = id.substring(id.indexOf("-") + 1, id.length - 1);
+    }
+
+    var grafiekVerwijderen = confirm("Ben je zeker dat je de grafiek wilt verwijderen?");
+    if (grafiekVerwijderen === true) {
+        $("canvas#" + subid).remove()
+
+        $("#verwijderen-" + subid).remove();
+        $("#bewerken-" + subid).remove();
+
+    }
+}
+
 
 
 
@@ -251,6 +295,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
 
     grafiekopties = {
 
+
         title: {
             display: true,
             text: titel,
@@ -292,7 +337,6 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
     };
 
 
-    var ctx = $("#" + id);
 
 
     //var grafiekNieuw = new Chart(ctx, {
@@ -300,6 +344,13 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
     //    type: grafiektype,
     //    data: grafiekdata
     //});
+ //if (window.bar !== undefined) {
+    //    window.bar.destroy();
+    //window.bar
+    //}
+
+    var ctx = $("canvas#" + id);
+   
 
     new Chart(ctx, {
         options: grafiekopties,
@@ -309,3 +360,23 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
 }
 
 
+function statistiekVerwijderen(id) {
+    var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+    var subid;
+
+    if (lengteId === 0) {
+        subid = id.substring(id.length - 1);
+    } else if (lengteId > 0) {
+        subid = id.substring(id.indexOf("-") + 1, id.length - 1);
+    }
+
+
+    var statistiekVerwijderen = confirm("Ben je zeker dat je de statistiek wilt verwijderen?");
+    if (statistiekVerwijderen === true) {
+        $("div#" + subid).remove()
+
+        $("#verwijderen-" + subid).remove();
+
+
+    }
+}
