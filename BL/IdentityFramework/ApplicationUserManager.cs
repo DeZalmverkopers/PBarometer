@@ -229,4 +229,5 @@ namespace BL.IdentityFramework
       return manager;
 
     }
+  }
 }
