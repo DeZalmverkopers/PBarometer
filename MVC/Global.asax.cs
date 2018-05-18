@@ -39,12 +39,10 @@ namespace MVC
 
         static void TaskLoop()
         {
+            ScheduledTask1();
             while (true)
             {
-                ScheduledTask1();
-                Thread.Sleep(TimeSpan.FromSeconds(10));
                 ScheduledTask2();
-                Thread.Sleep(TimeSpan.FromMinutes(1));
             }
         }
 
@@ -74,14 +72,33 @@ namespace MVC
             DeelplatformenManager deelplatformManager = new DeelplatformenManager();
             IEnumerable<Deelplatform> deelplatformen = deelplatformManager.GetDeelplatformen();
 
-            foreach (var deelplatform in deelplatformen) 
+            var hoogsteFrequentie = deelplatformen.Max(d => d.DataOphaalFrequentie);
+            Debug.WriteLine(hoogsteFrequentie);
+            Debug.WriteLine(hoogsteFrequentie);
+            Debug.WriteLine(hoogsteFrequentie);
+            Debug.WriteLine(hoogsteFrequentie);
+            Debug.WriteLine(hoogsteFrequentie);
+            for (int i = 0; i <= hoogsteFrequentie; i++)
             {
-                // Volgens mij gaan we dit niet met een thread kunnnen doen want je wil de delays (bij while true) weg hebben. 
-                // mss eerder iets van een timer gebruiken die gewoon om de x aantal minuten (hangt af van deelplatform ) start ? 
-
+                Debug.WriteLine(i);
+                Debug.WriteLine(i);
+                Debug.WriteLine(i);
+                Debug.WriteLine(i);
+                foreach (var deelplatform in deelplatformen)
+                {
+                    Debug.WriteLine(i + "    " + i);
+                    Debug.WriteLine(i + "    " + i);
+                    if (deelplatform.DataOphaalFrequentie == i)
+                    {
+                        Debug.WriteLine("Deelpatform ophaaalfreq = " + deelplatform.DataOphaalFrequentie);
+                        Debug.WriteLine("i = " + i);
+                        textgainController.HaalBerichtenOp(deelplatform);
+                        Debug.WriteLine("Data opgehaald van " + deelplatform.Naam + " opgehaald (" + deelplatform.DataOphaalFrequentie + " per min frequentie)");
+                    }
+                }
+                Thread.Sleep(30000);
             }
-            int id = deelplatformManager.GetDeelplatformByName("Politieke Barometer").DeelplatformId;
-            textgainController.HaalBerichtenOp(deelplatformManager.GetDeelplatform(id));
+            
             Debug.WriteLine("Invoegen Textgain 2 - Done");
         }
     }
