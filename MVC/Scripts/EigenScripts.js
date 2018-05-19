@@ -118,7 +118,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label1,
                         data: data1,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor1,
                         borderColor: bordercolor1,
                         fill: datasetFill
@@ -135,7 +135,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label1,
                         data: data1,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor1,
                         borderColor: bordercolor1,
                         fill: datasetFill
@@ -145,7 +145,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label2,
                         data: data2,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor2,
                         borderColor: bordercolor2,
                         fill: datasetFill
@@ -162,7 +162,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label1,
                         data: data1,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor1,
                         borderColor: bordercolor1,
                         fill: datasetFill
@@ -172,7 +172,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label2,
                         data: data2,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor2,
                         borderColor: bordercolor2,
                         fill: datasetFill
@@ -181,7 +181,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label3,
                         data: data3,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor3,
                         borderColor: bordercolor3,
                         fill: datasetFill
@@ -198,7 +198,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label1,
                         data: data1,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor1,
                         borderColor: bordercolor1,
                         fill: datasetFill
@@ -208,7 +208,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label2,
                         data: data2,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor2,
                         borderColor: bordercolor2,
                         fill: datasetFill
@@ -217,7 +217,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label3,
                         data: data3,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor3,
                         borderColor: bordercolor3,
                         fill: datasetFill
@@ -227,7 +227,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label4,
                         data: data4,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor4,
                         borderColor: bordercolor4,
                         fill: datasetFill
@@ -244,7 +244,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label1,
                         data: data1,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor1,
                         borderColor: bordercolor1,
                         fill: datasetFill
@@ -254,7 +254,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label2,
                         data: data2,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor2,
                         borderColor: bordercolor2,
                         fill: datasetFill
@@ -263,7 +263,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label3,
                         data: data3,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor3,
                         borderColor: bordercolor3,
                         fill: datasetFill
@@ -273,7 +273,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label4,
                         data: data4,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor4,
                         borderColor: bordercolor4,
                         fill: datasetFill
@@ -282,7 +282,7 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
                     {
                         label: label5,
                         data: data5,
-                        borderWidth: 4,
+                        borderWidth: 1,
                         backgroundColor: backgroundcolor5,
                         borderColor: bordercolor5,
                         fill: datasetFill

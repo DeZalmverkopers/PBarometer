@@ -41,8 +41,7 @@ namespace MVC.Controllers
       {
         return RedirectToAction("Index", "Home");
       }
-      //homeController.GetData();
-      //GetData();
+      
       deelplatformId = HuidigDeelplatform.DeelplatformId;
       GrafiekenManager grafiekenManager = new GrafiekenManager();
       //List<Grafiek> grafieken = grafiekenManager.GetGrafieken(deelplatformId, 1, true, true);
@@ -59,20 +58,8 @@ namespace MVC.Controllers
 
 
 
-
-      List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
-
-      GekruistItem gekruistItem = new GekruistItem()
-      {
-        Item1 = gemonitordeItems[8],
-        Item2 = gemonitordeItems[9]
-      };
-
-      gekruistItem.BerekenEigenschappen();
-
-      var detailitems = gekruistItem.TotaalAantalVermeldingen;
-
-      ViewBag.GekruistItem = detailitems;
+      VoegGrafiekToeEnUpdateDashboard();
+ 
 
       return View();
     }
@@ -354,27 +341,33 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas5Items.cshtml", ViewBag);
     }
 
+    
+
+    //public virtual ActionResult LaadGemonitordeItemsAantal(string soortItem, )
+    //{
+    //  List<GemonitordItem> items;
+
+    //  items = itemManager.GetThemas(1).ToList();
+    //  items = itemManager.GetPersonen(1).ToList();
+    //  items = itemManager.GetOrganisaties(1).ToList();
 
 
-    public virtual ActionResult LaadGetalKeuze()
-    {
-      return PartialView("~/Views/Shared/Dashboard/Statistieken/GetalKeuze.cshtml");
-    }
 
-    public virtual ActionResult LaadGetalTrendKeuze()
-    {
-      return PartialView("~/Views/Shared/Dashboard/Statistieken/GetalTrendKeuze.cshtml");
-    }
 
-    public virtual ActionResult LaadTop5Keuze()
-    {
-      return PartialView("~/Views/Shared/Dashboard/Statistieken/Top5Keuze.cshtml");
-    }
+    //  selects = new List<SelectListItem>();
+    //  foreach (var item in items)
+    //  {
+    //    selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+    //  }
 
-    public virtual ActionResult LaadTop10Keuze()
-    {
-      return PartialView("~/Views/Shared/Dashboard/Statistieken/Top10Keuze.cshtml");
-    }
+    //  ViewBag.GemonitordeItems = selects;
+
+    //  return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas5Items.cshtml", ViewBag);
+    //}
+
+
+
+
 
 
 
@@ -1222,163 +1215,120 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Grafieken/Grafieken.cshtml");
     }
 
-    public ActionResult VoegGrafiekToeEnUpdateDashboard(int deelplatformId, string titel, int periode, bool toonLegende, bool toonXAs, bool toonYAs, int keuze,
-      string xTitel, string yTitel, bool xOnder, bool xOorsprongNul, bool yOorsprongNul, int dashboardId,
-      string item1 = null, string waarde1 = "Vermeldingen",
-      string item2 = null, string waarde2 = "Vermeldingen",
-      string item3 = null, string waarde3 = "Vermeldingen",
-      string item4 = null, string waarde4 = "Vermeldingen",
-      string item5 = null, string waarde5 = "Vermeldingen")
+
+
+
+
+    public ActionResult VoegGrafiekToeEnUpdateDashboard()
     {
       GrafiekenManager grafiekenManager = new GrafiekenManager();
-      GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
-      List<GrafiekItem> grafiekItems = new List<GrafiekItem>();
-      List<GemonitordItem> items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
-      List<GrafiekWaarde> waarden = new List<GrafiekWaarde>();
 
-      List<string> itemStrings = new List<string>() { item1, item2, item3, item4, item5 };
-      List<GrafiekWaarde> tijdelijkeWaarden = new List<GrafiekWaarde>() {
-        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
-        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
-        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
-        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
-        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true)
-      };
+      List<Grafiek> alleGrafieken = grafiekenManager.GetGrafiekenTest();
 
-      GrafiekKeuze grafiekKeuze = GrafiekKeuze.VergelijkingItemsOp1Moment;
-      switch (keuze)
+
+      foreach (var item in alleGrafieken)
       {
-        case 1: grafiekKeuze = GrafiekKeuze.KruisingTaart; break;
-        case 2: grafiekKeuze = GrafiekKeuze.KruisingBar; break;
-        case 3: grafiekKeuze = GrafiekKeuze.EvolutieAantalVermeldingen1Item; break;
-        case 4: grafiekKeuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd; break;
-        case 5: grafiekKeuze = GrafiekKeuze.VergelijkingItemsOp1Moment; break;
+      grafiekenManager.AddGrafiek(item);
+
       }
 
-      int teller = 0;
-      foreach (string itemString in itemStrings)
-      {
-        if (itemString != null)
-        {
-          foreach (GemonitordItem item in items)
-          {
-            if (item.Naam.Equals(itemString))
-            {
-              grafiekItems.Add(new GrafiekItem { ItemId = item.GemonitordItemId });
-              waarden.Add(tijdelijkeWaarden.ElementAt(teller));
-            }
-          }
-        }
-        teller++;
-      }
 
-      Grafiek grafiek = new Grafiek()
-      {
-        Titel = titel,
-        Periode = periode,
-        ToonLegende = toonLegende,
-        ToonXAs = toonXAs,
-        ToonYAs = toonYAs,
-        Keuze = grafiekKeuze,
-        XTitel = xTitel,
-        YTitel = yTitel,
-        Waarden = waarden,
-        XOnder = xOnder,
-        XOorsprongNul = xOorsprongNul,
-        YOorsprongNul = yOorsprongNul,
-        DashboardId = dashboardId,
-        GrafiekItems = grafiekItems
-      };
+      //foreach (var grafiek in alleGrafieken)
+      //{
+      //  grafiekenManager.AddGrafiek(grafiek);
+    //}
 
-      grafiekenManager.AddGrafiek(grafiek);
       return RedirectToAction("Index");
     }
 
-    public ActionResult UpdateGrafiekEnUpdateDashboard(int grafiekId, int deelplatformId, string titel,
-      int periode, bool toonLegende, bool toonXAs, bool toonYAs, int keuze, string xTitel, string yTitel,
-      bool xOnder, bool xOorsprongNul, bool yOorsprongNul, int dashboardId,
-      string item1 = null, string waarde1 = "Vermeldingen",
-      string item2 = null, string waarde2 = "Vermeldingen",
-      string item3 = null, string waarde3 = "Vermeldingen",
-      string item4 = null, string waarde4 = "Vermeldingen",
-      string item5 = null, string waarde5 = "Vermeldingen")
-    {
-      GrafiekenManager grafiekenManager = new GrafiekenManager();
-      GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
-      List<GrafiekItem> grafiekItems = new List<GrafiekItem>();
-      List<GemonitordItem> items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
-      List<GrafiekWaarde> waarden = new List<GrafiekWaarde>();
 
-      List<string> itemStrings = new List<string>() { item1, item2, item3, item4, item5 };
-      List<GrafiekWaarde> tijdelijkeWaarden = new List<GrafiekWaarde>() {
-        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
-        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
-        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
-        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
-        (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true)
-      };
 
-      GrafiekKeuze grafiekKeuze = GrafiekKeuze.EvolutieAantalVermeldingen1Item;
-      switch (keuze)
-      {
-        case 1: grafiekKeuze = GrafiekKeuze.KruisingTaart; break;
-        case 2: grafiekKeuze = GrafiekKeuze.KruisingBar; break;
-        case 3: grafiekKeuze = GrafiekKeuze.EvolutieAantalVermeldingen1Item; break;
-        case 4: grafiekKeuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd; break;
-        case 5: grafiekKeuze = GrafiekKeuze.VergelijkingItemsOp1Moment; break;
-      }
 
-      int teller = 0;
-      foreach (string itemString in itemStrings)
-      {
-        if (itemString != null)
-        {
-          foreach (GemonitordItem item in items)
-          {
-            if (item.Naam.Equals(itemString))
-            {
-              grafiekItems.Add(new GrafiekItem { ItemId = item.GemonitordItemId });
-              waarden.Add(tijdelijkeWaarden.ElementAt(teller));
-            }
-          }
-        }
-        teller++;
-      }
+    //public ActionResult UpdateGrafiekEnUpdateDashboard(int grafiekId, int deelplatformId, string titel,
+    //  int periode, bool toonLegende, bool toonXAs, bool toonYAs, int keuze, string xTitel, string yTitel,
+    //  bool xOnder, bool xOorsprongNul, bool yOorsprongNul, int dashboardId,
+    //  string item1 = null, string waarde1 = "Vermeldingen",
+    //  string item2 = null, string waarde2 = "Vermeldingen",
+    //  string item3 = null, string waarde3 = "Vermeldingen",
+    //  string item4 = null, string waarde4 = "Vermeldingen",
+    //  string item5 = null, string waarde5 = "Vermeldingen")
+    //{
+    //  GrafiekenManager grafiekenManager = new GrafiekenManager();
+    //  GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
+    //  List<GrafiekItem> grafiekItems = new List<GrafiekItem>();
+    //  List<GemonitordItem> items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+    //  List<GrafiekWaarde> waarden = new List<GrafiekWaarde>();
 
-      Grafiek grafiek = new Grafiek()
-      {
-        GrafiekId = grafiekId,
-        Titel = titel,
-        Periode = periode,
-        ToonLegende = toonLegende,
-        ToonXAs = toonXAs,
-        ToonYAs = toonYAs,
-        Keuze = grafiekKeuze,
-        XTitel = xTitel,
-        YTitel = yTitel,
-        Waarden = waarden,
-        XOnder = xOnder,
-        XOorsprongNul = xOorsprongNul,
-        YOorsprongNul = yOorsprongNul,
-        DashboardId = dashboardId,
-        GrafiekItems = grafiekItems
-      };
+    //  List<string> itemStrings = new List<string>() { item1, item2, item3, item4, item5 };
+    //  List<GrafiekWaarde> tijdelijkeWaarden = new List<GrafiekWaarde>() {
+    //    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+    //    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+    //    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+    //    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+    //    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true)
+    //  };
 
-      grafiekenManager.ChangeGrafiek(grafiek);
-      return RedirectToAction("Index");
-    }
+    //  GrafiekKeuze grafiekKeuze = GrafiekKeuze.EvolutieAantalVermeldingen1Item;
+    //  switch (keuze)
+    //  {
+    //    case 1: grafiekKeuze = GrafiekKeuze.KruisingTaart; break;
+    //    case 2: grafiekKeuze = GrafiekKeuze.KruisingBar; break;
+    //    case 3: grafiekKeuze = GrafiekKeuze.EvolutieAantalVermeldingen1Item; break;
+    //    case 4: grafiekKeuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd; break;
+    //    case 5: grafiekKeuze = GrafiekKeuze.VergelijkingItemsOp1Moment; break;
+    //  }
 
-    public ActionResult VerwijderGrafiekEnUpdateDashboard(int grafiekId)
-    {
-      GrafiekenManager grafiekenManager = new GrafiekenManager();
-      Grafiek grafiek = new Grafiek()
-      {
-        GrafiekId = grafiekId
-      };
+    //  int teller = 0;
+    //  foreach (string itemString in itemStrings)
+    //  {
+    //    if (itemString != null)
+    //    {
+    //      foreach (GemonitordItem item in items)
+    //      {
+    //        if (item.Naam.Equals(itemString))
+    //        {
+    //          grafiekItems.Add(new GrafiekItem { ItemId = item.GemonitordItemId });
+    //          waarden.Add(tijdelijkeWaarden.ElementAt(teller));
+    //        }
+    //      }
+    //    }
+    //    teller++;
+    //  }
 
-      grafiekenManager.RemoveGrafiek(grafiek);
-      return RedirectToAction("Index");
-    }
+    //  Grafiek grafiek = new Grafiek()
+    //  {
+    //    GrafiekId = grafiekId,
+    //    Titel = titel,
+    //    Periode = periode,
+    //    ToonLegende = toonLegende,
+    //    ToonXAs = toonXAs,
+    //    ToonYAs = toonYAs,
+    //    Keuze = grafiekKeuze,
+    //    XTitel = xTitel,
+    //    YTitel = yTitel,
+    //    Waarden = waarden,
+    //    XOnder = xOnder,
+    //    XOorsprongNul = xOorsprongNul,
+    //    YOorsprongNul = yOorsprongNul,
+    //    DashboardId = dashboardId,
+    //    GrafiekItems = grafiekItems
+    //  };
+
+    //  grafiekenManager.ChangeGrafiek(grafiek);
+    //  return RedirectToAction("Index");
+    //}
+
+    //public ActionResult VerwijderGrafiekEnUpdateDashboard(int grafiekId)
+    //{
+    //  GrafiekenManager grafiekenManager = new GrafiekenManager();
+    //  Grafiek grafiek = new Grafiek()
+    //  {
+    //    GrafiekId = grafiekId
+    //  };
+
+    //  grafiekenManager.RemoveGrafiek(grafiek);
+    //  return RedirectToAction("Index");
+    //}
 
     public void GetData()
     {
@@ -1398,5 +1348,195 @@ namespace MVC.Controllers
       TextgainController textgainController = new TextgainController();
       textgainController.HaalBerichtenOp(deelplatformenManager.GetDeelplatform(id));
     }
+
+
+
+
+
+    
   }
 }
+
+
+//public ActionResult VoegGrafiekToeEnUpdateDashboard(int deelplatformId, int dashboardId, int grafiekId, string titel, string grafiektype,
+//    bool toonLegende, bool xOorsprongNul, bool yOorsprongNul, bool toonXAs, bool toonYAs, bool datasetFill, bool lijnlegendeweergave,
+//    int xAsMaxRotatie, int xAsMinRotatie, string xTitel, string yTitel, List<dynamic> xLabels, List<string> legendelijst,
+//    List<List<double>> datawaarden, List<List<string>> achtergrondkleur, List<List<string>> randkleur)
+
+
+//public ActionResult VoegGrafiekToeEnUpdateDashboard(int deelplatformId, string titel, int periode, bool toonLegende, bool toonXAs, bool toonYAs, int keuze,
+//  string xTitel, string yTitel, bool xOnder, bool xOorsprongNul, bool yOorsprongNul, int dashboardId,
+//  string item1 = null, string waarde1 = "Vermeldingen",
+//  string item2 = null, string waarde2 = "Vermeldingen",
+//  string item3 = null, string waarde3 = "Vermeldingen",
+//  string item4 = null, string waarde4 = "Vermeldingen",
+//  string item5 = null, string waarde5 = "Vermeldingen")
+//{
+//  GrafiekenManager grafiekenManager = new GrafiekenManager();
+//  GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
+//  List<GrafiekItem> grafiekItems = new List<GrafiekItem>();
+//  List<GemonitordItem> items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+//  List<GrafiekWaarde> waarden = new List<GrafiekWaarde>();
+
+//  List<string> itemStrings = new List<string>() { item1, item2, item3, item4, item5 };
+//  List<GrafiekWaarde> tijdelijkeWaarden = new List<GrafiekWaarde>() {
+//    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+//    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+//    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+//    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+//    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true)
+//  };
+
+//  GrafiekKeuze grafiekKeuze = GrafiekKeuze.VergelijkingItemsOp1Moment;
+//  switch (keuze)
+//  {
+//    case 1: grafiekKeuze = GrafiekKeuze.KruisingTaart; break;
+//    case 2: grafiekKeuze = GrafiekKeuze.KruisingBar; break;
+//    case 3: grafiekKeuze = GrafiekKeuze.EvolutieAantalVermeldingen1Item; break;
+//    case 4: grafiekKeuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd; break;
+//    case 5: grafiekKeuze = GrafiekKeuze.VergelijkingItemsOp1Moment; break;
+//  }
+
+//  int teller = 0;
+//  foreach (string itemString in itemStrings)
+//  {
+//    if (itemString != null)
+//    {
+//      foreach (GemonitordItem item in items)
+//      {
+//        if (item.Naam.Equals(itemString))
+//        {
+//          grafiekItems.Add(new GrafiekItem { ItemId = item.GemonitordItemId });
+//          waarden.Add(tijdelijkeWaarden.ElementAt(teller));
+//        }
+//      }
+//    }
+//    teller++;
+//  }
+
+//  Grafiek grafiek = new Grafiek()
+//  {
+//    Titel = titel,
+//    Periode = periode,
+//    ToonLegende = toonLegende,
+//    ToonXAs = toonXAs,
+//    ToonYAs = toonYAs,
+//    Keuze = grafiekKeuze,
+//    XTitel = xTitel,
+//    YTitel = yTitel,
+//    Waarden = waarden,
+//    XOnder = xOnder,
+//    XOorsprongNul = xOorsprongNul,
+//    YOorsprongNul = yOorsprongNul,
+//    DashboardId = dashboardId,
+//    GrafiekItems = grafiekItems
+//  };
+
+//  grafiekenManager.AddGrafiek(grafiek);
+//  return RedirectToAction("Index");
+//}
+
+//public ActionResult UpdateGrafiekEnUpdateDashboard(int grafiekId, int deelplatformId, string titel,
+//  int periode, bool toonLegende, bool toonXAs, bool toonYAs, int keuze, string xTitel, string yTitel,
+//  bool xOnder, bool xOorsprongNul, bool yOorsprongNul, int dashboardId,
+//  string item1 = null, string waarde1 = "Vermeldingen",
+//  string item2 = null, string waarde2 = "Vermeldingen",
+//  string item3 = null, string waarde3 = "Vermeldingen",
+//  string item4 = null, string waarde4 = "Vermeldingen",
+//  string item5 = null, string waarde5 = "Vermeldingen")
+//{
+//  GrafiekenManager grafiekenManager = new GrafiekenManager();
+//  GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
+//  List<GrafiekItem> grafiekItems = new List<GrafiekItem>();
+//  List<GemonitordItem> items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+//  List<GrafiekWaarde> waarden = new List<GrafiekWaarde>();
+
+//  List<string> itemStrings = new List<string>() { item1, item2, item3, item4, item5 };
+//  List<GrafiekWaarde> tijdelijkeWaarden = new List<GrafiekWaarde>() {
+//    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+//    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+//    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+//    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true),
+//    (GrafiekWaarde) Enum.Parse(typeof(GrafiekWaarde), waarde1, true)
+//  };
+
+//  GrafiekKeuze grafiekKeuze = GrafiekKeuze.EvolutieAantalVermeldingen1Item;
+//  switch (keuze)
+//  {
+//    case 1: grafiekKeuze = GrafiekKeuze.KruisingTaart; break;
+//    case 2: grafiekKeuze = GrafiekKeuze.KruisingBar; break;
+//    case 3: grafiekKeuze = GrafiekKeuze.EvolutieAantalVermeldingen1Item; break;
+//    case 4: grafiekKeuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd; break;
+//    case 5: grafiekKeuze = GrafiekKeuze.VergelijkingItemsOp1Moment; break;
+//  }
+
+//  int teller = 0;
+//  foreach (string itemString in itemStrings)
+//  {
+//    if (itemString != null)
+//    {
+//      foreach (GemonitordItem item in items)
+//      {
+//        if (item.Naam.Equals(itemString))
+//        {
+//          grafiekItems.Add(new GrafiekItem { ItemId = item.GemonitordItemId });
+//          waarden.Add(tijdelijkeWaarden.ElementAt(teller));
+//        }
+//      }
+//    }
+//    teller++;
+//  }
+
+//  Grafiek grafiek = new Grafiek()
+//  {
+//    GrafiekId = grafiekId,
+//    Titel = titel,
+//    Periode = periode,
+//    ToonLegende = toonLegende,
+//    ToonXAs = toonXAs,
+//    ToonYAs = toonYAs,
+//    Keuze = grafiekKeuze,
+//    XTitel = xTitel,
+//    YTitel = yTitel,
+//    Waarden = waarden,
+//    XOnder = xOnder,
+//    XOorsprongNul = xOorsprongNul,
+//    YOorsprongNul = yOorsprongNul,
+//    DashboardId = dashboardId,
+//    GrafiekItems = grafiekItems
+//  };
+
+//  grafiekenManager.ChangeGrafiek(grafiek);
+//  return RedirectToAction("Index");
+//}
+
+//public ActionResult VerwijderGrafiekEnUpdateDashboard(int grafiekId)
+//{
+//  GrafiekenManager grafiekenManager = new GrafiekenManager();
+//  Grafiek grafiek = new Grafiek()
+//  {
+//    GrafiekId = grafiekId
+//  };
+
+//  grafiekenManager.RemoveGrafiek(grafiek);
+//  return RedirectToAction("Index");
+//}
+
+//public void GetData()
+//{
+//  GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
+//  DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+
+//  deelplatformenManager.AddDeelplatform(new Deelplatform() { Naam = "Politieke Barometer", AantalDagenHistoriek = 2, LaatsteSynchronisatie = DateTime.Now.AddYears(-100) });
+//  int id = deelplatformenManager.GetDeelplatformByName("Politieke Barometer").DeelplatformId;
+//  gemonitordeItemsManager.AddOrganisatie("Open VLD", id, new List<string>() { "Alexander De Croo", "Gwendolyn Rutten", "Maggie De Block" });
+//  gemonitordeItemsManager.AddOrganisatie("Groen", id, new List<string>() { "Kristof Calvo", "Meyrem Almaci", "Wouter Van Besien" });
+//  gemonitordeItemsManager.AddOrganisatie("SPA", id, new List<string>() { "Caroline Gennez", "John Crombez", "Bruno Tobback" });
+//  gemonitordeItemsManager.AddOrganisatie("Vlaams Belang", id, new List<string>() { "Filip Dewinter", "Tom Van Grieken", "Gerolf Annemans" });
+
+//  gemonitordeItemsManager.AddThema("Migratie", new List<string>() { "buitenland", "vluchteling", "immigratie", "migratie" }, id);
+//  gemonitordeItemsManager.AddThema("Fiscaliteit", new List<string>() { "belastingen", "tax", "btw", "sociale zekerheid" }, id);
+//  gemonitordeItemsManager.AddThema("Milieu", new List<string>() { "kernenergie", "zonnenergie", "steenkool", "luchtvervuiling", "windenergie" }, id);
+//  TextgainController textgainController = new TextgainController();
+//  textgainController.HaalBerichtenOp(deelplatformenManager.GetDeelplatform(id));
+//}

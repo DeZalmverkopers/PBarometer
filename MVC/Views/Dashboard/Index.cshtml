@@ -33,18 +33,18 @@ else
 
 
 
-<div class="container" id="elementenGrafieken">
+    <div class="container" id="elementenGrafieken">
 
-    <div>
-        <div class="col-md-11"></div>
-        <div class="col-md-1">
-            <button class="btn btn-primary button-xx-large" id="btnToevoegen" data-target="#modalGrafiekToevoegen" data-toggle="modal">+</button>
+        <div>
+            <div class="col-md-11"></div>
+            <div class="col-md-1">
+                <button class="btn btn-primary button-xx-large" id="btnToevoegen" data-target="#modalGrafiekToevoegen" data-toggle="modal">+</button>
+            </div>
         </div>
-    </div>
 
 
 
-    @*@for (int i = 1; i < ViewBag.Grafieken.Count + 1; i++)
+        @*@for (int i = 1; i < ViewBag.Grafieken.Count + 1; i++)
         {
 
             if (i % 2 != 0)
@@ -86,11 +86,11 @@ else
 
         }*@
 
-    @foreach (var grafiek in ViewBag.Grafieken)
+        @foreach (var grafiek in ViewBag.Grafieken)
     {
-        <div class="col-md-6">
+        <div class="col-md-5">
 
-            <canvas id="@grafiek.GrafiekId" height="250"></canvas>
+            <canvas id="@grafiek.GrafiekId" height="300"></canvas>
 
             <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
                 <span class="glyphicon glyphicon-pencil"></span>
@@ -101,16 +101,17 @@ else
             </button>
 
         </div>
-    }
+        <div class="col-md-1">
 
-    
+           
 
-    <div>
-        resultaat kruising @ViewBag.GekruistItem
+        </div>
+}
+
+
+
+
     </div>
-
-
-</div>
 
 
 <div class="modal" id="modalGrafiekToevoegen" role="dialog">

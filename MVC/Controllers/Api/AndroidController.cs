@@ -88,9 +88,9 @@ namespace MVC.Controllers.Api
                     {
                         GrafiekId = grafiek.GrafiekId,
                         //Data = grafiek.Data,
-                        Keuze = grafiek.Keuze.ToString(),
+                        //Keuze = grafiek.Keuze.ToString(),
                         LegendeLijst = grafiek.LegendeLijst,
-                        Periode = grafiek.Periode,
+                        //Periode = grafiek.Periode,
                         Titel = grafiek.Titel,
                         ToonLegende = grafiek.ToonLegende,
                         ToonXAs = grafiek.ToonXAs,
@@ -100,9 +100,9 @@ namespace MVC.Controllers.Api
                         YTitel = grafiek.YTitel,
                         YOorsprongNul = grafiek.YOorsprongNul,
                         XLabels = xlabels,
-                        XOnder = grafiek.XOnder,
+                        //XOnder = grafiek.XOnder,
                         XOorsprongNul = grafiek.XOorsprongNul,
-                        Waarden = grafiek.Waarden.Select(a => a.ToString()).ToList()
+                        //Waarden = grafiek.Waarden.Select(a => a.ToString()).ToList()
                     });
                 }
                 return Ok(grafiekDTOs);

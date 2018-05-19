@@ -1,10 +1,8 @@
 ﻿<div id="@ViewBag.StatistiekId">
-    <div>
-        <h3 class="statistieken-opmaak-titel">
-            @ViewBag.ItemNaam
-        </h3>
+    <h3 class="statistieken-opmaak-titel">
+        @ViewBag.ItemNaam
+    </h3>
 
-    </div>
 
     <div>
         <div class="statistieken-opmaak-inhoud">
@@ -12,34 +10,15 @@
         </div>
     </div>
 
-    <button id="verwijderen-@ViewBag.StatistiekId" onclick="statistiekVerwijderen(this.id)">
+    <button id="verwijderen-@ViewBag.StatistiekId" class="btn btn-primary" onclick="statistiekVerwijderen(this.id)">
         <span class="glyphicon glyphicon-remove"></span>
     </button>
+
+   
 
 </div>
 
 
 <script src="~/Scripts/EigenScripts.js"></script>
-@*<script>
-    function statistiekVerwijderen(id) {
-        var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
-        var subid;
 
-        if (lengteId == 0) {
-            subid = id.substring(id.length - 1);
-        } else if (lengteId > 0) {
-            subid = id.substring(id.indexOf("-") + 1, id.length - 1);
-        }
-
-
-        var statistiekVerwijderen = confirm("Ben je zeker dat je de statistiek wilt verwijderen?");
-        if (statistiekVerwijderen == true) {
-            $("div#" + subid).remove()
-
-            $("#verwijderen-" + subid).remove();
-           
-
-        }
-    }
-</script>*@
 

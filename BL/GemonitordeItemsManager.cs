@@ -68,10 +68,12 @@ namespace BL
     //  return repository.ReadGemonitordeItems(grafieken).Where(a => a is Thema && a.DeelplatformId == deelplatformId);
     //}
 
-    public IEnumerable<Thema> GetThemas(int deelplatformId)
+    public IEnumerable<GemonitordItem> GetThemas(int deelplatformId)
     {
       InitNonExistingRepo();
-      return repository.ReadGemonitordeItems().Where(a => a is Thema && a.DeelplatformId == deelplatformId).Cast<Thema>();
+      //return repository.ReadGemonitordeItems().Where(a => a is Thema && a.DeelplatformId == deelplatformId).Cast<Thema>();
+      return repository.ReadGemonitordeItems().Where(a => a is Thema && a.DeelplatformId == deelplatformId);
+
     }
 
     public GemonitordItem GetGemonitordItem(int id)
