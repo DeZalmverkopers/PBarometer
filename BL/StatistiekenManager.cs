@@ -44,35 +44,36 @@ namespace BL
           GemonitordItem = gemonitordeItems[3],
           SoortStatistiek = "getalTrend"
 
-        },
-        new Statistiek()
-        {
-          StatistiekId   = 5,
-          GemonitordItem = gemonitordeItems[4],
-          SoortStatistiek = "top5"
-
-        },
-        new Statistiek()
-        {
-          StatistiekId   = 6,
-          GemonitordItem = gemonitordeItems[5],
-          SoortStatistiek = "top5"
-
-        },
-        new Statistiek()
-        {
-          StatistiekId   = 7,
-          GemonitordItem = gemonitordeItems[6],
-          SoortStatistiek = "top10"
-
-        },
-        new Statistiek()
-        {
-          StatistiekId   = 8,
-          GemonitordItem = gemonitordeItems[7],
-          SoortStatistiek = "top10"
-
         }
+        //,
+        //new Statistiek()
+        //{
+        //  StatistiekId   = 5,
+        //  GemonitordItem = gemonitordeItems[4],
+        //  SoortStatistiek = "top5"
+
+        //},
+        //new Statistiek()
+        //{
+        //  StatistiekId   = 6,
+        //  GemonitordItem = gemonitordeItems[5],
+        //  SoortStatistiek = "top5"
+
+        //},
+        //new Statistiek()
+        //{
+        //  StatistiekId   = 7,
+        //  GemonitordItem = gemonitordeItems[6],
+        //  SoortStatistiek = "top10"
+
+        //},
+        //new Statistiek()
+        //{
+        //  StatistiekId   = 8,
+        //  GemonitordItem = gemonitordeItems[7],
+        //  SoortStatistiek = "top10"
+
+        //}
     };
 
       return statistieken;

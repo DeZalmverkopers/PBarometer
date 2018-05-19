@@ -16,7 +16,6 @@ namespace MVC.Controllers
     GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
     List<GemonitordItem> items;
     List<SelectListItem> selects;
-    List<Thema> themas;
     List<GemonitordItem> personenViewbag = new List<GemonitordItem>();
     List<GemonitordItem> organisatiesViewbag = new List<GemonitordItem>();
     List<GemonitordItem> themasViewbag = new List<GemonitordItem>();
@@ -91,7 +90,23 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Dashboard/Statistieken/Top10Keuze.cshtml", ViewBag);
     }
 
+    public virtual ActionResult LaadKruisingKeuze()
+    {
+      //items = itemManager.GetPersonen(1).ToList();
 
+      //ViewBag.ItemsViewbag = items;
+
+      var items = itemManager.GetGemonitordeItems(1).ToList();
+      selects = new List<SelectListItem>();
+      foreach (var item in items)
+      {
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+      }
+
+      ViewBag.GemonitordeItemsViewbag = selects;
+
+      return PartialView("~/Views/Shared/Dashboard/Statistieken/GekruistItemKeuze.cshtml", ViewBag);
+    }
 
 
     public virtual ActionResult LaadGetal(string item)
@@ -180,8 +195,7 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/GetalEnOverzicht/GetalTrend.cshtml", ViewBag);
     }
 
-
-    public virtual ActionResult LaadTop5(string item)
+    public virtual ActionResult LaadTop5()
     {
 
       //int deelplatformId = HuidigDeelplatform.DeelplatformId;
@@ -190,67 +204,129 @@ namespace MVC.Controllers
 
       items = itemManager.GetGemonitordeItems(1).ToList();
 
+      List<GemonitordItem> geordend = items.OrderByDescending(i => i.TotaalAantalVermeldingen).ToList();
+      List<GemonitordItem> top5 = new List<GemonitordItem>();
+      List<string> itemsNamen = new List<string>();
+      List<double> itemsWaarden = new List<double>();
 
-      GemonitordItem gemonitordItem = new GemonitordItem();
-
-      foreach (var element in items)
+      for (int i = 0; i < 5; i++)
       {
-        if (element.Naam.Equals(item))
-        {
-          ViewBag.ItemNaam = element.Naam;
-          
-          gemonitordItem = element;
+        top5.Add(geordend[i]);
 
-        }
       }
 
-      Statistiek statistiek = new Statistiek()
+      foreach (var top5Item in top5)
       {
-        StatistiekId = 11,
-        GemonitordItem = gemonitordItem,
-        SoortStatistiek = "top5"
-      };
+        itemsNamen.Add(top5Item.Naam);
+        itemsWaarden.Add(top5Item.TotaalAantalVermeldingen);
+      }
 
-      ViewBag.StatistiekId = statistiek.StatistiekId;
+      ViewBag.ItemsNamen = itemsNamen;
+      ViewBag.ItemsWaarden = itemsWaarden;
 
-      
       return PartialView("~/Views/Shared/GetalEnOverzicht/Top5.cshtml", ViewBag);
     }
 
-    public virtual ActionResult LaadTop10(string item)
+    public virtual ActionResult LaadTop10()
     {
-      //int deelplatformId = HuidigDeelplatform.DeelplatformId;
-
-      //items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       items = itemManager.GetGemonitordeItems(1).ToList();
 
+      List<GemonitordItem> geordend = items.OrderByDescending(i => i.TotaalAantalVermeldingen).ToList();
+      List<GemonitordItem> top10 = new List<GemonitordItem>();
+      List<string> itemsNamen = new List<string>();
+      List<double> itemsWaarden = new List<double>();
 
-      GemonitordItem gemonitordItem = new GemonitordItem();
-
-      foreach (var element in items)
+      for (int i = 0; i < 10; i++)
       {
-        if (element.Naam.Equals(item))
-        {
-          ViewBag.ItemNaam = element.Naam;
+        top10.Add(geordend[i]);
 
-          gemonitordItem = element;
-
-        }
       }
 
-      Statistiek statistiek = new Statistiek()
+      foreach (var top10Item in top10)
       {
-        StatistiekId = 12,
-        GemonitordItem = gemonitordItem,
-        SoortStatistiek = "top10"
-      };
+        itemsNamen.Add(top10Item.Naam);
+        itemsWaarden.Add(top10Item.TotaalAantalVermeldingen);
+      }
 
-      ViewBag.StatistiekId = statistiek.StatistiekId;
+      ViewBag.ItemsNamen = itemsNamen;
+      ViewBag.ItemsWaarden = itemsWaarden;
 
 
       return PartialView("~/Views/Shared/GetalEnOverzicht/Top10.cshtml", ViewBag);
     }
+
+
+    //public virtual ActionResult LaadTop5(string item)
+    //{
+
+    //  //int deelplatformId = HuidigDeelplatform.DeelplatformId;
+
+    //  //items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+
+    //  items = itemManager.GetGemonitordeItems(1).ToList();
+
+
+    //  GemonitordItem gemonitordItem = new GemonitordItem();
+
+    //  foreach (var element in items)
+    //  {
+    //    if (element.Naam.Equals(item))
+    //    {
+    //      ViewBag.ItemNaam = element.Naam;
+
+    //      gemonitordItem = element;
+
+    //    }
+    //  }
+
+    //  Statistiek statistiek = new Statistiek()
+    //  {
+    //    StatistiekId = 11,
+    //    GemonitordItem = gemonitordItem,
+    //    SoortStatistiek = "top5"
+    //  };
+
+    //  ViewBag.StatistiekId = statistiek.StatistiekId;
+
+
+    //  return PartialView("~/Views/Shared/GetalEnOverzicht/Top5.cshtml", ViewBag);
+    //}
+
+    //public virtual ActionResult LaadTop10(string item)
+    //{
+    //  //int deelplatformId = HuidigDeelplatform.DeelplatformId;
+
+    //  //items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+
+    //  items = itemManager.GetGemonitordeItems(1).ToList();
+
+
+    //  GemonitordItem gemonitordItem = new GemonitordItem();
+
+    //  foreach (var element in items)
+    //  {
+    //    if (element.Naam.Equals(item))
+    //    {
+    //      ViewBag.ItemNaam = element.Naam;
+
+    //      gemonitordItem = element;
+
+    //    }
+    //  }
+
+    //  Statistiek statistiek = new Statistiek()
+    //  {
+    //    StatistiekId = 12,
+    //    GemonitordItem = gemonitordItem,
+    //    SoortStatistiek = "top10"
+    //  };
+
+    //  ViewBag.StatistiekId = statistiek.StatistiekId;
+
+
+    //  return PartialView("~/Views/Shared/GetalEnOverzicht/Top10.cshtml", ViewBag);
+    //}
 
 
 
@@ -267,9 +343,9 @@ namespace MVC.Controllers
 
       ViewBag.Personen = selects;
 
-      themas = itemManager.GetThemas(1).ToList();
+      items = itemManager.GetThemas(1).ToList();
       selects = new List<SelectListItem>();
-      foreach (var item in themas)
+      foreach (var item in items)
       {
         selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
       }
@@ -286,9 +362,29 @@ namespace MVC.Controllers
 
       ViewBag.Organisaties = selects;
 
+     
+
       return PartialView("~/Views/Shared/Dashboard/Statistieken/StatistiekToevoegen.cshtml", ViewBag);
 
     }
+
+
+
+    //public virtual ActionResult LaadGemonitordeItemsKruising()
+    //{
+    //  var items = itemManager.GetGemonitordeItems(1).ToList();
+    //  selects = new List<SelectListItem>();
+    //  foreach (var item in items)
+    //  {
+    //    selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+    //  }
+
+    //  ViewBag.GemonitordeItemsViewbag = selects;
+
+
+    //  return PartialView("~/Views/Shared/Dashboard/Dropdown/GemonitordeItemsAantal.cshtml", ViewBag);
+
+    //}
 
 
 
@@ -396,6 +492,45 @@ namespace MVC.Controllers
       }
 
       return PartialView("~/Views/Shared/GetalEnOverzicht/Top10.cshtml", ViewBag);
+    }
+
+   public virtual ActionResult LaadKruising(string item1, string item2)
+    {
+
+      List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
+
+      GemonitordItem gemonitordItem1 = new GemonitordItem();
+      GemonitordItem gemonitordItem2 = new GemonitordItem(); ;
+
+      foreach (var gemonitordItem in gemonitordeItems)
+      {
+        if (gemonitordItem.Naam.Equals(item1))
+        {
+          gemonitordItem1 = gemonitordItem;
+        }
+        else if (gemonitordItem.Naam.Equals(item2))
+        {
+          gemonitordItem2 = gemonitordItem;
+        }
+      }
+
+
+
+      GekruistItem gekruistItem = new GekruistItem()
+      {
+        Item1 = gemonitordItem1,
+        Item2 = gemonitordItem2
+      };
+
+      gekruistItem.BerekenEigenschappen();
+
+      var aantal = gekruistItem.TotaalAantalVermeldingen;
+
+      ViewBag.GekruistItemAantal = aantal;
+      ViewBag.ItemNaam1 = gemonitordItem1.Naam;
+      ViewBag.ItemNaam2 = gemonitordItem2.Naam;
+
+      return PartialView("~/Views/Shared/GetalEnOverzicht/ItemsKruisen.cshtml", ViewBag);
     }
 
 

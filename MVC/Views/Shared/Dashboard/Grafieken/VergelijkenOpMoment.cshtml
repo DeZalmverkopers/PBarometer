@@ -24,13 +24,13 @@
 <div id="divSelectie"></div>
 
 <div>
-        <label>Welke data wilt u vergelijken voor deze items?</label>
+    <label>Welke data wilt u vergelijken voor deze items?</label>
 
-        <select id="gewensteData">
-            <option value="av">Aantal vermeldingen</option>
-            <option value="gp">Gemiddelde polariteit</option>
-            <option value="go">Gemiddelde objectiviteit</option>
-        </select>
+    <select id="gewensteData">
+        <option value="av">Aantal vermeldingen</option>
+        <option value="gp">Gemiddelde polariteit</option>
+        <option value="go">Gemiddelde objectiviteit</option>
+    </select>
 </div>
 
 
@@ -78,13 +78,15 @@
                         var aantalItems = $("#aantalItems").val();
 
                         switch (aantalItems) {
-                           
+
                             case "2":
                                 switch (vergelijkingskeuze) {
                                     case "Persoon":
                                         $.get('@Url.Action("LaadPersonen2Items", "Dashboard")', {}, function (resultaat) {
                                             $("#divSelectie").html(resultaat);
                                         });
+
+                                      
 
                                         typeAantal = "persoon2items"
 
@@ -208,6 +210,8 @@
     });
 
 
+     
+
 
 
     $("#btnToevoegenOpslaan").click(function () {
@@ -215,7 +219,7 @@
         var link;
 
         switch (typeAantal) {
-           
+
 
             case "persoon2items":
 
@@ -231,7 +235,7 @@
                 var templink2 = tempLink.replace("replaceItem1", $("#persoon1").val());
 
                 var templink3 = templink2.replace("replaceItem2", $("#persoon2").val());
-                
+
                 link = templink3.replace("replaceGewensteData", $("#gewensteData").val());
 
                 break;
@@ -330,7 +334,7 @@
                 var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
 
                 var templink3 = templink2.replace("replaceItem2", $("#organisatie2").val());
-                
+
                 link = templink3.replace("replaceGewensteData", $("#gewensteData").val());
 
                 break;
@@ -424,7 +428,7 @@
                 var templink2 = tempLink.replace("replaceItem1", $("#thema1").val());
 
                 var templink3 = templink2.replace("replaceItem2", $("#thema2").val());
-                
+
                 link = templink3.replace("replaceGewensteData", $("#gewensteData").val());
 
                 break;
