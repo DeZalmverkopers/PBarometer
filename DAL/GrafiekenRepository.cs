@@ -45,6 +45,16 @@ namespace DAL
     //  else return context.Grafieken.Include("Dashboard")/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
     //}
 
+    public IEnumerable<Grafiek> ReadGrafieken(int dashboardId, int deelplatformId)
+    {
+      //if (!dashboard && !items) return context.Grafieken.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
+      //if (!dashboard && items) return context.Grafieken/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
+      //if (dashboard && !items) return context.Grafieken.Include("Dashboard").Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
+      return context.Grafieken.AsEnumerable().Where(g => g.DashboardId == dashboardId).Where(g => g.DeelplatformId == deelplatformId);
+    }
+
+
+
     public Grafiek ReadGrafiek(int id, bool dashboard, bool items)
     {
       if (!dashboard && !items) return context.Grafieken.Include("GrafiekItems").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);

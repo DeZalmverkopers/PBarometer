@@ -2,11 +2,13 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Dashboards
 {
   public class Grafiek
   {
+
     public int GrafiekId { get; set; }
 
     public string Titel { get; set; }
@@ -20,15 +22,69 @@ namespace Domain.Dashboards
 
     public string XTitel { get; set; }
     public string YTitel { get; set; }
-    //public bool XOnder { get; set; }
 
-    //[NotMapped]
-    public List<string> LegendeLijst { get; set; }
-    //[NotMapped]
-    public List<dynamic> XLabels { get; set; }
-    //public Dictionary<int, List<dynamic>> Data { get; set; }
 
-    public List<List<double>> Datawaarden { get; set; }
+
+    //public List<string> LegendeLijst { get; set; }
+
+    [NotMapped]
+    public List<string> LegendeLijst
+    {
+      get
+      {
+        return LegendelijstJSON == null ? null :
+        JsonConvert.DeserializeObject<List<string>>(LegendelijstJSON);
+      }
+      set
+      {
+        LegendelijstJSON = JsonConvert.SerializeObject(value);
+      }
+    }
+
+    public string LegendelijstJSON { get; set; }
+
+
+
+
+    //public List<dynamic> XLabels { get; set; }
+    [NotMapped]
+    public List<dynamic> XLabels
+    {
+      get
+      {
+        return XLabelsJSON == null ? null :
+        JsonConvert.DeserializeObject<List<dynamic>>(XLabelsJSON);
+      }
+      set
+      {
+        XLabelsJSON = JsonConvert.SerializeObject(value);
+      }
+    }
+
+    public string XLabelsJSON { get; set; }
+
+
+
+
+    //public List<List<double>> Datawaarden { get; set; }
+    [NotMapped]
+    public List<List<double>> Datawaarden
+    {
+      get
+      {
+        return DatawaardenJSON == null ? null :
+        JsonConvert.DeserializeObject<List<List<double>>>(DatawaardenJSON);
+      }
+      set
+      {
+        DatawaardenJSON = JsonConvert.SerializeObject(value);
+      }
+    }
+
+    public string DatawaardenJSON { get; set; }
+
+
+
 
 
     //public int Periode { get; set; }
@@ -49,8 +105,49 @@ namespace Domain.Dashboards
     //public List<GemonitordItem> Items { get; set; }
     //public List<GrafiekItem> GrafiekItems { get; set; }
 
-    public List<List<string>> Randkleur { get; set; }
-    public List<List<string>> Achtergrondkleur { get; set; }
+
+
+    //public List<List<string>> Randkleur { get; set; }
+    [NotMapped]
+    public List<List<string>> Randkleur
+    {
+      get
+      {
+        return RandkleurJSON == null ? null :
+        JsonConvert.DeserializeObject<List<List<string>>>(RandkleurJSON);
+      }
+      set
+      {
+        RandkleurJSON = JsonConvert.SerializeObject(value);
+      }
+    }
+
+    public string RandkleurJSON { get; set; }
+
+
+
+    //public List<List<string>> Achtergrondkleur { get; set; }
+    [NotMapped]
+    public List<List<string>> Achtergrondkleur
+    {
+      get
+      {
+        return AchtergrondkleurJSON == null ? null :
+        JsonConvert.DeserializeObject<List<List<string>>>(AchtergrondkleurJSON);
+      }
+      set
+      {
+        AchtergrondkleurJSON = JsonConvert.SerializeObject(value);
+      }
+    }
+
+    public string AchtergrondkleurJSON { get; set; }
+
+
+
+
+
+
 
     public int XAsMaxrotatie { get; set; }
     public int XAsMinrotatie { get; set; }

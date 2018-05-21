@@ -25,11 +25,24 @@ namespace BL
       repository.CreateGrafiek(grafiek);
     }
 
-    public IEnumerable<Grafiek> GetGrafieken(bool dashboard = false, bool items = false)
+    //public IEnumerable<Grafiek> GetGrafieken(bool dashboard = false, bool items = false)
+    //{
+    //  InitNonExistingRepo();
+    //  return repository.ReadGrafieken(dashboard, items);
+    //}
+
+    public IEnumerable<Grafiek> GetGrafieken(int dashboardId, int deelplatformId)
     {
       InitNonExistingRepo();
-      return repository.ReadGrafieken(dashboard, items);
+      return repository.ReadGrafieken(dashboardId, deelplatformId);
     }
+
+    //public IEnumerable<Grafiek> GetGrafieken(int dashboardId, int deelplatformId)
+    //{
+    //  InitNonExistingRepo();
+    //  return repository.ReadGrafieken(dashboard, items).Where(a => a.Dashboard != null && a.Dashboard.DashboardId.Equals(dashboardId));
+    //}
+
 
     //public List<Grafiek> GetGrafieken(int deelplatformId, int dashboardId, bool dashboard = false, bool items = false)
     //{
@@ -142,6 +155,8 @@ namespace BL
     //  return repository.ReadGrafieken(dashboard, items).Where(a => a.Dashboard != null && a.Dashboard.DashboardId.Equals(dashboardId));
     //}
 
+
+
     public Grafiek GetGrafiek(int id, bool dashboard = false, bool items = false)
     {
       InitNonExistingRepo();
@@ -229,6 +244,8 @@ namespace BL
       //  grafiek2XLabels.Add(grafiek2Itemhistorieken[i].HistoriekDatum.ToShortDateString());
       //  grafiek2Waarden.Add(grafiek2Itemhistorieken[i].AantalVermeldingen);
       //}
+
+
 
 
 
@@ -360,7 +377,7 @@ namespace BL
 
       new Grafiek()
       {
-        GrafiekId = 1,
+        //GrafiekId = 1,
 
         DeelplatformId = 1,
         DashboardId = 1,
@@ -392,7 +409,7 @@ namespace BL
       },
       new Grafiek()
       {
-        GrafiekId = 2,
+        //GrafiekId = 2,
 
         DeelplatformId = 1,
         DashboardId = 1,
@@ -425,7 +442,7 @@ namespace BL
 
        new Grafiek()
       {
-        GrafiekId = 3,
+        //GrafiekId = 3,
 
         DeelplatformId = 1,
         DashboardId = 1,
@@ -457,7 +474,7 @@ namespace BL
       },
        new Grafiek()
       {
-        GrafiekId = 4,
+        //GrafiekId = 4,
 
         DeelplatformId = 1,
         DashboardId = 1,
