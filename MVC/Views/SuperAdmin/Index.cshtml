@@ -6,7 +6,6 @@
 
 <h1>Superadmin</h1>
 
-
 <div class="container">
     @*<div class="row">
         <div class="col-md-12">*@
@@ -21,6 +20,9 @@
             </div>
             <div>
                 <button class="btn btn-primary btn-algemene-layout" id="btnDeelplatform">Deelplatform aanmaken</button>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-algemene-layout" id="btnDeelplatformen">Deelplatformen beheren</button>
             </div>
             <div>
                 <button class="btn btn-primary btn-algemene-layout" id="btnAdmins">Admins instellen</button>
@@ -69,7 +71,13 @@
         });
     </script>
 
-
+    <script type="text/javascript">
+        $("#btnDeelplatformen").click(function () {
+        $.get('@Url.Action("DeelplatformOverzicht", "SuperAdmin")', {}, function (resultaat) {
+            $("#divResultaat").html(resultaat);
+        });
+        });
+    </script>
 
     @*Werkt niet*@
     @*<script type="text/javascript">

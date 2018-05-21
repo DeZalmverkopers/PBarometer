@@ -6,9 +6,10 @@ namespace Domain.Gemonitordeitems
 {
   public class Thema : GemonitordItem
   {
+    public string KernWoordenJSON { get; set; }
+
     public Thema()
     {
-
     }
 
     [NotMapped]
@@ -24,8 +25,5 @@ namespace Domain.Gemonitordeitems
         KernWoordenJSON = JsonConvert.SerializeObject(value);
       }
     }
-
-    public string KernWoordenJSON { get; set; }
-
   }
 }

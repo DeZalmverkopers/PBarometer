@@ -15,22 +15,18 @@
         <tbody>
             @foreach (var persoon in ViewBag.Personen)
             {
-                <tr data-dismiss="modal" onclick="showModalPersoonDetails('#persoonDetailsOrganisatie', '#persoonDetailsOrganisatieBody', @persoon.GemonitordItemId)">
-                    <td>
-                        @persoon.Naam
-                    </td>
-                    <td>
-                        @persoon.TotaalAantalVermeldingen
-                    </td>
-                </tr>
+            <tr data-dismiss="modal" onclick="showModalPersoonDetails('#persoonDetailsOrganisatie', '#persoonDetailsOrganisatieBody', @persoon.GemonitordItemId)">
+                <td>
+                    @persoon.Naam
+                </td>
+                <td>
+                    @persoon.TotaalAantalVermeldingen
+                </td>
+            </tr>
             }
         </tbody>
     </table>
 </div>
-
-
-
-
 
 <script>
     function zoekFunctiePersonenOrganisatie() {
@@ -52,5 +48,3 @@
         }
     }
 </script>
-
-

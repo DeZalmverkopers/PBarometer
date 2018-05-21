@@ -1,11 +1,7 @@
-﻿using DAL.EF;
-using Domain.Dashboards;
-using System;
+﻿using Domain.Dashboards;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL
 {
@@ -14,7 +10,7 @@ namespace DAL
     private EF.DbContext context;
     public DashboardsRepository()
     {
-            context = new EF.DbContext();
+      context = new EF.DbContext();
     }
     public DashboardsRepository(UnitOfWork uow)
     {

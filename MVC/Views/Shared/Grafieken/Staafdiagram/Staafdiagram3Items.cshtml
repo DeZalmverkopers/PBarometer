@@ -4,20 +4,16 @@
     @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
 </div>
 
-
 <script>
     //Staafdiagram
-
     var item1 = @Html.Raw(Json.Encode(ViewBag.Item1Naam));
     var data1 = @Html.Raw(Json.Encode(ViewBag.Item1Vermeldingen));
     var item2 = @Html.Raw(Json.Encode(ViewBag.Item2Naam));
     var data2 = @Html.Raw(Json.Encode(ViewBag.Item2Vermeldingen));
     var item3 = @Html.Raw(Json.Encode(ViewBag.Item3Naam));
     var data3 = @Html.Raw(Json.Encode(ViewBag.Item3Vermeldingen));
-   
 
     var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
-
 
     var ctx = $("#barChart");
     //var tData = $.getValues("/Grafiek/BarChartData");
@@ -57,19 +53,7 @@
                 bordercolor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
                 borderWidth: 4
                 }
-
             ]
         }
-
     });
-
 </script>
-
-
-
-
-
-
-
-
-

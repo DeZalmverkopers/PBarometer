@@ -8,7 +8,6 @@
     </select>
 </div>
 
-
 <div id="aantalItemsVergelijken">
     <label>Hoeveel items wilt u vergelijken?</label>
 
@@ -34,8 +33,6 @@
         </select>
     </div>*@
 
-
-
 @*<div>
         <label>Selecteer een datumbereik</label>
         <div>
@@ -45,8 +42,6 @@
             <input type="date" />
         </div>
     </div>
-
-
 
     <div>
         <label>Hoe wilt u de evolutie weergeven?</label>
@@ -60,9 +55,7 @@
 <div>
     <label>Geef een grafiektitel in</label>
     <input type="text" id="grafiektitel" />
-
 </div>
-
 
 <div class="onzichtbaar" id="divToevoegenOpslaan">
     <button id="btnToevoegenOpslaan" class="btn btn-primary btn-algemene-layout">Opslaan</button>
@@ -92,7 +85,6 @@
 
         }
     });
-
 
     $("#aantalItems").change(function () {
 
@@ -258,9 +250,6 @@
 
 
     });
-
-
-
 
     $("#btnToevoegenOpslaan").click(function () {
 
@@ -458,8 +447,6 @@
 
                 break;
 
-
-
             @*case "thema1item":
 
                  link = '@Url.Action("LaadVergelijkingOpMoment1Item", "Dashboard", new { grafiektitel = "replaceGrafiektitel", item1 = "replaceItem1" })'
@@ -552,8 +539,6 @@
                 break;
         }
 
-
-
         $.get(link, {}, function (resultaat) {
             $("#elementen").append("<div class=col-md-6>" + resultaat + "</div>");
 
@@ -564,9 +549,4 @@
 
                 });
 
-
-
 </script>
-
-
-

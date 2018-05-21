@@ -27,6 +27,7 @@ namespace MVC.Controllers
       }
     }
     private int deelplatformId;
+
     // GET: Dashboard
     public virtual ActionResult Index()
     {
@@ -126,8 +127,6 @@ namespace MVC.Controllers
 
       ViewBag.Personen = selects;
 
-
-
       themas = itemManager.GetThemas(deelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in themas)
@@ -183,7 +182,6 @@ namespace MVC.Controllers
       //ViewBag.Schaalopties = schaalopties;
 
       return PartialView("~/Views/Shared/Dashboard/ElementToevoegen.cshtml", ViewBag);
-
     }
 
     public virtual ActionResult LaadGetal(string item)
@@ -217,10 +215,8 @@ namespace MVC.Controllers
           ViewBag.ItemNaam = element.Naam;
           ViewBag.ItemVermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.ItemTrend = element.VermeldingenTrend;
-
         }
       }
-
       return PartialView("~/Views/Shared/GetalEnOverzicht/GetalTrend.cshtml", ViewBag);
     }
 
@@ -228,14 +224,12 @@ namespace MVC.Controllers
     public virtual ActionResult LaadTop5(string item)
     {
       ViewBag.Item = item;
-
       return PartialView("~/Views/Shared/GetalEnOverzicht/Top5.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadTop10(string item)
     {
       ViewBag.Item = item;
-
       return PartialView("~/Views/Shared/GetalEnOverzicht/Top10.cshtml", ViewBag);
     }
 
@@ -271,8 +265,6 @@ namespace MVC.Controllers
     //  return PartialView("~/Views/Shared/GetalEnOverzicht/Top10.cshtml", ViewBag);
     //}
 
-
-
     public void LaadItem(List<GemonitordItem> items)
     {
       selects = new List<SelectListItem>();
@@ -281,9 +273,6 @@ namespace MVC.Controllers
         selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
       }
     }
-
-
-
 
     public void LaadThema(List<Thema> items)
     {
@@ -296,60 +285,44 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties1Item()
     {
-
       LaadItem(itemManager.GetOrganisaties(deelplatformId).ToList());
-
-
-
       ViewBag.Organisaties = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Organisaties/Organisaties1Item.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadOrganisaties2Items()
     {
       LaadItem(itemManager.GetOrganisaties(deelplatformId).ToList());
-
       ViewBag.Organisaties = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Organisaties/Organisaties2Items.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadOrganisaties3Items()
     {
       LaadItem(itemManager.GetOrganisaties(deelplatformId).ToList());
-
       ViewBag.Organisaties = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Organisaties/Organisaties3Items.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadOrganisaties4Items()
     {
       LaadItem(itemManager.GetOrganisaties(deelplatformId).ToList());
-
       ViewBag.Organisaties = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Organisaties/Organisaties4Items.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadOrganisaties5Items()
     {
       LaadItem(itemManager.GetOrganisaties(deelplatformId).ToList());
-
       ViewBag.Organisaties = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Organisaties/Organisaties5Items.cshtml", ViewBag);
     }
 
 
     public virtual ActionResult LaadPersonen1Item()
     {
-
       LaadItem(itemManager.GetPersonen(deelplatformId).ToList());
-
       ViewBag.Personen = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Personen/Personen1Item.cshtml", ViewBag);
 
     }
@@ -357,90 +330,66 @@ namespace MVC.Controllers
     public virtual ActionResult LaadPersonen2Items()
     {
       LaadItem(itemManager.GetPersonen(deelplatformId).ToList());
-
       ViewBag.Personen = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Personen/Personen2Items.cshtml", ViewBag);
-
     }
 
     public virtual ActionResult LaadPersonen3Items()
     {
       LaadItem(itemManager.GetPersonen(deelplatformId).ToList());
-
       ViewBag.Personen = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Personen/Personen3Items.cshtml", ViewBag);
-
     }
 
     public virtual ActionResult LaadPersonen4Items()
     {
       LaadItem(itemManager.GetPersonen(deelplatformId).ToList());
-
       ViewBag.Personen = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Personen/Personen4Items.cshtml", ViewBag);
-
     }
 
     public virtual ActionResult LaadPersonen5Items()
     {
       LaadItem(itemManager.GetPersonen(deelplatformId).ToList());
-
       ViewBag.Personen = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Personen/Personen5Items.cshtml", ViewBag);
-
     }
 
 
     public virtual ActionResult LaadThemas1Item()
     {
       LaadThema(itemManager.GetThemas(1).ToList());
-
       ViewBag.Themas = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas1Item.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadThemas2Items()
     {
       LaadThema(itemManager.GetThemas(deelplatformId).ToList());
-
       ViewBag.Themas = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas2Items.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadThemas3Items()
     {
       LaadThema(itemManager.GetThemas(deelplatformId).ToList());
-
       ViewBag.Themas = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas3Items.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadThemas4Items()
     {
       LaadThema(itemManager.GetThemas(deelplatformId).ToList());
-
       ViewBag.Themas = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas4Items.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadThemas5Items()
     {
       LaadThema(itemManager.GetThemas(deelplatformId).ToList());
-
       ViewBag.Themas = selects;
-
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas5Items.cshtml", ViewBag);
     }
-
-
 
     public virtual ActionResult LaadStatistiekenKeuze()
     {
@@ -466,7 +415,6 @@ namespace MVC.Controllers
     {
       return PartialView("~/Views/Shared/Dashboard/Statistieken/Top10Keuze.cshtml");
     }
-
 
     public virtual ActionResult LaadGrafiekenKeuze()
     {
@@ -527,11 +475,8 @@ namespace MVC.Controllers
     //  return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram1Item.cshtml", ViewBag);
     //}
 
-
-
     public virtual ActionResult LaadVergelijkingOpMoment2Items(string grafiektitel, string item1, string item2)
     {
-
       items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
@@ -553,16 +498,12 @@ namespace MVC.Controllers
       }
 
       ViewBag.Grafiektitel = grafiektitel;
-
-
       return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram2Items.cshtml", ViewBag);
-
     }
 
 
     public virtual ActionResult LaadVergelijkingOpMoment3Items(string grafiektitel, string item1, string item2, string item3)
     {
-
       items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
@@ -572,35 +513,28 @@ namespace MVC.Controllers
           ViewBag.Item1Naam = element.Naam;
           ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item1Vermeldingen = 5;
-
         }
         if (element.Naam.Equals(item2))
         {
           ViewBag.Item2Naam = element.Naam;
           ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item2Vermeldingen = 10;
-
         }
         if (element.Naam.Equals(item3))
         {
           ViewBag.Item3Naam = element.Naam;
           ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item3Vermeldingen = 15;
-
         }
       }
 
       ViewBag.Grafiektitel = grafiektitel;
-
-
       return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram3Items.cshtml", ViewBag);
-
     }
 
 
     public virtual ActionResult LaadVergelijkingOpMoment4Items(string grafiektitel, string item1, string item2, string item3, string item4)
     {
-
       items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
@@ -610,34 +544,28 @@ namespace MVC.Controllers
           ViewBag.Item1Naam = element.Naam;
           ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item1Vermeldingen = 5;
-
         }
         if (element.Naam.Equals(item2))
         {
           ViewBag.Item2Naam = element.Naam;
           ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item2Vermeldingen = 10;
-
         }
         if (element.Naam.Equals(item3))
         {
           ViewBag.Item3Naam = element.Naam;
           ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item3Vermeldingen = 15;
-
         }
         if (element.Naam.Equals(item4))
         {
           ViewBag.Item4Naam = element.Naam;
           ViewBag.Item4Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item4Vermeldingen = 20;
-
         }
       }
 
       ViewBag.Grafiektitel = grafiektitel;
-
-
       return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram4Items.cshtml", ViewBag);
     }
 
@@ -645,7 +573,6 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadVergelijkingOpMoment5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5)
     {
-
       items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       foreach (var element in items)
@@ -655,42 +582,35 @@ namespace MVC.Controllers
           ViewBag.Item1Naam = element.Naam;
           ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item1Vermeldingen = 5;
-
         }
         if (element.Naam.Equals(item2))
         {
           ViewBag.Item2Naam = element.Naam;
           ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item2Vermeldingen = 10;
-
         }
         if (element.Naam.Equals(item3))
         {
           ViewBag.Item3Naam = element.Naam;
           ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item3Vermeldingen = 15;
-
         }
         if (element.Naam.Equals(item4))
         {
           ViewBag.Item4Naam = element.Naam;
           ViewBag.Item4Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item4Vermeldingen = 20;
-
         }
         if (element.Naam.Equals(item5))
         {
           ViewBag.Item5Naam = element.Naam;
           ViewBag.Item5Vermeldingen = element.TotaalAantalVermeldingen;
           //ViewBag.Item5Vermeldingen = 25;
-
         }
       }
 
       ViewBag.Grafiektitel = grafiektitel;
-
       return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram5Items.cshtml", ViewBag);
-
     }
 
 
@@ -718,7 +638,6 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadLijndiagramAantalTweets(string grafiektitel)
     {
-
       //var gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
 
       //foreach (var element in gemonitordeItems)
@@ -747,16 +666,12 @@ namespace MVC.Controllers
         if (element.Naam.Equals(item1))
         {
           ViewBag.Item1Naam = element.Naam;
-
         }
-
       }
 
       ViewBag.Item1Data = new int[] { 5, 20, 15, 25, 10 };
-
       ViewBag.ItemDagen = new string[] { "Dag 1", "Dag 2", "Dag 3", "Dag 4", "Dag 5" };
       ViewBag.Grafiektitel = grafiektitel;
-
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram1Item.cshtml", ViewBag);
     }
 
@@ -776,20 +691,17 @@ namespace MVC.Controllers
           ViewBag.Item1Naam = element.Naam;
           //ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item1Data = new int[] { 28, 48, 40, 19, 86 };
-
         }
         if (element.Naam.Equals(item2))
         {
           ViewBag.Item2Naam = element.Naam;
           //ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item2Data = new int[] { 65, 59, 80, 81, 56 };
-
         }
       }
 
       ViewBag.ItemDagen = new string[] { "Dag 1", "Dag 2", "Dag 3", "Dag 4", "Dag 5" };
       ViewBag.Grafiektitel = grafiektitel;
-
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram2Items.cshtml", ViewBag);
     }
 
@@ -805,27 +717,23 @@ namespace MVC.Controllers
           ViewBag.Item1Naam = element.Naam;
           //ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item1Data = new int[] { 28, 48, 40, 19, 86 };
-
         }
         if (element.Naam.Equals(item2))
         {
           ViewBag.Item2Naam = element.Naam;
           //ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item2Data = new int[] { 65, 59, 80, 81, 56 };
-
         }
         if (element.Naam.Equals(item3))
         {
           ViewBag.Item3Naam = element.Naam;
           //ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item3Data = new int[] { 34, 88, 77, 66, 55 };
-
         }
       }
 
       ViewBag.ItemDagen = new string[] { "Dag 1", "Dag 2", "Dag 3", "Dag 4", "Dag 5" };
       ViewBag.Grafiektitel = grafiektitel;
-
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram3Items.cshtml", ViewBag);
     }
 
@@ -846,34 +754,29 @@ namespace MVC.Controllers
           ViewBag.Item1Naam = element.Naam;
           //ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item1Data = new int[] { 28, 48, 40, 19, 86 };
-
         }
         if (element.Naam.Equals(item2))
         {
           ViewBag.Item2Naam = element.Naam;
           //ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item2Data = new int[] { 65, 59, 80, 81, 56 };
-
         }
         if (element.Naam.Equals(item3))
         {
           ViewBag.Item3Naam = element.Naam;
           //ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item3Data = new int[] { 34, 88, 77, 66, 55 };
-
         }
         if (element.Naam.Equals(item4))
         {
           ViewBag.Item4Naam = element.Naam;
           //ViewBag.Item4Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item4Data = new int[] { 20, 45, 65, 34, 22 };
-
         }
       }
 
       ViewBag.ItemDagen = new string[] { "Dag 1", "Dag 2", "Dag 3", "Dag 4", "Dag 5" };
       ViewBag.Grafiektitel = grafiektitel;
-
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram4Items.cshtml", ViewBag);
     }
 
@@ -895,41 +798,35 @@ namespace MVC.Controllers
           ViewBag.Item1Naam = element.Naam;
           //ViewBag.Item1Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item1Data = new int[] { 28, 48, 40, 19, 86 };
-
         }
         if (element.Naam.Equals(item2))
         {
           ViewBag.Item2Naam = element.Naam;
           //ViewBag.Item2Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item2Data = new int[] { 65, 59, 80, 81, 56 };
-
         }
         if (element.Naam.Equals(item3))
         {
           ViewBag.Item3Naam = element.Naam;
           //ViewBag.Item3Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item3Data = new int[] { 34, 88, 77, 66, 55 };
-
         }
         if (element.Naam.Equals(item4))
         {
           ViewBag.Item4Naam = element.Naam;
           //ViewBag.Item4Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item4Data = new int[] { 20, 45, 65, 34, 22 };
-
         }
         if (element.Naam.Equals(item5))
         {
           ViewBag.Item5Naam = element.Naam;
           //ViewBag.Item5Vermeldingen = element.TotaalAantalVermeldingen;
           ViewBag.Item5Data = new int[] { 55, 66, 77, 88, 34 };
-
         }
       }
 
       ViewBag.ItemDagen = new string[] { "Dag 1", "Dag 2", "Dag 3", "Dag 4", "Dag 5" };
       ViewBag.Grafiektitel = grafiektitel;
-
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram5Items.cshtml", ViewBag);
     }
 

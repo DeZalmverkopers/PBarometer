@@ -4,20 +4,16 @@ using Domain.Gemonitordeitems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
   public class GemonitordeItemsManager
   {
-
     private GemonitordeItemsRepository repository;
     private UnitOfWorkManager uowManager;
 
     public GemonitordeItemsManager()
     {
-
     }
 
     public void AddGemonitordItem(GemonitordItem gemonitordItem)
@@ -53,7 +49,6 @@ namespace BL
         gemonitordeItems.Add(allePersonen.FirstOrDefault(a => a.Naam.Equals(persoon)) as Persoon);
       }
       return gemonitordeItems;
-
     }
 
     public IEnumerable<GemonitordItem> GetOrganisaties(int deelplatformId)

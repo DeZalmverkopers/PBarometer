@@ -1,12 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "PersoonDetails";
+  ViewBag.Title = "PersoonDetails";
 }
 
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <div id="fb-root"></div>
 <script>
-(function (d, s, id) {
+    (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
@@ -65,11 +65,11 @@
                 <td>
                     @if (ViewBag.Website)
                     {
-                        <a href="@ViewBag.WebsiteURL" target="_blank">@ViewBag.Persoon.Website</a>
+                    <a href="@ViewBag.WebsiteURL" target="_blank">@ViewBag.Persoon.Website</a>
                     }
                     else
                     {
-                        <p>Onbekend</p>
+                    <p>Onbekend</p>
                     }
                 </td>
             </tr>
@@ -151,11 +151,11 @@
                 <td>
                     @if (ViewBag.HeeftMeestVoorkomendeURL)
                     {
-                        <a href="@ViewBag.Persoon.MeestVoorkomendeURL" target="_blank">@ViewBag.MeestVoorkomendeURL</a>
+                    <a href="@ViewBag.Persoon.MeestVoorkomendeURL" target="_blank">@ViewBag.MeestVoorkomendeURL</a>
                     }
                     else
                     {
-                        <p>Onbekend</p>
+                    <p>Onbekend</p>
                     }
 
                 </td>
@@ -168,11 +168,11 @@
     <div class="panel-body">
         @if (ViewBag.Twitter)
         {
-            <a class="twitter-timeline" data-adapt-container-width="true" href=@("https://www.twitter.com/" + ViewBag.Persoon.TwitterHandle) data-height="600"></a>
+        <a class="twitter-timeline" data-adapt-container-width="true" href=@("https://www.twitter.com/" + ViewBag.Persoon.TwitterHandle) data-height="600"></a>
         }
         else
         {
-            <p>Voor deze persoon is geen Twitterpagina beschikbaar.</p>
+        <p>Voor deze persoon is geen Twitterpagina beschikbaar.</p>
         }
     </div>
 </div>
@@ -181,17 +181,13 @@
     <div class="panel-body">
         @if (ViewBag.HeeftFacebook)
         {
-        <div class="fb-page" data-href=@ViewBag.Persoon.Facebook data-tabs="timeline" data-small-header="false" 
-             data-width="600" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"></div>            
+        <div class="fb-page" data-href=@ViewBag.Persoon.Facebook data-tabs="timeline" data-small-header="false"
+             data-width="600" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"></div>
         }
         else
         {
-            <p>Voor deze persoon is geen Facebookpagina beschikbaar.</p>
+        <p>Voor deze persoon is geen Facebookpagina beschikbaar.</p>
         }
 
     </div>
 </div>
-
-
-
-

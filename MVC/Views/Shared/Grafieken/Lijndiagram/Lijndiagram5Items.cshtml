@@ -4,7 +4,6 @@
     @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
 </div>
 
-
 <script>
 
     @*var item1 = @Html.Raw(Json.Encode(ViewBag.Item1Naam))*@
@@ -26,7 +25,6 @@
     var item5 = @Html.Raw(Json.Encode(ViewBag.Item5Naam));
     var data5 = @Html.Raw(Json.Encode(ViewBag.Item5Data));
 
-
     var ctx = $("#lineChart");
     var myLineChart = new Chart(ctx, {
 
@@ -35,8 +33,6 @@
                 display: true,
                 text: grafiekTitel,
                 fontSize: 18
-
-
             },
             legend: {
                 display: true
@@ -51,7 +47,6 @@
                     }
                 }]
             }
-
         },
         type: 'line',
 
@@ -102,8 +97,5 @@
         ]
         }
 
-
     });
 </script>
-
-

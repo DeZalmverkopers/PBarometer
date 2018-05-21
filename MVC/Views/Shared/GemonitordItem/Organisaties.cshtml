@@ -1,17 +1,13 @@
 ﻿@{
-    ViewBag.Title = "Organisaties";
+  ViewBag.Title = "Organisaties";
 }
-
-
 
 <input type="text" id="zoekBalkOrganisaties" onkeyup="zoekFunctieOrganisaties()" placeholder="Zoek op naam..." class="form-control col col-md-6">
 @if (User.IsInRole("Admin"))
 {
-
-    <button type="button" class="btn btn-secondary col-sm-offset-5" onclick="location.href='@Url.Action("MaakOrganisatie", "Overzicht")'">
-        <span class="glyphicon glyphicon-plus"></span> Maak een organisatie aan
-    </button>
-
+<button type="button" class="btn btn-secondary col-sm-offset-5" onclick="location.href='@Url.Action("MaakOrganisatie", "Overzicht")'">
+    <span class="glyphicon glyphicon-plus"></span> Maak een organisatie aan
+</button>
 }
 
 <div class="table-container">
@@ -26,35 +22,35 @@
                 </th>
                 @if (User.IsInRole("Admin"))
                 {
-                    <th>
-                    </th>
+                <th>
+                </th>
                 }
             </tr>
         </thead>
         <tbody>
             @foreach (var organisatie in ViewBag.Organisaties)
             {
-                <tr onclick="showModal('#organisatieDetails', '#organisatieDetailsBody', @organisatie.GemonitordItemId)">
-                    <td>
-                        @organisatie.Naam
-                    </td>
-                    <td>
-                        @organisatie.TotaalAantalVermeldingen
-                    </td>
+            <tr onclick="showModal('#organisatieDetails', '#organisatieDetailsBody', @organisatie.GemonitordItemId)">
+                <td>
+                    @organisatie.Naam
+                </td>
+                <td>
+                    @organisatie.TotaalAantalVermeldingen
+                </td>
 
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <td>
-                            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("PasOrganisatieAan", "Overzicht",new { id = organisatie.GemonitordItemId})'">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("VerwijderItem", "Overzicht",new { id = organisatie.GemonitordItemId})'">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                        </td>
-                    }
+                @if (User.IsInRole("Admin"))
+                {
+                <td>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("PasOrganisatieAan", "Overzicht",new { id = organisatie.GemonitordItemId})'">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("VerwijderItem", "Overzicht",new { id = organisatie.GemonitordItemId})'">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </td>
+                }
 
-                </tr>
+            </tr>
             }
         </tbody>
     </table>
@@ -99,4 +95,3 @@
         });
     }
 </script>
-

@@ -1,18 +1,15 @@
 ﻿@{
-    ViewBag.Title = "Themas";
+  ViewBag.Title = "Themas";
 }
-
-
 
 <input type="text" id="zoekBalkThemas" onkeyup="zoekFunctieThemas()" placeholder="Zoek op naam..." class="form-control col col-md-6">
 @if (User.IsInRole("Admin"))
 {
-
-    <button type="button" class="btn btn-secondary col-sm-offset-5" onclick="location.href='@Url.Action("MaakThema", "Overzicht")'">
-        <span class="glyphicon glyphicon-plus"></span> Maak een thema aan
-    </button>
-
+<button type="button" class="btn btn-secondary col-sm-offset-5" onclick="location.href='@Url.Action("MaakThema", "Overzicht")'">
+    <span class="glyphicon glyphicon-plus"></span> Maak een thema aan
+</button>
 }
+
 <div class="table-container">
     <table class="table table-hover" id="themasTabel">
         <thead>
@@ -25,36 +22,36 @@
                 </th>
                 @if (User.IsInRole("Admin"))
                 {
-                    <th>
+                <th>
 
-                    </th>
+                </th>
                 }
             </tr>
         </thead>
         <tbody>
             @foreach (var thema in ViewBag.Themas)
             {
-                <tr onclick="showModal('#themaDetails', '#themaDetailsBody', @thema.GemonitordItemId)">
-                    <td>
-                        @thema.Naam
-                    </td>
-                    <td>
-                        @thema.TotaalAantalVermeldingen
-                    </td>
+            <tr onclick="showModal('#themaDetails', '#themaDetailsBody', @thema.GemonitordItemId)">
+                <td>
+                    @thema.Naam
+                </td>
+                <td>
+                    @thema.TotaalAantalVermeldingen
+                </td>
 
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <td>
-                            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("PasThemaAan", "Overzicht",new { id = thema.GemonitordItemId})'">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("VerwijderItem", "Overzicht",new { id = thema.GemonitordItemId})'">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                        </td>
-                    }
+                @if (User.IsInRole("Admin"))
+                {
+                <td>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("PasThemaAan", "Overzicht",new { id = thema.GemonitordItemId})'">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("VerwijderItem", "Overzicht",new { id = thema.GemonitordItemId})'">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </td>
+                }
 
-                </tr>
+            </tr>
             }
         </tbody>
     </table>

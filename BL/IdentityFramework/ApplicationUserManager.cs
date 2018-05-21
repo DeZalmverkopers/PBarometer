@@ -21,51 +21,8 @@ namespace BL.IdentityFramework
     public ApplicationUserManager() : base(new UserStore<ApplicationUser>(new DbContext()))
     {
       deelplatformenManager = new DeelplatformenManager();
-      CreateFirstAdmin();
       CreateFirstSuperAdmin();
-      CreateUsers();
-    }
-
-    private void CreateFirstAdmin()
-    {
-      //Create User=admin@example.com with password=Admin@123456 in the Admin role
-
-      List<Deelplatform> deelplatformen = deelplatformenManager.GetDeelplatformen().ToList();
-      List<Dashboard> dashboards = new List<Dashboard>();
-
-      foreach (Deelplatform deelplatform in deelplatformen)
-      {
-        dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
-      }
-
-      var roleManager = new ApplicationRoleManager();
-      const string name = "admin@example.com";
-      const string password = "Admin@123456";
-      const string roleName = "Admin";
-
-      //Create Role Admin if it does not exist
-      var role = roleManager.FindByName(roleName);
-      if (role == null)
-      {
-        role = new IdentityRole(roleName);
-        var roleresult = roleManager.Create(role);
-      }
-
-      var user = this.FindByName(name);
-      if (user == null)
-      {
-        user = new ApplicationUser { UserName = name, Email = name };
-        user.Dashboards = dashboards;
-        var result = this.Create(user, password);
-        result = this.SetLockoutEnabled(user.Id, false);
-      }
-
-      // Add user admin to Role Admin if not already added
-      var rolesForUser = this.GetRoles(user.Id);
-      if (!rolesForUser.Contains(role.Name))
-      {
-        var result = this.AddToRole(user.Id, role.Name);
-      }
+      //CreateUsers();
     }
 
     private void CreateFirstSuperAdmin()
@@ -122,71 +79,71 @@ namespace BL.IdentityFramework
       }
     }
 
-    private void CreateUsers()
-    {
-      List<Deelplatform> deelplatformen = deelplatformenManager.GetDeelplatformen().ToList();
-      List<Dashboard> dashboards = new List<Dashboard>();
+    //private void CreateUsers()
+    //{
+    //  List<Deelplatform> deelplatformen = deelplatformenManager.GetDeelplatformen().ToList();
+    //  List<Dashboard> dashboards = new List<Dashboard>();
 
-      foreach (Deelplatform deelplatform in deelplatformen)
-      {
-        dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
-      }
+    //  foreach (Deelplatform deelplatform in deelplatformen)
+    //  {
+    //    dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
+    //  }
 
-      var roleManager = new ApplicationRoleManager();
-      string name = "jelle@example.com";
-      string password = "Jelle@123456";
-      string rolename = "Gebruiker";
+    //  var roleManager = new ApplicationRoleManager();
+    //  string name = "jelle@example.com";
+    //  string password = "Jelle@123456";
+    //  string rolename = "Gebruiker";
 
-      var role = roleManager.FindByName(rolename);
-      if (role == null)
-      {
-        role = new IdentityRole(rolename);
-        roleManager.Create(role);
-      }
+    //  var role = roleManager.FindByName(rolename);
+    //  if (role == null)
+    //  {
+    //    role = new IdentityRole(rolename);
+    //    roleManager.Create(role);
+    //  }
 
-      var user = this.FindByName(name);
-      if (user == null)
-      {
-        user = new ApplicationUser { UserName = name, Email = name, Dashboards = dashboards };
-        var result = this.Create(user, password);
-        result = this.SetLockoutEnabled(user.Id, false);
-      }
-      var rolesForUser = this.GetRoles(user.Id);
-      if (!rolesForUser.Contains(role.Name))
-      {
-        var result = this.AddToRole(user.Id, role.Name);
-      }
+    //  var user = this.FindByName(name);
+    //  if (user == null)
+    //  {
+    //    user = new ApplicationUser { UserName = name, Email = name, Dashboards = dashboards };
+    //    var result = this.Create(user, password);
+    //    result = this.SetLockoutEnabled(user.Id, false);
+    //  }
+    //  var rolesForUser = this.GetRoles(user.Id);
+    //  if (!rolesForUser.Contains(role.Name))
+    //  {
+    //    var result = this.AddToRole(user.Id, role.Name);
+    //  }
 
-      dashboards = new List<Dashboard>();
-      foreach (Deelplatform deelplatform in deelplatformen)
-      {
-        dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
-      }
+    //  dashboards = new List<Dashboard>();
+    //  foreach (Deelplatform deelplatform in deelplatformen)
+    //  {
+    //    dashboards.Add(new Dashboard() { DeelplatformId = deelplatform.DeelplatformId });
+    //  }
 
-      name = "bart@example.com";
-      password = "Bart@123456";
-      rolename = "Gebruiker";
+    //  name = "bart@example.com";
+    //  password = "Bart@123456";
+    //  rolename = "Gebruiker";
 
-      role = roleManager.FindByName(rolename);
-      if (role == null)
-      {
-        role = new IdentityRole(rolename);
-        roleManager.Create(role);
-      }
+    //  role = roleManager.FindByName(rolename);
+    //  if (role == null)
+    //  {
+    //    role = new IdentityRole(rolename);
+    //    roleManager.Create(role);
+    //  }
 
-      user = this.FindByName(name);
-      if (user == null)
-      {
-        user = new ApplicationUser { UserName = name, Email = name, Dashboards = dashboards };
-        var result = this.Create(user, password);
-        result = this.SetLockoutEnabled(user.Id, false);
-      }
-      rolesForUser = this.GetRoles(user.Id);
-      if (!rolesForUser.Contains(role.Name))
-      {
-        var result = this.AddToRole(user.Id, role.Name);
-      }
-    }
+    //  user = this.FindByName(name);
+    //  if (user == null)
+    //  {
+    //    user = new ApplicationUser { UserName = name, Email = name, Dashboards = dashboards };
+    //    var result = this.Create(user, password);
+    //    result = this.SetLockoutEnabled(user.Id, false);
+    //  }
+    //  rolesForUser = this.GetRoles(user.Id);
+    //  if (!rolesForUser.Contains(role.Name))
+    //  {
+    //    var result = this.AddToRole(user.Id, role.Name);
+    //  }
+    //}
 
     public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
     {
@@ -213,13 +170,6 @@ namespace BL.IdentityFramework
       manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
       manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
-      // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
-      // You can write your own provider and plug it in here.
-      manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
-      {
-        Subject = "Security Code",
-        BodyFormat = "Your security code is {0}"
-      });
       manager.EmailService = new EmailService();
       var dataProtectionProvider = options.DataProtectionProvider;
       if (dataProtectionProvider != null)
@@ -228,7 +178,57 @@ namespace BL.IdentityFramework
             new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
       }
       return manager;
+    }
 
+    public List<ApplicationUser> GetRegularUsersAndAdmins(List<ApplicationUser> users)
+    {
+      List<ApplicationUser> regularUsersAndAdmins = new List<ApplicationUser>();
+      foreach (ApplicationUser user in users)
+      {
+        bool isRegularUserOrAdmin = true;
+        var roles = this.GetRoles(user.Id);
+        foreach (string role in roles)
+        {
+          if (role.Equals("SuperAdmin"))
+          {
+            isRegularUserOrAdmin = false;
+          }
+        }
+        if (isRegularUserOrAdmin)
+        {
+          regularUsersAndAdmins.Add(user);
+        }
+      }
+      return regularUsersAndAdmins;
+    }
+
+    public List<ApplicationUser> GetAdmins(List<ApplicationUser> users)
+    {
+      List<ApplicationUser> admins = new List<ApplicationUser>();
+
+      foreach (ApplicationUser user in users)
+      {
+        var roles = this.GetRoles(user.Id);
+        bool isAdmin = false;
+        bool isSuperAdmin = false;
+        foreach (string role in roles)
+        {
+          if (role.Equals("Admin"))
+          {
+            isAdmin = true;
+          }
+          if (role.Equals("SuperAdmin"))
+          {
+            isSuperAdmin = true;
+          }
+        }
+        if (isAdmin && !isSuperAdmin)
+        {
+          admins.Add(user);
+        }
+      }
+
+      return admins;
     }
   }
 }

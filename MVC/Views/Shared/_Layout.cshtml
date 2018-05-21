@@ -55,32 +55,26 @@
                     @if (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
                     {
 
-                        <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
+                    <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
                     }
 
-                    @*@if ((bool?)ViewBag.OverzichtAdded == true)
-                        {*@
                     @if (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
                     {
-                        <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
-
+                    <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
                     }
-
+                    @if (Request.IsAuthenticated)
+                    {
                     <li>@Html.ActionLink("FAQ", "FAQ", "SpecifiekePagina")</li>
-
-                    @*@if ((bool?)ViewBag.WeeklyReviewAdded == true)
-                        {*@
-                    @*<li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>*@
-
+                    }
                     @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
                     {
-                        <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
+                    <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
                     }
                     else
                     {
                         if (User.IsInRole("Admin"))
                         {
-                            <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
                         }
                     }
 
@@ -92,26 +86,25 @@
                     @if (!Request.IsAuthenticated)
                     {
 
-                        <li>@Html.ActionLink("Inloggen", "Login", "Account")</li>
+                    <li>@Html.ActionLink("Inloggen", "Login", "Account")</li>
 
-                        <li>@Html.ActionLink("Registreren", "Register", "Account")</li>
+                    <li>@Html.ActionLink("Registreren", "Register", "Account")</li>
 
                     }
                     else
                     {
 
-                        @*<li>@Html.ActionLink("Profiel", MVC.Profiel.Index())</li>*@
-                        <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
+                    @*<li>@Html.ActionLink("Profiel", MVC.Profiel.Index())</li>*@
+                    <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
 
                         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                         {
-                            @Html.AntiForgeryToken()
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Uitloggen</a></li>
-                            </ul>
+                        @Html.AntiForgeryToken()
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Uitloggen</a></li>
+                        </ul>
                         }
-                        <li><span class="noti glyphicon glyphicon-bell" id="alertID" onclick="location.href='@Url.Action("Index", "Alerts")'"><span class="count">&nbsp;</span></span></li>
-
+                    <li><span class="noti glyphicon glyphicon-bell" id="alertID" onclick="location.href='@Url.Action("Index", "Alerts")'"><span class="count">&nbsp;</span></span></li>
                     }
                 </ul>
 

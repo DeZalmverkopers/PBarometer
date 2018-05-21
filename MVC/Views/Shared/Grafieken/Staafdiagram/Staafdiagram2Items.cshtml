@@ -5,7 +5,6 @@
 </div>
 
 <script>
-
     var item1 = @Html.Raw(Json.Encode(ViewBag.Item1Naam));
     var data1 = @Html.Raw(Json.Encode(ViewBag.Item1Vermeldingen));
     var item2 = @Html.Raw(Json.Encode(ViewBag.Item2Naam));
@@ -25,11 +24,8 @@
                 bordercolor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
                 borderWidth: 4
             }
-
         ]
-
     };
-
 
     var chartOptions = {
         title: {
@@ -65,11 +61,3 @@
     });
 
 </script>
-
-
-
-
-
-
-
-

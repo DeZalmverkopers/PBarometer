@@ -8,7 +8,6 @@
     </select>
 </div>
 
-
 <div id="aantalItemsVergelijken">
     <label>Hoeveel items wilt u vergelijken?</label>
 
@@ -33,7 +32,6 @@
         </select>
     </div>*@
 
-
 @*<div>
         <label>Selecteer een datum en een tijdstip</label>
         <input id="inputDatumTijd" type="datetime-local" />
@@ -42,7 +40,6 @@
 <div>
     <label>Geef een grafiektitel in</label>
     <input type="text" id="grafiektitel" />
-
 </div>
 
 <div class="onzichtbaar" id="divToevoegenOpslaan">
@@ -52,7 +49,6 @@
 <script>
     var vergelijkingskeuze;
     var typeAantal;
-
 
     $("#itemType").change(function () {
 
@@ -74,7 +70,6 @@
 
         }
     });
-
 
     $("#aantalItems").change(function () {
 
@@ -239,9 +234,6 @@
 
 
     });
-
-
-
 
     $("#btnToevoegenOpslaan").click(function () {
 
@@ -438,9 +430,6 @@
 
                 break;
 
-
-
-
             @*case "thema1item":
 
                  link = '@Url.Action("LaadVergelijkingOpMoment1Item", "Dashboard", new { grafiektitel = "replaceGrafiektitel", item1 = "replaceItem1" })'
@@ -545,7 +534,6 @@
         $("#modalGrafiekToevoegen").modal('hide');
 
                 });
-
 
 </script>
 

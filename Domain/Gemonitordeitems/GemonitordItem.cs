@@ -179,6 +179,5 @@ namespace Domain.Gemonitordeitems
         VermeldingenTrend = Trend.DOWN;
       }
     }
-
   }
 }

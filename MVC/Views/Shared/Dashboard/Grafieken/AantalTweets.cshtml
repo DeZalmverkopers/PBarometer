@@ -12,8 +12,6 @@
     <div id="itemAantalTweetsKeuzelijst"></div>
 </div>
 
-
-
 @*<div>
         <label>Selecteer een datumbereik</label>
         <div>
@@ -38,7 +36,6 @@
 <div class="onzichtbaar" id="divToevoegenOpslaan">
     <button id="btnToevoegenOpslaan" class="btn btn-primary btn-algemene-layout">Opslaan</button>
 </div>
-
 
 <script>
     $("#itemOpties").change(function () {
@@ -81,7 +78,6 @@
     });
 </script>
 
-
 <script>
 
     $("#btnToevoegenOpslaan").click(function () {
@@ -91,7 +87,7 @@
 
         switch (keuze) {
             case "Persoon":
-               
+
                @*link = '@Url.Action("LaadStaafdiagram", "Dashboard", new { grafiektitel = "replaceGrafiektitel", labels = "replaceLabels", data = "replaceData" })'
                         .replace("replaceGrafiektitel", $("#persoon1").val() + " - aantal tweets")
                         .replace("replaceLabels", ["seppe1", "seppe2", "seppe3", "seppe4", "seppe5"])
@@ -99,14 +95,14 @@
 
                 @*link = '@Url.Action("LaadStaafdiagram", "Dashboard", new { grafiektitel = "replaceGrafiektitel" })'
                     .replace("replaceGrafiektitel", $("#persoon1").val());*@
-                        
-                     
+
+
                 link = '@Url.Action("LaadLijndiagramAantalTweets", "Dashboard", new { grafiektitel = "replaceGrafiektitel" })'
                     .replace("replaceGrafiektitel", $("#persoon1").val());
             break;
 
             case "Organisatie":
-                
+
                 @*link = '@Url.Action("LaadStaafdiagram", "Dashboard", new { grafiektitel = "replaceGrafiektitel", labels = "replaceLabels", data = "replaceData" })'
                     .replace("replaceGrafiektitel", $("#organisatie1").val() + " - aantal tweets")
                         .replace("replaceLabels", ["seppe1", "seppe2", "seppe3", "seppe4", "seppe5"])
@@ -117,7 +113,7 @@
 
                  link = '@Url.Action("LaadLijndiagramAantalTweets", "Dashboard", new { grafiektitel = "replaceGrafiektitel" })'
                      .replace("replaceGrafiektitel", $("#organisatie1").val());
-                        
+
             break;
 
             case "Thema":
@@ -144,9 +140,4 @@
         $("#modalGrafiekToevoegen").modal('hide');
 
     });
-
 </script>
-
-
-
-

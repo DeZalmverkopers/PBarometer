@@ -9,8 +9,6 @@ using System.Web.Mvc;
 using System.Web;
 using MVC.Models;
 using Domain.Dashboards;
-using Domain.Deelplatformen;
-using System.Collections.Generic;
 using BL;
 
 namespace MVC.Controllers
@@ -27,9 +25,7 @@ namespace MVC.Controllers
       {
         return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
       }
-
     }
-
 
     public ApplicationSignInManager SignInManager
     {
@@ -37,11 +33,11 @@ namespace MVC.Controllers
       {
         return HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
       }
-
     }
 
     //
     // GET: /Account/Login
+    //Naar de loginpagina.
     [AllowAnonymous]
     public virtual ActionResult Login(string returnUrl)
     {
@@ -51,6 +47,7 @@ namespace MVC.Controllers
 
     //
     // POST: /Account/Login
+    //Logt de gebruiker in.
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
@@ -81,6 +78,7 @@ namespace MVC.Controllers
 
     //
     // GET: /Account/Register
+    //Naar het registrerenpagina.
     [AllowAnonymous]
     public virtual ActionResult Register()
     {
@@ -89,6 +87,7 @@ namespace MVC.Controllers
 
     //
     // POST: /Account/Register
+    //Registreert de gebruiker.
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
@@ -131,6 +130,7 @@ namespace MVC.Controllers
 
     //
     // GET: /Account/ConfirmEmail
+    //Email bevestigen.
     [AllowAnonymous]
     public virtual async Task<ActionResult> ConfirmEmail(string userId, string code)
     {
@@ -144,6 +144,7 @@ namespace MVC.Controllers
 
     //
     // GET: /Account/ForgotPassword
+    //Naar de wachtwoord vergeten pagina.
     [AllowAnonymous]
     public virtual ActionResult ForgotPassword()
     {
@@ -152,6 +153,8 @@ namespace MVC.Controllers
 
     //
     // POST: /Account/ForgotPassword
+    //Stuurt een mail naar de gebruiker die zijn wachtwoord is vergeten om
+    //deze te resetten.
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
@@ -175,6 +178,7 @@ namespace MVC.Controllers
 
     //
     // GET: /Account/ForgotPasswordConfirmation
+    //Naar de wachtwoord vergeten bevestiging pagina.
     [AllowAnonymous]
     public virtual ActionResult ForgotPasswordConfirmation()
     {
@@ -183,6 +187,7 @@ namespace MVC.Controllers
 
     //
     // GET: /Account/ResetPassword
+    //Naar de wachtwoord resetten pagina.
     [AllowAnonymous]
     public virtual ActionResult ResetPassword(string code)
     {
@@ -191,6 +196,7 @@ namespace MVC.Controllers
 
     //
     // POST: /Account/ResetPassword
+    //Reset het wachtwoord van de gebruiker.
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
@@ -217,6 +223,7 @@ namespace MVC.Controllers
 
     //
     // GET: /Account/ResetPasswordConfirmation
+    //Naar de wachtwoord resetten bevestiging pagina.
     [AllowAnonymous]
     public virtual ActionResult ResetPasswordConfirmation()
     {
@@ -305,6 +312,7 @@ namespace MVC.Controllers
     }
 
     // POST: /Account/LogOff
+    //Gebruiker uitloggen.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public virtual ActionResult LogOff()

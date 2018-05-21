@@ -7,16 +7,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
 
 namespace MVC.Controllers.Api
 {
-  public class TextgainController : ApiController
+  public class TextgainController : ApiController, IDataController
   {
-
     public void HaalBerichtenOp(Deelplatform deelplatform)
     {
       AlertManager alertManager = new AlertManager();
@@ -53,6 +51,14 @@ namespace MVC.Controllers.Api
         {
           HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, uri);
           request.Headers.TryAddWithoutValidation("X-API-Key", "aEN3K6VJPEoh3sMp9ZVA73kkr");
+          if (persoon.DetailItems.Count > 0)
+          {
+            sinceDatum = persoon.DetailItems.OrderByDescending(a => a.BerichtDatum).FirstOrDefault().BerichtDatum;
+          }
+          else
+          {
+            sinceDatum = sinceDatum = DateTime.Now.AddDays(-deelplatform.AantalDagenHistoriek);
+          }
           Dictionary<string, dynamic> parameters = new Dictionary<string, dynamic>
                     {
                         { "name", persoon.Naam },

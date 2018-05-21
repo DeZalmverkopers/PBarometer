@@ -16,7 +16,6 @@ namespace MVC.Controllers
   [Authorize(Roles = "Admin")]
   public partial class AdminController : Controller
   {
-
     DeelplatformenManager manager = new DeelplatformenManager();
 
     public Deelplatform HuidigDeelplatform
@@ -105,70 +104,93 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/AdminSuperadmin/GebruikersActiviteitMonitoren.cshtml");
     }
 
+    //Opent de partialview om de layout aan te passen.
     public virtual ActionResult LaadLayout()
     {
       LayoutViewModel model = new LayoutViewModel();
-      model.kleur = manager.GetAchtergrondkleur();
+      model.kleur = manager.GetAchtergrondkleur(HuidigDeelplatform.DeelplatformId);
       return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml", model);
     }
 
+    //Opent de partialview om in te stellen wat niet-ingelogde gebruikers al dan niet
+    //kunnen zien en doen op het huidige deelplatform.
     public virtual ActionResult LaadNietIngelogd()
     {
       SettingsNotLoggedInViewModel model = new SettingsNotLoggedInViewModel();
-      Settings settings = manager.GetSettings();
+      Settings settings = manager.GetSettings(HuidigDeelplatform.DeelplatformId);
       model.OverzichtAdded = settings.OverzichtAdded;
       model.AlertsAdded = settings.AlertsAdded;
       return PartialView("~/Views/Shared/AdminSuperadmin/NietIngelogdeGebruikerInstellen.cshtml", model);
     }
 
+    //Slaat op of de niet-ingelogde gebruikers al dan niet het overzicht kunnen raadplegen.
     [HttpGet]
     public virtual ActionResult SlaOverzichtAddedOp(bool OverzichtAdded)
     {
-      manager.ChangeOverzichtAdded(OverzichtAdded);
-      LaadNietIngelogd();
+      ViewBag.OverzichtAdded = OverzichtAdded;
+      manager.ChangeOverzichtAdded(HuidigDeelplatform.DeelplatformId, OverzichtAdded);
       return RedirectToAction("Index", User.IsInRole("SuperAdmin") ? "Superadmin" : "Admin");
     }
 
+    //Slaat op of de niet-ingelogde gebruikers al dan niet de alerts kunnen raadplegen.
     [HttpGet]
     public virtual ActionResult SlaAlertsAddedOp(bool AlertsAdded)
     {
-      manager.ChangeAlertsAdded(AlertsAdded);
-      LaadNietIngelogd();
+      ViewBag.AlertsAdded = AlertsAdded;
+      manager.ChangeAlertsAdded(HuidigDeelplatform.DeelplatformId, AlertsAdded);
       return RedirectToAction("Index", User.IsInRole("SuperAdmin") ? "Superadmin" : "Admin");
     }
 
+    //Slaat de huidige instelling van de achtergrond op.
     [HttpGet]
     public virtual ActionResult SlaAchtergrondOp(string kleur)
     {
-      manager.ChangeAchtergrondkleur(kleur);
+      manager.ChangeAchtergrondkleur(HuidigDeelplatform.DeelplatformId, kleur);
       return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml");
     }
 
-    public virtual ActionResult LaadFAQInstellen()
+    //Opent de partialview waarin de admin FAQ Items kan verwijderen.
+    [HttpGet]
+    public ActionResult LaadFAQItemVerwijderen()
     {
       List<FAQViewModel> models = new List<FAQViewModel>();
-      List<FAQItem> FAQItems = manager.GetFAQItems();
+      List<FAQItem> FAQItems = manager.GetFAQItems(HuidigDeelplatform.DeelplatformId);
       if (FAQItems != null)
       {
-        foreach (var FAQItem in manager.GetFAQItems())
+        foreach (var FAQItem in FAQItems)
         {
           models.Add(new FAQViewModel() { Vraag = FAQItem.Vraag });
         }
       }
-      return PartialView("~/Views/Shared/AdminSuperadmin/FAQInstellen.cshtml", models);
+      return PartialView("~/Views/Shared/AdminSuperadmin/LaadFAQItemVerwijderen.cshtml", models);
     }
 
+    //Verwijdert een FAQ Item.
     [HttpGet]
-    public virtual ActionResult VerwijderFAQItem(string vraag)
+    public ActionResult VerwijderFAQItem(string vraag)
     {
-      return PartialView("~/Views/Shared/AdminSuperadmin/FAQInstellen.cshtml");
+      if (ModelState.IsValid)
+      {
+        manager.RemoveFAQItem(HuidigDeelplatform.DeelplatformId, vraag);
+      }
+      return RedirectToAction("Index", User.IsInRole("SuperAdmin") ? "Superadmin" : "Admin");
     }
 
+    //Opent de partialview waarin de admin FAQ Items kan toevoegen.
     [HttpGet]
-    public virtual ActionResult VoegFAQItemToe(string NieuweVraag, string Antwoord)
+    public ActionResult LaadFAQItemToevoegen()
     {
-      manager.AddNieuweFAQItem(new FAQItem(NieuweVraag, Antwoord));
-      LaadFAQInstellen();
+      return PartialView("~/Views/Shared/AdminSuperadmin/LaadFAQItemToevoegen.cshtml");
+    }
+
+    //Slaat nieuw FAQ Item op.
+    [HttpPost]
+    public ActionResult LaadFAQItemToevoegen(FAQViewModel model)
+    {
+      if (ModelState.IsValid)
+      {
+        manager.AddNieuweFAQItem(HuidigDeelplatform.DeelplatformId, new FAQItem() { Vraag = model.Vraag, Antwoord = model.Antwoord });
+      }
       return RedirectToAction("Index", User.IsInRole("SuperAdmin") ? "Superadmin" : "Admin");
     }
   }

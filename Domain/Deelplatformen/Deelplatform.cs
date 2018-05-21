@@ -16,7 +16,10 @@ namespace Domain.Deelplatformen
     public List<GemonitordItem> GemonitordeItems { get; set; }
     public List<FAQItem> FAQItems { get; set; }
 
+    //De instelling of het overzicht al dan niet raadpleegbaar is door niet-ingelogde gebruikers.
     public bool OverzichtAdded { get; set; }
+
+    //De instelling of de alerts al dan niet raadpleegbaar is door niet-ingelogde gebruikers.
     public bool AlertsAdded { get; set; }
 
     public Deelplatform()

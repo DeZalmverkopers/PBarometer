@@ -52,54 +52,54 @@ namespace DAL
       context.SaveChanges();
     }
 
-    public Settings ReadSettings()
+    //Haalt uit de databank de instellingen over wat de niet-ingelogde gebruikers kunnen
+    //zien en doen in het huidige deelplatform.
+    public Settings ReadSettings(int id)
     {
-      return new Settings(ReadDeelplatform(1).OverzichtAdded, ReadDeelplatform(1).AlertsAdded);
+      Deelplatform deelplatform = context.Deelplatformen.FirstOrDefault(b => b.DeelplatformId == id);
+      return new Settings(deelplatform.OverzichtAdded, deelplatform.AlertsAdded);
     }
 
-    public void UpdateOverzichtAdded(bool OverzichtAdded)
+    //Update of de niet-ingelogde gebruikers al dan niet het overzicht kunnen raadplegen.
+    public void UpdateOverzichtAdded(int id, bool OverzichtAdded)
     {
-      foreach (Deelplatform deelplatform in context.Deelplatformen)
-      {
-        deelplatform.OverzichtAdded = OverzichtAdded;
-      }
+      context.Deelplatformen.FirstOrDefault(b => b.DeelplatformId == id).OverzichtAdded = OverzichtAdded;
       context.SaveChanges();
     }
 
-    public void UpdateAlertsAdded(bool AlertsAdded)
+    //Update of de niet-ingelogde gebruikers al dan niet de alerts kunnen raadplegen.
+    public void UpdateAlertsAdded(int id, bool AlertsAdded)
     {
-      foreach (Deelplatform deelplatform in context.Deelplatformen)
-      {
-        deelplatform.AlertsAdded = AlertsAdded;
-      }
+      context.Deelplatformen.FirstOrDefault(b => b.DeelplatformId == id).AlertsAdded = AlertsAdded;
       context.SaveChanges();
     }
 
-    public string ReadAchtergrondkleur()
+    public string ReadAchtergrondkleur(int id)
     {
-      return ReadDeelplatform(1).Achtergrondkleur;
+      return context.Deelplatformen.FirstOrDefault(b => b.DeelplatformId == id).Achtergrondkleur;
     }
 
-    public void UpdateAchtergrondkleur(string kleur)
+    public void UpdateAchtergrondkleur(int id, string kleur)
     {
-      foreach (Deelplatform deelplatform in context.Deelplatformen)
-      {
-        deelplatform.Achtergrondkleur = kleur;
-      }
+      context.Deelplatformen.FirstOrDefault(b => b.DeelplatformId == id).Achtergrondkleur = kleur;
       context.SaveChanges();
     }
 
-    public List<FAQItem> ReadFAQItems()
+    public List<FAQItem> ReadFAQItems(int id)
     {
-      return ReadDeelplatform(1).FAQItems;
+      return context.Deelplatformen.Include("FAQItems").FirstOrDefault(b => b.DeelplatformId == id).FAQItems;
     }
 
-    public void CreateNieuweFAQItem(FAQItem NieuweFAQItem)
+    public void CreateNieuweFAQItem(int id, FAQItem NieuweFAQItem)
     {
-      foreach (Deelplatform deelplatform in context.Deelplatformen)
-      {
-        deelplatform.FAQItems.Add(NieuweFAQItem);
-      }
+      context.Deelplatformen.FirstOrDefault(b => b.DeelplatformId == id).FAQItems.Add(NieuweFAQItem);
+      context.SaveChanges();
+    }
+
+    public void DeleteFAQItem(int id, string vraag)
+    {
+      Deelplatform deelplatform = context.Deelplatformen.Include("FAQItems").FirstOrDefault(b => b.DeelplatformId == id);
+      deelplatform.FAQItems.Remove(deelplatform.FAQItems.FirstOrDefault(faqitem => faqitem.Vraag.Equals(vraag)));
       context.SaveChanges();
     }
   }

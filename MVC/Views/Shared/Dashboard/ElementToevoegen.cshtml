@@ -9,9 +9,7 @@
 
 <div id="divKeuzeGrafiekStatistiek">
 
-
 </div>
-
 
 <div>
     <h4 id="titelKeuze"></h4>
@@ -19,7 +17,6 @@
     <div id="divInhoud">
 
     </div>
-
 </div>
 
 
@@ -30,18 +27,14 @@
         $("#btnGrafiekenKeuze").click(function () {
            $.get('@Url.Action("LaadGrafiekenKeuze", "Dashboard")', {}, function (resultaat) {
                $("#divKeuzeGrafiekStatistiek").html(resultaat);
-           
+
                 });
         });
 
         $("#btnStatistiekenKeuze").click(function () {
              $.get('@Url.Action("LaadStatistiekenKeuze", "Dashboard")', {}, function (resultaat) {
                  $("#divKeuzeGrafiekStatistiek").html(resultaat);
-          
+
                 });
         });
 </script>
-
-
-
-

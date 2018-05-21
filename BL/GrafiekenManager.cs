@@ -4,8 +4,6 @@ using Domain.Gemonitordeitems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
@@ -13,7 +11,6 @@ namespace BL
   {
     private GrafiekenRepository repository;
     private UnitOfWorkManager uowManager;
-
 
     public GrafiekenManager()
     {

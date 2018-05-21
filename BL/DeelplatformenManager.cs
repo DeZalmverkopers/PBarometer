@@ -53,39 +53,47 @@ namespace BL
       return repository.ReadDeelplatformen().FirstOrDefault(a => a.URLnaam.Equals(url, StringComparison.OrdinalIgnoreCase));
     }
 
-    public Settings GetSettings()
+    //Haalt op wat niet-ingelogde gebruikers kunnen zien en doen op de site.
+    public Settings GetSettings(int id)
     {
-      return repository.ReadSettings();
+      return repository.ReadSettings(id);
     }
 
-    public void ChangeOverzichtAdded(bool OverzichtAdded)
+    //Verandert of de niet-ingelogde gebruikers al dan niet het overzicht kunnen raadplegen.
+    public void ChangeOverzichtAdded(int id, bool OverzichtAdded)
     {
-      repository.UpdateOverzichtAdded(OverzichtAdded);
+      repository.UpdateOverzichtAdded(id, OverzichtAdded);
     }
 
-    public void ChangeAlertsAdded(bool AlertsAdded)
+    //Verandert of de niet-ingelogde gebruikers al dan niet de alerts kunnen raadplegen.
+    public void ChangeAlertsAdded(int id, bool AlertsAdded)
     {
-      repository.UpdateAlertsAdded(AlertsAdded);
+      repository.UpdateAlertsAdded(id, AlertsAdded);
     }
 
-    public string GetAchtergrondkleur()
+    public string GetAchtergrondkleur(int id)
     {
-      return repository.ReadAchtergrondkleur();
+      return repository.ReadAchtergrondkleur(id);
     }
 
-    public void ChangeAchtergrondkleur(string kleur)
+    public void ChangeAchtergrondkleur(int id, string kleur)
     {
-      repository.UpdateAchtergrondkleur(kleur);
+      repository.UpdateAchtergrondkleur(id, kleur);
     }
 
-    public List<FAQItem> GetFAQItems()
+    public List<FAQItem> GetFAQItems(int id)
     {
-      return repository.ReadFAQItems();
+      return repository.ReadFAQItems(id);
     }
 
-    public void AddNieuweFAQItem(FAQItem NieuweFAQItem)
+    public void AddNieuweFAQItem(int id, FAQItem NieuweFAQItem)
     {
-      repository.CreateNieuweFAQItem(NieuweFAQItem);
+      repository.CreateNieuweFAQItem(id, NieuweFAQItem);
+    }
+
+    public void RemoveFAQItem(int id, string vraag)
+    {
+      repository.DeleteFAQItem(id, vraag);
     }
   }
 }

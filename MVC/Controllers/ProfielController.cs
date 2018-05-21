@@ -1,7 +1,11 @@
-﻿using BL.IdentityFramework;
+﻿using BL;
+using BL.IdentityFramework;
+using Domain.Dashboards;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using MVC.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -68,7 +72,7 @@ namespace MVC.Controllers
           : "";
 
       var userId = User.Identity.GetUserId();
-      var model = new Models.IndexViewModel
+      var model = new IndexViewModel
       {
         Logins = await UserManager.GetLoginsAsync(userId),
         BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
@@ -76,14 +80,16 @@ namespace MVC.Controllers
       return View(model);
     }
 
+    //Naar de verander naam pagina.
     public virtual ActionResult ChangeName()
     {
       return View();
     }
 
+    //Verandert de naam van de gebruiker.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public virtual async Task<ActionResult> ChangeName(Models.ChangeNameViewModel model)
+    public virtual async Task<ActionResult> ChangeName(ChangeNameViewModel model)
     {
       if (!ModelState.IsValid)
       {
@@ -103,14 +109,16 @@ namespace MVC.Controllers
     }
 
     // GET: /Profiel/ChangeEmail
+    //Naar de verander email pagina.
     public virtual ActionResult ChangeEmail()
     {
       return View();
     }
 
+    //Verandert het emailadres van de gebruiker.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public virtual async Task<ActionResult> ChangeEmail(Models.ChangeEmailViewModel model)
+    public virtual async Task<ActionResult> ChangeEmail(ChangeEmailViewModel model)
     {
       if (!ModelState.IsValid)
       {
@@ -135,6 +143,7 @@ namespace MVC.Controllers
 
     //
     // GET: /Profiel/ChangePassword
+    //Naar het verander wachtwoord pagina.
     public virtual ActionResult ChangePassword()
     {
       return View();
@@ -142,9 +151,10 @@ namespace MVC.Controllers
 
     //
     // POST: /Profiel/ChangePassword
+    //Verandert het wachtwoord van de gebruiker.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public virtual async Task<ActionResult> ChangePassword(Models.ChangePasswordViewModel model)
+    public virtual async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
     {
       if (!ModelState.IsValid)
       {
@@ -164,12 +174,14 @@ namespace MVC.Controllers
       return View(model);
     }
 
+    //Naar de account verwijderen pagina.
     public virtual ActionResult DeleteAccount()
     {
       return View();
     }
 
     // POST: /Profiel/DeleteAccount
+    //Verwijdert het account van de gebruiker uit de databank.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public virtual async Task<ActionResult> DeleteAccount(string test)
@@ -200,6 +212,14 @@ namespace MVC.Controllers
           }
         }
 
+        DashboardsManager dashboardsManager = new DashboardsManager();
+        List<Dashboard> dashboards = dashboardsManager.GetDashboards(gebruiker: true).Where(d => d.Gebruiker.Id == user.Id).ToList();
+
+        foreach (Dashboard dashboard in dashboards)
+        {
+          dashboardsManager.RemoveDashboard(dashboard);
+        }
+
         UserManager.Delete(user);
 
         return RedirectToAction("AccountDeleted");
@@ -210,6 +230,7 @@ namespace MVC.Controllers
       }
     }
 
+    //Logt de gebruiker uit en gaat naar de account verwijderd pagina.
     public virtual ActionResult AccountDeleted()
     {
       SignInManager.AuthenticationManager.SignOut();
