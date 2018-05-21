@@ -41,25 +41,29 @@ namespace MVC.Controllers
       {
         return RedirectToAction("Index", "Home");
       }
-      
+
       deelplatformId = HuidigDeelplatform.DeelplatformId;
-      GrafiekenManager grafiekenManager = new GrafiekenManager();
       //List<Grafiek> grafieken = grafiekenManager.GetGrafieken(deelplatformId, 1, true, true);
 
 
       ViewBag.DeelplatformNaam = HuidigDeelplatform.Naam;
       ViewBag.Afbeelding = HuidigDeelplatform.AfbeeldingPad ?? "default.png";
 
-
+      GrafiekenManager grafiekenManager = new GrafiekenManager();
       List<Grafiek> grafieken = grafiekenManager.GetGrafiekenTest();
 
-      ViewBag.Grafieken = grafieken;
+      foreach (var item in grafieken)
+      {
+        grafiekenManager.AddGrafiek(item);
+      }
+
+      ViewBag.Grafieken = grafiekenManager.GetGrafieken(1, 1);
 
 
 
 
-      VoegGrafiekToeEnUpdateDashboard();
- 
+      //VoegGrafiekToeEnUpdateDashboard();
+
 
       return View();
     }
@@ -341,7 +345,7 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas5Items.cshtml", ViewBag);
     }
 
-    
+
 
     //public virtual ActionResult LaadGemonitordeItemsAantal(string soortItem, )
     //{
@@ -1195,9 +1199,9 @@ namespace MVC.Controllers
 
     //public virtual ActionResult GekruistItemLaden()
     //{
-      
 
-      
+
+
     //}
 
     public virtual ActionResult LaadStaafdiagramMulti()
@@ -1219,27 +1223,26 @@ namespace MVC.Controllers
 
 
 
-    public ActionResult VoegGrafiekToeEnUpdateDashboard()
-    {
-      GrafiekenManager grafiekenManager = new GrafiekenManager();
+    //public ActionResult VoegGrafiekToeEnUpdateDashboard()
+    //{
+    //  GrafiekenManager grafiekenManager = new GrafiekenManager();
 
-      List<Grafiek> alleGrafieken = grafiekenManager.GetGrafiekenTest();
-
-
-      foreach (var item in alleGrafieken)
-      {
-      grafiekenManager.AddGrafiek(item);
-
-      }
+    //  List<Grafiek> alleGrafieken = grafiekenManager.GetGrafiekenTest();
 
 
-      //foreach (var grafiek in alleGrafieken)
-      //{
-      //  grafiekenManager.AddGrafiek(grafiek);
+    //  foreach (var item in alleGrafieken)
+    //  {
+    //    grafiekenManager.AddGrafiek(item);
+    //  }
+
+
+    //  //foreach (var grafiek in alleGrafieken)
+    //  //{
+    //  //  grafiekenManager.AddGrafiek(grafiek);
+    //  //}
+
+    //  return RedirectToAction("Index");
     //}
-
-      return RedirectToAction("Index");
-    }
 
 
 
@@ -1353,7 +1356,7 @@ namespace MVC.Controllers
 
 
 
-    
+
   }
 }
 
