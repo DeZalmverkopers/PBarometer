@@ -26,13 +26,10 @@ namespace Domain.Deelplatformen
 
         public int DataOphaalFrequentie { get; set; }
 
-        public List<GemonitordItem> GemonitordeItems { get; set; }
-
 
         public Deelplatform()
         {
             GemonitordeItems = new List<GemonitordItem>();
-
             Alerts = new List<Alert>();
             DetailItems = new List<DetailItem>();
             Dashboards = new List<Dashboard>();
