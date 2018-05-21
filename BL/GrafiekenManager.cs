@@ -31,10 +31,120 @@ namespace BL
     //  return repository.ReadGrafieken(dashboard, items);
     //}
 
+    //public IEnumerable<Grafiek> GetGrafieken(int dashboardId, int deelplatformId)
+    //{
+    //  InitNonExistingRepo();
+    //  return repository.ReadGrafieken(dashboardId, deelplatformId);
+    //}
+
     public IEnumerable<Grafiek> GetGrafieken(int dashboardId, int deelplatformId)
     {
       InitNonExistingRepo();
-      return repository.ReadGrafieken(dashboardId, deelplatformId);
+      GemonitordeItemsManager itemsManager = new GemonitordeItemsManager();
+      List<GemonitordItem> alleItems = itemsManager.GetGemonitordeItems(deelplatformId).ToList();
+      List<Grafiek> grafieken = repository.ReadGrafieken(dashboardId, false).ToList();
+
+      foreach (Grafiek grafiek in grafieken)
+      {
+        List<GemonitordItem> grafiekItems = new List<GemonitordItem>();
+
+        #region Kijk na welke items tot de grafiek behoren, vul de grafiekItems met items en hun historieken
+        foreach (GrafiekItem item in grafiek.GrafiekItems)
+        {
+          foreach (GemonitordItem gevuldItem in alleItems)
+          {
+            if (gevuldItem.GemonitordItemId == item.GrafiekItemId)
+            {
+              grafiekItems.Add(gevuldItem);
+            }
+          }
+        }
+        #endregion
+
+        #region Voeg de waarden van de historieken en plaats ze in de List
+        DateTime huidigeTijd = DateTime.Now;
+        if (grafiek.Type.Equals("line"))
+        {
+
+          foreach (GemonitordItem item in grafiekItems)
+          {
+            List<ItemHistoriek> historieken = new List<ItemHistoriek>();
+            List<double> waarden = new List<double>();
+            foreach (ItemHistoriek historiek in item.ItemHistorieken)
+            {
+              if ((huidigeTijd - historiek.HistoriekDatum).Days <= grafiek.Periode)
+              {
+                historieken.Add(historiek);
+              }
+            }
+
+            foreach (ItemHistoriek historiek in historieken)
+            {
+              if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(historiek.AantalVermeldingen);
+              if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit) waarden.Add(historiek.GemPolariteit);
+              if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historiek.GemObjectiviteit);
+              if (!grafiek.XLabels.Contains(historiek.HistoriekDatum)) grafiek.XLabels.Add(historiek.HistoriekDatum);
+            }
+            grafiek.LegendeLijst.Add(item.Naam);
+            grafiek.Datawaarden.Add(waarden);
+          }
+        }
+
+        if (grafiek.Type.Equals("bar"))
+        {
+          List<ItemHistoriek> historieken = new List<ItemHistoriek>();
+          List<double> waarden = new List<double>();
+          foreach (GemonitordItem item in grafiekItems)
+          {
+            foreach (ItemHistoriek historiek in item.ItemHistorieken)
+            {
+              if ((huidigeTijd - historiek.HistoriekDatum).Days <= grafiek.Periode)
+              {
+                historieken.Add(historiek);
+              }
+            }
+            grafiek.XLabels.Add(item.Naam);
+            grafiek.LegendeLijst.Add(item.Naam);
+          }
+
+          foreach (ItemHistoriek historiek in historieken)
+          {
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(historiek.AantalVermeldingen);
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit) waarden.Add(historiek.GemPolariteit);
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historiek.GemObjectiviteit);
+          }
+          grafiek.Datawaarden.Add(waarden);
+        }
+
+        if (grafiek.Type.Equals("pie"))
+        {
+          List<ItemHistoriek> historieken = new List<ItemHistoriek>();
+          List<double> waarden = new List<double>();
+          foreach (GemonitordItem item in grafiekItems)
+          {
+            foreach (ItemHistoriek historiek in item.ItemHistorieken)
+            {
+              if ((huidigeTijd - historiek.HistoriekDatum).Days <= grafiek.Periode)
+              {
+                historieken.Add(historiek);
+              }
+            }
+            grafiek.XLabels.Add(item.Naam);
+            grafiek.LegendeLijst.Add(item.Naam);
+          }
+
+          foreach (ItemHistoriek historiek in historieken)
+          {
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(historiek.AantalVermeldingen);
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit) waarden.Add(historiek.GemPolariteit);
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historiek.GemObjectiviteit);
+          }
+          grafiek.Datawaarden.Add(waarden);
+        }
+        #endregion
+      }
+
+      return grafieken;
     }
 
     //public IEnumerable<Grafiek> GetGrafieken(int dashboardId, int deelplatformId)
@@ -208,7 +318,7 @@ namespace BL
       for (int i = 0; i < 5; i++)
       {
         grafiek1GemonitordeItems.Add(personen[i]);
-      }  
+      }
 
       foreach (var item in grafiek1GemonitordeItems)
       {
@@ -220,7 +330,7 @@ namespace BL
         });
       };
 
-      
+
 
 
 
@@ -404,7 +514,7 @@ namespace BL
 
       Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
         Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
-        LegendeLijst = new List<string>{ null, null, null, null, null },
+        LegendeLijst = new List<dynamic>{ null, null, null, null, null },
 
         XAsMaxrotatie = 90,
         XAsMinrotatie = 90,
