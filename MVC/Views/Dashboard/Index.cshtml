@@ -33,60 +33,17 @@ else
 
 
 
-    <div class="container" id="elementenGrafieken">
+<div class="container" id="elementenGrafieken">
 
-        <div>
-            <div class="col-md-11"></div>
-            <div class="col-md-1">
-                <button class="btn btn-primary button-xx-large" id="btnToevoegen" data-target="#modalGrafiekToevoegen" data-toggle="modal">+</button>
-            </div>
+    <div>
+        <div class="col-md-11"></div>
+        <div class="col-md-1">
+            <button class="btn btn-primary button-xx-large" id="btnToevoegen" data-target="#modalGrafiekToevoegen" data-toggle="modal">+</button>
         </div>
+    </div>
 
 
-
-        @*@for (int i = 1; i < ViewBag.Grafieken.Count + 1; i++)
-        {
-
-            if (i % 2 != 0)
-            {
-
-                <div class="col-md-6">
-
-                    <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId height="250"></canvas>
-
-                    <button id="bewerken-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-
-                    <button id="verwijderen-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-
-                </div>
-            }
-
-            if (i % 2 == 0)
-            {
-
-                <div class="col-md-6">
-
-                    <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId height="250"></canvas>
-
-                    <button id="bewerken-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-
-                    <button id="verwijderen-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-
-                </div>
-            }
-
-
-        }*@
-
-        @foreach (var grafiek in ViewBag.Grafieken)
+    @foreach (var grafiek in ViewBag.Grafieken)
     {
         <div class="col-md-5">
 
@@ -103,15 +60,13 @@ else
         </div>
         <div class="col-md-1">
 
-           
-
         </div>
-}
+    }
 
 
 
 
-    </div>
+</div>
 
 
 <div class="modal" id="modalGrafiekToevoegen" role="dialog">

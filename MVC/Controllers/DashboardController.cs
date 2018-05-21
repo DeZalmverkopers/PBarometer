@@ -20,6 +20,10 @@ namespace MVC.Controllers
     List<GemonitordItem> items;
     //List<Thema> themas;
     HomeController homeController = new HomeController();
+    GrafiekenManager grafiekenManager = new GrafiekenManager();
+
+
+
     public Deelplatform HuidigDeelplatform
     {
       get
@@ -43,27 +47,20 @@ namespace MVC.Controllers
       }
 
       deelplatformId = HuidigDeelplatform.DeelplatformId;
-      //List<Grafiek> grafieken = grafiekenManager.GetGrafieken(deelplatformId, 1, true, true);
 
 
       ViewBag.DeelplatformNaam = HuidigDeelplatform.Naam;
       ViewBag.Afbeelding = HuidigDeelplatform.AfbeeldingPad ?? "default.png";
 
-      GrafiekenManager grafiekenManager = new GrafiekenManager();
-      List<Grafiek> grafieken = grafiekenManager.GetGrafiekenTest();
 
+
+      List<Grafiek> grafieken = grafiekenManager.GetGrafiekenTest();
       foreach (var item in grafieken)
       {
         grafiekenManager.AddGrafiek(item);
       }
 
       ViewBag.Grafieken = grafiekenManager.GetGrafieken(1, 1);
-
-
-
-
-      //VoegGrafiekToeEnUpdateDashboard();
-
 
       return View();
     }
@@ -111,6 +108,15 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Dashboard/Grafieken/GrafiekenToevoegen.cshtml");
 
     }
+
+    public virtual ActionResult LaadGrafiekenNietIngelogd()
+    {
+
+      //ViewBag.GrafiekenDefault = grafiekenManager.GetGrafiekenTest();
+
+      return PartialView("~/Views/Shared/Dashboard/Grafieken/GrafiekenNietIngelogd.cshtml");
+    }
+
 
 
 

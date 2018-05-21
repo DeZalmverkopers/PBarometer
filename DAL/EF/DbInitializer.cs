@@ -1,5 +1,8 @@
+using Domain.Dashboards;
 using Domain.Deelplatformen;
+using Domain.Gemonitordeitems;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace DAL.EF
@@ -15,6 +18,8 @@ namespace DAL.EF
         AantalDagenHistoriek = 14,
         URLnaam = "politiek"
       };
+
+
 
       context.Deelplatformen.Add(deelplatform);
       context.SaveChanges();

@@ -45,43 +45,45 @@ namespace Domain.Dashboards
 
 
 
+    public List<dynamic> XLabels { get; set; }
+    //public List<string> XLabelsDatums { get; set; }
+    //public List<string> XLabelsItems { get; set; }
 
-    //public List<dynamic> XLabels { get; set; }
+    //[NotMapped]
+    //public List<dynamic> XLabels
+    //{
+    //  get
+    //  {
+    //    return XLabelsJSON == null ? null :
+    //    JsonConvert.DeserializeObject<List<dynamic>>(XLabelsJSON);
+    //  }
+    //  set
+    //  {
+    //    XLabelsJSON = JsonConvert.SerializeObject(value);
+    //  }
+    //}
+
+    //public string XLabelsJSON { get; set; }
+
+
+
     [NotMapped]
-    public List<dynamic> XLabels
-    {
-      get
-      {
-        return XLabelsJSON == null ? null :
-        JsonConvert.DeserializeObject<List<dynamic>>(XLabelsJSON);
-      }
-      set
-      {
-        XLabelsJSON = JsonConvert.SerializeObject(value);
-      }
-    }
+    public List<List<double>> Datawaarden { get; set; }
+    //[NotMapped]
+    //public List<List<double>> Datawaarden
+    //{
+    //  get
+    //  {
+    //    return DatawaardenJSON == null ? null :
+    //    JsonConvert.DeserializeObject<List<List<double>>>(DatawaardenJSON);
+    //  }
+    //  set
+    //  {
+    //    DatawaardenJSON = JsonConvert.SerializeObject(value);
+    //  }
+    //}
 
-    public string XLabelsJSON { get; set; }
-
-
-
-
-    //public List<List<double>> Datawaarden { get; set; }
-    [NotMapped]
-    public List<List<double>> Datawaarden
-    {
-      get
-      {
-        return DatawaardenJSON == null ? null :
-        JsonConvert.DeserializeObject<List<List<double>>>(DatawaardenJSON);
-      }
-      set
-      {
-        DatawaardenJSON = JsonConvert.SerializeObject(value);
-      }
-    }
-
-    public string DatawaardenJSON { get; set; }
+    //public string DatawaardenJSON { get; set; }
 
 
 
@@ -103,7 +105,27 @@ namespace Domain.Dashboards
 
     //[NotMapped]
     //public List<GemonitordItem> Items { get; set; }
+
+
     //public List<GrafiekItem> GrafiekItems { get; set; }
+    [NotMapped]
+    public List<GrafiekItem> GrafiekItems
+    {
+      get
+      {
+        return GrafiekItemsJSON == null ? null :
+        JsonConvert.DeserializeObject<List<GrafiekItem>>(GrafiekItemsJSON);
+      }
+      set
+      {
+        GrafiekItemsJSON = JsonConvert.SerializeObject(value);
+      }
+    }
+
+    public string GrafiekItemsJSON { get; set; }
+
+
+
 
 
 
@@ -145,8 +167,7 @@ namespace Domain.Dashboards
 
 
 
-
-
+    public GrafiekWaarde GrafiekWaarde { get; set; }
 
 
     public int XAsMaxrotatie { get; set; }

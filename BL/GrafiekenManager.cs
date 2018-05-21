@@ -199,82 +199,88 @@ namespace BL
       GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
 
       List<GemonitordItem> personen = itemManager.GetPersonen(1).ToList();
-      //items = itemManager.GetGemonitordeItems(1).ToList();
-
-
       List<dynamic> grafiek1XLabels = new List<dynamic>();
       List<double> grafiek1Datawaarden = new List<double>();
-      //for (int i = 0; i < 5; i++)
-      //{
-      //  grafiek1XLabels.Add(personen[i].Naam);
-      //  grafiek1Datawaarden.Add(personen[i].GemPolariteit);
-      //}
+
+      List<GemonitordItem> grafiek1GemonitordeItems = new List<GemonitordItem>();
+      List<GrafiekItem> grafiek1Grafiekitems = new List<GrafiekItem>();
+
       for (int i = 0; i < 5; i++)
       {
-        grafiek1XLabels.Add(personen[i].Naam);
-        grafiek1Datawaarden.Add(personen[i].GemPolariteit);
-      }
+        grafiek1GemonitordeItems.Add(personen[i]);
+      }  
 
-
-
-
-      List<ItemHistoriek> grafiek2Itemhistorieken = new List<ItemHistoriek>();
-      List<dynamic> grafiek2XLabels = new List<dynamic>();
-      List<double> grafiek2Waarden = new List<double>();
-
-      List<GemonitordItem> personen2 = itemManager.GetPersonen(1).ToList();
-
-      for (int i = 0; i < personen2.Count; i++)
+      foreach (var item in grafiek1GemonitordeItems)
       {
-        if (personen2[0].GemonitordItemId == 2)
+        grafiek1XLabels.Add(item.Naam);
+        grafiek1Datawaarden.Add(item.GemPolariteit);
+        grafiek1Grafiekitems.Add(new GrafiekItem()
         {
-          grafiek2Itemhistorieken = personen2[i].ItemHistorieken;
+          ItemId = item.GemonitordItemId
+        });
+      };
 
-        }
-      }
+      
 
 
-      for (int i = grafiek2Itemhistorieken.Count - 10; i < grafiek2Itemhistorieken.Count; i++)
-      {
-        grafiek2XLabels.Add(grafiek2Itemhistorieken[i].HistoriekDatum.ToShortDateString());
-        grafiek2Waarden.Add(grafiek2Itemhistorieken[i].AantalVermeldingen);
-      }
-      //for (int i = 0; i < grafiek2Itemhistorieken.Count; i++)
+
+      //List<ItemHistoriek> grafiek2Itemhistorieken = new List<ItemHistoriek>();
+      //List<dynamic> grafiek2XLabels = new List<dynamic>();
+      //List<double> grafiek2Waarden = new List<double>();
+
+      //List<GemonitordItem> personen2 = itemManager.GetPersonen(1).ToList();
+
+      //for (int i = 0; i < personen2.Count; i++)
+      //{
+      //  if (personen2[0].GemonitordItemId == 2)
+      //  {
+      //    grafiek2Itemhistorieken = personen2[i].ItemHistorieken;
+
+      //  }
+      //}
+
+
+      //for (int i = grafiek2Itemhistorieken.Count - 10; i < grafiek2Itemhistorieken.Count; i++)
       //{
       //  grafiek2XLabels.Add(grafiek2Itemhistorieken[i].HistoriekDatum.ToShortDateString());
       //  grafiek2Waarden.Add(grafiek2Itemhistorieken[i].AantalVermeldingen);
       //}
+      ////for (int i = 0; i < grafiek2Itemhistorieken.Count; i++)
+      ////{
+      ////  grafiek2XLabels.Add(grafiek2Itemhistorieken[i].HistoriekDatum.ToShortDateString());
+      ////  grafiek2Waarden.Add(grafiek2Itemhistorieken[i].AantalVermeldingen);
+      ////}
 
 
 
 
 
-      List<GemonitordItem> organisaties = itemManager.GetOrganisaties(1).ToList();
-      List<dynamic> grafiek3XLabels = new List<dynamic>();
-      List<ItemHistoriek> grafiek3Itemhistorieken = new List<ItemHistoriek>();
-      List<double> grafiek3Waarden = new List<double>();
+      //List<GemonitordItem> organisaties = itemManager.GetOrganisaties(1).ToList();
+      //List<dynamic> grafiek3XLabels = new List<dynamic>();
+      //List<ItemHistoriek> grafiek3Itemhistorieken = new List<ItemHistoriek>();
+      //List<double> grafiek3Waarden = new List<double>();
 
-      //items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
-      for (int i = 0; i < organisaties.Count; i++)
-      {
-        if (organisaties[i].GemonitordItemId == 5)
-        {
-          grafiek3Itemhistorieken = organisaties[i].ItemHistorieken;
-        }
+      ////items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
+      //for (int i = 0; i < organisaties.Count; i++)
+      //{
+      //  if (organisaties[i].GemonitordItemId == 5)
+      //  {
+      //    grafiek3Itemhistorieken = organisaties[i].ItemHistorieken;
+      //  }
 
-      }
+      //}
 
 
-      for (int i = grafiek3Itemhistorieken.Count - 7; i < grafiek3Itemhistorieken.Count; i++)
-      {
-        grafiek3XLabels.Add(grafiek3Itemhistorieken[i].HistoriekDatum.ToShortDateString());
-        grafiek3Waarden.Add(grafiek3Itemhistorieken[i].AantalVermeldingen);
-      }
-      //for (int i = 0; i < grafiek3Itemhistorieken.Count; i++)
+      //for (int i = grafiek3Itemhistorieken.Count - 7; i < grafiek3Itemhistorieken.Count; i++)
       //{
       //  grafiek3XLabels.Add(grafiek3Itemhistorieken[i].HistoriekDatum.ToShortDateString());
       //  grafiek3Waarden.Add(grafiek3Itemhistorieken[i].AantalVermeldingen);
       //}
+      ////for (int i = 0; i < grafiek3Itemhistorieken.Count; i++)
+      ////{
+      ////  grafiek3XLabels.Add(grafiek3Itemhistorieken[i].HistoriekDatum.ToShortDateString());
+      ////  grafiek3Waarden.Add(grafiek3Itemhistorieken[i].AantalVermeldingen);
+      ////}
 
 
 
@@ -282,77 +288,65 @@ namespace BL
 
 
 
-      var grafiek4items = itemManager.GetPersonen(1).ToList();
+      //var grafiek4items = itemManager.GetPersonen(1).ToList();
 
-      List<dynamic> grafiek4XLabels = new List<dynamic>();
-      List<ItemHistoriek> grafiek4Itemhistorieken = new List<ItemHistoriek>();
-      List<double> grafiek4Waarden = new List<double>();
-      List<string> grafiek4Legendelijst = new List<string>();
+      //List<dynamic> grafiek4XLabels = new List<dynamic>();
+      //List<ItemHistoriek> grafiek4Itemhistorieken = new List<ItemHistoriek>();
+      //List<double> grafiek4Waarden = new List<double>();
+      //List<string> grafiek4Legendelijst = new List<string>();
 
-      List<ItemHistoriek> itemhistoriekItem1Grafiek4 = new List<ItemHistoriek>();
-      List<ItemHistoriek> itemhistoriekItem2Grafiek4 = new List<ItemHistoriek>();
-      List<ItemHistoriek> itemhistoriekItem3Grafiek4 = new List<ItemHistoriek>();
-      List<ItemHistoriek> itemhistoriekItem4Grafiek4 = new List<ItemHistoriek>();
-      List<ItemHistoriek> itemhistoriekItem5Grafiek4 = new List<ItemHistoriek>();
+      //List<ItemHistoriek> itemhistoriekItem1Grafiek4 = new List<ItemHistoriek>();
+      //List<ItemHistoriek> itemhistoriekItem2Grafiek4 = new List<ItemHistoriek>();
+      //List<ItemHistoriek> itemhistoriekItem3Grafiek4 = new List<ItemHistoriek>();
+      //List<ItemHistoriek> itemhistoriekItem4Grafiek4 = new List<ItemHistoriek>();
+      //List<ItemHistoriek> itemhistoriekItem5Grafiek4 = new List<ItemHistoriek>();
 
-      List<double> waardenItem1Grafiek4 = new List<double>();
-      List<double> waardenItem2Grafiek4 = new List<double>();
-      List<double> waardenItem3Grafiek4 = new List<double>();
-      List<double> waardenItem4Grafiek4 = new List<double>();
-      List<double> waardenItem5Grafiek4 = new List<double>();
+      //List<double> waardenItem1Grafiek4 = new List<double>();
+      //List<double> waardenItem2Grafiek4 = new List<double>();
+      //List<double> waardenItem3Grafiek4 = new List<double>();
+      //List<double> waardenItem4Grafiek4 = new List<double>();
+      //List<double> waardenItem5Grafiek4 = new List<double>();
 
-      List<List<double>> alleWaarden = new List<List<double>>();
-
-
-
-      foreach (var element in grafiek4items)
-      {
-        if (element.GemonitordItemId == 2)
-        {
-          itemhistoriekItem1Grafiek4 = element.ItemHistorieken;
-          grafiek4Legendelijst.Add(element.Naam);
-        }
-
-        if (element.GemonitordItemId == 3)
-        {
-          itemhistoriekItem2Grafiek4 = element.ItemHistorieken;
-          grafiek4Legendelijst.Add(element.Naam);
-        }
-
-        if (element.GemonitordItemId == 4)
-        {
-          itemhistoriekItem3Grafiek4 = element.ItemHistorieken;
-          grafiek4Legendelijst.Add(element.Naam);
-        }
-
-        if (element.GemonitordItemId == 6)
-        {
-          itemhistoriekItem4Grafiek4 = element.ItemHistorieken;
-          grafiek4Legendelijst.Add(element.Naam);
-        }
-
-        if (element.GemonitordItemId == 7)
-        {
-          itemhistoriekItem5Grafiek4 = element.ItemHistorieken;
-          grafiek4Legendelijst.Add(element.Naam);
-        }
-
-      }
+      //List<List<double>> alleWaarden = new List<List<double>>();
 
 
-      for (int i = itemhistoriekItem4Grafiek4.Count - 5; i < itemhistoriekItem4Grafiek4.Count; i++)
-      {
-        grafiek4XLabels.Add(itemhistoriekItem1Grafiek4[i].HistoriekDatum.ToShortDateString());
 
-        waardenItem1Grafiek4.Add(itemhistoriekItem1Grafiek4[i].AantalVermeldingen);
-        waardenItem2Grafiek4.Add(itemhistoriekItem2Grafiek4[i].AantalVermeldingen);
-        waardenItem3Grafiek4.Add(itemhistoriekItem3Grafiek4[i].AantalVermeldingen);
-        waardenItem4Grafiek4.Add(itemhistoriekItem4Grafiek4[i].AantalVermeldingen);
-        waardenItem5Grafiek4.Add(itemhistoriekItem5Grafiek4[i].AantalVermeldingen);
+      //foreach (var element in grafiek4items)
+      //{
+      //  if (element.GemonitordItemId == 2)
+      //  {
+      //    itemhistoriekItem1Grafiek4 = element.ItemHistorieken;
+      //    grafiek4Legendelijst.Add(element.Naam);
+      //  }
 
-      }
+      //  if (element.GemonitordItemId == 3)
+      //  {
+      //    itemhistoriekItem2Grafiek4 = element.ItemHistorieken;
+      //    grafiek4Legendelijst.Add(element.Naam);
+      //  }
 
-      //for (int i = 0; i < itemhistoriekItem1Grafiek4.Count; i++)
+      //  if (element.GemonitordItemId == 4)
+      //  {
+      //    itemhistoriekItem3Grafiek4 = element.ItemHistorieken;
+      //    grafiek4Legendelijst.Add(element.Naam);
+      //  }
+
+      //  if (element.GemonitordItemId == 6)
+      //  {
+      //    itemhistoriekItem4Grafiek4 = element.ItemHistorieken;
+      //    grafiek4Legendelijst.Add(element.Naam);
+      //  }
+
+      //  if (element.GemonitordItemId == 7)
+      //  {
+      //    itemhistoriekItem5Grafiek4 = element.ItemHistorieken;
+      //    grafiek4Legendelijst.Add(element.Naam);
+      //  }
+
+      //}
+
+
+      //for (int i = itemhistoriekItem4Grafiek4.Count - 5; i < itemhistoriekItem4Grafiek4.Count; i++)
       //{
       //  grafiek4XLabels.Add(itemhistoriekItem1Grafiek4[i].HistoriekDatum.ToShortDateString());
 
@@ -364,12 +358,24 @@ namespace BL
 
       //}
 
+      ////for (int i = 0; i < itemhistoriekItem1Grafiek4.Count; i++)
+      ////{
+      ////  grafiek4XLabels.Add(itemhistoriekItem1Grafiek4[i].HistoriekDatum.ToShortDateString());
 
-      alleWaarden.Add(waardenItem1Grafiek4);
-      alleWaarden.Add(waardenItem2Grafiek4);
-      alleWaarden.Add(waardenItem3Grafiek4);
-      alleWaarden.Add(waardenItem4Grafiek4);
-      alleWaarden.Add(waardenItem5Grafiek4);
+      ////  waardenItem1Grafiek4.Add(itemhistoriekItem1Grafiek4[i].AantalVermeldingen);
+      ////  waardenItem2Grafiek4.Add(itemhistoriekItem2Grafiek4[i].AantalVermeldingen);
+      ////  waardenItem3Grafiek4.Add(itemhistoriekItem3Grafiek4[i].AantalVermeldingen);
+      ////  waardenItem4Grafiek4.Add(itemhistoriekItem4Grafiek4[i].AantalVermeldingen);
+      ////  waardenItem5Grafiek4.Add(itemhistoriekItem5Grafiek4[i].AantalVermeldingen);
+
+      ////}
+
+
+      //alleWaarden.Add(waardenItem1Grafiek4);
+      //alleWaarden.Add(waardenItem2Grafiek4);
+      //alleWaarden.Add(waardenItem3Grafiek4);
+      //alleWaarden.Add(waardenItem4Grafiek4);
+      //alleWaarden.Add(waardenItem5Grafiek4);
 
 
       List<Grafiek> grafieken = new List<Grafiek>()
@@ -377,7 +383,6 @@ namespace BL
 
       new Grafiek()
       {
-        //GrafiekId = 1,
 
         DeelplatformId = 1,
         DashboardId = 1,
@@ -394,116 +399,121 @@ namespace BL
         YOorsprongNul     = true,
         YTitel            = "Waarden",
         XLabels = grafiek1XLabels,
-        Datawaarden = new List<List<double>>(){ grafiek1Datawaarden},
+        Datawaarden = new List<List<double>>(){ grafiek1Datawaarden },
 
-        Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
+
+      Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
         Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
         LegendeLijst = new List<string>{ null, null, null, null, null },
 
         XAsMaxrotatie = 90,
         XAsMinrotatie = 90,
         FillDataset = false,
-        Lijnlegendeweergave = false
+        Lijnlegendeweergave = false,
 
+        //Items = grafiek1GemonitordeItems,
+        GrafiekItems = grafiek1Grafiekitems,
 
-      },
-      new Grafiek()
-      {
-        //GrafiekId = 2,
-
-        DeelplatformId = 1,
-        DashboardId = 1,
-
-        Titel = "aantal tweets",
-        ToonLegende = false,
-        ToonXAs = true,
-        ToonYAs = true,
-
-        Type = "line",
-
-        XOorsprongNul     = true,
-        XTitel            = "Items",
-        YOorsprongNul     = true,
-        YTitel            = "Waarden",
-        XLabels = grafiek2XLabels,
-
-        Datawaarden = new List<List<double>>(){ grafiek2Waarden},
-
-        Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
-        Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
-        LegendeLijst = new List<string>{ null, null, null, null, null },
-
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
-        FillDataset = false,
-        Lijnlegendeweergave = false
+        GrafiekWaarde = GrafiekWaarde.Polariteit,
 
       },
+      //new Grafiek()
+      //{
+      //  GrafiekId = 2,
 
-       new Grafiek()
-      {
-        //GrafiekId = 3,
+      //  DeelplatformId = 1,
+      //  DashboardId = 1,
 
-        DeelplatformId = 1,
-        DashboardId = 1,
+      //  Titel = "aantal tweets",
+      //  ToonLegende = false,
+      //  ToonXAs = true,
+      //  ToonYAs = true,
 
-        Titel = "aantal tweets",
-        ToonLegende = false,
-        ToonXAs = true,
-        ToonYAs = true,
+      //  Type = "line",
 
-        Type = "line",
+      //  XOorsprongNul     = true,
+      //  XTitel            = "Items",
+      //  YOorsprongNul     = true,
+      //  YTitel            = "Waarden",
+      //  XLabels = grafiek2XLabels,
 
-        XOorsprongNul     = true,
-        XTitel            = "Items",
-        YOorsprongNul     = true,
-        YTitel            = "Waarden",
-        XLabels = grafiek3XLabels,
+      //  Datawaarden = new List<List<double>>(){ grafiek2Waarden},
 
-        Datawaarden = new List<List<double>>(){ grafiek3Waarden},
+      //  Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
+      //  Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
+      //  LegendeLijst = new List<string>{ null, null, null, null, null },
 
-        Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
-        Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
-        LegendeLijst = new List<string>{ null, null, null, null, null },
+      //  XAsMaxrotatie = 90,
+      //  XAsMinrotatie = 90,
+      //  FillDataset = false,
+      //  Lijnlegendeweergave = false
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
-        FillDataset = false,
-        Lijnlegendeweergave = false
+      //},
 
-      },
-       new Grafiek()
-      {
-        //GrafiekId = 4,
+      // new Grafiek()
+      //{
+      //  GrafiekId = 3,
 
-        DeelplatformId = 1,
-        DashboardId = 1,
+      //  DeelplatformId = 1,
+      //  DashboardId = 1,
 
-        Titel = "aantal tweets",
-        ToonLegende = true,
-        ToonXAs = true,
-        ToonYAs = true,
+      //  Titel = "aantal tweets",
+      //  ToonLegende = false,
+      //  ToonXAs = true,
+      //  ToonYAs = true,
 
-        Type = "line",
+      //  Type = "line",
 
-        XOorsprongNul     = true,
-        XTitel            = "Items",
-        YOorsprongNul     = true,
-        YTitel            = "Waarden",
-        XLabels = grafiek4XLabels,
+      //  XOorsprongNul     = true,
+      //  XTitel            = "Items",
+      //  YOorsprongNul     = true,
+      //  YTitel            = "Waarden",
+      //  XLabels = grafiek3XLabels,
 
-        Datawaarden = alleWaarden,
+      //  Datawaarden = new List<List<double>>(){ grafiek3Waarden},
 
-        Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, new List<string> {"#8e5ea2" }, new List<string> { "#3cba9f"}, new List<string> { "#e8c3b9"}, new List<string> { "#c45850" } },
-        Randkleur        = new List<List<string>>(){ new List<string> { "#3e95cd" }, new List<string> {"#8e5ea2" }, new List<string> { "#3cba9f"}, new List<string> { "#e8c3b9"}, new List<string> { "#c45850" } },
-        LegendeLijst     = new List<string>{ grafiek4Legendelijst[0], grafiek4Legendelijst[1], grafiek4Legendelijst[2], grafiek4Legendelijst[3], grafiek4Legendelijst[4] },
+      //  Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
+      //  Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
+      //  LegendeLijst = new List<string>{ null, null, null, null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
-        FillDataset = false,
-        Lijnlegendeweergave = true
+      //  XAsMaxrotatie = 90,
+      //  XAsMinrotatie = 90,
+      //  FillDataset = false,
+      //  Lijnlegendeweergave = false
 
-      }
+      //},
+      // new Grafiek()
+      //{
+      //  GrafiekId = 4,
+
+      //  DeelplatformId = 1,
+      //  DashboardId = 1,
+
+      //  Titel = "aantal tweets",
+      //  ToonLegende = true,
+      //  ToonXAs = true,
+      //  ToonYAs = true,
+
+      //  Type = "line",
+
+      //  XOorsprongNul     = true,
+      //  XTitel            = "Items",
+      //  YOorsprongNul     = true,
+      //  YTitel            = "Waarden",
+      //  XLabels = grafiek4XLabels,
+
+      //  Datawaarden = alleWaarden,
+
+      //  Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, new List<string> {"#8e5ea2" }, new List<string> { "#3cba9f"}, new List<string> { "#e8c3b9"}, new List<string> { "#c45850" } },
+      //  Randkleur        = new List<List<string>>(){ new List<string> { "#3e95cd" }, new List<string> {"#8e5ea2" }, new List<string> { "#3cba9f"}, new List<string> { "#e8c3b9"}, new List<string> { "#c45850" } },
+      //  LegendeLijst     = new List<string>{ grafiek4Legendelijst[0], grafiek4Legendelijst[1], grafiek4Legendelijst[2], grafiek4Legendelijst[3], grafiek4Legendelijst[4] },
+
+      //  XAsMaxrotatie = 90,
+      //  XAsMinrotatie = 90,
+      //  FillDataset = false,
+      //  Lijnlegendeweergave = true
+
+      //}
 
 
     };
