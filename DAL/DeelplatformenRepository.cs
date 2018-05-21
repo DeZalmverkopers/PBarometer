@@ -30,8 +30,12 @@ namespace DAL
             return context.Deelplatformen;
         }
 
-        public Deelplatform ReadDeelplatform(int id)
+        public Deelplatform ReadDeelplatform(int id, bool relationeleEntiteiten = false)
         {
+            if (relationeleEntiteiten)
+            {
+                context.Deelplatformen.Include("Alerts").Include("GemonitordeItems").Include("Dashboards").Include("DetailItems").FirstOrDefault();
+            }
             return context.Deelplatformen.FirstOrDefault(b => b.DeelplatformId == id);
         }
 
@@ -52,11 +56,13 @@ namespace DAL
             context.SaveChanges();
         }
 
-       
 
-        public Settings ReadSettings()
+
+
+        public Settings ReadSettings(int deelplatformId)
         {
-            return new Settings(ReadDeelplatform(1).OverzichtAdded, ReadDeelplatform(1).WeeklyReviewAdded, ReadDeelplatform(1).AlertsAdded);
+            Deelplatform deelplatform = new Deelplatform();
+            return new Settings(deelplatform.OverzichtAdded, deelplatform.WeeklyReviewAdded, deelplatform.AlertsAdded);
         }
 
         public void UpdateOverzichtAdded(bool OverzichtAdded)
@@ -95,9 +101,9 @@ namespace DAL
         //  context.SaveChanges();
         //}
 
-        public string ReadAchtergrondkleur()
+        public string ReadAchtergrondkleur(int deelplatformId)
         {
-            return ReadDeelplatform(1).Achtergrondkleur;
+            return ReadDeelplatform(deelplatformId).Achtergrondkleur;
         }
 
         public void UpdateAchtergrondkleur(string kleur)

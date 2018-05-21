@@ -146,6 +146,8 @@ namespace MVC.Controllers.Api
                 }
             }
             gemonitordeItemsManager.RefreshItems(nieuweSyncDatum, deelplatform.AantalDagenHistoriek, deelplatform.DeelplatformId);
+            AndroidController androidController = new AndroidController();
+            androidController.StuurMobieleAlerts(deelplatform);
         }
     }
 }

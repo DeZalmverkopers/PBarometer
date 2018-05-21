@@ -8,7 +8,6 @@
     <title>@ViewBag.Title - Politieke Barometer</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -77,17 +76,18 @@
     {*@
                 @*<li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>*@
 
-                    @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
-    {
-                <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
-}
-else
-{
-if (User.IsInRole("Admin"))
-{
-                <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-}
-}
+
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <li>@Html.ActionLink("Sitebeheer", "Index", "Superadmin")</li>
+                    }
+
+                    @if (User.IsInRole("Admin") && (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false))
+                    {
+                        <li>@Html.ActionLink("Deelplatformbeheer", "Index", "Admin")</li>
+                    }
+
+
 
                 </ul>
 
@@ -115,8 +115,10 @@ if (User.IsInRole("Admin"))
                                 <li><a href="javascript:document.getElementById('logoutForm').submit()">Uitloggen</a></li>
                             </ul>
                         }
-                        <li><span class="noti glyphicon glyphicon-bell" id="alertID" onclick="location.href='@Url.Action("Index", "Alerts")'"><span class="count">&nbsp;</span></span></li>
-
+                        if (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
+                        {
+                            <li><span class="noti glyphicon glyphicon-bell" id="alertID" onclick="location.href='@Url.Action("Index", "Alerts")'"><span class="count">&nbsp;</span></span></li>
+                        }
                     }
                 </ul>
 
@@ -133,25 +135,26 @@ if (User.IsInRole("Admin"))
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
     @RenderSection("scripts", required: false)
 
     @*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
 
-    <script>
-        $(window).load(function setImage() {
-            $.ajax("https://localhost:44314/Alerts/IsTriggered", {
-                type: 'GET',
-                dataType: 'json',
-                success: function (response) {
-                    if (response.status) {
-                        $('#alertID').css({ 'color', 'yellow' })
-                    } else {
-                        $('#alertID').css({ 'color', 'black' })
+    @*<script>
+            $(window).load(function setImage() {
+                $.ajax("https://localhost:44314/Alerts/IsTriggered", {
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status) {
+                            $('#alertID').css({ 'color', 'yellow' })
+                        } else {
+                            $('#alertID').css({ 'color', 'black' })
+                        }
                     }
-                }
+                })
             })
-        })
-    </script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+        </script>*@
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
 </body>
 </html>

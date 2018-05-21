@@ -1,11 +1,4 @@
-﻿<script type="text/javascript">
-        $("#btnGemonitordeItems").click(function () {
-        $.get('@Url.Action("LaadGemonitordeItemsBeheren","Admin")', {}, function (resultaat) {
-            $("#divResultaat").html(resultaat);
-        });
-        });
-</script>
-
+﻿
 <script type="text/javascript">
         $("#btnData").click(function () {
         $.get('@Url.Action("LaadData", "Admin")', {}, function (resultaat) {
@@ -15,16 +8,8 @@
 </script>
 
 <script type="text/javascript">
-        $("#btnGebruikersactiviteit").click(function () {
-        $.get('@Url.Action("LaadGebruikersactiviteit", "Admin")', {}, function (resultaat) {
-            $("#divResultaat").html(resultaat);
-        });
-        });
-</script>
-
-<script type="text/javascript">
         $("#btnLayout").click(function () {
-        $.get('@Url.Action("LaadLayout", "Admin")', {}, function (resultaat) {
+        $.get('@Url.Action("LayoutAanpassen", "Admin")', {}, function (resultaat) {
             $("#divResultaat").html(resultaat);
         });
         });

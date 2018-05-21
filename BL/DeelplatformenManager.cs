@@ -8,68 +8,84 @@ namespace BL
 {
     public class DeelplatformenManager
     {
-        private readonly DeelplatformenRepository repository;
+        private DeelplatformenRepository repository;
+        private UnitOfWorkManager uowManager;
 
         public DeelplatformenManager()
         {
-            repository = new DeelplatformenRepository();
         }
 
         public void AddDeelplatform(Deelplatform deelplatform)
         {
+            InitNonExistingRepo();
             repository.CreateDeelplatform(deelplatform);
         }
 
         public IEnumerable<Deelplatform> GetDeelplatformen()
         {
+            InitNonExistingRepo();
             return repository.ReadDeelplatformen();
         }
 
         public Deelplatform GetDeelplatformByName(string naam)
         {
+            InitNonExistingRepo();
             return repository.ReadDeelplatformByName(naam);
         }
-        public Deelplatform GetDeelplatform(int id)
+        public Deelplatform GetDeelplatform(int id, bool relationeleEntiteiten = false)
         {
-            return repository.ReadDeelplatform(id);
+            InitNonExistingRepo();
+            return repository.ReadDeelplatform(id, relationeleEntiteiten);
         }
         public void ChangeDeelplatform(Deelplatform deelplatform)
         {
+            InitNonExistingRepo();
             repository.UpdateDeelplatform(deelplatform);
-        }
-
-        public void RemoveDeelplatform(Deelplatform deelplatform)
-        {
-            repository.DeleteDeelplatform(deelplatform);
         }
 
         public void RemoveDeelplatform(int id)
         {
-            repository.DeleteDeelplatform(repository.ReadDeelplatform(id));
+            InitNonExistingRepo(true);
+            Deelplatform deelplatform = GetDeelplatform(id, true);
+            DashboardsManager dashboardsManager = new DashboardsManager();
+            GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
+            AlertManager alertManager = new AlertManager();
+            dashboardsManager.RemoveDashboards(deelplatform.Dashboards);
+            gemonitordeItemsManager.RemoveGemonitordeItems(deelplatform.GemonitordeItems);
+            alertManager.RemoveAlerts(deelplatform.Alerts);
+            repository.DeleteDeelplatform(deelplatform);
+            uowManager.Save();
         }
+
+
 
         public Deelplatform GetDeelplatformByURL(string url)
         {
+            InitNonExistingRepo();
             return repository.ReadDeelplatformen().FirstOrDefault(a => a.URLnaam.Equals(url, StringComparison.OrdinalIgnoreCase));
         }
 
-        public Settings GetSettings()
+        public Settings GetSettings(int deelplatformId)
         {
-            return repository.ReadSettings();
+            InitNonExistingRepo();
+            return repository.ReadSettings(deelplatformId);
         }
 
         public void ChangeOverzichtAdded(bool OverzichtAdded)
         {
+            InitNonExistingRepo();
             repository.UpdateOverzichtAdded(OverzichtAdded);
         }
 
         public void ChangeWeeklyReviewAdded(bool WeeklyReviewAdded)
         {
+            InitNonExistingRepo();
             repository.UpdateWeeklyReviewAdded(WeeklyReviewAdded);
         }
 
         public void ChangeAlertsAdded(bool AlertsAdded)
         {
+            InitNonExistingRepo();
             repository.UpdateAlertsAdded(AlertsAdded);
         }
 
@@ -78,14 +94,31 @@ namespace BL
         //  repository.UpdateSettings(settings.OverzichtAdded, settings.WeeklyReviewAdded, settings.AlertsAdded);
         //}
 
-        public string GetAchtergrondkleur()
+        public string GetAchtergrondkleur(int deelplatformId)
         {
-            return repository.ReadAchtergrondkleur();
+            InitNonExistingRepo();
+            return repository.ReadAchtergrondkleur(deelplatformId);
         }
 
         public void ChangeAchtergrondkleur(string kleur)
         {
+            InitNonExistingRepo();
             repository.UpdateAchtergrondkleur(kleur);
+        }
+        public void InitNonExistingRepo(bool uow = false)
+        {
+            if (uow)
+            {
+                if (uowManager == null)
+                {
+                    uowManager = new UnitOfWorkManager();
+                    repository = new DeelplatformenRepository(uowManager.UnitOfWork);
+                }
+            }
+            else
+            {
+                repository = repository ?? new DeelplatformenRepository();
+            }
         }
     }
 }

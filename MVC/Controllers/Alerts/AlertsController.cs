@@ -300,13 +300,13 @@ namespace MVC.Controllers
                 }
                 user.Alerts.Add(alert);
                 UserManager.Update(user);
-                return null;
+                return RedirectToAction("Index");
             }
             List<string> items = gemonitordeItemsManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
             var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
 
             ViewBag.Onderwerp = ItemsSelectlist;
-            return PartialView();
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public virtual ActionResult VerwijderAlert(int id)

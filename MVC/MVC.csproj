@@ -228,6 +228,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Android\DeelplatformDTO.cs" />
     <Compile Include="Models\Android\GrafiekDTO.cs" />
+    <Compile Include="Models\Android\Notificaties\Message.cs" />
+    <Compile Include="Models\Android\Notificaties\Notification.cs" />
     <Compile Include="Models\Home\DeelplatformViewModel.cs" />
     <Compile Include="Models\Overzicht\OrganisatieViewModel.cs" />
     <Compile Include="Controllers\OverzichtController.cs" />
@@ -356,7 +358,7 @@
     <Content Include="Views\Shared\AdminSuperadmin\DataImporterenEnExporteren.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\GebruikersactiviteitMonitoren.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\GemonitordeItemsBeheren.cshtml" />
-    <Content Include="Views\Shared\AdminSuperadmin\LayoutAanpassen.cshtml" />
+    <Content Include="Views\Admin\LayoutAanpassen.cshtml" />
     <Content Include="Views\Shared\CheckEmailPrompt.cshtml" />
     <Content Include="Views\Shared\Dashboard\GrafiekAanpassen.cshtml" />
     <Content Include="Views\Shared\GemonitordItem\Organisaties.cshtml" />
