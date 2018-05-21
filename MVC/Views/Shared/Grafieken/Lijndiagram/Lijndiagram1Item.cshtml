@@ -1,7 +1,19 @@
-﻿<div>
-    <canvas id="lineChart" height="250"></canvas>
-    @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
-    @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
+﻿@*<div>
+        <canvas id="@ViewBag.GrafiekId" height="250"></canvas>
+
+        <button id="bewerken-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+        <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+
+        <button id="verwijderen-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </div>*@
+
+
+<div>
+    <canvas id="lineChart1Item" height="250"></canvas>
+
 </div>
 
 <script>
@@ -10,6 +22,7 @@
     var dagen = @Html.Raw(Json.Encode(ViewBag.ItemDagen));
     var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
     var data1 = @Html.Raw(Json.Encode(ViewBag.Item1Data));
+<<<<<<< HEAD
 
     var ctx = $("#lineChart");
     var myLineChart = new Chart(ctx, {
@@ -34,24 +47,61 @@
                     }
                 }]
             }
+=======
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
 
-        },
-        type: 'line',
-
-        data: {
-
-        labels: dagen,
-
-        datasets: [
-            {
-                data: data1,
-                bordercolor: ["#3e95cd"],
-                borderWidth: 4
-            }
-        ]
-        }
+    GrafiekOpbouwen("lineChart1Item", grafiekTitel, "line", false, true, true, true, true, false, true, 90, 0, "x", "y", dagen,
+        null, null, null, null, null, data1, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
 
 
-    });
 
 </script>
+
+
+
+@*<script>
+        function grafiekVerwijderen(id) {
+            var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+            var subid;
+
+            if (lengteId == 0) {
+                subid = id.substring(id.length - 1);
+            } else if (lengteId > 0) {
+                subid = id.substring(id.indexOf("-") + 1, id.length - 1);
+            }
+
+            var grafiekVerwijderen = confirm("Ben je zeker dat je de grafiek wilt verwijderen?");
+            if (grafiekVerwijderen == true) {
+                $("canvas#" + subid).remove()
+
+                $("#verwijderen-" + subid).remove();
+                $("#bewerken-" + subid).remove();
+
+            }
+        }
+
+        function grafiekBewerken(id) {
+
+            var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+            var subid;
+
+<<<<<<< HEAD
+</script>
+=======
+            if (lengteId == 0) {
+                subid = id.substring(id.length - 1);
+            } else if (lengteId > 0) {
+                subid = id.substring(id.indexOf("-") + 1, id.length - 1);
+            }
+
+
+            $("#modalGrafiekAanpassen").modal();
+
+            $.get('@Url.Action("LaadGrafiekAanpassen", "Dashboard")', {}, function (resultaat) {
+                $("#divGrafiekAanpassen").html(resultaat);
+            });
+
+        }
+
+    </script>*@
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0

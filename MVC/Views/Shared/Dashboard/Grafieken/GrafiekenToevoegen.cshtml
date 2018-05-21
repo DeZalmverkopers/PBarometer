@@ -1,4 +1,5 @@
-﻿<h4>Grafieken</h4>
+﻿
+<h4>Grafieken</h4>
 <div>
     <select id="grafieken">
         <option hidden selected>Selecteer een optie</option>
@@ -21,10 +22,15 @@
     </select>
 </div>
 
+<div id="divInhoud">
+
+</div>
+
 <script>
     $("#grafieken").change(function () {
 
         var keuze = $("#grafieken").val();
+        
 
         switch (keuze) {
             case "Items kruisen":
@@ -53,3 +59,5 @@
 
     });
 </script>
+
+

@@ -1,30 +1,37 @@
-﻿<div>
-    <canvas id="lineChart" height="250"></canvas>
-    @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
-    @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
+﻿@*<div>
+        <canvas id="@ViewBag.GrafiekId" height="250"></canvas>
+
+        <button id="bewerken-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+        <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+
+        <button id="verwijderen-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </div>*@
+
+
+<div>
+    <canvas id="lineChart5Items" height="250"></canvas>
+
 </div>
 
 <script>
 
-    @*var item1 = @Html.Raw(Json.Encode(ViewBag.Item1Naam))*@
-    var dagen = @Html.Raw(Json.Encode(ViewBag.ItemDagen));
-    var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
 
-    var item1 = @Html.Raw(Json.Encode(ViewBag.Item1Naam));
-    var data1 = @Html.Raw(Json.Encode(ViewBag.Item1Data));
 
-    var item2 = @Html.Raw(Json.Encode(ViewBag.Item2Naam));
-    var data2 = @Html.Raw(Json.Encode(ViewBag.Item2Data));
+    var data = @Html.Raw(Json.Encode(ViewBag.Data));
+    var legendelijst = @Html.Raw(Json.Encode(ViewBag.Legendelijst));
+    var grafiektitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
+    var xLabels = @Html.Raw(Json.Encode(ViewBag.XLabels));
 
-    var item3 = @Html.Raw(Json.Encode(ViewBag.Item3Naam));
-    var data3 = @Html.Raw(Json.Encode(ViewBag.Item3Data));
 
-    var item4 = @Html.Raw(Json.Encode(ViewBag.Item4Naam));
-    var data4 = @Html.Raw(Json.Encode(ViewBag.Item4Data));
+          GrafiekOpbouwen("lineChart5Items", grafiektitel, "line", true, true, true, true, true, false, true, 90, 0, "x", "y", xLabels,
+        legendelijst[0], legendelijst[1], legendelijst[2], legendelijst[3], legendelijst[4],
+        data[0], data[1], data[2], data[3], data[4],
+        null, null, null, null, null, null, null, null, null, null)
 
-    var item5 = @Html.Raw(Json.Encode(ViewBag.Item5Naam));
-    var data5 = @Html.Raw(Json.Encode(ViewBag.Item5Data));
-
+<<<<<<< HEAD
     var ctx = $("#lineChart");
     var myLineChart = new Chart(ctx, {
 
@@ -37,16 +44,24 @@
             legend: {
                 display: true
             },
+=======
 
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        autoSkip: false,
-                        maxRotation: 90,
-                        minRotation: 90
-                    }
-                }]
+
+</script>
+
+
+@*<script>
+        function grafiekVerwijderen(id) {
+            var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+            var subid;
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
+
+            if (lengteId == 0) {
+                subid = id.substring(id.length - 1);
+            } else if (lengteId > 0) {
+                subid = id.substring(id.indexOf("-") + 1, id.length - 1);
             }
+<<<<<<< HEAD
         },
         type: 'line',
 
@@ -93,9 +108,42 @@
                 //backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500"],
                 bordercolor: ["#c45850"],
                 borderWidth: 4
+=======
+
+            var grafiekVerwijderen = confirm("Ben je zeker dat je de grafiek wilt verwijderen?");
+            if (grafiekVerwijderen == true) {
+                $("canvas#" + subid).remove()
+
+                $("#verwijderen-" + subid).remove();
+                $("#bewerken-" + subid).remove();
+
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
             }
-        ]
         }
 
+<<<<<<< HEAD
     });
 </script>
+=======
+        function grafiekBewerken(id) {
+
+            var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+            var subid;
+
+            if (lengteId == 0) {
+                subid = id.substring(id.length - 1);
+            } else if (lengteId > 0) {
+                subid = id.substring(id.indexOf("-") + 1, id.length - 1);
+            }
+
+
+            $("#modalGrafiekAanpassen").modal();
+
+            $.get('@Url.Action("LaadGrafiekAanpassen", "Dashboard")', {}, function (resultaat) {
+                $("#divGrafiekAanpassen").html(resultaat);
+            });
+
+        }
+
+    </script>*@
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0

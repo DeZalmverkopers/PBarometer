@@ -11751,7 +11751,14 @@ var Legend = Element.extend({
 
 					// Draw pointStyle as legend symbol
 					helpers.canvas.drawPoint(ctx, legendItem.pointStyle, radius, centerX, centerY);
-				} else {
+                }
+
+
+                else if (opts.labels && opts.labels.useLineStyle) {
+                    ctx.strokeRect(x, y + fontSize / 2, boxWidth, 0);
+                }
+
+                else {
 					// Draw box as legend symbol
 					if (!isLineWidthZero) {
 						ctx.strokeRect(x, y, boxWidth, fontSize);
