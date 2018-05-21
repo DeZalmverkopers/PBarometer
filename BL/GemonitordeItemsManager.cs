@@ -156,6 +156,29 @@ namespace BL
             }
         }
 
+        public void EditOrganisatie(int id, int deelplatformId, string naam, List<string> namenPersonen)
+        {
+            InitNonExistingRepo();
+            List<Persoon> toeTeVoegenPersonen = new List<Persoon>();
+
+            Organisatie organisatie = GetGemonitordItem(id) as Organisatie;
+            List<GemonitordItem> bestaandePersonen = GetPersonen(deelplatformId).ToList();
+            foreach (string persoon in namenPersonen)
+            {
+                GemonitordItem toeTeVoegenPersoon = bestaandePersonen.FirstOrDefault(a => a.Naam.Equals(persoon.Trim(), StringComparison.OrdinalIgnoreCase));
+                if (toeTeVoegenPersoon == null)
+                {
+                    toeTeVoegenPersoon = new Persoon() { Naam = persoon, TotaalAantalVermeldingen = 0, DeelplatformId = deelplatformId };
+                }
+                toeTeVoegenPersonen.Add(toeTeVoegenPersoon as Persoon);
+            }
+            organisatie.Naam = naam;
+            organisatie.Personen = toeTeVoegenPersonen;
+            organisatie.BerekenEigenschappen();
+            ChangeGemonitordItem(organisatie);
+
+        }
+
         public void AddGekruistItem(GemonitordItem item1, GemonitordItem item2, string naam, int deelplatformId)
         {
             InitNonExistingRepo();

@@ -68,7 +68,7 @@ namespace MVC
         static void ScheduledTask2()
         {
             Debug.WriteLine("Invoegen Textgain 1 - Start");
-            TextgainController textgainController = new TextgainController();
+            IDataController dataController = new TextgainController();
             DeelplatformenManager deelplatformManager = new DeelplatformenManager();
             IEnumerable<Deelplatform> deelplatformen = deelplatformManager.GetDeelplatformen();
 
@@ -92,7 +92,7 @@ namespace MVC
                     {
                         Debug.WriteLine("Deelpatform ophaaalfreq = " + deelplatform.DataOphaalFrequentie);
                         Debug.WriteLine("i = " + i);
-                        textgainController.HaalBerichtenOp(deelplatform);
+                        dataController.HaalBerichtenOp(deelplatform);
                         Debug.WriteLine("Data opgehaald van " + deelplatform.Naam + " opgehaald (" + deelplatform.DataOphaalFrequentie + " per min frequentie)");
                     }
                 }

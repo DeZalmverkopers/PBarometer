@@ -21,9 +21,14 @@ namespace MVC.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public partial class SuperAdminController : Controller
     {
+
         // GET: SuperAdmin
         public virtual ActionResult Index()
         {
+            if (RouteData.Values["deelplatform"] == null)
+            {
+                ViewBag.GeenDeelplatformGeselecteerd = true;
+            }
             return View();
         }
 
