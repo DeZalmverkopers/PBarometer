@@ -39,10 +39,8 @@ namespace MVC.Controllers
       //GetData();
       deelplatformId = HuidigDeelplatform.DeelplatformId;
       GrafiekenManager grafiekenManager = new GrafiekenManager();
-      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(deelplatformId, 1, true, true);
 
       //List<string> grafieken = new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
-      ViewBag.Grafieken = grafieken;
 
       ViewBag.DeelplatformNaam = HuidigDeelplatform.Naam;
       ViewBag.Afbeelding = HuidigDeelplatform.AfbeeldingPad ?? "default.png";
@@ -127,7 +125,6 @@ namespace MVC.Controllers
 
       ViewBag.Personen = selects;
 
-      themas = itemManager.GetThemas(deelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in themas)
       {
@@ -353,42 +350,6 @@ namespace MVC.Controllers
       LaadItem(itemManager.GetPersonen(deelplatformId).ToList());
       ViewBag.Personen = selects;
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Personen/Personen5Items.cshtml", ViewBag);
-    }
-
-
-    public virtual ActionResult LaadThemas1Item()
-    {
-      LaadThema(itemManager.GetThemas(1).ToList());
-      ViewBag.Themas = selects;
-      return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas1Item.cshtml", ViewBag);
-    }
-
-    public virtual ActionResult LaadThemas2Items()
-    {
-      LaadThema(itemManager.GetThemas(deelplatformId).ToList());
-      ViewBag.Themas = selects;
-      return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas2Items.cshtml", ViewBag);
-    }
-
-    public virtual ActionResult LaadThemas3Items()
-    {
-      LaadThema(itemManager.GetThemas(deelplatformId).ToList());
-      ViewBag.Themas = selects;
-      return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas3Items.cshtml", ViewBag);
-    }
-
-    public virtual ActionResult LaadThemas4Items()
-    {
-      LaadThema(itemManager.GetThemas(deelplatformId).ToList());
-      ViewBag.Themas = selects;
-      return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas4Items.cshtml", ViewBag);
-    }
-
-    public virtual ActionResult LaadThemas5Items()
-    {
-      LaadThema(itemManager.GetThemas(deelplatformId).ToList());
-      ViewBag.Themas = selects;
-      return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas5Items.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadStatistiekenKeuze()
@@ -952,11 +913,8 @@ namespace MVC.Controllers
         ToonLegende = toonLegende,
         ToonXAs = toonXAs,
         ToonYAs = toonYAs,
-        Keuze = grafiekKeuze,
         XTitel = xTitel,
         YTitel = yTitel,
-        Waarden = waarden,
-        XOnder = xOnder,
         XOorsprongNul = xOorsprongNul,
         YOorsprongNul = yOorsprongNul,
         DashboardId = dashboardId,
@@ -1026,11 +984,8 @@ namespace MVC.Controllers
         ToonLegende = toonLegende,
         ToonXAs = toonXAs,
         ToonYAs = toonYAs,
-        Keuze = grafiekKeuze,
         XTitel = xTitel,
         YTitel = yTitel,
-        Waarden = waarden,
-        XOnder = xOnder,
         XOorsprongNul = xOorsprongNul,
         YOorsprongNul = yOorsprongNul,
         DashboardId = dashboardId,

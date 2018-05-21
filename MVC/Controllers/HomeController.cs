@@ -78,14 +78,12 @@ namespace MVC.Controllers
         ToonLegende = true,
         ToonXAs = true,
         ToonYAs = true,
-        Keuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd,
-        XOnder = false,
+
         XOorsprongNul = true,
         XTitel = "Items",
         YOorsprongNul = true,
         YTitel = "Waarden",
-        GrafiekItems = grafiekItems1,
-        Waarden = waarden1
+        GrafiekItems = grafiekItems1
       };
 
       grafiekenManager.AddGrafiek(grafiek1);
@@ -112,14 +110,11 @@ namespace MVC.Controllers
         ToonLegende = true,
         ToonXAs = true,
         ToonYAs = true,
-        Keuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd,
-        XOnder = false,
         XOorsprongNul = true,
         XTitel = "Items",
         YOorsprongNul = true,
         YTitel = "Waarden",
-        GrafiekItems = grafiekItems2,
-        Waarden = waarden2
+        GrafiekItems = grafiekItems2
       };
 
       grafiekenManager.AddGrafiek(grafiek2);
@@ -148,6 +143,7 @@ namespace MVC.Controllers
                 GrafiekWaarde.Polariteit,
                 GrafiekWaarde.Objectiviteit
             };
+
       DashboardsManager dashboardsManager = new DashboardsManager();
       int dashboardId = dashboardsManager.GetDashboardVanGebruikerMetGrafieken(User.Identity.GetUserId(), id).DashboardId;
       Grafiek grafiek1 = new Grafiek()
@@ -158,14 +154,11 @@ namespace MVC.Controllers
         ToonLegende = true,
         ToonXAs = true,
         ToonYAs = true,
-        Keuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd,
-        XOnder = false,
         XOorsprongNul = true,
         XTitel = "Items",
         YOorsprongNul = true,
         YTitel = "Waarden",
         GrafiekItems = grafiekItems1,
-        Waarden = waarden1
       };
 
       grafiekenManager.AddGrafiek(grafiek1);
@@ -192,14 +185,11 @@ namespace MVC.Controllers
         ToonLegende = true,
         ToonXAs = true,
         ToonYAs = true,
-        Keuze = GrafiekKeuze.VergelijkingItemsDoorheenDeTijd,
-        XOnder = false,
         XOorsprongNul = true,
         XTitel = "Items",
         YOorsprongNul = true,
         YTitel = "Waarden",
-        GrafiekItems = grafiekItems2,
-        Waarden = waarden2
+        GrafiekItems = grafiekItems2
       };
 
       grafiekenManager.AddGrafiek(grafiek2);

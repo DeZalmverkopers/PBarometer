@@ -53,6 +53,8 @@ namespace MVC.Controllers.Api
     {
       DashboardsManager dashboardsManager = new DashboardsManager();
       List<Grafiek> grafieken = dashboardsManager.GetDashboardVanGebruikerMetGrafieken(User.Identity.GetUserId(), deelplatformId).Grafieken;
+      Dashboard dashboard = dashboardsManager.GetDashboardVanGebruikerMetGrafieken(User.Identity.GetUserId(), deelplatformId);
+      GrafiekenManager grafiekenManager = new GrafiekenManager();
       List<GrafiekDTO> grafiekDTOs = new List<GrafiekDTO>();
       if (grafieken == null || grafieken.Count() == 0)
       {
@@ -63,16 +65,24 @@ namespace MVC.Controllers.Api
         foreach (var grafiek in grafieken)
         {
           List<string> xlabels = new List<string>();
+          List<string> legende = new List<string>();
           foreach (var item in grafiek.XLabels)
           {
             xlabels.Add(item.ToString());
           }
           grafiekDTOs.Add(new GrafiekDTO()
           {
+            GrafiekId = grafiek.GrafiekId
+          });
+
+          foreach (var item in grafiek.LegendeLijst)
+          {
+            legende.Add(item.ToString());
+          }
+          grafiekDTOs.Add(new GrafiekDTO()
+          {
             GrafiekId = grafiek.GrafiekId,
-            Data = grafiek.Data,
-            Keuze = grafiek.Keuze.ToString(),
-            LegendeLijst = grafiek.LegendeLijst,
+            LegendeLijst = legende,
             Periode = grafiek.Periode,
             Titel = grafiek.Titel,
             ToonLegende = grafiek.ToonLegende,
@@ -83,9 +93,8 @@ namespace MVC.Controllers.Api
             YTitel = grafiek.YTitel,
             YOorsprongNul = grafiek.YOorsprongNul,
             XLabels = xlabels,
-            XOnder = grafiek.XOnder,
             XOorsprongNul = grafiek.XOorsprongNul,
-            Waarden = grafiek.Waarden.Select(a => a.ToString()).ToList()
+            Data = grafiek.Datawaarden
           });
         }
         return Ok(grafiekDTOs);

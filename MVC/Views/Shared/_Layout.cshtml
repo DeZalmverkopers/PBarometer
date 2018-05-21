@@ -42,6 +42,7 @@
     {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
                     }
 
@@ -102,6 +103,45 @@
                 @*<li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>*@
 
                     @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
+=======
+
+                <li>@Html.ActionLink("Dashboard - grafieken", "Index", "Dashboard")</li>
+
+                <li>@Html.ActionLink("Dashboard - statistieken", "Index", "DashboardStatistieken")</li>
+
+                @*<li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Page 1
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Page 1-1</a></li>
+                        <li><a href="#">Page 1-2</a></li>
+                        <li><a href="#">Page 1-3</a></li>
+                    </ul>
+                </li>*@
+
+
+}
+
+                @*@if ((bool?)ViewBag.OverzichtAdded == true)
+    {*@
+                    @if (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
+    {
+
+
+                <li>@Html.ActionLink("Overzicht", "Index", "Overzicht")</li>
+
+
+}
+
+
+                @*@if ((bool?)ViewBag.WeeklyReviewAdded == true)
+    {*@
+                @*<li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>*@
+
+                    @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
     {
                 <li>@Html.ActionLink("Superadmin", "Index", "Superadmin")</li>
 }
@@ -112,6 +152,9 @@ if (User.IsInRole("Admin"))
                 <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
 }
 }
+<<<<<<< HEAD
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
+=======
 >>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
 
                 </ul>

@@ -12,6 +12,7 @@
     <div id="itemAantalTweetsKeuzelijst"></div>
 </div>
 
+<<<<<<< HEAD
 @*<div>
         <label>Selecteer een datumbereik</label>
         <div>
@@ -30,8 +31,33 @@
             <option hidden selected>Selecteer een optie</option>
             <option>Per dag</option>
             <option>Per week</option>
+=======
+
+
+<div>
+        <label>Van hoeveel dagen wilt u de evolutie zien?</label>
+        <select id="aantalDagen">
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
         </select>
-    </div>*@
+</div>
+
+
+<div>
+    <label>Geef een grafiektitel in</label>
+    <input id="grafiektitel" type="text" />
+</div>
 
 <div class="onzichtbaar" id="divToevoegenOpslaan">
     <button id="btnToevoegenOpslaan" class="btn btn-primary btn-algemene-layout">Opslaan</button>
@@ -85,9 +111,13 @@
         var keuze = $("#itemOpties").val();
         var link;
 
+      
+
+
         switch (keuze) {
             case "Persoon":
 
+<<<<<<< HEAD
                @*link = '@Url.Action("LaadStaafdiagram", "Dashboard", new { grafiektitel = "replaceGrafiektitel", labels = "replaceLabels", data = "replaceData" })'
                         .replace("replaceGrafiektitel", $("#persoon1").val() + " - aantal tweets")
                         .replace("replaceLabels", ["seppe1", "seppe2", "seppe3", "seppe4", "seppe5"])
@@ -99,10 +129,25 @@
 
                 link = '@Url.Action("LaadLijndiagramAantalTweets", "Dashboard", new { grafiektitel = "replaceGrafiektitel" })'
                     .replace("replaceGrafiektitel", $("#persoon1").val());
+=======
+                var sublink1 = '@Html.Raw(Url.Action("LaadLijndiagramAantalTweets", "Dashboard",
+                     new { grafiektitel = "replaceGrafiektitel",
+                         item = "replaceItem",
+                         aantalDagen = "replaceAantalDagen"
+                     }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var sublink2 = sublink1.replace("replaceItem", $("#persoon1").val());
+
+                link = sublink2.replace("replaceAantalDagen", $("#aantalDagen").val());
+
+
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
             break;
 
             case "Organisatie":
 
+<<<<<<< HEAD
                 @*link = '@Url.Action("LaadStaafdiagram", "Dashboard", new { grafiektitel = "replaceGrafiektitel", labels = "replaceLabels", data = "replaceData" })'
                     .replace("replaceGrafiektitel", $("#organisatie1").val() + " - aantal tweets")
                         .replace("replaceLabels", ["seppe1", "seppe2", "seppe3", "seppe4", "seppe5"])
@@ -113,27 +158,39 @@
 
                  link = '@Url.Action("LaadLijndiagramAantalTweets", "Dashboard", new { grafiektitel = "replaceGrafiektitel" })'
                      .replace("replaceGrafiektitel", $("#organisatie1").val());
+=======
+                var sublink1 = '@Html.Raw(Url.Action("LaadLijndiagramAantalTweets", "Dashboard",
+                     new { grafiektitel = "replaceGrafiektitel",
+                         item = "replaceItem",
+                         aantalDagen = "replaceAantalDagen"
+                     }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var sublink2 = sublink1.replace("replaceItem", $("#organisatie1").val());
+
+                link = sublink2.replace("replaceAantalDagen", $("#aantalDagen").val());
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
 
             break;
 
             case "Thema":
 
-                @*link = '@Url.Action("LaadStaafdiagram", "Dashboard", new { grafiektitel = "replaceGrafiektitel", labels = "replaceLabels", data = "replaceData" })'
-                    .replace("replaceGrafiektitel", $("#thema1").val())
-                    .replace("replaceLabels", ["seppe1", "seppe2", "seppe3", "seppe4", "seppe5"])
-                    .replace("replaceData", [8, 4, 7, 15, 11]);*@
+               var sublink1 = '@Html.Raw(Url.Action("LaadLijndiagramAantalTweets", "Dashboard",
+                     new { grafiektitel = "replaceGrafiektitel",
+                         item = "replaceItem",
+                         aantalDagen = "replaceAantalDagen"
+                     }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
-                @*link = '@Url.Action("LaadStaafdiagram", "Dashboard", new { grafiektitel = "replaceGrafiektitel", labels = "replaceLabels", data = "replaceData" })'
-                    .replace("replaceGrafiektitel", $("#thema1").val());*@
+                var sublink2 = sublink1.replace("replaceItem", $("#thema1").val());
 
-                 link = '@Url.Action("LaadLijndiagramAantalTweets", "Dashboard", new { grafiektitel = "replaceGrafiektitel" })'
-                     .replace("replaceGrafiektitel", $("#thema1").val());
+                link = sublink2.replace("replaceAantalDagen", $("#aantalDagen").val());
 
             break;
         }
 
         $.get(link, {}, function (resultaat) {
-            $("#elementen").append("<div class=col-md-6>" + resultaat + "</div>");
+            $("#elementenGrafieken").append("<div class=col-md-6>" + resultaat + "</div>");
 
         });
 

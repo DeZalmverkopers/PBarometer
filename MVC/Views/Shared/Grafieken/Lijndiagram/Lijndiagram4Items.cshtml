@@ -9,6 +9,15 @@
             <span class="glyphicon glyphicon-remove"></span>
         </button>
     </div>*@
+<<<<<<< HEAD
+=======
+
+
+<div>
+    <canvas id="lineChart4Items" height="250"></canvas>
+
+</div>
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
 
 
 <div>
@@ -33,6 +42,7 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     var ctx = $("#lineChart");
     var myLineChart = new Chart(ctx, {
 
@@ -51,6 +61,13 @@
             var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
             var subid;
 
+=======
+@*<script>
+        function grafiekVerwijderen(id) {
+            var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+            var subid;
+
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
             if (lengteId == 0) {
                 subid = id.substring(id.length - 1);
             } else if (lengteId > 0) {
@@ -63,11 +80,15 @@
 
                 $("#verwijderen-" + subid).remove();
                 $("#bewerken-" + subid).remove();
+<<<<<<< HEAD
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
+=======
 >>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
 
             }
         }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         },
         type: 'line',
@@ -112,6 +133,29 @@
         }
     });
 </script>
+=======
+        function grafiekBewerken(id) {
+
+            var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+            var subid;
+
+            if (lengteId == 0) {
+                subid = id.substring(id.length - 1);
+            } else if (lengteId > 0) {
+                subid = id.substring(id.indexOf("-") + 1, id.length - 1);
+            }
+
+
+            $("#modalGrafiekAanpassen").modal();
+
+            $.get('@Url.Action("LaadGrafiekAanpassen", "Dashboard")', {}, function (resultaat) {
+                $("#divGrafiekAanpassen").html(resultaat);
+            });
+
+        }
+
+    </script>*@
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
 =======
         function grafiekBewerken(id) {
 

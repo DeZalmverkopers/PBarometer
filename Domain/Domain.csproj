@@ -88,6 +88,7 @@
     <Compile Include="Dashboards\GrafiekKeuze.cs" />
     <Compile Include="Dashboards\GrafiekType.cs" />
     <Compile Include="Dashboards\GrafiekWaarde.cs" />
+    <Compile Include="Dashboards\Statistiek.cs" />
     <Compile Include="Deelplatformen\Deelplatform.cs" />
     <Compile Include="Deelplatformen\FAQItem.cs" />
     <Compile Include="Deelplatformen\Settings.cs" />

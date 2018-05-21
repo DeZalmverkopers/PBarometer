@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<div>
     <label>Organisatie 1</label>
     @Html.DropDownList("Dashboard", ViewBag.Organisaties as List<SelectListItem>, new { id = "organisatie1" }})
@@ -7,3 +8,12 @@
     <label>Organisatie 2</label>
     @Html.DropDownList("Dashboard", ViewBag.Organisaties as List<SelectListItem>, new { id = "organisatie2" })
 </div>
+=======
+﻿@for (int i = 1; i <= 2; i++)
+{
+    <div>
+        <label>Organisatie @i</label>
+        @Html.DropDownList("Dashboard", ViewBag.OrganisatiesViewbag as List<SelectListItem>, new { id = "organisatie" + i })
+    </div>
+}
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0

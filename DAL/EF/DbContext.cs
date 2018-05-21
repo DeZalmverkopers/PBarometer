@@ -42,11 +42,14 @@ namespace DAL.EF
       modelBuilder.Entity<DetailItem>().ToTable("DetailItems");
       modelBuilder.Entity<GemonitordItem>().ToTable("GemonitordeItems");
       modelBuilder.Entity<ItemHistoriek>().ToTable("ItemHistorieken");
+      modelBuilder.Entity<GrafiekItem>().ToTable("Grafiekitems");
 
       modelBuilder.Entity<IdentityUserLogin>().HasKey(l => l.UserId);
       modelBuilder.Entity<IdentityRole>().HasKey(r => r.Id);
       modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
 
+      modelBuilder.Entity<Grafiek>().HasKey(g => g.GrafiekId);
+      //modelBuilder.Entity<GrafiekItem>().HasKey(gi => gi.GrafiekItemId);
 
       //Foreign keys
       //modelBuilder.Entity<Alert>().HasRequired(alert => alert.Gebruiker).WithMany(gebruiker => gebruiker.Alerts);

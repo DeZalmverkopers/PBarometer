@@ -21,10 +21,19 @@ namespace MVC.Models.Android
 
     public List<string> LegendeLijst { get; set; }
     public List<string> XLabels { get; set; }
-    public Dictionary<int, List<dynamic>> Data { get; set; }
     public List<string> Waarden { get; set; }
     public int Periode { get; set; }
     public string Type { get; set; }
     public string Keuze { get; set; }
+
+    public List<List<double>> Data { get; set; }
+
+
+    public GrafiekDTO()
+    {
+      LegendeLijst = new List<string>();
+      XLabels = new List<string>();
+      Data = new List<List<double>>();
+    }
   }
 }
