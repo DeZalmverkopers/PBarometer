@@ -101,7 +101,9 @@ namespace MVC.Controllers
             {
                 ViewBag.HeeftMeestVoorkomendeURL = false;
             }
-
+            //ViewBag.ItemDagen = persoon.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString());
+            //ViewBag.ItemAantalTweets = persoon.ItemHistorieken.Select(a => a.AantalVermeldingen);
+            //ViewBag.Grafiektitel = "Aantal Vermeldingen";
 
             return PartialView("PersoonDetails", ViewBag);
         }
@@ -306,7 +308,7 @@ namespace MVC.Controllers
             Thema thema = gemonitordeItemsManager.GetGemonitordItem(id) as Thema;
             ThemaViewModel themaViewModel = new ThemaViewModel()
             {
-                Kernwoorden = String.Join(", ", thema.KernWoorden.ToArray()),
+                Kernwoorden = String.Join(",", thema.KernWoorden.ToArray()),
                 Naam = thema.Naam,
                 Id = thema.GemonitordItemId
             };
@@ -339,7 +341,7 @@ namespace MVC.Controllers
             List<string> leden = organisatie.Personen.Select(a => a.Naam).ToList();
             OrganisatieViewModel organisatieViewModel = new OrganisatieViewModel()
             {
-                Leden = String.Join(", ", leden),
+                Leden = String.Join(",", leden),
                 Naam = organisatie.Naam,
                 Id = organisatie.GemonitordItemId
             };
@@ -353,12 +355,7 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 Organisatie organisatie = gemonitordeItemsManager.GetGemonitordItem(organisatieViewModel.Id) as Organisatie;
-                if (organisatieViewModel.Leden != null)
-                {
-                    organisatie.Personen = gemonitordeItemsManager.GetPersonen(deelplatformId, organisatieViewModel.Leden.Split(',').ToList()).ToList();
-                }
-                organisatie.Naam = organisatieViewModel.Naam;
-                gemonitordeItemsManager.ChangeGemonitordItem(organisatie);
+                gemonitordeItemsManager.EditOrganisatie(organisatieViewModel.Id, HuidigDeelplatform.DeelplatformId, organisatieViewModel.Naam, organisatieViewModel.Leden.Split(',').ToList());
                 return RedirectToAction("Index");
             }
             else

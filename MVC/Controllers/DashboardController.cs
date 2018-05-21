@@ -800,7 +800,6 @@ namespace MVC.Controllers
       List<double> grafiekWaarden = new List<double>();
 
       List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
-
       for (int i = 0; i < gemonitordeItems.Count; i++)
       {
         if (gemonitordeItems[i].Naam.Equals(item))
