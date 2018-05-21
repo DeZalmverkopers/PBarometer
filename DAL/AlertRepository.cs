@@ -9,52 +9,65 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-  public class AlertRepository
-  {
-    private EF.DbContext context;
-
-    public AlertRepository()
+    public class AlertRepository
     {
-      context = new EF.DbContext();
-    }
+        private EF.DbContext context;
 
-    public AlertRepository(UnitOfWork uow)
-    {
-      context = uow.Context;
-    }
+        public AlertRepository()
+        {
+            context = new EF.DbContext();
+        }
 
-    public void CreateAlert(Alert alert)
-    {
-      context.Alerts.Add(alert);
-      context.SaveChanges();
-    }
+        public AlertRepository(UnitOfWork uow)
+        {
+            context = uow.Context;
+        }
 
-    public IEnumerable<Alert> ReadAlerts(bool gebruiker, bool gemonitordItem)
-    {
-      if (!gebruiker && !gemonitordItem) return context.Alerts.AsEnumerable();
-      if (!gebruiker && gemonitordItem) return context.Alerts.Include("GemonitordItem").AsEnumerable();
-      if (gebruiker && !gemonitordItem) return context.Alerts.Include("Gebruiker").AsEnumerable();
-      else return context.Alerts.Include("Gebruiker").Include("GemonitordItem").AsEnumerable();
-    }
+        public void CreateAlert(Alert alert)
+        {
+            context.Alerts.Add(alert);
+            context.SaveChanges();
+        }
 
-    public Alert ReadAlert(int id, bool gebruiker, bool gemonitordItem)
-    {
-      if (!gebruiker && !gemonitordItem) return context.Alerts.AsEnumerable().SingleOrDefault(a => a.AlertId == id);
-      if (!gebruiker && gemonitordItem) return context.Alerts.Include("GemonitordItem").AsEnumerable().SingleOrDefault(a => a.AlertId == id);
-      if (gebruiker && !gemonitordItem) return context.Alerts.Include("Gebruiker").AsEnumerable().SingleOrDefault(a => a.AlertId == id);
-      else return context.Alerts.Include("Gebruiker").Include("GemonitordItem").AsEnumerable().SingleOrDefault(a => a.AlertId == id);
-    }
+        public IEnumerable<Alert> ReadAlerts(bool gebruiker, bool gemonitordItem)
+        {
+            if (!gebruiker && !gemonitordItem) return context.Alerts.AsEnumerable();
+            if (!gebruiker && gemonitordItem) return context.Alerts.Include("GemonitordItem").AsEnumerable();
+            if (gebruiker && !gemonitordItem) return context.Alerts.Include("Gebruiker").AsEnumerable();
+            else return context.Alerts.Include("Gebruiker").Include("GemonitordItem").AsEnumerable();
+        }
 
-    public void UpdateAlert(Alert alert)
-    {
-      context.Entry(alert).State = EntityState.Modified;
-      context.SaveChanges();
-    }
+        public Alert ReadAlert(int id, bool gebruiker, bool gemonitordItem)
+        {
+            if (!gebruiker && !gemonitordItem) return context.Alerts.AsEnumerable().SingleOrDefault(a => a.AlertId == id);
+            if (!gebruiker && gemonitordItem) return context.Alerts.Include("GemonitordItem").AsEnumerable().SingleOrDefault(a => a.AlertId == id);
+            if (gebruiker && !gemonitordItem) return context.Alerts.Include("Gebruiker").AsEnumerable().SingleOrDefault(a => a.AlertId == id);
+            else return context.Alerts.Include("Gebruiker").Include("GemonitordItem").AsEnumerable().SingleOrDefault(a => a.AlertId == id);
+        }
 
-    public void DeleteAlert(Alert alert)
-    {
-      context.Alerts.Remove(alert);
-      context.SaveChanges();
+        public void UpdateAlert(Alert alert)
+        {
+            context.Entry(alert).State = EntityState.Modified;
+            context.SaveChanges();
+        }
+
+        public void DeleteAlerts(IEnumerable<Alert> alerts)
+        {
+            if (alerts.Count() > 0)
+            {
+                foreach (var alert in alerts)
+                {
+                    context.Alerts.Remove(alert);
+                }
+                context.SaveChanges();
+            }
+
+        }
+
+        public void DeleteAlert(Alert alert)
+        {
+            context.Alerts.Remove(alert);
+            context.SaveChanges();
+        }
     }
-  }
 }

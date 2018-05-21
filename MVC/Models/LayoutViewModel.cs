@@ -1,7 +1,10 @@
-﻿namespace MVC.Models
+﻿using System.Web;
+
+namespace MVC.Models
 {
-  public class LayoutViewModel
-  {
-    public string kleur { get; set; }
-  }
+    public class LayoutViewModel
+    {
+        public string Kleur { get; set; }
+        public HttpPostedFileBase Afbeelding { get; set; }
+    }
 }

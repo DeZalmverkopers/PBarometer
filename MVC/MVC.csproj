@@ -226,6 +226,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Android\DeelplatformDTO.cs" />
     <Compile Include="Models\Android\GrafiekDTO.cs" />
+    <Compile Include="Models\Android\Notificaties\Message.cs" />
+    <Compile Include="Models\Android\Notificaties\Notification.cs" />
     <Compile Include="Models\Home\DeelplatformViewModel.cs" />
     <Compile Include="Models\Overzicht\OrganisatieViewModel.cs" />
     <Compile Include="Controllers\OverzichtController.cs" />
@@ -453,7 +455,7 @@
     <Content Include="Views\Shared\AdminSuperadmin\DataImporterenEnExporteren.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\GebruikersactiviteitMonitoren.cshtml" />
     <Content Include="Views\Shared\AdminSuperadmin\GemonitordeItemsBeheren.cshtml" />
-    <Content Include="Views\Shared\AdminSuperadmin\LayoutAanpassen.cshtml" />
+    <Content Include="Views\Admin\LayoutAanpassen.cshtml" />
     <Content Include="Views\Shared\CheckEmailPrompt.cshtml" />
     <Content Include="Views\Shared\Dashboard\BeheerScripts.cshtml" />
     <Content Include="Views\Shared\Dashboard\Bewerkingsknop.cshtml" />
@@ -561,7 +563,7 @@
     <None Include="Views\Shared\Grafieken\Staafdiagram\Staafdiagram3Items.cshtml" />
     <Content Include="Views\SuperAdmin\MaakDeelplatform.cshtml" />
     <Content Include="Views\SuperAdmin\EditDeelplatform.cshtml" />
-    <Content Include="Views\SuperAdmin\OverzichtDeelplatformen.cshtml" />
+    <Content Include="Views\SuperAdmin\OverzichtDeelplatform.cshtml" />
     <None Include="Web.CustomProfile.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
