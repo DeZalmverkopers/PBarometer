@@ -1,45 +1,64 @@
-﻿@for (int i = 1; i < ViewBag.Grafieken.Count + 1; i++)
+﻿@*@foreach (var grafiek in ViewBag.GrafiekenDefault)
 {
+    <div class="col-md-5">
 
-    <div class="col-md-6">
-        @if (i % 2 != 0)
-        {
+        <canvas id="@grafiek.GrafiekId" height="300"></canvas>
 
-            <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId></canvas>
+        <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
 
-
-
-            <button id="bewerken-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" data-target="#modalGrafiekAanpassen" data-toggle="modal">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </button>
-            <button id="verwijderen-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary">
-                <span class="glyphicon glyphicon-remove"></span>
-            </button>
-        }
-    </div>
-
-    <div class="col-md-6">
-
-        @if (i % 2 == 0)
-        {
-
-            <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId></canvas>
-
-
-
-            <button id="bewerken-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" data-target="#modalGrafiekAanpassen" data-toggle="modal">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </button>
-            <button id="verwijderen-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary">
-                <span class="glyphicon glyphicon-remove"></span>
-            </button>
-
-
-        }
+        <button id="verwijderen-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
 
     </div>
-
-}
-
+    <div class="col-md-1">
 
 
+
+    </div>
+}*@
+
+
+@*@for (int i = 1; i < ViewBag.Grafieken.Count + 1; i++)
+    {
+
+        if (i % 2 != 0)
+        {
+
+            <div class="col-md-6">
+
+                <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId height="250"></canvas>
+
+                <button id="bewerken-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+
+                <button id="verwijderen-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+
+            </div>
+        }
+
+        if (i % 2 == 0)
+        {
+
+            <div class="col-md-6">
+
+                <canvas id=@ViewBag.Grafieken[i - 1].GrafiekId height="250"></canvas>
+
+                <button id="bewerken-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+
+                <button id="verwijderen-@ViewBag.Grafieken[i - 1].GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+
+            </div>
+        }
+
+
+    }*@
