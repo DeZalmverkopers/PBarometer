@@ -15,6 +15,7 @@ namespace Domain.Deelplatformen
         public string AfbeeldingPad { get; set; }
         public string Achtergrondkleur { get; set; }
         public string URLnaam { get; set; }
+
         public List<GemonitordItem> GemonitordeItems { get; set; }
         public List<Alert> Alerts { get; set; }
         public List<Dashboard> Dashboards { get; set; }
@@ -23,12 +24,19 @@ namespace Domain.Deelplatformen
 
 
 
+        public int DataOphaalFrequentie { get; set; }
+
+        public List<GemonitordItem> GemonitordeItems { get; set; }
+
+
         public Deelplatform()
         {
             GemonitordeItems = new List<GemonitordItem>();
+
             Alerts = new List<Alert>();
             DetailItems = new List<DetailItem>();
             Dashboards = new List<Dashboard>();
+
         }
         public bool OverzichtAdded { get; set; }
         public bool WeeklyReviewAdded { get; set; }

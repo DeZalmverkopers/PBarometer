@@ -23,21 +23,18 @@
 
 <div id="divSelectie"></div>
 
-@*<div>
-        <label>Welke data wilt u vergelijken voor deze items?</label>
+<div>
+    <label>Welke data wilt u vergelijken voor deze items?</label>
 
-        <select id="gewensteData">
-            <option></option>
-            <option></option>
-            <option></option>
-        </select>
-    </div>*@
+    <select id="gewensteData">
+        <option value="av">Aantal vermeldingen</option>
+        <option value="gp">Gemiddelde polariteit</option>
+        <option value="go">Gemiddelde objectiviteit</option>
+    </select>
+</div>
 
 
-@*<div>
-        <label>Selecteer een datum en een tijdstip</label>
-        <input id="inputDatumTijd" type="datetime-local" />
-    </div>*@
+
 
 <div>
     <label>Geef een grafiektitel in</label>
@@ -81,36 +78,6 @@
                         var aantalItems = $("#aantalItems").val();
 
                         switch (aantalItems) {
-                            @*case "1":
-
-                                switch (vergelijkingskeuze) {
-                                    case "Persoon":
-                                        $.get('@Url.Action("LaadPersonen1Item", "Dashboard")', {}, function (resultaat) {
-                                            $("#divSelectie").html(resultaat);
-                                        });
-
-                                        typeAantal = "persoon1item";
-
-                                        break;
-                                    case "Organisatie":
-                                        $.get('@Url.Action("LaadOrganisaties1Item", "Dashboard")', {}, function (resultaat) {
-                                            $("#divSelectie").html(resultaat);
-                                        });
-
-                                        typeAantal = "organisatie1item";
-
-                                        break;
-
-                                    case "Thema":
-                                        $.get('@Url.Action("LaadThemas1Item", "Dashboard")', {}, function (resultaat) {
-                                            $("#divSelectie").html(resultaat);
-                                        });
-
-                                        typeAantal = "thema1item";
-                                }
-                                break;*@
-
-
 
                             case "2":
                                 switch (vergelijkingskeuze) {
@@ -118,6 +85,8 @@
                                         $.get('@Url.Action("LaadPersonen2Items", "Dashboard")', {}, function (resultaat) {
                                             $("#divSelectie").html(resultaat);
                                         });
+
+                                      
 
                                         typeAantal = "persoon2items"
 
@@ -241,6 +210,8 @@
     });
 
 
+     
+
 
 
     $("#btnToevoegenOpslaan").click(function () {
@@ -248,31 +219,28 @@
         var link;
 
         switch (typeAantal) {
-            @*case "persoon1item":
 
-                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment1Item", "Dashboard", new { grafiektitel = "replaceGrafiektitel", item1 = "replaceItem1" }))'
-                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
-
-                link = tempLink.replace("replaceItem1", $("#persoon1").val() );
-
-            break;*@
 
             case "persoon2items":
 
-                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment2Items", "Dashboard", new
+                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment2Items", "Dashboard", new
                            {
                                grafiektitel = "replaceGrafiektitel",
                                item1 = "replaceItem1",
-                               item2 = "replaceItem2"
+                               item2 = "replaceItem2",
+                               gewensteData = "replaceGewensteData"
                            }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 var templink2 = tempLink.replace("replaceItem1", $("#persoon1").val());
 
-                link = templink2.replace("replaceItem2", $("#persoon2").val());
+                var templink3 = templink2.replace("replaceItem2", $("#persoon2").val());
+
+                link = templink3.replace("replaceGewensteData", $("#gewensteData").val());
+
+                break;
 
 
-            break;
 
             case "persoon3items":
 
@@ -281,41 +249,44 @@
                                grafiektitel = "replaceGrafiektitel",
                                item1 = "replaceItem1",
                                item2 = "replaceItem2",
-                               item3 = "replaceItem3"
+                               item3 = "replaceItem3",
+                               gewensteData = "replaceGewensteData"
                            }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 var templink2 = tempLink.replace("replaceItem1", $("#persoon1").val());
 
+                var templink3 = templink2.replace("replaceItem2", $("#persoon2").val());
 
-                var templink3 = templink2.replace("replaceItem2", $("#persoon2").val())
+                var templink4 = templink3.replace("replaceItem3", $("#persoon3").val());
 
-                link = templink3.replace("replaceItem3", $("#persoon3").val());
+                link = templink4.replace("replaceGewensteData", $("#gewensteData").val());
 
-                              break;
+                break;
+
 
             case "persoon4items":
 
-                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment4Items", "Dashboard", new
+                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment4Items", "Dashboard", new
                            {
                                grafiektitel = "replaceGrafiektitel",
                                item1 = "replaceItem1",
                                item2 = "replaceItem2",
                                item3 = "replaceItem3",
-                               item4 = "replaceItem4"
-
+                               item4 = "replaceItem4",
+                               gewensteData = "replaceGewensteData"
                            }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 var templink2 = tempLink.replace("replaceItem1", $("#persoon1").val());
 
-                var templink3 = templink2.replace("replaceItem2", $("#persoon2").val())
+                var templink3 = templink2.replace("replaceItem2", $("#persoon2").val());
 
-                var templink4 = templink3.replace("replaceItem3", $("#persoon3").val())
+                var templink4 = templink3.replace("replaceItem3", $("#persoon3").val());
 
-                link = templink4.replace("replaceItem4", $("#persoon4").val())
+                var templink5 = templink4.replace("replaceItem4", $("#persoon4").val());
 
-
+                link = templink5.replace("replaceGewensteData", $("#gewensteData").val());
 
                 break;
 
@@ -328,31 +299,26 @@
                                item2 = "replaceItem2",
                                item3 = "replaceItem3",
                                item4 = "replaceItem4",
-                               item5 = "replaceItem5"
+                               item5 = "replaceItem5",
+                               gewensteData = "replaceGewensteData"
                            }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 var templink2 = tempLink.replace("replaceItem1", $("#persoon1").val());
 
-                var templink3 = templink2.replace("replaceItem2", $("#persoon2").val())
+                var templink3 = templink2.replace("replaceItem2", $("#persoon2").val());
 
-                var templink4 = templink3.replace("replaceItem3", $("#persoon3").val())
+                var templink4 = templink3.replace("replaceItem3", $("#persoon3").val());
 
-                var templink5 = templink4.replace("replaceItem4", $("#persoon4").val())
+                var templink5 = templink4.replace("replaceItem4", $("#persoon4").val());
 
-                link = templink5.replace("replaceItem5", $("#persoon5").val())
+                var templink6 = templink5.replace("replaceItem5", $("#persoon5").val());
+
+                link = templink6.replace("replaceGewensteData", $("#gewensteData").val());
 
                 break;
 
 
-             @*case "organisatie1item":
-
-                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment1Item", "Dashboard", new { grafiektitel = "replaceGrafiektitel", item1 = "replaceItem1" }))'
-                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
-
-                link = tempLink.replace("replaceItem1", $("#organisatie1").val() );
-
-            break;*@
 
             case "organisatie2items":
 
@@ -360,46 +326,8 @@
                            {
                                grafiektitel = "replaceGrafiektitel",
                                item1 = "replaceItem1",
-                               item2 = "replaceItem2"
-                           }))'
-                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
-
-                var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
-
-                link = templink2.replace("replaceItem2", $("#organisatie2").val());
-
-                break;
-
-            case "organisatie3items":
-
-                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment3Items", "Dashboard", new
-                           {
-                               grafiektitel = "replaceGrafiektitel",
-                               item1 = "replaceItem1",
                                item2 = "replaceItem2",
-                               item3 = "replaceItem3"
-                           }))'
-                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
-
-                var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
-
-
-                var templink3 = templink2.replace("replaceItem2", $("#organisatie2").val())
-
-                link = templink3.replace("replaceItem3", $("#organisatie3").val());
-
-                break;
-
-            case "organisatie4items":
-
-                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment4Items", "Dashboard", new
-                           {
-                               grafiektitel = "replaceGrafiektitel",
-                               item1 = "replaceItem1",
-                               item2 = "replaceItem2",
-                               item3 = "replaceItem3",
-                               item4 = "replaceItem4"
-
+                               gewensteData = "replaceGewensteData"
                            }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
@@ -407,61 +335,101 @@
 
                 var templink3 = templink2.replace("replaceItem2", $("#organisatie2").val());
 
-                var templink4 = templink3.replace("replaceItem3", $("#organisatie3").val());
-
-                link = templink4.replace("replaceItem4", $("#organisatie4").val());
+                link = templink3.replace("replaceGewensteData", $("#gewensteData").val());
 
                 break;
 
-            case "organisatie5items":
+            case "organisatie3items":
 
-                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment5Items", "Dashboard", new
+                  var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment3Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3",
+                               gewensteData = "replaceGewensteData"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                  var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
+
+                  var templink3 = templink2.replace("replaceItem2", $("#organisatie2").val());
+
+                  var templink4 = templink3.replace("replaceItem3", $("#organisatie3").val());
+
+                link = templink4.replace("replaceGewensteData", $("#gewensteData").val());
+
+                break;
+
+            case "organisatie4items":
+
+                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment4Items", "Dashboard", new
                            {
                                grafiektitel = "replaceGrafiektitel",
                                item1 = "replaceItem1",
                                item2 = "replaceItem2",
                                item3 = "replaceItem3",
                                item4 = "replaceItem4",
-                               item5 = "replaceItem5"
+                               gewensteData = "replaceGewensteData"
                            }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
-                var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
+                 var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
 
-                var templink3 = templink2.replace("replaceItem2", $("#organisatie2").val());
+                 var templink3 = templink2.replace("replaceItem2", $("#organisatie2").val());
 
-                var templink4 = templink3.replace("replaceItem3", $("#organisatie3").val());
+                 var templink4 = templink3.replace("replaceItem3", $("#organisatie3").val());
 
-                var templink5 = templink4.replace("replaceItem4", $("#organisatie4").val());
+                 var templink5 = templink4.replace("replaceItem4", $("#organisatie4").val());
 
-                link = templink5.replace("replaceItem5", $("#organisatie5").val())
+                link = templink6.replace("replaceGewensteData", $("#gewensteData").val());
 
                 break;
 
+            case "organisatie5items":
 
-
-
-            @*case "thema1item":
-
-                 link = '@Url.Action("LaadVergelijkingOpMoment1Item", "Dashboard", new { grafiektitel = "replaceGrafiektitel", item1 = "replaceItem1" })'
-                     .replace("replaceGrafiektitel", $("#grafiektitel").val()).replace("replaceItem1", $("#thema1").val());
-
-                        break;*@
-
-            case "thema2items":
-
-                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment2Items", "Dashboard", new
+               var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment5Items", "Dashboard", new
                            {
                                grafiektitel = "replaceGrafiektitel",
                                item1 = "replaceItem1",
-                               item2 = "replaceItem2"
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3",
+                               item4 = "replaceItem4",
+                               item5 = "replaceItem5",
+                               gewensteData = "replaceGewensteData"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+               var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
+
+               var templink3 = templink2.replace("replaceItem2", $("#organisatie2").val());
+
+               var templink4 = templink3.replace("replaceItem3", $("#organisatie3").val());
+
+               var templink5 = templink4.replace("replaceItem4", $("#organisatie4").val());
+
+               var templink6 = templink5.replace("replaceItem5", $("#organisatie5").val());
+
+                link = templink6.replace("replaceGewensteData", $("#gewensteData").val());
+
+                break;
+
+            case "thema2items":
+
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment2Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               gewensteData = "replaceGewensteData"
                            }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 var templink2 = tempLink.replace("replaceItem1", $("#thema1").val());
 
-                link = templink2.replace("replaceItem2", $("#thema2").val());
+                var templink3 = templink2.replace("replaceItem2", $("#thema2").val());
 
+                link = templink3.replace("replaceGewensteData", $("#gewensteData").val());
 
                 break;
 
@@ -472,64 +440,71 @@
                                grafiektitel = "replaceGrafiektitel",
                                item1 = "replaceItem1",
                                item2 = "replaceItem2",
-                               item3 = "replaceItem3"
+                               item3 = "replaceItem3",
+                               gewensteData = "replaceGewensteData"
                            }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 var templink2 = tempLink.replace("replaceItem1", $("#thema1").val());
 
+                var templink3 = templink2.replace("replaceItem2", $("#thema2").val());
 
-                var templink3 = templink2.replace("replaceItem2", $("#thema2").val())
+                var templink4 = templink3.replace("replaceItem3", $("#thema3").val());
 
-                link = templink3.replace("replaceItem3", $("#thema3").val());
+                link = templink4.replace("replaceGewensteData", $("#gewensteData").val());
 
                 break;
 
             case "thema4items":
 
-                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment4Items", "Dashboard", new
-                           {
-                               grafiektitel = "replaceGrafiektitel",
-                               item1 = "replaceItem1",
-                               item2 = "replaceItem2",
-                               item3 = "replaceItem3",
-                               item4 = "replaceItem4"
-
-                           }))'
-                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
-
-                var templink2 = tempLink.replace("replaceItem1", $("#thema1").val());
-
-                var templink3 = templink2.replace("replaceItem2", $("#thema2").val())
-
-                var templink4 = templink3.replace("replaceItem3", $("#thema3").val())
-
-                link = templink4.replace("replaceItem4", $("#thema4").val())
-
-                break;
-
-            case "thema5items":
-
-                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment5Items", "Dashboard", new
+                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment4Items", "Dashboard", new
                            {
                                grafiektitel = "replaceGrafiektitel",
                                item1 = "replaceItem1",
                                item2 = "replaceItem2",
                                item3 = "replaceItem3",
                                item4 = "replaceItem4",
-                               item5 = "replaceItem5"
+                              gewensteData = "replaceGewensteData"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                 var templink2 = tempLink.replace("replaceItem1", $("#thema1").val());
+
+                 var templink3 = templink2.replace("replaceItem2", $("#thema2").val());
+
+                 var templink4 = templink3.replace("replaceItem3", $("#thema3").val());
+
+                 var templink5 = templink4.replace("replaceItem4", $("#thema4").val());
+
+                link = templink5.replace("replaceGewensteData", $("#gewensteData").val());
+
+                break;
+
+            case "thema5items":
+
+                  var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment5Items", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               item2 = "replaceItem2",
+                               item3 = "replaceItem3",
+                               item4 = "replaceItem4",
+                               item5 = "replaceItem5",
+                               gewensteData = "replaceGewensteData"
                            }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 var templink2 = tempLink.replace("replaceItem1", $("#thema1").val());
 
-                var templink3 = templink2.replace("replaceItem2", $("#thema2").val())
+                var templink3 = templink2.replace("replaceItem2", $("#thema2").val());
 
-                var templink4 = templink3.replace("replaceItem3", $("#thema3").val())
+                var templink4 = templink3.replace("replaceItem3", $("#thema3").val());
 
-                var templink5 = templink4.replace("replaceItem4", $("#thema4").val())
+                var templink5 = templink4.replace("replaceItem4", $("#thema4").val());
 
-                link = templink5.replace("replaceItem5", $("#thema5").val())
+                var templink6 = templink5.replace("replaceItem5", $("#thema5").val());
+
+                link = templink6.replace("replaceGewensteData", $("#gewensteData").val());
 
                 break;
         }
@@ -537,7 +512,7 @@
 
 
         $.get(link, {}, function (resultaat) {
-            $("#elementen").append("<div class=col-md-6>" + resultaat + "</div>");
+            $("#elementenGrafieken").append("<div class=col-md-6>" + resultaat + "</div>");
 
         });
 

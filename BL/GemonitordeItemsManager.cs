@@ -16,7 +16,7 @@ namespace BL
         private UnitOfWorkManager uowManager;
 
         public GemonitordeItemsManager()
-        {
+   https://github.com/DeZalmverkopers/PBarometer/pull/49/conflict?name=Domain%252FDeelplatformen%252FDeelplatform.cs&ancestor_oid=d4bf8ecbcaf2f688d93e6a232fa0f56b6ef75769&base_oid=2ba5069877e59ddf1f8fb70152bb8f8c4c88d31b&head_oid=860c90a7e819e58ac10726343a8adb720deffae8     {
 
         }
 
@@ -54,7 +54,17 @@ namespace BL
             }
             return gemonitordeItems;
 
+
         }
+
+    public IEnumerable<GemonitordItem> GetThemas(int deelplatformId)
+    {
+      InitNonExistingRepo();
+      //return repository.ReadGemonitordeItems().Where(a => a is Thema && a.DeelplatformId == deelplatformId).Cast<Thema>();
+      return repository.ReadGemonitordeItems().Where(a => a is Thema && a.DeelplatformId == deelplatformId);
+
+    }
+
 
         public IEnumerable<GemonitordItem> GetOrganisaties(int deelplatformId)
         {
