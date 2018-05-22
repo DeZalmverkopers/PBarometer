@@ -1,27 +1,43 @@
-﻿@{
-    var aantalTweets = 0;
-    var aantalVermeldingen = 0;
+﻿<div id="@ViewBag.StatistiekId">
 
-    var trendTweets = "neutraal";
-    var trendVermeldingen = "neutraal";
-}
+    <h3 class="statistieken-opmaak-titel">
+        @ViewBag.ItemNaam
+    </h3>
 
-<h3>Item</h3>
+    <div>
+        <div class="statistieken-opmaak-inhoud">
+            Aantal tweets: @ViewBag.ItemVermeldingen
+        </div>
+        <div class="statistieken-opmaak-inhoud">
+            Trend: @ViewBag.ItemTrend
+        </div>
 
-<div>
-    <div>
-        Aantal tweets: @aantalTweets
     </div>
-    <div>
-        Trend: @trendTweets
-    </div>
-    <br />
-    <div>
-        Aantal vermeldingen: @aantalVermeldingen
-    </div>
-    <div>
-        Trend: @trendVermeldingen
-    </div>
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+</div>
+=======
+    <button id="verwijderen-@ViewBag.StatistiekId" class="btn btn-primary" onclick="statistiekVerwijderen(this.id)">
+        <span class="glyphicon glyphicon-remove"></span>
+    </button>
+
+   
+
 </div>
 
+<script src="~/Scripts/EigenScripts.js"></script>
 
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
+=======
+    <button id="verwijderen-@ViewBag.StatistiekId" class="btn btn-primary" onclick="statistiekVerwijderen(this.id)">
+        <span class="glyphicon glyphicon-remove"></span>
+    </button>
+
+   
+
+</div>
+
+<script src="~/Scripts/EigenScripts.js"></script>
+
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0

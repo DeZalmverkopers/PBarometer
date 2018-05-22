@@ -1,19 +1,15 @@
 ﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BL.IdentityFramework
 {
+  //EmailService: Zendt emails naar gebruikers.
   public class EmailService : IIdentityMessageService
   {
     public Task SendAsync(IdentityMessage message)
     {
-
       var mailAdress = "IdentityMailServiceKdG@gmail.com";
       var sentFrom = "IdentityMailServiceKdG@gmail.com";
       var password = "IdentityMailServicePaswoord";

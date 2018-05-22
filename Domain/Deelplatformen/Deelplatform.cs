@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Domain.Gemonitordeitems;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Deelplatformen
 {
@@ -12,6 +10,22 @@ namespace Domain.Deelplatformen
     public string Naam { get; set; }
     public int AantalDagenHistoriek { get; set; }
     public DateTime LaatsteSynchronisatie { get; set; }
-    public byte[] Afbeelding { get; set; }
+    public string AfbeeldingPad { get; set; }
+    public string Achtergrondkleur { get; set; }
+    public string URLnaam { get; set; }
+    public List<GemonitordItem> GemonitordeItems { get; set; }
+    public List<FAQItem> FAQItems { get; set; }
+
+    //De instelling of het overzicht al dan niet raadpleegbaar is door niet-ingelogde gebruikers.
+    public bool OverzichtAdded { get; set; }
+
+    //De instelling of de alerts al dan niet raadpleegbaar is door niet-ingelogde gebruikers.
+    public bool AlertsAdded { get; set; }
+
+    public Deelplatform()
+    {
+      GemonitordeItems = new List<GemonitordItem>();
+      FAQItems = new List<FAQItem>();
+    }
   }
 }

@@ -1,96 +1,69 @@
-﻿@*@model MVC.Models.Chart
-@model MVC.Models.Datasets*@
+﻿@*@*<div>
+        <label>X-as</label>
+        <select id="inputXas">
+            <option>data1</option>
+            <option>data2</option>
+            <option>data3</option>
+        </select>
+    </div>
 
-@*@{ 
-  var grafiek = "";
-}*@
 
-@*@foreach (var item in ViewBag.Grafieken)
-{
+    <div>
+        <label>Y-as</label>
+        Html.DropDownList("Dashboard", ViewBag.YWaarden as List<SelectListItem>)
 
-}*@
+    </div>*@
 
-<h4>Grafiek aanpassen</h4>
-
-<div>
-    <label>X-as</label>
-    @*@Html.DropDownList("Beheer", ViewBag.XWaarden as List<SelectListItem>)*@
-    <select id="inputXas">
-        <option>data1</option>
-        <option>data2</option>
-        <option>data3</option>
-    </select>
-
-</div>
-
-<div>
-    <label>Y-as</label>
-    @Html.DropDownList("Beheer", ViewBag.YWaarden as List<SelectListItem>)
-
-</div>
 <div>
     <label>Titel</label>
-    <input id="inputTitel" type="text" />
+    <input id="inputTitel" type="text"/>
 </div>
 
 <div>
-    <button class="btn btn-primary btn-algemene-layout" id="btnAanpassenOpslaan" onclick="grafiekWijzigen(myHorizontalBarChart)">Opslaan</button>
-</div>
+        <button type="button" data-toggle="collapse" data-target="#gi" class="btn btn-primary btn-algemene-layout">Geavanceerde instellingen</button>
+        <div id="gi" class="collapse">
+            <h4>Geavanceerde instellingen</h4>
 
-<script>
-    function grafiekWijzigen(teWijzigenGrafiek) {
-        var xAs = $("#inputXas").val();
-        var titel = $("#inputTitel").val();
 
-        if (xAs == "data1") {
-            teWijzigenGrafiek.data.labels = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"];
-            teWijzigenGrafiek.data.datasets[0].data = [1, 2, 3, 4, 5, 6, 7];
-            //myHorizontalBarChart.data.datasets[0].data[0] = 90;
-        } else if (xAs == "data2") {
-            teWijzigenGrafiek.data.labels = ["Week 1", "Week 2", "Week3", "Week4"];
-            teWijzigenGrafiek.data.datasets[0].data = [5, 15, 25, 35];
-        } else if (xAs == "data3") {
-            teWijzigenGrafiek.data.labels = ["test1", "test2"];
-            teWijzigenGrafiek.data.datasets[0].data = [50, 50];
-        }
+            <input type="checkbox" id="chkAssenWisselen">Assen wisselen (als horizontaal staafdiagram weergeven)<br>
 
-        teWijzigenGrafiek.options.title.text = titel;
-        teWijzigenGrafiek.update();
-    }
-</script>
-
-<div>
-    <button type="button" data-toggle="collapse" data-target="#demo" class="btn btn-primary btn-algemene-layout">Geavanceerde instellingen</button>
-    <div id="demo" class="collapse">
-        <h5>Geavanceerde instellingen</h5>
-        <button class="btn btn-primary">Assen wisselen</button>
-        <div>
-            <label>Schaal aanpassen</label>
-            @Html.DropDownList("Beheer", ViewBag.Schaalopties as List<SelectListItem>)
+            @*<div>
+                <label>Schaal aanpassen</label>
+                @Html.DropDownList("Beheer", ViewBag.Schaalopties as List<SelectListItem>)
+            </div>*@
         </div>
     </div>
+
+<div>
+    <button class="btn btn-primary btn-algemene-layout" id="btnAanpassenOpslaan">Opslaan</button>
 </div>
 
 
+@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
 
 
 
-@*<script>
-        function changeChart() {
-            myBarChart.options.title.text = "titel"
-        }
-    </script>*@
+<script src="~/Scripts/EigenScripts.js"></script>
 
-@*<script type="text/javascript">
-            $("#btnAanpassenOpslaan").click(function () {
-                $("horizontalChart").options.title.text = "titel";
-            });
-    </script>*@
+<script type="text/javascript">
 
-@section scripts {
-    @*<script type="text/javascript">
-               //$("#btnAanpassenOpslaan").click(function () {
-               //    ("#pieChart").
-               //});
-        </script>*@
-}
+    $("#btnAanpassenOpslaan").click(function () {
+
+
+        @*grafiekWijzigen(@Html.Raw(Json.Encode(ViewBag.AlleGrafieken)), @Html.Raw(Json.Encode(ViewBag.AanTePassenGrafiekId)));*@
+
+        @*grafiekWijzigen(@Html.Raw(Json.Encode(ViewBag.AlleGrafieken)), @Html.Raw(Json.Encode(ViewBag.AanTePassenGrafiekId)));*@
+        grafiekWijzigen(@Html.Raw(Json.Encode(ViewBag.AanTePassenGrafiek)));
+
+
+        $("#inputTitel").val("");
+        $("#modalGrafiekAanpassen").modal('hide');
+        
+
+    });
+
+
+
+</script>
+
+

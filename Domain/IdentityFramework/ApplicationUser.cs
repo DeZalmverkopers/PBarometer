@@ -1,6 +1,5 @@
 ﻿//Bart
 using Domain.Dashboards;
-using Domain.Deelplatformen;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
@@ -9,21 +8,27 @@ using System.Threading.Tasks;
 
 namespace Domain.IdentityFramework
 {
-    public class ApplicationUser : IdentityUser
+  //De gebruiker van de applicatie. Door de overerving van IdentityUser
+  //kunnen er nog attributen toegevoegd worden.
+  public class ApplicationUser : IdentityUser
+  {
+    public List<Dashboard> Dashboards { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public List<Alert> Alerts { get; set; }
+
+    public ApplicationUser()
     {
-
-        public int? DeelplatformId { get; set; }
-        public Deelplatform Deelplatform { get; set; }
-        public List<Alert> Alerts { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
-        {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
-            return userIdentity;
-        }
+      Dashboards = new List<Dashboard>();
+      Alerts = new List<Alert>();
     }
+
+    public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+    {
+      // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+      var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+      // Add custom user claims here
+      return userIdentity;
+    }
+  }
 }

@@ -1,0 +1,25 @@
+<<<<<<< HEAD
+﻿<div>
+    <label>Persoon 1</label>
+    @Html.DropDownList("Dashboard", ViewBag.Personen as List<SelectListItem>, new { id = "persoon1" })
+</div>
+
+<div>
+    <label>Persoon 2</label>
+    @Html.DropDownList("Dashboard", ViewBag.Personen as List<SelectListItem>, new { id = "persoon2" })
+</div>
+
+<div>
+    <label>Persoon 3</label>
+    @Html.DropDownList("Dashboard", ViewBag.Personen as List<SelectListItem>, new { id = "persoon3" })
+</div>
+=======
+﻿@for (int i = 1; i <= 3; i++)
+{
+    <div>
+        <label>Persoon @i</label>
+        @Html.DropDownList("Dashboard", ViewBag.PersonenViewbag as List<SelectListItem>, new { id = "persoon" + i })
+    </div>
+}
+
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0

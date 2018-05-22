@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 //Seppe
 
@@ -19,6 +16,6 @@ namespace MVC.Models
     public string[] backgroundColor { get; set; }
     public string[] borderColor { get; set; }
     public string borderWidth { get; set; }
-    public int[] data { get; set; }
+    public double[] data { get; set; }
   }
 }

@@ -1,0 +1,34 @@
+<<<<<<< HEAD
+﻿<div>
+    <label>Organisatie 1</label>
+    @Html.DropDownList("Dashboard", ViewBag.Organisaties as List<SelectListItem>, new { id = "organisatie1" })
+</div>
+
+<div>
+    <label>Organisatie 2</label>
+    @Html.DropDownList("Dashboard", ViewBag.Organisaties as List<SelectListItem>, new { id = "organisatie2" })
+</div>
+
+<div>
+    <label>Organisatie 3</label>
+    @Html.DropDownList("Dashboard", ViewBag.Organisaties as List<SelectListItem>, new { id = "organisatie3" })
+</div>
+
+<div>
+    <label>Organisatie 4</label>
+    @Html.DropDownList("Dashboard", ViewBag.Organisaties as List<SelectListItem>, new { id = "organisatie4" })
+</div>
+
+<div>
+    <label>Organisatie 5</label>
+    @Html.DropDownList("Dashboard", ViewBag.Organisaties as List<SelectListItem>, new { id = "organisatie5" })
+</div>
+=======
+﻿@for (int i = 1; i <= 5; i++)
+{
+    <div>
+        <label>Organisatie @i</label>
+        @Html.DropDownList("Dashboard", ViewBag.OrganisatiesViewbag as List<SelectListItem>, new { id = "organisatie" + i })
+    </div>
+}
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0

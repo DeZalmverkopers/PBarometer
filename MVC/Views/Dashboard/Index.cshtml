@@ -1,294 +1,225 @@
-﻿@*Seppe*@
-
-@{
-    ViewBag.Title = "Index";
+﻿@{
+  ViewBag.Title = "Index";
 }
 
-<h1>Dashboard</h1>
+@*Foto voor niet ingelogde gebruikers*@
+@if (!Request.IsAuthenticated)
 
-<div class="container" id="elementen">
-    @*Rij 1*@
-    <div class="row">
-        <div class="col-md-1">
-
-        </div>
-        <div class="col-md-1">
-
-        </div>
-        <div class="col-md-1">
-
-        </div>
-        <div class="col-md-1">
-
-        </div>
-        <div class="col-md-1">
-
-        </div>
-        <div class="col-md-1">
-
-        </div>
-        <div class="col-md-1">
-
-        </div>
-        <div class="col-md-1">
-
-        </div>
-        <div class="col-md-1">
-
-        </div>
-
-        <div class="col-md-1">
-            <button class="btn btn-primary button-xx-large" id="btnToevoegen">+</button>
-        </div>
-
-        <div class="col-md-1">
-            <button class="btn btn-primary btn-algemene-layout" id="btnVerbergen">Verbergen</button>
-        </div>
-        <div class="col-md-1">
-            @*<button class="btn btn-primary btn-algemene-layout" id="btnAanpassenOpslaan" onclick="changeChart()">Opslaan</button>*@
-        </div>
+{
+<<<<<<< HEAD
+<div class="container-fluid dashboardAfbeeldingContainer elementen-centreren">
+    <div class="dashboardTekst">
+        <h3>@ViewBag.DeelplatformNaam</h3>
+        <hr />
+        <h4>Welkom op het <b>dashboard.</b></h4>
     </div>
-
-    @*Rij 2*@
-    <div class="row">
-
-        <div class="col-md-5">
-            <canvas id="horizontalBarChart" height="200"></canvas>
-            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
-            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
-            @*@Html.Partial("HorizontaalStaafdiagram")*@
-
+    <img class="deelplatformHomeAfbeelding" src="~/images/Deelplatformen/@ViewBag.Afbeelding" />
+    <button class="btn btn-secondary" id="btnInloggen" onclick="location.href='@Url.Action("Login","Account", new { ReturnUrl =
+                                                                                Url.Action(ViewContext.RouteData.Values["action"].ToString(),
+                                                                                ViewContext.RouteData.Values["controller"].ToString())})'">
+        Inloggen
+    </button>
+    <button class="btn btn-primary" id="btnRegistreren" onclick="location.href='@Url.Action("Register","Account",
+                                                                                     new { ReturnUrl = Url.Action(ViewContext.RouteData.Values["action"].ToString(),
+                                                                                     ViewContext.RouteData.Values["controller"].ToString())})'">
+        Registreren
+    </button>
+</div>
+=======
+    <div class="container-fluid dashboardAfbeeldingContainer elementen-centreren">
+        <div class="dashboardTekst">
+            <h3>@ViewBag.DeelplatformNaam</h3>
+            <hr />
+            <h4>Welkom op het <b>dashboard.</b></h4>
         </div>
-
-        <div class="col-md-5">
-            <canvas id="pieChart" height="200"></canvas>
-
-            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
-            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
-
-        </div>
-
-        <div class="col-md-2" id="divGrafiekBeheren">
-
-        </div>
-
+        <img class="deelplatformHomeAfbeelding" src="~/images/Deelplatformen/@ViewBag.Afbeelding" />
+        <button class="btn btn-secondary" id="btnInloggen" onclick="location.href='@Url.Action("Login","Account", new { ReturnUrl =
+                                                                                Url.Action(ViewContext.RouteData.Values["action"].ToString(),
+                                                                                ViewContext.RouteData.Values["controller"].ToString())})'">
+            Inloggen
+        </button>
+        <button class="btn btn-primary" id="btnRegistreren" onclick="location.href='@Url.Action("Register","Account",
+                                                                                     new { ReturnUrl = Url.Action(ViewContext.RouteData.Values["action"].ToString(),
+                                                                                     ViewContext.RouteData.Values["controller"].ToString())})'">
+            Registreren
+        </button>
     </div>
-
-    @*Rij 3*@
-    @*<div class="row">
-            <div class="col-md-1">
-                <button class="btn btn-primary button-xx-large"><<</button>
-            </div>
-            <div class="col-md-1">
-
-            </div>
-            <div class="col-md-1">
-
-            </div>
-            <div class="col-md-1">
-
-            </div>
-            <div class="col-md-1">
-
-            </div>
-            <div class="col-md-1">
-
-            </div>
-            <div class="col-md-1">
-
-            </div>
-            <div class="col-md-1">
-
-            </div>
-            <div class="col-md-1">
-
-            </div>
-            <div class="col-md-1">
-                <button class="btn btn-primary button-xx-large">>></button>
-            </div>
-            <div class="col-md-2">
-
-            </div>
-        </div>*@
-
-    @*Rij 4*@
-    <div class="row">
-
-        <div class="col-md-5">
-            <canvas id="lineChart" height="200"></canvas>
-
-            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
-            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
-        </div>
-
-        <div class="col-md-5">
-
-            <canvas id="MultiLineChart" height="200"></canvas>
-
-            @Html.Partial("~/Views/Shared/Dashboard/Bewerkingsknop.cshtml")
-            @Html.Partial("~/Views/Shared/Dashboard/VerwijderKnop.cshtml")
-        </div>
-
-        <div class="col-md-2">
-
-        </div>
-    </div>
-
-    @*Rij 5*@
-    <div class="row">
-        <div class="col-md-5">
-            @Html.Partial("~/Views/Shared/GetalEnOverzicht/Getal.cshtml")
+>>>>>>> f9fe6585249372e4c52b21672527b21d2bdf6cf0
+}
+else
+{
+<h1>Deelplatform</h1>
+}
 
 
 
-            @*@Html.Partial("Bewerkingsknop")
-                @Html.Partial("VerwijderKnop")*@
-        </div>
-        <div class="col-md-5">
-            @Html.Partial("~/Views/Shared/GetalEnOverzicht/GetalTrend.cshtml")
 
-            @*@Html.Partial("Bewerkingsknop")
-                @Html.Partial("VerwijderKnop")*@
-        </div>
-        <div class="col-md-2">
+<div class="container" id="elementenGrafieken">
 
-        </div>
-    </div>
-
-    @*Rij 6*@
-    <div class="row">
-        <div class="col-md-5">
-            @Html.Partial("~/Views/Shared/GetalEnOverzicht/Top5.cshtml")
-
-            @*@Html.Partial("Bewerkingsknop")
-                @Html.Partial("VerwijderKnop")*@
-        </div>
-
-        <div class="col-md-5">
-            @Html.Partial("~/Views/Shared/GetalEnOverzicht/Top10.cshtml")
-
-            @*@Html.Partial("Bewerkingsknop")
-                @Html.Partial("VerwijderKnop")*@
-        </div>
-        <div class="col-md-2">
-
-
-        </div>
-
-    </div>
-
-    @*Rij 7*@
-    <div class="row">
-        <div class="col-md-12">
-
-            @*<iframe width="1000" height="1000" src="https://nodebox.live/embed/SeppeLamberts/grafieken/grafiek2?autoplay=true" frameborder="0"></iframe>*@
-
-            @*<canvas width="400" height="300" id="chartNodebox"></canvas>*@
-
-            @*Size: <input type="range" min="10" max="500" step="1" oninput="changeSize(this)">
-                Hue: <input type="range" min="0" max="1" step="0.01" oninput="changeHue(this)">*@
+    <div>
+        <div class="col-md-11"></div>
+        <div class="col-md-1">
+            <button class="btn btn-primary button-xx-large" id="btnToevoegen" data-target="#modalGrafiekToevoegen" data-toggle="modal">+</button>
         </div>
     </div>
 
 
+    @foreach (var grafiek in ViewBag.Grafieken)
+    {
+        <div class="col-md-5">
 
-    @*Rij 5*@
-    @*<div class="row footer-paginanummer">
-            <div class="col-md-4">
-                Grafieken per pagina: 4
-            </div>
+            <canvas id="@grafiek.GrafiekId" height="300"></canvas>
 
-            <div class="col-md-4">
-                1/3
-            </div>
+            <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
 
-            <div class="col-md-4">
+            <button id="verwijderen-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
 
-            </div>
+        </div>
+        <div class="col-md-1">
 
-        </div>*@
+        </div>
+    }
+
+
+
 
 </div>
 
-@section scripts {
 
-    <script src="~/Scripts/Chart.js"></script>
-    <script src="~/Scripts/Common.js"></script>
+<div class="modal" id="modalGrafiekToevoegen" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Grafiek toevoegen</h4>
+            </div>
+            <div class="modal-body" id="divGrafiekToevoegen">
 
-    @Html.Partial("~/Views/Shared/Dashboard/BeheerScripts.cshtml")
-    @Html.Partial("~/Views/Shared/Grafieken/Grafieken.cshtml")
+            </div>
+        </div>
+    </div>
 
-
-
-    @*@Html.Partial("HorizontaalStaafdiagram")
-        @Html.Partial("Lijndiagram")
-        @Html.Partial("LijndiagramMulti")
-        @Html.Partial("Taartdiagram")*@
-
-
-    @*@Html.Partial("Donutdiagram")
-        @Html.Partial("DonutdiagramMulti")
-        @Html.Partial("HorizontaalStaafdiagramMulti")
-        @Html.Partial("Staafdiagram")
-        @Html.Partial("StaafdiagramMulti")
-        @Html.Partial("TaartdiagramMulti")*@
+</div>
 
 
-    @*<script type="text/javascript">
-            $("#btnAnnuleren").click(function () {
-            $.get('@Url.Action("LaadLegePartialView", "Beheer")', {}, function (resultaat) {
-                $("#divGrafiekAanpassen").html(resultaat);
-            });
-            });
-        </script>*@
+
+<div class="modal" id="modalGrafiekAanpassen" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Grafiek aanpassen</h4>
+            </div>
+            <div class="modal-body" id="divGrafiekAanpassen">
+
+            </div>
+        </div>
+    </div>
+
+</div>
 
 
-    @*<script>
-            $(document).ready(function () {
-                $("#divVerbergen").hide()
-            })
-
-            $(window).load(function () {
-                $("#divVerbergen").hide()
-            });
-        </script>*@
+<script src="~/Scripts/jquery-3.3.1.js"></script>
 
 
-    @*Nodebox integratie*@
-    <script src="https://nodebox.live/api/v1/ndbx.js"></script>
+<script src="~/Scripts/Chart.js"></script>
 
-    <script>
-        var options = {
-            userId: 'SeppeLamberts',
-            projectId: 'grafieken',
-            functionId: 'grafiek2',
+<script src="~/Scripts/EigenScripts.js"></script>
 
-            //userId: 'demo',
-            //projectId: 'embedding',
-            //functionId: 'main',
+@*<script src="~/Scripts/Common.js"></script>
 
-            canvasId: 'chartNodebox',
-            autoplay: false
-        };
 
-        ndbx.embed(options, function (err, player) {
-            if (err) {
-                throw new Error(err)
-            } else {
-                window.player = player; // Make the player object global.
-            }
-        });
+    @Html.Partial("~/Views/Shared/Grafieken/Grafieken.cshtml")*@
 
-                //function changeSize(e) {
-                //    window.player.setValue('rect1', 'width', e.value);
-                //    window.player.setValue('rect1', 'height', e.value);
-                //}
 
-                //function changeHue(e) {
-                //    window.player.setValue('hslColor1', 'hue', e.value);
-                //}
 
-    </script>
 
-}
+
+
+<script type="text/javascript">
+                $("#btnToevoegen").click(function () {
+                    $.get('@Url.Action("LaadGrafiekToevoegen", "Dashboard")', {}, function (resultaat) {
+                        $("#divGrafiekToevoegen").html(resultaat);
+                });
+                });
+</script>
+
+
+
+
+
+<script>
+     var grafieken = @Html.Raw(Json.Encode(ViewBag.Grafieken));
+
+     for (var i = 0; i < grafieken.length; i++) {
+
+         var grafiekIdViewbag = grafieken[i].GrafiekId;
+         var titelViewbag = grafieken[i].Titel;
+         var toonLegendeViewbag = grafieken[i].ToonLegende
+         var toonXAsViewbag = grafieken[i].ToonXAs;
+         var xOorsprongNulViewbag = grafieken[i].XOorsprongNul;
+         var yOorsprongNulViewbag = grafieken[i].YOorsprongNul;
+
+         var toonYAsViewbag = grafieken[i].ToonYAs;
+         var xTitelViewbag = grafieken[i].XTitel;
+         var yTitelViewbag = grafieken[i].YTitel;
+
+         var xLabelsViewbag = grafieken[i].XLabels;
+         var typeViewbag = grafieken[i].Type;
+
+         var dataViewbag = grafieken[i].Datawaarden;
+         var legendelijstViewbag = grafieken[i].LegendeLijst;
+
+         var backgroundcolorViewbag = grafieken[i].Achtergrondkleur;
+         var bordercolorViewbag = grafieken[i].Randkleur;
+
+
+         var FillDatasetViewbag = grafieken[i].FillDataset;
+         var LijnlegendeweergaveViewbag = grafieken[i].Lijnlegendeweergave;
+         var XAsMaxrotatieViewbag = grafieken[i].XAsMaxrotatie;
+         var XAsMinrotatieViewbag = grafieken[i].XAsMinrotatie;
+
+
+
+         GrafiekOpbouwen(grafiekIdViewbag, titelViewbag, typeViewbag, toonLegendeViewbag, xOorsprongNulViewbag, yOorsprongNulViewbag, toonXAsViewbag, toonYAsViewbag,
+             FillDatasetViewbag, LijnlegendeweergaveViewbag, XAsMaxrotatieViewbag, XAsMinrotatieViewbag, xTitelViewbag, yTitelViewbag,
+             xLabelsViewbag, legendelijstViewbag[0], legendelijstViewbag[1], legendelijstViewbag[2], legendelijstViewbag[3], legendelijstViewbag[4],
+             dataViewbag[0], dataViewbag[1], dataViewbag[2], dataViewbag[3], dataViewbag[4],
+             backgroundcolorViewbag[0], backgroundcolorViewbag[1], backgroundcolorViewbag[2], backgroundcolorViewbag[3], backgroundcolorViewbag[4],
+             bordercolorViewbag[0], bordercolorViewbag[1], bordercolorViewbag[2], bordercolorViewbag[3], bordercolorViewbag[4]
+         );
+     }
+
+
+</script>
+
+<script>
+        function grafiekBewerken(id) {
+
+        var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+        var subid;
+
+        if (lengteId == 0) {
+            subid = id.substring(id.length - 1);
+        } else if (lengteId > 0) {
+            subid = id.substring(id.indexOf("-") + 1, id.length - 1);
+        }
+
+
+         var link = '@Html.Raw(Url.Action("LaadGrafiekAanpassen", "Dashboard",
+                    new { id = "replaceId"}
+                 ))'.replace("replaceId", subid);
+
+
+         $.get(link, {}, function (resultaat) {
+             $("#divGrafiekAanpassen").html(resultaat);
+         });
+
+         $("#modalGrafiekAanpassen").modal();
+
+
+        }
+</script>
 

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL.EF
+﻿namespace DAL.EF
 {
+  //Configuratie van de databank.
   internal class DbConfiguration : System.Data.Entity.DbConfiguration
   {
     public DbConfiguration()

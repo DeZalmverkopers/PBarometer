@@ -1,10 +1,7 @@
 ﻿using DAL;
 using Domain.Dashboards;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
@@ -30,6 +27,10 @@ namespace BL
     public Dashboard GetDashboard(int id, bool gebruiker = false, bool grafieken = false)
     {
       return repository.ReadDashboard(id, gebruiker, grafieken);
+    }
+    public Dashboard GetDashboardVanGebruikerMetGrafieken(string gebruikersId, int deelplatformId)
+    {
+      return repository.ReadDashboards(true, true).Where(a => a.Gebruiker != null && a.Gebruiker.Id.Equals(gebruikersId) && a.DeelplatformId == deelplatformId).FirstOrDefault();
     }
 
     public void ChangeDashboard(Dashboard dashboard)

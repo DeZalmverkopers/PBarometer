@@ -30,3 +30,26 @@
         });
 </script>
 
+<script type="text/javascript">
+        $("#btnNietIngelogd").click(function () {
+        $.get('@Url.Action("LaadNietIngelogd", "Admin")', {}, function (resultaat) {
+            $("#divResultaat").html(resultaat);
+        });
+        });
+</script>
+
+<script type="text/javascript">
+        $("#btnFAQ").click(function () {
+        $.get('@Url.Action("LaadFAQItemVerwijderen", "Admin")', {}, function (resultaat) {
+            $("#divResultaat").html(resultaat);
+        });
+        });
+</script>
+
+<script type="text/javascript">
+        $("#btnFAQToevoegen").click(function () {
+        $.get('@Url.Action("LaadFAQItemToevoegen", "Admin")', {}, function (resultaat) {
+            $("#divResultaat").html(resultaat);
+        });
+        });
+</script>

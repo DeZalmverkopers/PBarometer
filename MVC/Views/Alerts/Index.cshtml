@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MVC.Models.Alerts.AlertViewModel>
 
 @{
-    ViewBag.Title = "Index";
+  ViewBag.Title = "Index";
 }
 
 <h2>Alerts</h2>
@@ -41,59 +41,70 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @if (item.Triggered)
-                {
-                    <span class="glyphicon glyphicon-ok" style="color:limegreen" data-toggle="tooltip" title='@item.TriggerRedenen' data-placement="auto"></span>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Beschrijving)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Onderwerp)
-            </td>
-            <td>
-                @if (item.Geactiveerd)
-                {
-                    <span class="glyphicon glyphicon-ok"></span>
-                }
-            </td>
-            <td>
-                @if (item.Mail)
-                {
-                    <span class="glyphicon glyphicon-ok"></span>
-                }
-            </td>
-            <td>
-                @if (item.Mobiel)
-                {
-                    <span class="glyphicon glyphicon-ok"></span>
-                }
-            </td>
-            <td>
-                @if (item.Eenvoudig)
-                {
-                    <button type="button" class="btn btn-li" data-toggle="modal" onclick="showModal('#editEenvoudig', '#editEenvoudigBody', @item.Id)">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                }
-                else
-                {
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" onclick="showModal('#editComplex', '#editComplexBody', @item.Id)">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                }
-                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("VerwijderAlert", new { id = @item.Id})'">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("ToggleActivatie", new { id = @item.Id})'">
-                    <span class="glyphicon glyphicon-off"></span>
-                </button>
-            </td>
-
-        </tr>
+    <tr>
+        <td>
+            @if (item.Triggered)
+            {
+            <span class="glyphicon glyphicon-ok" style="color:limegreen" data-toggle="tooltip" title='@item.TriggerRedenen' data-placement="auto"></span>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Beschrijving)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Onderwerp)
+        </td>
+        <td>
+            @if (item.Geactiveerd)
+            {
+            <span class="glyphicon glyphicon-ok"></span>
+            }
+        </td>
+        <td>
+            @if (item.Mail)
+            {
+            <span class="glyphicon glyphicon-ok"></span>
+            }
+        </td>
+        <td>
+            @if (item.Mobiel)
+            {
+            <span class="glyphicon glyphicon-ok"></span>
+            }
+        </td>
+        <td>
+            @if (item.Eenvoudig)
+            {
+            <button type="button" class="btn btn-li" data-toggle="modal" onclick="showModal('#editEenvoudig', '#editEenvoudigBody', @item.Id)">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            }
+            else
+            {
+            <button type="button" class="btn btn-secondary" data-toggle="modal" onclick="showModal('#editComplex', '#editComplexBody', @item.Id)">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            }
+            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("VerwijderAlert", new { id = @item.Id})'">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("ToggleActivatie", new { id = @item.Id})'">
+                <span class="glyphicon glyphicon-off"></span>
+            </button>
+            @if (item.Triggered)
+            {
+            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Gelezen", new { id = @item.Id })'">
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </button>
+            }
+            else
+            {
+            <button type="button" class="btn btn-secondary" disabled>
+                <span class="glyphicon glyphicon-eye-close"></span>
+            </button>
+            }
+        </td>
+    </tr>
     }
 
 
@@ -121,6 +132,8 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
 
+
+
         function showModal(editComplex, editComplexBody, id) {
             var url = $(editComplex).data('url');
 
@@ -138,6 +151,7 @@
                 $(createSimpleAlert).modal('show');
             });
         };
+
 
 
 

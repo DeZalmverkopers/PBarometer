@@ -1,75 +1,33 @@
-﻿@*Seppe*@
-
-@{
-    ViewBag.Title = "Overzicht";
+﻿@{
+  ViewBag.Title = "Overzicht";
 }
 
-<h1>Overzicht</h1>
-
+<h2>Overzicht</h2>
 <div class="container">
-
-    <div class="row">
-
-        <div class="col-md-4">
-            @foreach (var item in ViewBag.Itemslist)
-            {
-                <div class="btn-group-blok">
-                    <button class="btn btn-primary btn-algemene-layout" id=@item>@item</button>
-                </div>
-            }
-        </div>
-
-        <div class="col-md-4" id="divResultaat">
-
-        </div>
-
-        <div class="col-md-4" id="divZoekfunctieGrafieken">
-            @*@Html.Partial("ZoekfunctieGrafieken")*@
-            @*@Html.Partial(MVC.Shared.Views.Overzicht.ZoekfunctieGrafieken)*@
-            @Html.Partial("~/Views/Shared/Overzicht/ZoekfunctieGrafieken.cshtml")
-
-
-        </div>
-
+    <div class="col-sm-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a data-toggle="pill" href="#personen">Personen</a></li>
+            <li><a data-toggle="pill" href="#organisaties">Organisaties</a></li>
+            <li><a data-toggle="pill" href="#themas">Thema's</a></li>
+        </ul>
     </div>
-
+    <div class="tab-content col col-sm-10">
+        <div id="personen" class="tab-pane fade in active">
+            @Html.Partial("~/Views/Shared/GemonitordItem/Personen.cshtml")
+        </div>
+        <div id="organisaties" class="tab-pane fade">
+            @Html.Partial("~/Views/Shared/GemonitordItem/Organisaties.cshtml")
+        </div>
+        <div id="themas" class="tab-pane fade">
+            @Html.Partial("~/Views/Shared/GemonitordItem/Themas.cshtml")
+        </div>
+    </div>
 </div>
 
-
 @section scripts {
-    <script type="text/javascript">
-        $("#Persoon").click(function () {
-        $.get('@Url.Action("LaadPersonen", "GemonitordItem")', {}, function (resultaat) {
-            $("#divResultaat").html(resultaat);
-        });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $("#Organisatie").click(function () {
-        $.get('@Url.Action("LaadOrganisaties", "GemonitordItem")', {}, function (resultaat) {
-            $("#divResultaat").html(resultaat);
-        });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $("#Term").click(function () {
-        $.get('@Url.Action("LaadTermen", "GemonitordItem")', {}, function (resultaat) {
-            $("#divResultaat").html(resultaat);
-        });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $("#Thema").click(function () {
-        $.get('@Url.Action("LaadThemas", "GemonitordItem")', {}, function (resultaat) {
-            $("#divResultaat").html(resultaat);
-        });
+    <script>
+        $('button').click(function (e) {
+            e.stopPropagation();
         });
     </script>
 }
-
-
-
-

@@ -4,11 +4,23 @@
 
 <script type="text/javascript">
     $(".verwijderen").click(function () {
-        confirm("Ben je zeker dat je de grafiek wilt verwijderen?")
+        var grafiekVerwijderen = confirm("Ben je zeker dat je de grafiek wilt verwijderen?");
+        if (grafiekVerwijderen == true) {
+            myNewBarChart.destroy();
+
+            $(".verwijderen").remove();
+            $(".bewerken").remove();
+
+        }
     });
 </script>
 
-@*<button class="btn btn-primary" id="verwijderenID">
-        <span class="glyphicon glyphicon-remove"></span>
-    </button>*@
+<script src="~/Scripts/EigenScripts.js"></script>
 
+@*<script type="text/javascript">
+        $(".verwijderen").click({ teVerwijderenGrafiek: myNewBarChart }, grafiekVerwijderen);
+    </script>*@
+
+@*<script type="text/javascript">
+    $(".verwijderen").click(grafiekVerwijderen(myNewBarChart));
+</script>**@

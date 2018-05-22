@@ -1,0 +1,40 @@
+﻿<label>
+    Wat wilt u toevoegen?
+</label>
+
+<div>
+    <button id="btnGrafiekenKeuze" class="btn btn-primary btn-algemene-layout">Grafieken</button>
+    <button id="btnStatistiekenKeuze" class="btn btn-primary btn-algemene-layout">Statistieken</button>
+</div>
+
+<div id="divKeuzeGrafiekStatistiek">
+
+</div>
+
+<div>
+    <h4 id="titelKeuze"></h4>
+
+    <div id="divInhoud">
+
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+        $("#btnGrafiekenKeuze").click(function () {
+           $.get('@Url.Action("LaadGrafiekenKeuze", "Dashboard")', {}, function (resultaat) {
+               $("#divKeuzeGrafiekStatistiek").html(resultaat);
+
+                });
+        });
+
+        $("#btnStatistiekenKeuze").click(function () {
+             $.get('@Url.Action("LaadStatistiekenKeuze", "Dashboard")', {}, function (resultaat) {
+                 $("#divKeuzeGrafiekStatistiek").html(resultaat);
+
+                });
+        });
+</script>

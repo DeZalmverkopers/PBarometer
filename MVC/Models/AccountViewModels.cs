@@ -35,11 +35,6 @@ namespace MVC.Models
     [Display(Name = "Achternaam")]
     public string LastName { get; set; }
 
-    public string GetUserName()
-    {
-      return FirstName + " " + LastName;
-    }
-
     [Required]
     [EmailAddress]
     [Display(Name = "Email")]
