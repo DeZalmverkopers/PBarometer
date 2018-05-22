@@ -19,7 +19,7 @@ namespace DAL.EF
         public DbSet<Dashboard> Dashboards { get; set; }
         public DbSet<Grafiek> Grafieken { get; set; }
         public DbSet<Deelplatform> Deelplatformen { get; set; }
-
+        public DbSet<Statistiek> Statistieken { get; set; }
         public DbSet<GemonitordItem> GemonitordeItems { get; set; }
         public DbSet<DetailItem> DetailItems { get; set; }
         public DbSet<ItemHistoriek> ItemHistorieken { get; set; }
