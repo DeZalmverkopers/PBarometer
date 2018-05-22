@@ -1,87 +1,89 @@
-﻿function grafiekWijzigen(aanTePassenGrafiek) {
+﻿//function grafiekWijzigen(aanTePassenGrafiek) {
   
   
-    var titel = $("#inputTitel").val();
-    var typeViewbag;
+//    var titel = $("#inputTitel").val();
+//    var typeViewbag;
+//    var titelViewbag;
+
+//    var grafiekIdViewbag = aanTePassenGrafiek.GrafiekId;
 
 
-    var grafiekIdViewbag = aanTePassenGrafiek.GrafiekId;
-
-    if (titel === null) {
-        titelViewbag = aanTePassenGrafiek.Titel;
-    } else {
-        var titelViewbag = titel;
-    }
+//    if (titel === null) {
+//        titelViewbag = aanTePassenGrafiek.Titel;
+//    } else {
+//        titelViewbag = titel;
+//    }
 
 
-    var type = aanTePassenGrafiek.Type;
-    if (type === "bar") {
-        if (document.getElementById('chkAssenWisselen').checked) {
-            typeViewbag = "horizontalBar";
-        } else {
-            typeViewbag = aanTePassenGrafiek.Type;
-        }
-    } else {
-        typeViewbag = aanTePassenGrafiek.Type;
-    }
+//    var type = aanTePassenGrafiek.Type;
+//    if (type === "bar") {
+//        if (document.getElementById('chkAssenWisselen').checked) {
+//            typeViewbag = "horizontalBar";
+//        } else {
+//            typeViewbag = aanTePassenGrafiek.Type;
+//        }
+//    } else {
+//        typeViewbag = aanTePassenGrafiek.Type;
+//    }
 
 
-    var toonLegendeViewbag = aanTePassenGrafiek.ToonLegende;
-    var toonXAsViewbag = aanTePassenGrafiek.ToonXAs;
-    var xOorsprongNulViewbag = aanTePassenGrafiek.XOorsprongNul;
-    var yOorsprongNulViewbag = aanTePassenGrafiek.YOorsprongNul;
+//    var toonLegendeViewbag = aanTePassenGrafiek.ToonLegende;
+//    var toonXAsViewbag = aanTePassenGrafiek.ToonXAs;
+//    var xOorsprongNulViewbag = aanTePassenGrafiek.XOorsprongNul;
+//    var yOorsprongNulViewbag = aanTePassenGrafiek.YOorsprongNul;
 
-    var toonYAsViewbag = aanTePassenGrafiek.ToonYAs;
-    var xTitelViewbag = aanTePassenGrafiek.XTitel;
-    var yTitelViewbag = aanTePassenGrafiek.YTitel;
+//    var toonYAsViewbag = aanTePassenGrafiek.ToonYAs;
+//    var xTitelViewbag = aanTePassenGrafiek.XTitel;
+//    var yTitelViewbag = aanTePassenGrafiek.YTitel;
 
-    var xLabelsViewbag = aanTePassenGrafiek.XLabels;
+//    var xLabelsViewbag = aanTePassenGrafiek.XLabels;
 
-    var dataViewbag = aanTePassenGrafiek.Datawaarden;
-    var legendelijstViewbag = aanTePassenGrafiek.LegendeLijst;
+//    var dataViewbag = aanTePassenGrafiek.Datawaarden;
+//    var legendelijstViewbag = aanTePassenGrafiek.LegendeLijst;
 
-    var backgroundcolorViewbag = aanTePassenGrafiek.Achtergrondkleur;
-    var bordercolorViewbag = aanTePassenGrafiek.Randkleur;
+//    var backgroundcolorViewbag = aanTePassenGrafiek.Achtergrondkleur;
+//    var bordercolorViewbag = aanTePassenGrafiek.Randkleur;
 
 
-    var FillDatasetViewbag = aanTePassenGrafiek.FillDataset;
-    var LijnlegendeweergaveViewbag = aanTePassenGrafiek.Lijnlegendeweergave;
-    var XAsMaxrotatieViewbag = aanTePassenGrafiek.XAsMaxrotatie;
-    var XAsMinrotatieViewbag = aanTePassenGrafiek.XAsMinrotatie;
+//    var FillDatasetViewbag = aanTePassenGrafiek.FillDataset;
+//    var LijnlegendeweergaveViewbag = aanTePassenGrafiek.Lijnlegendeweergave;
+//    var XAsMaxrotatieViewbag = aanTePassenGrafiek.XAsMaxrotatie;
+//    var XAsMinrotatieViewbag = aanTePassenGrafiek.XAsMinrotatie;
 
 
 
 
-    GrafiekOpbouwen(grafiekIdViewbag, titelViewbag, typeViewbag, toonLegendeViewbag, xOorsprongNulViewbag, yOorsprongNulViewbag, toonXAsViewbag, toonYAsViewbag,
-        FillDatasetViewbag, LijnlegendeweergaveViewbag, XAsMaxrotatieViewbag, XAsMinrotatieViewbag, xTitelViewbag, yTitelViewbag,
-        xLabelsViewbag, legendelijstViewbag[0], legendelijstViewbag[1], legendelijstViewbag[2], legendelijstViewbag[3], legendelijstViewbag[4],
-        dataViewbag[0], dataViewbag[1], dataViewbag[2], dataViewbag[3], dataViewbag[4],
-        backgroundcolorViewbag[0], backgroundcolorViewbag[1], backgroundcolorViewbag[2], backgroundcolorViewbag[3], backgroundcolorViewbag[4],
-        bordercolorViewbag[0], bordercolorViewbag[1], bordercolorViewbag[2], bordercolorViewbag[3], bordercolorViewbag[4]
-    );
-
-}
+//    GrafiekOpbouwen(grafiekIdViewbag, titelViewbag, typeViewbag, toonLegendeViewbag, xOorsprongNulViewbag, yOorsprongNulViewbag, toonXAsViewbag, toonYAsViewbag,
+//        FillDatasetViewbag, LijnlegendeweergaveViewbag, XAsMaxrotatieViewbag, XAsMinrotatieViewbag, xTitelViewbag, yTitelViewbag,
+//        xLabelsViewbag, legendelijstViewbag[0], legendelijstViewbag[1], legendelijstViewbag[2], legendelijstViewbag[3], legendelijstViewbag[4],
+//        dataViewbag[0], dataViewbag[1], dataViewbag[2], dataViewbag[3], dataViewbag[4],
+//        backgroundcolorViewbag[0], backgroundcolorViewbag[1], backgroundcolorViewbag[2], backgroundcolorViewbag[3], backgroundcolorViewbag[4],
+//        bordercolorViewbag[0], bordercolorViewbag[1], bordercolorViewbag[2], bordercolorViewbag[3], bordercolorViewbag[4]
+//    );
 
 
-function grafiekVerwijderen(id) {
-    var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
-    var subid;
+//}
 
-    if (lengteId === 0) {
-        subid = id.substring(id.length - 1);
-    } else if (lengteId > 0) {
-        subid = id.substring(id.indexOf("-") + 1, id.length - 1);
-    }
 
-    var grafiekVerwijderen = confirm("Ben je zeker dat je de grafiek wilt verwijderen?");
-    if (grafiekVerwijderen === true) {
-        $("canvas#" + subid).remove()
+//function grafiekVerwijderen(id) {
+//    var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+//    var subid;
 
-        $("#verwijderen-" + subid).remove();
-        $("#bewerken-" + subid).remove();
+//    if (lengteId === 0) {
+//        subid = id.substring(id.length - 1);
+//    } else if (lengteId > 0) {
+//        subid = id.substring(id.indexOf("-") + 1, id.length - 1);
+//    }
 
-    }
-}
+//    var grafiekVerwijderen = confirm("Ben je zeker dat je de grafiek wilt verwijderen?");
+//    if (grafiekVerwijderen === true) {
+//        $("canvas#" + subid).remove()
+
+//        $("#verwijderen-" + subid).remove();
+//        $("#bewerken-" + subid).remove();
+
+//    }
+//}
 
 
 
