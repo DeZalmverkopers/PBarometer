@@ -67,6 +67,13 @@ namespace DAL
         {
             return context.DetailItems;
         }
+
+        public void DeleteDetailItems(IEnumerable<DetailItem> detailItems)
+        {
+            context.DetailItems.RemoveRange(detailItems);
+            context.SaveChanges();
+        }
+
         public Persoon ReadPersoon(int id, bool organisatie)
         {
             if (organisatie) return context.GemonitordeItems.OfType<Persoon>().Include("Organisatie").AsEnumerable().SingleOrDefault(i => i.GemonitordItemId == id) as Persoon;
@@ -74,10 +81,7 @@ namespace DAL
         }
         public void DeleteGemonitordeItems(IEnumerable<GemonitordItem> gemonitordeItems)
         {
-            foreach (var item in gemonitordeItems)
-            {
-                context.GemonitordeItems.Remove(item);
-            }
+            context.GemonitordeItems.RemoveRange(gemonitordeItems);
             context.SaveChanges();
         }
 

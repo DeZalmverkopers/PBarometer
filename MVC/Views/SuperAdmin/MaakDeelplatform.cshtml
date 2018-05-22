@@ -34,10 +34,13 @@
                 @Html.ValidationMessageFor(model => model.AantalDagenHistoriek, "", new { @class = "text-danger" })
             </div>
         </div>
-        @*<div class="form-group">
-            <input id="afbeeldingUpload" title="Upload een afbeelding voor het deelplatform"
-                   type="file" name="Afbeelding" class="btn btn-secondary" />
-        </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataOphaalFrequentie, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-offset-2">
+                @Html.EditorFor(model => model.DataOphaalFrequentie, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DataOphaalFrequentie, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-sm-offset-2">
                 <input type="submit" value="Maak aan" class="btn btn-secondary" />

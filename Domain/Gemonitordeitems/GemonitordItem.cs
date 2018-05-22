@@ -28,7 +28,7 @@ namespace Domain.Gemonitordeitems
     public List<Alert> Alerts { get; set; }
     public List<DetailItem> DetailItems { get; set; }
     public Deelplatform Deelplatform { get; set; }
-    public int DeelplatformId { get; set; }
+    public int? DeelplatformId { get; set; }
     public GemonitordItem()
     {
       DetailItems = new List<DetailItem>();

@@ -57,6 +57,13 @@ namespace BL
 
         }
 
+        public void RemoveDetailItems(int deelplatformId)
+        {
+            InitNonExistingRepo();
+            IEnumerable<DetailItem> detailItems = repository.ReadDetailItems().Where(a => a.DeelplatformId == deelplatformId);
+            repository.DeleteDetailItems(detailItems);
+        }
+
         public IEnumerable<GemonitordItem> GetThemas(int deelplatformId)
         {
             InitNonExistingRepo();
@@ -95,9 +102,10 @@ namespace BL
             InitNonExistingRepo();
             repository.UpdateGemonitordItem(gemonitordItem);
         }
-        public void RemoveGemonitordeItems(IEnumerable<GemonitordItem> gemonitordeItems)
+        public void RemoveGemonitordeItems(int deelplatformId)
         {
-            InitNonExistingRepo(true);
+            InitNonExistingRepo();
+            IEnumerable<GemonitordItem> gemonitordeItems = repository.ReadGemonitordeItems().Where(a => a.DeelplatformId == deelplatformId);
             repository.DeleteGemonitordeItems(gemonitordeItems);
         }
         public void RemoveGemonitordItem(GemonitordItem gemonitordItem)

@@ -45,16 +45,18 @@ namespace BL
 
         public void RemoveDeelplatform(int id)
         {
-            InitNonExistingRepo(true);
+            InitNonExistingRepo();
             Deelplatform deelplatform = GetDeelplatform(id, true);
-            DashboardsManager dashboardsManager = new DashboardsManager();
+            //DashboardsManager dashboardsManager = new DashboardsManager();
             GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
             AlertManager alertManager = new AlertManager();
-            dashboardsManager.RemoveDashboards(deelplatform.Dashboards);
-            gemonitordeItemsManager.RemoveGemonitordeItems(deelplatform.GemonitordeItems);
-            alertManager.RemoveAlerts(deelplatform.Alerts);
+            //dashboardsManager.RemoveDashboards(id);
+            //gemonitordeItemsManager.RemoveDetailItems(id);
+            alertManager.RemoveAlerts(id);
+            gemonitordeItemsManager.RemoveGemonitordeItems(id);
+
             repository.DeleteDeelplatform(deelplatform);
-            uowManager.Save();
+ 
         }
 
 

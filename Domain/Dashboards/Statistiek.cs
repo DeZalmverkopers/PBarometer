@@ -4,24 +4,25 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Deelplatformen;
 using Domain.Gemonitordeitems;
 
 namespace Domain.Dashboards
 {
- public class Statistiek
-  {
-    
-
-    public int StatistiekId { get; set; }
+    public class Statistiek
+    {
 
 
-    public int DeelplatformId { get; set; }
-    public int DashboardStatistiekId { get; set; }
+        public int StatistiekId { get; set; }
 
+        public Deelplatform Deelplatform { get; set; }
+        public int DeelplatformId { get; set; }
+        public int DashboardId { get; set; }
+        public Dashboard Dashboard { get; set; }
 
-    public int GemonitordItemId { get; set; }
+        public int GemonitordItemId { get; set; }
 
-    //getal, getalTrend
-    public string SoortStatistiek { get; set; }
-  }
+        //getal, getalTrend
+        public string SoortStatistiek { get; set; }
+    }
 }

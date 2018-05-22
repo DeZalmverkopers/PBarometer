@@ -191,7 +191,7 @@ namespace MVC.Controllers
         public virtual ActionResult DeelplatformOverzicht()
         {
             DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
-            return PartialView("OverzichtDeelplatform", deelplatformenManager.GetDeelplatformen().Select(a => new DeelplatformOverzichtViewModel() { Id = a.DeelplatformId,Naam = a.Naam, URL = a.URLnaam}));
+            return PartialView("OverzichtDeelplatform", deelplatformenManager.GetDeelplatformen().Select(a => new DeelplatformOverzichtViewModel() { Id = a.DeelplatformId, Naam = a.Naam, URL = a.URLnaam }));
         }
 
         [HttpGet]
@@ -199,7 +199,7 @@ namespace MVC.Controllers
         {
             return PartialView();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MaakDeelplatform(MaakDeelplatformViewModel maakDeelplatformViewModel)
@@ -207,13 +207,14 @@ namespace MVC.Controllers
             DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
             if (ModelState.IsValid)
             {
-                
+
                 deelplatformenManager.AddDeelplatform(new Deelplatform()
                 {
                     AantalDagenHistoriek = maakDeelplatformViewModel.AantalDagenHistoriek,
                     URLnaam = maakDeelplatformViewModel.URLNaam,
                     LaatsteSynchronisatie = DateTime.Now.AddYears(-100),
-                    Naam = maakDeelplatformViewModel.Naam
+                    Naam = maakDeelplatformViewModel.Naam,
+                    DataOphaalFrequentie = maakDeelplatformViewModel.DataOphaalFrequentie
                 });
                 ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 List<Deelplatform> deelplatformen = deelplatformenManager.GetDeelplatformen().ToList(); ;
@@ -235,11 +236,13 @@ namespace MVC.Controllers
         {
             DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
             Deelplatform deelplatform = deelplatformenManager.GetDeelplatform(id);
-            MaakDeelplatformViewModel maakDeelplatformViewModel = new MaakDeelplatformViewModel() {
+            MaakDeelplatformViewModel maakDeelplatformViewModel = new MaakDeelplatformViewModel()
+            {
                 Id = id,
                 AantalDagenHistoriek = deelplatform.AantalDagenHistoriek,
                 Naam = deelplatform.Naam,
-                URLNaam = deelplatform.URLnaam
+                URLNaam = deelplatform.URLnaam,
+                DataOphaalFrequentie = deelplatform.DataOphaalFrequentie
             };
             return PartialView(maakDeelplatformViewModel);
         }
@@ -253,6 +256,17 @@ namespace MVC.Controllers
                 deelplatform.AantalDagenHistoriek = deelplatformViewModel.AantalDagenHistoriek;
                 deelplatform.Naam = deelplatformViewModel.Naam;
                 deelplatform.URLnaam = deelplatformViewModel.URLNaam;
+                deelplatform.DataOphaalFrequentie = deelplatformViewModel.DataOphaalFrequentie;
+                if (deelplatform.AfbeeldingPad != null)
+                {
+                    string oudeAfbeelding = "~/images/Deelplatformen/" + deelplatform.AfbeeldingPad; ;
+                    string nieuweAfbeelding = "~/images/Deelplatformen/" + deelplatform.URLnaam + Path.GetExtension(oudeAfbeelding); ;
+                    if (System.IO.File.Exists(Server.MapPath(oudeAfbeelding)))
+                    {
+                        System.IO.File.Move(Server.MapPath(oudeAfbeelding), Server.MapPath(nieuweAfbeelding));
+                        deelplatform.AfbeeldingPad = deelplatform.URLnaam + Path.GetExtension(oudeAfbeelding);
+                    }
+                }
                 deelplatformenManager.ChangeDeelplatform(deelplatform);
                 ViewBag.Boodschap = "Deelplatform is aangepast";
                 return PartialView();
@@ -264,8 +278,17 @@ namespace MVC.Controllers
         public ActionResult VerwijderDeelplatform(int id)
         {
             DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+            string afbeelding = deelplatformenManager.GetDeelplatform(id).AfbeeldingPad;
+            if (afbeelding != null)
+            {
+                string afbeeldingpad = Server.MapPath("~/images/Deelplatformen/" + afbeelding);
+                if (System.IO.File.Exists(afbeeldingpad))
+                {
+                    System.IO.File.Delete(afbeeldingpad);
+                }
+            }
             deelplatformenManager.RemoveDeelplatform(id);
-            return RedirectToAction("Index","Home");
-        }
+            return RedirectToAction("Index", "Home");
         }
     }
+}

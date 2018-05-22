@@ -20,7 +20,8 @@ namespace Domain.Deelplatformen
         public List<Alert> Alerts { get; set; }
         public List<Dashboard> Dashboards { get; set; }
         public List<DetailItem> DetailItems { get; set; }
-
+        public List<Grafiek> Grafieken { get; set; }
+        public List<Statistiek> Statistieken { get; set; }
 
 
 
