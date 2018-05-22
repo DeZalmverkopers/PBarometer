@@ -93,7 +93,6 @@ function GrafiekOpbouwen(id, titel, grafiektype, toonLegende = true, xAsNul = tr
     backgroundcolor1 = null, backgroundcolor2 = null, backgroundcolor3 = null, backgroundcolor4 = null, backgroundcolor5 = null,
     bordercolor1 = null, bordercolor2 = null, bordercolor3 = null, bordercolor4 = null, bordercolor5 = null) {
 
-
     var grafiekdata;
     var grafiekopties;
     var aantalDatasets;

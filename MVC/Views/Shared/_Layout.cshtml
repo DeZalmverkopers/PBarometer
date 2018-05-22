@@ -39,29 +39,23 @@
 
                     @if (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
                     {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle eigenDropdown" data-toggle="dropdown">
+                                Dashboard
+                                <span class="glyphicon glyphicon-chevron-down dropdownPijltje"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Grafieken", "Index", "Dashboard")</li>
+                                <li>@Html.ActionLink("Statistieken", "Index", "DashboardStatistieken")</li>
+                            </ul>
+                        </li>
 
-
-                        <li>@Html.ActionLink("Dashboard - grafieken", "Index", "Dashboard")</li>
-
-                        <li>@Html.ActionLink("Dashboard - statistieken", "Index", "DashboardStatistieken")</li>
-
-                        @*<li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Page 1
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Page 1-1</a></li>
-                                    <li><a href="#">Page 1-2</a></li>
-                                    <li><a href="#">Page 1-3</a></li>
-                                </ul>
-                            </li>*@
 
 
                     }
 
                     @*@if ((bool?)ViewBag.OverzichtAdded == true)
-                        {*@
+        {*@
                     @if (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
                     {
 
@@ -73,16 +67,16 @@
 
 
                     @*@if ((bool?)ViewBag.WeeklyReviewAdded == true)
-                        {*@
+        {*@
                     @*<li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>*@
 
 
                     @if (User.IsInRole("SuperAdmin") && (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false))
                     {
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown">
+                            <a class="dropdown-toggle eigenDropdown" data-toggle="dropdown">
                                 Beheer
-                                <span class="caret"></span>
+                                <span class="glyphicon glyphicon-chevron-down dropdownPijltje"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Sitebeheer", "Index", "Superadmin")</li>
@@ -90,9 +84,10 @@
                             </ul>
                         </li>
                     }
-                    else
+                    else if (User.IsInRole("SuperAdmin") && (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == true))
                     {
                         <li>@Html.ActionLink("Sitebeheer", "Index", "Superadmin")</li>
+
                     }
                     @if (User.IsInRole("Admin") && !User.IsInRole("SuperAdmin") && (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false))
                     {
@@ -116,7 +111,10 @@
                     }
                     else
                     {
-
+                        if (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
+                        {
+                            <li><a href="@Url.Action("Index", "Alerts")">Alerts <span class="glyphicon glyphicon-bell"></span></a></li>
+                        }
                         @*<li>@Html.ActionLink("Profiel", MVC.Profiel.Index())</li>*@
                         <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
 
@@ -127,10 +125,7 @@
                                 <li><a href="javascript:document.getElementById('logoutForm').submit()">Uitloggen</a></li>
                             </ul>
                         }
-                        if (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
-                        {
-                            <li><span class="noti glyphicon glyphicon-bell" id="alertID" onclick="location.href='@Url.Action("Index", "Alerts")'"><span class="count">&nbsp;</span></span></li>
-                        }
+
                     }
                 </ul>
 

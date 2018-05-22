@@ -76,5 +76,11 @@ namespace DAL
             }
             context.SaveChanges();
         }
+
+        public void VerwijderHistorieken(List<ItemHistoriek> itemHistorieken)
+        {
+            context.ItemHistorieken.RemoveRange(itemHistorieken);
+            context.SaveChanges();
+        }
     }
 }

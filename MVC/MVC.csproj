@@ -18,8 +18,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44314</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -454,11 +453,11 @@
     <Content Include="Views\Shared\Dashboard\Statistieken\StatistiekenNietIngelogd.cshtml" />
     <Content Include="Views\SuperAdmin\MaakDeelplatform.cshtml" />
     <Content Include="Views\SuperAdmin\EditDeelplatform.cshtml" />
-    <Content Include="Views\SuperAdmin\OverzichtDeelplatformen.cshtml" />
     <Content Include="Views\Shared\Grafieken\Taartdiagram\Taartdiagram.cshtml" />
     <Content Include="Views\Shared\Dashboard\Dropdown\GemonitordeItemsAantal.cshtml" />
     <Content Include="Views\Shared\Dashboard\Statistieken\GekruistItemKeuze.cshtml" />
     <Content Include="Views\Shared\GetalEnOverzicht\ItemsKruisen.cshtml" />
+    <Content Include="Views\SuperAdmin\OverzichtDeelplatform.cshtml" />
     <None Include="Web.CustomProfile.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
