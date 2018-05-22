@@ -161,11 +161,13 @@
                 </td>
             </tr>
         </table>
-      
 
-
-
-    @*@Html.Partial("~/Views/Shared/Grafieken/Lijndiagram/LijndiagramAantalTweets.cshtml")*@
+        <div>
+            <button class="btn btn-primary" title="Klik hier om deze grafiek toe te voegen aan uw dashboard." onclick="location.href='@Url.Action("VoegGrafiekAantalTweetsToeUitOverzicht", "Dashboard",new { gemonitordItemId = ViewBag.persoon.GemonitordItemId})'">
+                <span class="glyphicon glyphicon-pushpin"></span>
+            </button>
+            <canvas id="lijnGrafiekPersoonDetail" height="250"></canvas>
+        </div>
 
     </div>
 </div>
@@ -198,5 +200,15 @@
     </div>
 </div>
 
+<script src="~/Scripts/Chart.js"></script>
+
+<script src="~/Scripts/EigenScripts.js"></script>
+<script>
+
+        var dagen=@Html.Raw(Json.Encode(ViewBag.ItemDagen));
+        var aantalTweets=@Html.Raw(Json.Encode(ViewBag.ItemAantalTweets));
+        GrafiekOpbouwen("lijnGrafiekPersoonDetail", "Vermeldingen doorheen de tijd", "line" , false, true, true, true, true, false, true, 90, 0, "Datum" , "Vermeldingen" , dagen,
+            null, null, null, null, null, aantalTweets, null, null, null, null, 'rgba(23,158,241,1)', null, null, null, null, 'rgba(23,158,241,1)', null, null, null, null)
 
 
+</script>

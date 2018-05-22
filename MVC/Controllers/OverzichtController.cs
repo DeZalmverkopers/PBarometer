@@ -101,9 +101,8 @@ namespace MVC.Controllers
             {
                 ViewBag.HeeftMeestVoorkomendeURL = false;
             }
-            //ViewBag.ItemDagen = persoon.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString());
-            //ViewBag.ItemAantalTweets = persoon.ItemHistorieken.Select(a => a.AantalVermeldingen);
-            //ViewBag.Grafiektitel = "Aantal Vermeldingen";
+            ViewBag.ItemDagen = persoon.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList();
+            ViewBag.ItemAantalTweets = persoon.ItemHistorieken.Select(a => a.AantalVermeldingen).ToList();
 
             return PartialView("PersoonDetails", ViewBag);
         }
@@ -127,6 +126,8 @@ namespace MVC.Controllers
             {
                 ViewBag.HeeftMeestVoorkomendeURL = false;
             }
+            ViewBag.ItemDagen = organisatie.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList();
+            ViewBag.ItemAantalTweets = organisatie.ItemHistorieken.Select(a => a.AantalVermeldingen).ToList();
             return PartialView("OrganisatieDetails", ViewBag);
         }
         public ActionResult ThemaDetails(int id)
@@ -154,6 +155,8 @@ namespace MVC.Controllers
             {
                 ViewBag.HeeftMeestVoorkomendeURL = false;
             }
+            ViewBag.ItemDagen = thema.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList();
+            ViewBag.ItemAantalTweets = thema.ItemHistorieken.Select(a => a.AantalVermeldingen).ToList();
             return PartialView("ThemaDetails", ViewBag);
         }
 

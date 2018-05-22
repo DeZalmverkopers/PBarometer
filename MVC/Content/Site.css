@@ -190,7 +190,7 @@ h1 {
     height: 350px;
     width: 100vw;
     margin-left: -50vw;
-    left:50%;
+    left: 50%;
     overflow: hidden;
 }
 
@@ -212,11 +212,20 @@ h1 {
     left: 38%;
     width: 10%;
 }
+
 #btnRegistreren {
     position: absolute;
     top: 72%;
     left: 52%;
     width: 10%;
+}
+
+.dropdownPijltje {
+    font-size: 0.8em;
+}
+
+.eigenDropdown:hover {
+    cursor: pointer;
 }
 
 .table-container {

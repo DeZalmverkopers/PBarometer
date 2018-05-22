@@ -242,43 +242,51 @@ namespace BL
             {
                 startDatum = item.ItemHistorieken.OrderByDescending(a => a.HistoriekDatum).FirstOrDefault().HistoriekDatum;
             }
-            DateTime startUur = startDatum;
-            while (startUur < syncDatum)
+            DateTime startDag = startDatum.Date;
+            if (startDag != syncDatum.Date)
             {
-                DateTime grensUur = startUur.AddDays(1);
-                //DateTime grensUur = startUur.AddHours(1);
-                List<DetailItem> relevanteDetailItems = item.DetailItems.Where(a => a.BerichtDatum > startUur && a.BerichtDatum < grensUur).ToList();
-                if (relevanteDetailItems.Count > 0)
+                while (startDag <= syncDatum.Date)
                 {
-                    item.ItemHistorieken.Add(new ItemHistoriek()
+                    DateTime grensUur = startDag.AddDays(1);
+                    //DateTime grensUur = startUur.AddHours(1);
+                    List<DetailItem> relevanteDetailItems = item.DetailItems.Where(a => a.BerichtDatum > startDag && a.BerichtDatum < grensUur).ToList();
+                    if (relevanteDetailItems.Count > 0)
                     {
-                        HistoriekDatum = startUur,
-                        AantalVermeldingen = relevanteDetailItems.Count,
-                        AantalBerichtenVanMannen = relevanteDetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("m")).Count(),
-                        AantalBerichtenVanVrouwen = relevanteDetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("f")).Count(),
-                        GemObjectiviteit = relevanteDetailItems.Average(a => a.Objectiviteit),
-                        GemPolariteit = relevanteDetailItems.Average(a => a.Polariteit),
-                    });
-                }
-                else
-                {
-                    item.ItemHistorieken.Add(new ItemHistoriek()
+                        item.ItemHistorieken.Add(new ItemHistoriek()
+                        {
+                            HistoriekDatum = startDag,
+                            AantalVermeldingen = relevanteDetailItems.Count,
+                            AantalBerichtenVanMannen = relevanteDetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("m")).Count(),
+                            AantalBerichtenVanVrouwen = relevanteDetailItems.Where(a => a.ProfielEigenschappen["gender"].Equals("f")).Count(),
+                            GemObjectiviteit = relevanteDetailItems.Average(a => a.Objectiviteit),
+                            GemPolariteit = relevanteDetailItems.Average(a => a.Polariteit),
+                        });
+                    }
+                    else
                     {
-                        HistoriekDatum = startUur,
-                        AantalVermeldingen = 0,
-                        AantalBerichtenVanMannen = 0,
-                        AantalBerichtenVanVrouwen = 0,
-                        GemObjectiviteit = 0.5,
-                        GemPolariteit = 0
-                    });
+                        item.ItemHistorieken.Add(new ItemHistoriek()
+                        {
+                            HistoriekDatum = startDag,
+                            AantalVermeldingen = 0,
+                            AantalBerichtenVanMannen = 0,
+                            AantalBerichtenVanVrouwen = 0,
+                            GemObjectiviteit = 0.5,
+                            GemPolariteit = 0
+                        });
+                    }
+
+                    startDag = grensUur;
+
                 }
-
-                startUur = grensUur;
-
             }
-            item.ItemHistorieken.RemoveAll(a => a.HistoriekDatum < startDatum);
-
+            VerwijderHistorieken(item.ItemHistorieken.Where(a => a.HistoriekDatum < syncDatum.Date.AddDays(-aantalDagenHistoriek)).ToList());
             ChangeGemonitordItem(item);
+        }
+
+        private void VerwijderHistorieken(List<ItemHistoriek> itemHistorieken)
+        {
+            InitNonExistingRepo();
+            repository.VerwijderHistorieken(itemHistorieken);
         }
 
         public void InitNonExistingRepo(bool uow = false)
