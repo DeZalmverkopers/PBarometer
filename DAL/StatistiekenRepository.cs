@@ -33,7 +33,7 @@ namespace DAL
       //if (!dashboard && !items) return context.Grafieken.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
       //if (!dashboard && items) return context.Grafieken/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
       //if (dashboard && !items) return context.Grafieken.Include("Dashboard").Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
-      return context.Statistieken.AsEnumerable().Where(s => s.DashboardStatistiekId == dashboardId).Where(s => s.DeelplatformId == deelplatformId);
+      return context.Statistieken.AsEnumerable().Where(s => s.DashboardId == dashboardId).Where(s => s.DeelplatformId == deelplatformId);
     }
 
 

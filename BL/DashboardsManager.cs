@@ -54,9 +54,10 @@ namespace BL
             repository.DeleteDashboard(dashboard);
         }
 
-        public void RemoveDashboards(IEnumerable<Dashboard> dashboards)
+        public void RemoveDashboards(int deelplatformId)
         {
             InitNonExistingRepo(true);
+            IEnumerable<Dashboard> dashboards = repository.ReadDashboards(false, false).Where(a => a.DeelplatformId == deelplatformId);
             repository.DeleteDashboards(dashboards);
         }
 

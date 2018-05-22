@@ -55,9 +55,10 @@ namespace BL
             return repository.ReadAlert(id, gebruiker, gemonitordItem);
         }
 
-        public void RemoveAlerts(IEnumerable<Alert> alerts)
+        public void RemoveAlerts(int deelplatformId)
         {
-            InitNonExistingRepo(true);
+            InitNonExistingRepo();
+            IEnumerable<Alert> alerts = repository.ReadAlerts(false,false).Where(a => a.DeelplatformId == deelplatformId);
             repository.DeleteAlerts(alerts);
         }
 

@@ -22,17 +22,16 @@ namespace MVC.Controllers
                 return new DeelplatformenManager().GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
             }
         }
-        private int deelplatformId;
         public virtual ActionResult Index()
         {
             if (HuidigDeelplatform == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            deelplatformId = HuidigDeelplatform.DeelplatformId;
-            ViewBag.Personen = gemonitordeItemsManager.GetPersonen(deelplatformId).OrderByDescending(a => a.TotaalAantalVermeldingen);
-            ViewBag.Themas = gemonitordeItemsManager.GetThemas(deelplatformId).OrderByDescending(a => a.TotaalAantalVermeldingen);
-            ViewBag.Organisaties = gemonitordeItemsManager.GetOrganisaties(deelplatformId).OrderByDescending(a => a.TotaalAantalVermeldingen);
+            ViewBag.Personen = gemonitordeItemsManager.GetPersonen(HuidigDeelplatform.DeelplatformId).Cast<Persoon>().OrderByDescending(a => a.TotaalAantalVermeldingen);
+            ViewBag.Themas = gemonitordeItemsManager.GetThemas(HuidigDeelplatform.DeelplatformId).OrderByDescending(a => a.TotaalAantalVermeldingen);
+            ViewBag.Organisaties = gemonitordeItemsManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).OrderByDescending(a => a.TotaalAantalVermeldingen);
+            ViewBag.Gemeentes = gemonitordeItemsManager.GetPersonen(HuidigDeelplatform.DeelplatformId).Cast<Persoon>().Where(a => a.Gemeente != null && !a.Gemeente.Equals("")).Select(a => a.Gemeente.ToUpper()).Distinct().OrderBy(a => a).ToList();
             return View();
         }
         public virtual ActionResult PersoonDetails(int id)
@@ -225,7 +224,7 @@ namespace MVC.Controllers
             {
                 string naam = maakThemaViewModel.Naam;
                 List<string> kernwoorden = maakThemaViewModel.Kernwoorden.Split(',').ToList();
-                gemonitordeItemsManager.AddThema(naam, kernwoorden, deelplatformId);
+                gemonitordeItemsManager.AddThema(naam, kernwoorden, HuidigDeelplatform.DeelplatformId);
                 return RedirectToAction("Index");
             }
             else
@@ -248,7 +247,7 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 List<string> leden = maakOrganisatieViewModel.Leden.Split(',').ToList();
-                gemonitordeItemsManager.AddOrganisatie(maakOrganisatieViewModel.Naam, deelplatformId, leden);
+                gemonitordeItemsManager.AddOrganisatie(maakOrganisatieViewModel.Naam, HuidigDeelplatform.DeelplatformId, leden);
                 return RedirectToAction("Index");
             }
             else return View();
@@ -284,7 +283,7 @@ namespace MVC.Controllers
 
                 if (organisatie == null && persoonViewModel.NaamOrganisatie != null)
                 {
-                    gemonitordeItemsManager.AddOrganisatie(persoonViewModel.NaamOrganisatie, deelplatformId, new List<string>() { persoonViewModel.Naam });
+                    gemonitordeItemsManager.AddOrganisatie(persoonViewModel.NaamOrganisatie, HuidigDeelplatform.DeelplatformId, new List<string>() { persoonViewModel.Naam });
                 }
 
                 persoon.TwitterHandle = persoonViewModel.TwitterHandle;

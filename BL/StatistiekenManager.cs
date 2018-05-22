@@ -70,7 +70,7 @@ namespace BL
         {
           //StatistiekId    = 1,
           GemonitordItemId  = 1,
-          DashboardStatistiekId = 1,
+          DashboardId = 1,
           DeelplatformId = 1,
           SoortStatistiek = "getal"
         },
@@ -78,7 +78,7 @@ namespace BL
         {
           //StatistiekId   = 2,
           GemonitordItemId = 2,
-          DashboardStatistiekId = 1,
+          DashboardId = 1,
           DeelplatformId = 1,
           SoortStatistiek = "getal"
 
@@ -87,7 +87,7 @@ namespace BL
         {
           //StatistiekId   = 3,
           GemonitordItemId = 3,
-          DashboardStatistiekId = 1,
+          DashboardId = 1,
           DeelplatformId = 1,
           SoortStatistiek = "getalTrend"
 
@@ -96,7 +96,7 @@ namespace BL
         {
           //StatistiekId   = 4,
           GemonitordItemId = 4,
-          DashboardStatistiekId = 1,
+          DashboardId = 1,
           DeelplatformId = 1,
           SoortStatistiek = "getalTrend"
 

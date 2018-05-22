@@ -58,7 +58,6 @@ namespace DAL
         {
             foreach (var dashboard in dashboards.ToList())
             {
-                context.Dashboards.Attach(dashboard);
                 context.Dashboards.Remove(dashboard);
             }
             context.SaveChanges();
