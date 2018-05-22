@@ -12,23 +12,22 @@ namespace DAL.EF
   [DbConfigurationType(typeof(DbConfiguration))]
   public class DbContext : IdentityDbContext<ApplicationUser>
   {
-    private readonly bool delaySave;
+        private readonly bool delaySave;
 
-    //Database Sets
-    public DbSet<Alert> Alerts { get; set; }
-    public DbSet<Dashboard> Dashboards { get; set; }
-    public DbSet<Grafiek> Grafieken { get; set; }
-    public DbSet<Statistiek> Statistieken { get; set; }
+        //Database Sets
+        public DbSet<Alert> Alerts { get; set; }
+        public DbSet<Dashboard> Dashboards { get; set; }
+        public DbSet<Grafiek> Grafieken { get; set; }
+        public DbSet<Deelplatform> Deelplatformen { get; set; }
 
-    public DbSet<Deelplatform> Deelplatformen { get; set; }
+        public DbSet<GemonitordItem> GemonitordeItems { get; set; }
+        public DbSet<DetailItem> DetailItems { get; set; }
+        public DbSet<ItemHistoriek> ItemHistorieken { get; set; }
+        public DbContext(bool unitOfWorkPresent = false) : base("PBDb_Barometer")
+        {
+            delaySave = unitOfWorkPresent;
+        }
 
-    public DbSet<GemonitordItem> GemonitordeItems { get; set; }
-    public DbSet<DetailItem> DetailItems { get; set; }
-
-    public DbContext(bool unitOfWorkPresent = false) : base("PBDb_Barometer")
-    {
-      delaySave = unitOfWorkPresent;
-    }
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
@@ -87,19 +86,19 @@ namespace DAL.EF
             //modelBuilder.Entity<Deelplatform>().HasMany(deelplatform => deelplatform.DetailItems).WithRequired(detailitem => detailitem.Deelplatform);
         }
 
-    public override int SaveChanges()
-    {
-      if (delaySave) return -1;
-      return base.SaveChanges();
-    }
+        public override int SaveChanges()
+        {
+            if (delaySave) return -1;
+            return base.SaveChanges();
+        }
 
-    internal int CommitChanges()
-    {
-      if (delaySave)
-      {
-        return base.SaveChanges();
-      }
-      throw new InvalidOperationException("No UnitOfWork present, use SaveChanges instead");
+        internal int CommitChanges()
+        {
+            if (delaySave)
+            {
+                return base.SaveChanges();
+            }
+            throw new InvalidOperationException("No UnitOfWork present, use SaveChanges instead");
+        }
     }
-  }
 }

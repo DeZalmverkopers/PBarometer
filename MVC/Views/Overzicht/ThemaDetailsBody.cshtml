@@ -88,5 +88,22 @@
                 </td>
             </tr>
         </table>
+        <div>
+
+            <canvas id="lijnGrafiekThemaDetail" height="250"></canvas>
+
+        </div>
     </div>
 </div>
+
+<script src="~/Scripts/Chart.js"></script>
+
+<script src="~/Scripts/EigenScripts.js"></script>
+<script>
+
+        var dagen=@Html.Raw(Json.Encode(ViewBag.ItemDagen));
+        var aantalTweets=@Html.Raw(Json.Encode(ViewBag.ItemAantalTweets));
+        GrafiekOpbouwen("lijnGrafiekThemaDetail", "Vermeldingen doorheen de tijd", "line" , false, true, true, true, true, false, true, 90, 0, "Datum" , "Vermeldingen" , dagen,
+            null, null, null, null, null, aantalTweets, null, null, null, null, 'rgba(23,158,241,1)', null, null, null, null, 'rgba(23,158,241,1)', null, null, null, null)
+
+</script>
