@@ -89,7 +89,9 @@
             </tr>
         </table>
         <div>
-
+            <button class="btn btn-primary" title="Klik hier om deze grafiek toe te voegen aan uw dashboard." onclick="location.href='@Url.Action("VoegGrafiekAantalTweetsToeUitOverzicht", "Dashboard",new { gemonitordItemId = ViewBag.Thema.GemonitordItemId})'">
+                <span class="glyphicon glyphicon-pushpin"></span>
+            </button>
             <canvas id="lijnGrafiekThemaDetail" height="250"></canvas>
 
         </div>

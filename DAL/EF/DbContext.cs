@@ -45,7 +45,6 @@ namespace DAL.EF
       modelBuilder.Entity<ItemHistoriek>().ToTable("ItemHistorieken");
       modelBuilder.Entity<GrafiekItem>().ToTable("Grafiekitems");
       modelBuilder.Entity<Statistiek>().ToTable("Statistieken");
-      modelBuilder.Entity<DashboardStatistieken>().ToTable("Dashboardstatistieken");
 
 
       modelBuilder.Entity<IdentityUserLogin>().HasKey(l => l.UserId);
@@ -56,7 +55,6 @@ namespace DAL.EF
       //modelBuilder.Entity<GrafiekItem>().HasKey(gi => gi.GrafiekItemId);
 
       modelBuilder.Entity<Statistiek>().HasKey(s => s.StatistiekId);
-      modelBuilder.Entity<DashboardStatistieken>().HasKey(ds => ds.DashboardStatistiekenId);
 
       //Foreign keys
       //modelBuilder.Entity<Alert>().HasRequired(alert => alert.Gebruiker).WithMany(gebruiker => gebruiker.Alerts);
