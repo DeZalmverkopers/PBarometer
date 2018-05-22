@@ -4,6 +4,7 @@
     @Html.Partial("~/Views/Shared/Dashboard/Dropdown/GemonitordeItemsAantal.cshtml")
 </div>
 
+
 <div id="divToevoegenOpslaan">
     <button id="btnToevoegenOpslaan" class="btn btn-primary btn-algemene-layout">Opslaan</button>
 </div>
@@ -26,6 +27,7 @@
 
          link = templink2.replace("replaceItem2", $("#item2").val());
 
+        
 
         $.get(link , {}, function (resultaat) {
             $("#elementenStatistieken").append("<div class=col-md-6>" + resultaat + "</div>");

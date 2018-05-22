@@ -199,7 +199,7 @@ namespace BL
     }
 
 
-    private void MaakHistorieken(GemonitordItem item, int aantalDagenHistoriek, DateTime syncDatum)
+    public void MaakHistorieken(GemonitordItem item, int aantalDagenHistoriek, DateTime syncDatum)
     {
       DateTime startDatum;
       if (item.ItemHistorieken == null || item.ItemHistorieken.Count < 1 ||

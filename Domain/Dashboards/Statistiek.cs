@@ -10,11 +10,18 @@ namespace Domain.Dashboards
 {
  public class Statistiek
   {
+    
+
     public int StatistiekId { get; set; }
 
-    public GemonitordItem GemonitordItem { get; set; }
 
-    //getal, getalTrend, top5, top10
+    public int DeelplatformId { get; set; }
+    public int DashboardStatistiekId { get; set; }
+
+
+    public int GemonitordItemId { get; set; }
+
+    //getal, getalTrend
     public string SoortStatistiek { get; set; }
   }
 }
