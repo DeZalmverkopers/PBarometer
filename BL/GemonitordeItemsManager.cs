@@ -179,6 +179,7 @@ namespace BL
 
         }
 
+
         public void AddGekruistItem(GemonitordItem item1, GemonitordItem item2, string naam, int deelplatformId)
         {
             InitNonExistingRepo();
@@ -229,7 +230,7 @@ namespace BL
         }
 
 
-        private void MaakHistorieken(GemonitordItem item, int aantalDagenHistoriek, DateTime syncDatum)
+        public void MaakHistorieken(GemonitordItem item, int aantalDagenHistoriek, DateTime syncDatum)
         {
             DateTime startDatum;
             if (item.ItemHistorieken == null || item.ItemHistorieken.Count < 1 ||

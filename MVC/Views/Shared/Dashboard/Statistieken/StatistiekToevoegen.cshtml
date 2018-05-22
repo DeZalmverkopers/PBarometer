@@ -6,12 +6,8 @@
             <option>Getal</option>
             <option>Getal + trend</option>
         </optgroup>
-        <optgroup label="Top 5 associaties met een item">
-            <option>Top 5</option>
-        </optgroup>
-
-        <optgroup label="Top 10 associaties met een item">
-            <option>Top 10</option>
+        <optgroup label="Populairste items">
+            <option>Populairste items</option>
         </optgroup>
         <optgroup label="Kruising maken">
             <option>Kruising</option>
@@ -39,15 +35,11 @@
                      $("#divInhoud").html(resultaat)
                  });
                 break;
-            case "Top 5":
-                $.get('@Url.Action("LaadTop5Keuze", "DashboardStatistieken")', {}, function (resultaat) {
+            case "Populairste items":
+                 $.get('@Url.Action("LaadPopulairsteItemsKeuze", "DashboardStatistieken")', {}, function (resultaat) {
                      $("#divInhoud").html(resultaat)
                  });
                 break;
-            case "Top 10":
-                $.get('@Url.Action("LaadTop10Keuze", "DashboardStatistieken")', {}, function (resultaat) {
-                    $("#divInhoud").html(resultaat)
-                });
             case "Kruising":
                 $.get('@Url.Action("LaadKruisingKeuze", "DashboardStatistieken")', {}, function (resultaat) {
                     $("#divInhoud").html(resultaat)

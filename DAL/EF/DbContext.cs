@@ -9,9 +9,9 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace DAL.EF
 {
-    [DbConfigurationType(typeof(DbConfiguration))]
-    public class DbContext : IdentityDbContext<ApplicationUser>
-    {
+  [DbConfigurationType(typeof(DbConfiguration))]
+  public class DbContext : IdentityDbContext<ApplicationUser>
+  {
         private readonly bool delaySave;
 
         //Database Sets
@@ -28,35 +28,42 @@ namespace DAL.EF
             delaySave = unitOfWorkPresent;
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            //base.OnModelCreating(modelBuilder);
-            //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
-            //Tabelnamen
-            modelBuilder.Entity<Alert>().ToTable("Alerts");
-            modelBuilder.Entity<Dashboard>().ToTable("Dashboards");
-            modelBuilder.Entity<Grafiek>().ToTable("Grafieken");
-            modelBuilder.Entity<GrafiekItem>().ToTable("GrafiekDetails");
-            modelBuilder.Entity<DetailItem>().ToTable("DetailItems");
-            modelBuilder.Entity<GemonitordItem>().ToTable("GemonitordeItems");
-            modelBuilder.Entity<ItemHistoriek>().ToTable("ItemHistorieken");
-            modelBuilder.Entity<GrafiekItem>().ToTable("Grafiekitems");
+    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+    {
+      //base.OnModelCreating(modelBuilder);
+      //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+      modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
-            modelBuilder.Entity<IdentityUserLogin>().HasKey(l => l.UserId);
-            modelBuilder.Entity<IdentityRole>().HasKey(r => r.Id);
-            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+      //Tabelnamen
+      modelBuilder.Entity<Alert>().ToTable("Alerts");
+      modelBuilder.Entity<Dashboard>().ToTable("Dashboards");
+      modelBuilder.Entity<Grafiek>().ToTable("Grafieken");
+      modelBuilder.Entity<GrafiekItem>().ToTable("GrafiekDetails");
+      modelBuilder.Entity<DetailItem>().ToTable("DetailItems");
+      modelBuilder.Entity<GemonitordItem>().ToTable("GemonitordeItems");
+      modelBuilder.Entity<ItemHistoriek>().ToTable("ItemHistorieken");
+      modelBuilder.Entity<GrafiekItem>().ToTable("Grafiekitems");
+      modelBuilder.Entity<Statistiek>().ToTable("Statistieken");
+      modelBuilder.Entity<DashboardStatistieken>().ToTable("Dashboardstatistieken");
 
-            modelBuilder.Entity<Grafiek>().HasKey(g => g.GrafiekId);
-            //modelBuilder.Entity<GrafiekItem>().HasKey(gi => gi.GrafiekItemId);
 
-            //Foreign keys
-            //modelBuilder.Entity<Alert>().HasRequired(alert => alert.Gebruiker).WithMany(gebruiker => gebruiker.Alerts);
-            //modelBuilder.Entity<Gebruiker>().HasMany(gebruiker => gebruiker.Alerts).WithRequired(alert => alert.Gebruiker);
+      modelBuilder.Entity<IdentityUserLogin>().HasKey(l => l.UserId);
+      modelBuilder.Entity<IdentityRole>().HasKey(r => r.Id);
+      modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
 
-            //  modelBuilder.Entity<Alert>().HasRequired(alert => alert.GemonitordItem).WithMany(gemonitordItem => gemonitordItem.Alerts);
-            modelBuilder.Entity<GemonitordItem>().HasMany(gemonitordItem => gemonitordItem.Alerts).WithRequired(alert => alert.GemonitordItem).WillCascadeOnDelete(true);
+      modelBuilder.Entity<Grafiek>().HasKey(g => g.GrafiekId);
+      //modelBuilder.Entity<GrafiekItem>().HasKey(gi => gi.GrafiekItemId);
+
+      modelBuilder.Entity<Statistiek>().HasKey(s => s.StatistiekId);
+      modelBuilder.Entity<DashboardStatistieken>().HasKey(ds => ds.DashboardStatistiekenId);
+
+      //Foreign keys
+      //modelBuilder.Entity<Alert>().HasRequired(alert => alert.Gebruiker).WithMany(gebruiker => gebruiker.Alerts);
+      //modelBuilder.Entity<Gebruiker>().HasMany(gebruiker => gebruiker.Alerts).WithRequired(alert => alert.Gebruiker);
+
+      //  modelBuilder.Entity<Alert>().HasRequired(alert => alert.GemonitordItem).WithMany(gemonitordItem => gemonitordItem.Alerts);
+      modelBuilder.Entity<GemonitordItem>().HasMany(gemonitordItem => gemonitordItem.Alerts).WithRequired(alert => alert.GemonitordItem).WillCascadeOnDelete(true);
             //modelBuilder.Entity<ApplicationUser>().HasOptional(gebruiker => gebruiker.Dashboard).WithRequired(dashboard => dashboard.Gebruiker);
 
             //  modelBuilder.Entity<Dashboard>().HasMany(dashboard => dashboard.Grafieken).WithRequired(grafiek => grafiek.Dashboard);

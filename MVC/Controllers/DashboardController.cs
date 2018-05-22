@@ -39,8 +39,6 @@ namespace MVC.Controllers
     public virtual ActionResult Index()
     {
 
-
-
       if (HuidigDeelplatform == null)
       {
         return RedirectToAction("Index", "Home");
@@ -52,15 +50,17 @@ namespace MVC.Controllers
       ViewBag.DeelplatformNaam = HuidigDeelplatform.Naam;
       ViewBag.Afbeelding = HuidigDeelplatform.AfbeeldingPad ?? "default.png";
 
+      List<Grafiek> testgrafieken = grafiekenManager.GetGrafiekenTest();
 
-
-      List<Grafiek> grafieken = grafiekenManager.GetGrafiekenTest();
-      foreach (var item in grafieken)
+      if (grafiekenManager.GetGrafieken(1, deelplatformId).ToList().Count == 0)
       {
-        grafiekenManager.AddGrafiek(item);
+        foreach (var item in testgrafieken)
+        {
+          grafiekenManager.AddGrafiek(item);
+        }
       }
 
-      ViewBag.Grafieken = grafiekenManager.GetGrafieken(1, 1);
+      ViewBag.Grafieken = grafiekenManager.GetGrafieken(1, deelplatformId).ToList();
 
       return View();
     }
@@ -70,8 +70,8 @@ namespace MVC.Controllers
       int idInt = Int32.Parse(id);
 
       GrafiekenManager grafiekenManager = new GrafiekenManager();
-      List<Grafiek> grafieken = grafiekenManager.GetGrafiekenTest();
-
+      //List<Grafiek> grafieken = grafiekenManager.GetGrafiekenTest();
+      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(1, 1).ToList();
 
       //List<SelectListItem> schaalopties = new List<SelectListItem>
       //{
@@ -120,14 +120,7 @@ namespace MVC.Controllers
 
 
 
-    //public void LaadThema(List<Thema> items)
-    //{
-    //  selects = new List<SelectListItem>();
-    //  foreach (var item in items)
-    //  {
-    //    selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-    //  }
-    //}
+    #region organisaties laden
 
     public virtual ActionResult LaadOrganisaties1Item()
     {
@@ -200,6 +193,10 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Organisaties/Organisaties5Items.cshtml", ViewBag);
     }
 
+    #endregion
+
+
+    #region personen laden
 
     public virtual ActionResult LaadPersonen1Item()
     {
@@ -279,7 +276,12 @@ namespace MVC.Controllers
 
     }
 
+    #endregion
 
+
+
+
+    #region themas laden
     public virtual ActionResult LaadThemas1Item()
     {
       var items = itemManager.GetThemas(1).ToList();
@@ -350,38 +352,12 @@ namespace MVC.Controllers
 
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas5Items.cshtml", ViewBag);
     }
-
-
-
-    //public virtual ActionResult LaadGemonitordeItemsAantal(string soortItem, )
-    //{
-    //  List<GemonitordItem> items;
-
-    //  items = itemManager.GetThemas(1).ToList();
-    //  items = itemManager.GetPersonen(1).ToList();
-    //  items = itemManager.GetOrganisaties(1).ToList();
+    #endregion
 
 
 
 
-    //  selects = new List<SelectListItem>();
-    //  foreach (var item in items)
-    //  {
-    //    selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-    //  }
-
-    //  ViewBag.GemonitordeItems = selects;
-
-    //  return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas5Items.cshtml", ViewBag);
-    //}
-
-
-
-
-
-
-
-
+    #region soorten grafieken laden
     public virtual ActionResult LaadAantalTweets()
     {
       return PartialView("~/Views/Shared/Dashboard/Grafieken/AantalTweets.cshtml");
@@ -389,7 +365,16 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadItemsKruisen()
     {
-      return PartialView("~/Views/Shared/Dashboard/Grafieken/ItemsKruisen.cshtml");
+      var items = itemManager.GetGemonitordeItems(1).ToList();
+      selects = new List<SelectListItem>();
+      foreach (var item in items)
+      {
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+      }
+
+      ViewBag.GemonitordeItemsViewbag = selects;
+
+      return PartialView("~/Views/Shared/Dashboard/Grafieken/ItemsKruisen.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadVergelijkenDoorheenDeTijd()
@@ -401,8 +386,13 @@ namespace MVC.Controllers
     {
       return PartialView("~/Views/Shared/Dashboard/Grafieken/VergelijkenOpMoment.cshtml");
     }
+    #endregion
 
-    public virtual ActionResult LaadVergelijkingOpMoment2Items(string grafiektitel, string item1, string item2, string gewensteData)
+
+
+    #region laad vergelijking op moment
+
+    public virtual ActionResult LaadVergelijkingOpMoment2Items(string grafiektitel, string item1, string item2, string gewensteData, string soortGrafiek)
     {
       items = itemManager.GetGemonitordeItems(1).ToList();
 
@@ -468,6 +458,31 @@ namespace MVC.Controllers
       }
 
 
+      string grafiektype = "";
+      bool toonLegende = true;
+      bool toonXAs = false;
+      bool toonYAs = false;
+      if (soortGrafiek.Equals("staaf"))
+      {
+        grafiektype = "bar";
+        toonLegende = false;
+        toonXAs = true;
+        toonYAs = true;
+      } else if (soortGrafiek.Equals("taart"))
+      {
+        grafiektype = "pie";
+        toonLegende = true;
+        toonXAs = false;
+        toonYAs = false;
+      }
+
+      ViewBag.Grafiektype = grafiektype;
+      ViewBag.ToonLegende = toonLegende;
+      ViewBag.ToonXAs = toonXAs;
+      ViewBag.ToonYAs = toonYAs;
+
+
+
       ViewBag.XLabels = xLabels;
       ViewBag.Data = data;
       ViewBag.Grafiektitel = grafiektitel;
@@ -476,7 +491,7 @@ namespace MVC.Controllers
 
     }
 
-    public virtual ActionResult LaadVergelijkingOpMoment3Items(string grafiektitel, string item1, string item2, string item3, string gewensteData)
+    public virtual ActionResult LaadVergelijkingOpMoment3Items(string grafiektitel, string item1, string item2, string item3, string gewensteData, string soortGrafiek)
     {
       items = itemManager.GetGemonitordeItems(1).ToList();
 
@@ -557,6 +572,20 @@ namespace MVC.Controllers
       }
 
 
+      string grafiektype = "";
+      switch (soortGrafiek)
+      {
+        case "staaf":
+          grafiektype = "bar";
+          break;
+        case "taart":
+          grafiektype = "pie";
+          break;
+      }
+
+      ViewBag.Grafiektype = grafiektype;
+
+
       ViewBag.XLabels = xLabels;
       ViewBag.Data = data;
       ViewBag.Grafiektitel = grafiektitel;
@@ -565,7 +594,7 @@ namespace MVC.Controllers
 
     }
 
-    public virtual ActionResult LaadVergelijkingOpMoment4Items(string grafiektitel, string item1, string item2, string item3, string item4, string gewensteData)
+    public virtual ActionResult LaadVergelijkingOpMoment4Items(string grafiektitel, string item1, string item2, string item3, string item4, string gewensteData, string soortGrafiek)
     {
       items = itemManager.GetGemonitordeItems(1).ToList();
 
@@ -660,6 +689,19 @@ namespace MVC.Controllers
 
       }
 
+      string grafiektype = "";
+      switch (soortGrafiek)
+      {
+        case "staaf":
+          grafiektype = "bar";
+          break;
+        case "taart":
+          grafiektype = "pie";
+          break;
+      }
+
+      ViewBag.Grafiektype = grafiektype;
+
 
       ViewBag.XLabels = xLabels;
       ViewBag.Data = data;
@@ -672,7 +714,7 @@ namespace MVC.Controllers
 
 
 
-    public virtual ActionResult LaadVergelijkingOpMoment5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string gewensteData)
+    public virtual ActionResult LaadVergelijkingOpMoment5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string gewensteData, string soortGrafiek)
     {
       items = itemManager.GetGemonitordeItems(1).ToList();
 
@@ -780,6 +822,21 @@ namespace MVC.Controllers
       }
 
 
+      string grafiektype = "";
+
+      if (soortGrafiek.Equals("staaf"))
+      {
+        grafiektype = "bar";
+
+      }
+      else
+      {
+        grafiektype = "pie";
+      }
+
+
+      ViewBag.Grafiektype = grafiektype;
+
       ViewBag.XLabels = xLabels;
       ViewBag.Data = data;
       ViewBag.Grafiektitel = grafiektitel;
@@ -788,7 +845,11 @@ namespace MVC.Controllers
 
     }
 
+    #endregion
 
+
+
+    #region aantal tweets
 
     public virtual ActionResult LaadLijndiagramAantalTweets(string grafiektitel, string item, string aantalDagen)
     {
@@ -824,11 +885,11 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/LijndiagramAantalTweets.cshtml", ViewBag);
     }
 
+    #endregion
 
 
 
-
-
+    #region vergelijking doorheen tijd
 
     public virtual ActionResult LaadVergelijkingDoorheenTijd2Items(string grafiektitel, string item1, string item2, string aantalDagen, string gewensteData)
     {
@@ -1184,9 +1245,6 @@ namespace MVC.Controllers
 
       }
 
-
-
-
       alleWaarden.Add(waardenItem1);
       alleWaarden.Add(waardenItem2);
       alleWaarden.Add(waardenItem3);
@@ -1201,13 +1259,84 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram5Items.cshtml", ViewBag);
     }
 
-
-    //public virtual ActionResult GekruistItemLaden()
-    //{
+    #endregion
 
 
 
-    //}
+
+    #region kruising grafiek
+
+    public virtual ActionResult LaadKruising(string grafiektitel, string item1, string item2, string aantalDagen)
+    {
+
+      int dagen = Int32.Parse(aantalDagen);
+
+      List<ItemHistoriek> itemhistorieken = new List<ItemHistoriek>();
+      List<dynamic> grafiekXLabels = new List<dynamic>();
+      List<double> grafiekWaarden = new List<double>();
+      List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
+
+      GemonitordItem gemonitordItem1 = new GemonitordItem();
+      GemonitordItem gemonitordItem2 = new GemonitordItem(); ;
+      GekruistItem gekruistItem = new GekruistItem();
+
+
+
+      foreach (var gemonitordItem in gemonitordeItems)
+      {
+        if (gemonitordItem.Naam.Equals(item1))
+        {
+          gemonitordItem1 = gemonitordItem;
+        }
+        else if (gemonitordItem.Naam.Equals(item2))
+        {
+          gemonitordItem2 = gemonitordItem;
+        }
+      }
+
+      gekruistItem = new GekruistItem()
+      {
+        Item1 = gemonitordItem1,
+        Item2 = gemonitordItem2
+      };
+
+
+      gekruistItem.BerekenEigenschappen();
+
+      itemManager.MaakHistorieken(gekruistItem, HuidigDeelplatform.AantalDagenHistoriek, HuidigDeelplatform.LaatsteSynchronisatie);
+
+      foreach (var item in gekruistItem.ItemHistorieken)
+      {
+        itemhistorieken.Add(item);
+      }
+
+
+      //for (int i = itemhistorieken.Count - dagen; i < itemhistorieken.Count; i++)
+      //{
+      //  grafiekXLabels.Add(itemhistorieken[i].HistoriekDatum.ToShortDateString());
+      //  grafiekWaarden.Add(itemhistorieken[i].AantalVermeldingen);
+      //}
+
+      for (int i = 0; i < itemhistorieken.Count; i++)
+      {
+        grafiekXLabels.Add(itemhistorieken[i].HistoriekDatum.ToShortDateString());
+        grafiekWaarden.Add(itemhistorieken[i].AantalVermeldingen);
+      }
+
+
+      ViewBag.Grafiektitel = grafiektitel;
+      ViewBag.ItemDagen = grafiekXLabels;
+      ViewBag.ItemAantalTweets = grafiekWaarden;
+
+
+      return PartialView("~/Views/Shared/Grafieken/Lijndiagram/LijndiagramAantalTweets.cshtml", ViewBag);
+    }
+
+    #endregion
+
+
+
+
 
     public virtual ActionResult LaadStaafdiagramMulti()
     {
@@ -1338,24 +1467,24 @@ namespace MVC.Controllers
     //  return RedirectToAction("Index");
     //}
 
-    public void GetData()
-    {
-      GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
-      DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+    //public void GetData()
+    //{
+    //  GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
+    //  DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
 
-      deelplatformenManager.AddDeelplatform(new Deelplatform() { Naam = "Politieke Barometer", AantalDagenHistoriek = 2, LaatsteSynchronisatie = DateTime.Now.AddYears(-100) });
-      int id = deelplatformenManager.GetDeelplatformByName("Politieke Barometer").DeelplatformId;
-      gemonitordeItemsManager.AddOrganisatie("Open VLD", id, new List<string>() { "Alexander De Croo", "Gwendolyn Rutten", "Maggie De Block" });
-      gemonitordeItemsManager.AddOrganisatie("Groen", id, new List<string>() { "Kristof Calvo", "Meyrem Almaci", "Wouter Van Besien" });
-      gemonitordeItemsManager.AddOrganisatie("SPA", id, new List<string>() { "Caroline Gennez", "John Crombez", "Bruno Tobback" });
-      gemonitordeItemsManager.AddOrganisatie("Vlaams Belang", id, new List<string>() { "Filip Dewinter", "Tom Van Grieken", "Gerolf Annemans" });
+    //  deelplatformenManager.AddDeelplatform(new Deelplatform() { Naam = "Politieke Barometer", AantalDagenHistoriek = 2, LaatsteSynchronisatie = DateTime.Now.AddYears(-100) });
+    //  int id = deelplatformenManager.GetDeelplatformByName("Politieke Barometer").DeelplatformId;
+    //  gemonitordeItemsManager.AddOrganisatie("Open VLD", id, new List<string>() { "Alexander De Croo", "Gwendolyn Rutten", "Maggie De Block" });
+    //  gemonitordeItemsManager.AddOrganisatie("Groen", id, new List<string>() { "Kristof Calvo", "Meyrem Almaci", "Wouter Van Besien" });
+    //  gemonitordeItemsManager.AddOrganisatie("SPA", id, new List<string>() { "Caroline Gennez", "John Crombez", "Bruno Tobback" });
+    //  gemonitordeItemsManager.AddOrganisatie("Vlaams Belang", id, new List<string>() { "Filip Dewinter", "Tom Van Grieken", "Gerolf Annemans" });
 
-      gemonitordeItemsManager.AddThema("Migratie", new List<string>() { "buitenland", "vluchteling", "immigratie", "migratie" }, id);
-      gemonitordeItemsManager.AddThema("Fiscaliteit", new List<string>() { "belastingen", "tax", "btw", "sociale zekerheid" }, id);
-      gemonitordeItemsManager.AddThema("Milieu", new List<string>() { "kernenergie", "zonnenergie", "steenkool", "luchtvervuiling", "windenergie" }, id);
-      TextgainController textgainController = new TextgainController();
-      textgainController.HaalBerichtenOp(deelplatformenManager.GetDeelplatform(id));
-    }
+    //  gemonitordeItemsManager.AddThema("Migratie", new List<string>() { "buitenland", "vluchteling", "immigratie", "migratie" }, id);
+    //  gemonitordeItemsManager.AddThema("Fiscaliteit", new List<string>() { "belastingen", "tax", "btw", "sociale zekerheid" }, id);
+    //  gemonitordeItemsManager.AddThema("Milieu", new List<string>() { "kernenergie", "zonnenergie", "steenkool", "luchtvervuiling", "windenergie" }, id);
+    //  TextgainController textgainController = new TextgainController();
+    //  textgainController.HaalBerichtenOp(deelplatformenManager.GetDeelplatform(id));
+    //}
 
 
 

@@ -1,0 +1,54 @@
+﻿<label>Wat wilt u zien?</label>
+
+<select id="itemOpties">
+    <option hidden selected>Selecteer een optie</option>
+    <option>Top 5</option>
+    <option>Top 10</option>
+</select>
+
+<div class="onzichtbaar" id="divToevoegenOpslaan">
+    <button id="btnToevoegenOpslaan" class="btn btn-primary btn-algemene-layout">Opslaan</button>
+</div>
+
+<script>
+    $("#itemOpties").change(function () {
+
+
+        $("#divToevoegenOpslaan").show();
+
+    });
+
+</script>
+
+<script>
+
+    $("#btnToevoegenOpslaan").click(function () {
+
+        var keuze = $("#itemOpties").val();
+        var link;
+
+        switch (keuze) {
+            case "Top 5":
+
+                link = '@Url.Action("LaadTop5", "DashboardStatistieken")'
+
+            break;
+
+            case "Top 10":
+
+                link = '@Url.Action("LaadTop10", "DashboardStatistieken")'
+
+            break;
+
+        }
+
+        $.get(link , {}, function (resultaat) {
+            $("#elementenStatistieken").append("<div class=col-md-6>" + resultaat + "</div>");
+
+        });
+
+        $("#modalStatistiekToevoegen").modal('hide');
+
+    });
+
+</script>
