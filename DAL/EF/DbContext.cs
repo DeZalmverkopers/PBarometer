@@ -18,6 +18,8 @@ namespace DAL.EF
     public DbSet<Alert> Alerts { get; set; }
     public DbSet<Dashboard> Dashboards { get; set; }
     public DbSet<Grafiek> Grafieken { get; set; }
+    public DbSet<Statistiek> Statistieken { get; set; }
+
     public DbSet<Deelplatform> Deelplatformen { get; set; }
 
     public DbSet<GemonitordItem> GemonitordeItems { get; set; }
@@ -43,6 +45,9 @@ namespace DAL.EF
       modelBuilder.Entity<GemonitordItem>().ToTable("GemonitordeItems");
       modelBuilder.Entity<ItemHistoriek>().ToTable("ItemHistorieken");
       modelBuilder.Entity<GrafiekItem>().ToTable("Grafiekitems");
+      modelBuilder.Entity<Statistiek>().ToTable("Statistieken");
+      modelBuilder.Entity<DashboardStatistieken>().ToTable("Dashboardstatistieken");
+
 
       modelBuilder.Entity<IdentityUserLogin>().HasKey(l => l.UserId);
       modelBuilder.Entity<IdentityRole>().HasKey(r => r.Id);
@@ -50,6 +55,9 @@ namespace DAL.EF
 
       modelBuilder.Entity<Grafiek>().HasKey(g => g.GrafiekId);
       //modelBuilder.Entity<GrafiekItem>().HasKey(gi => gi.GrafiekItemId);
+
+      modelBuilder.Entity<Statistiek>().HasKey(s => s.StatistiekId);
+      modelBuilder.Entity<DashboardStatistieken>().HasKey(ds => ds.DashboardStatistiekenId);
 
       //Foreign keys
       //modelBuilder.Entity<Alert>().HasRequired(alert => alert.Gebruiker).WithMany(gebruiker => gebruiker.Alerts);

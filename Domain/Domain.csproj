@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Dashboards\Alert.cs" />
     <Compile Include="Dashboards\Dashboard.cs" />
+    <Compile Include="Dashboards\DashboardStatistieken.cs" />
     <Compile Include="Dashboards\Grafiek.cs" />
     <Compile Include="Dashboards\GrafiekItem.cs" />
     <Compile Include="Dashboards\GrafiekKeuze.cs" />

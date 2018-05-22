@@ -34,10 +34,18 @@ namespace DAL
             return context.GemonitordeItems.Include("DetailItems").Include("ItemHistorieken").AsEnumerable();
         }
 
+    public void UpdateGemonitordItem(GemonitordItem gemonitordItem)
+    {
+     
+      context.Entry(gemonitordItem).State = EntityState.Modified;
+      context.SaveChanges();
+    }
+
         public GemonitordItem ReadGemonitordItem(int id)
         {
             return context.GemonitordeItems.Include("DetailItems").Include("ItemHistorieken").AsEnumerable().SingleOrDefault(i => i.GemonitordItemId == id);
         }
+
 
         public void UpdateGemonitordItem(GemonitordItem gemonitordItem)
         {

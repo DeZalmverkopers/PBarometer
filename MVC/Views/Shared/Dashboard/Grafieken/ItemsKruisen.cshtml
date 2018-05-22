@@ -1,0 +1,68 @@
+﻿<label>Duid 2 items aan om te kruisen</label>
+
+<div>
+    @Html.Partial("~/Views/Shared/Dashboard/Dropdown/GemonitordeItemsAantal.cshtml")
+</div>
+
+<div>
+    <label>Van hoeveel dagen wilt u de evolutie zien?</label>
+    <select id="aantalDagen">
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+        <option>13</option>
+    </select>
+</div>
+
+<div>
+    <label>Geef een grafiektitel in</label>
+    <input id="grafiektitel" type="text" />
+</div>
+
+<div class="onzichtbaar" id="divToevoegenOpslaan">
+    <button id="btnToevoegenOpslaan" class="btn btn-primary btn-algemene-layout">Opslaan</button>
+</div>  
+
+
+<script>
+
+    $("#aantalDagen").change(function() {
+        $("#divToevoegenOpslaan").show();
+    });
+
+    $("#btnToevoegenOpslaan").click(function() {
+
+        var link;
+
+        var tempLink = '@Html.Raw(Url.Action("LaadKruising", "Dashboard", new
+                   {
+                       grafiektitel = "replaceGrafiektitel",
+                       item1 = "replaceItem1",
+                       item2 = "replaceItem2",
+                       aantalDagen = "replaceAantalDagen"
+                   }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+         var templink2 = tempLink.replace("replaceItem1", $("#item1").val());
+
+         var templink3 = templink2.replace("replaceItem2", $("#item2").val());
+
+         var link = templink3.replace("replaceAantalDagen", $("#aantalDagen").val());
+
+        $.get(link , {}, function (resultaat) {
+            $("#elementenGrafieken").append("<div class=col-md-6>" + resultaat + "</div>");
+
+        });
+
+    });
+
+</script>
+
