@@ -47,11 +47,7 @@ namespace DAL
         }
 
 
-        public void UpdateGemonitordItem(GemonitordItem gemonitordItem)
-        {
-            context.Entry(gemonitordItem).State = EntityState.Modified;
-            context.SaveChanges();
-        }
+       
 
         public void DeleteGemonitordItem(GemonitordItem gemonitordItem)
         {

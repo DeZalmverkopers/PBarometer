@@ -586,7 +586,7 @@ namespace BL
 
         Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
         Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
-        LegendeLijst = new List<string>{ null, null, null, null, null },
+        LegendeLijst = new List<dynamic>{ null, null, null, null, null },
 
         XAsMaxrotatie = 90,
         XAsMinrotatie = 90,
@@ -620,7 +620,7 @@ namespace BL
 
         Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
         Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
-        LegendeLijst = new List<string>{ null, null, null, null, null },
+        LegendeLijst = new List<dynamic>{ null, null, null, null, null },
 
         XAsMaxrotatie = 90,
         XAsMinrotatie = 90,
@@ -654,7 +654,7 @@ namespace BL
 
         Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, new List<string> {"#8e5ea2" }, new List<string> { "#3cba9f"}, new List<string> { "#e8c3b9"}, new List<string> { "#c45850" } },
         Randkleur        = new List<List<string>>(){ new List<string> { "#3e95cd" }, new List<string> {"#8e5ea2" }, new List<string> { "#3cba9f"}, new List<string> { "#e8c3b9"}, new List<string> { "#c45850" } },
-        LegendeLijst     = new List<string>{ grafiek4Legendelijst[0], grafiek4Legendelijst[1], grafiek4Legendelijst[2], grafiek4Legendelijst[3], grafiek4Legendelijst[4] },
+        LegendeLijst     = new List<dynamic>{ grafiek4Legendelijst[0], grafiek4Legendelijst[1], grafiek4Legendelijst[2], grafiek4Legendelijst[3], grafiek4Legendelijst[4] },
 
         XAsMaxrotatie = 90,
         XAsMinrotatie = 90,
