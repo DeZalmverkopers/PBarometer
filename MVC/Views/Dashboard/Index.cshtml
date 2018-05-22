@@ -24,6 +24,8 @@
             Registreren
         </button>
     </div>
+
+    @*@Html.Action("LaadGrafiekenNietIngelogd", "Dashboard")*@
 }
 else
 {
@@ -42,28 +44,25 @@ else
         </div>
     </div>
 
-
     @foreach (var grafiek in ViewBag.Grafieken)
-    {
-        <div class="col-md-5">
+        {
+            <div class="col-md-5">
 
-            <canvas id="@grafiek.GrafiekId" height="300"></canvas>
+                <canvas id="@grafiek.GrafiekId" height="300"></canvas>
 
-            <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </button>
+                <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
 
-            <button id="verwijderen-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
-                <span class="glyphicon glyphicon-remove"></span>
-            </button>
+                <button id="verwijderen-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
 
-        </div>
-        <div class="col-md-1">
+            </div>
+            <div class="col-md-1">
 
-        </div>
-    }
-
-
+            </div>
+        }
 
 
 </div>
@@ -147,6 +146,24 @@ else
 
          var xLabelsViewbag = grafieken[i].XLabels;
          var typeViewbag = grafieken[i].Type;
+         //var typeViewbag;
+
+         //switch (type) {
+         //    case 0:
+         //        typeViewbag = "horizontalBar"
+         //        break;
+         //    case 1:
+         //        typeViewbag = "bar"
+         //        break;
+
+         //    case 2:
+         //        typeViewbag = "pie"
+         //        break;
+
+         //    case 3:
+         //        typeViewbag = "line"
+         //        break;
+         //}
 
          var dataViewbag = grafieken[i].Datawaarden;
          var legendelijstViewbag = grafieken[i].LegendeLijst;

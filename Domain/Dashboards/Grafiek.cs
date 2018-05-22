@@ -7,6 +7,7 @@ using Domain.Deelplatformen;
 
 namespace Domain.Dashboards
 {
+
     public class Grafiek
     {
 

@@ -1,16 +1,9 @@
-﻿@*@foreach (var grafiek in ViewBag.GrafiekenDefault)
+﻿@foreach (var grafiek in ViewBag.GrafiekenNietIngelogd)
 {
     <div class="col-md-5">
 
         <canvas id="@grafiek.GrafiekId" height="300"></canvas>
 
-        <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
-            <span class="glyphicon glyphicon-pencil"></span>
-        </button>
-
-        <button id="verwijderen-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
 
     </div>
     <div class="col-md-1">
@@ -18,8 +11,57 @@
 
 
     </div>
-}*@
+}
 
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/Chart.js"></script>
+<script src="~/Scripts/EigenScripts.js"></script>
+
+<script>
+     var grafieken = @Html.Raw(Json.Encode(ViewBag.GrafiekenNietIngelogd));
+
+     for (var i = 0; i < grafieken.length; i++) {
+
+         var grafiekIdViewbag = grafieken[i].GrafiekId;
+         var titelViewbag = grafieken[i].Titel;
+         var toonLegendeViewbag = grafieken[i].ToonLegende
+         var toonXAsViewbag = grafieken[i].ToonXAs;
+         var xOorsprongNulViewbag = grafieken[i].XOorsprongNul;
+         var yOorsprongNulViewbag = grafieken[i].YOorsprongNul;
+
+         var toonYAsViewbag = grafieken[i].ToonYAs;
+         var xTitelViewbag = grafieken[i].XTitel;
+         var yTitelViewbag = grafieken[i].YTitel;
+
+         var xLabelsViewbag = grafieken[i].XLabels;
+         var typeViewbag = grafieken[i].Type;
+
+
+         var dataViewbag = grafieken[i].Datawaarden;
+         var legendelijstViewbag = grafieken[i].LegendeLijst;
+
+         var backgroundcolorViewbag = grafieken[i].Achtergrondkleur;
+         var bordercolorViewbag = grafieken[i].Randkleur;
+
+
+         var FillDatasetViewbag = grafieken[i].FillDataset;
+         var LijnlegendeweergaveViewbag = grafieken[i].Lijnlegendeweergave;
+         var XAsMaxrotatieViewbag = grafieken[i].XAsMaxrotatie;
+         var XAsMinrotatieViewbag = grafieken[i].XAsMinrotatie;
+
+
+
+         GrafiekOpbouwen(grafiekIdViewbag, titelViewbag, typeViewbag, toonLegendeViewbag, xOorsprongNulViewbag, yOorsprongNulViewbag, toonXAsViewbag, toonYAsViewbag,
+             FillDatasetViewbag, LijnlegendeweergaveViewbag, XAsMaxrotatieViewbag, XAsMinrotatieViewbag, xTitelViewbag, yTitelViewbag,
+             xLabelsViewbag, legendelijstViewbag[0], legendelijstViewbag[1], legendelijstViewbag[2], legendelijstViewbag[3], legendelijstViewbag[4],
+             dataViewbag[0], dataViewbag[1], dataViewbag[2], dataViewbag[3], dataViewbag[4],
+             backgroundcolorViewbag[0], backgroundcolorViewbag[1], backgroundcolorViewbag[2], backgroundcolorViewbag[3], backgroundcolorViewbag[4],
+             bordercolorViewbag[0], bordercolorViewbag[1], bordercolorViewbag[2], bordercolorViewbag[3], bordercolorViewbag[4]
+         );
+     }
+
+
+</script>
 
 @*@for (int i = 1; i < ViewBag.Grafieken.Count + 1; i++)
     {

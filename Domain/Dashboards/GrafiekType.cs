@@ -13,6 +13,7 @@ namespace Domain.Dashboards
     bar,
     pie,
     line,
-    node
   }
+
+
 }

@@ -37,7 +37,7 @@ namespace BL
     //  return repository.ReadGrafieken(dashboardId, deelplatformId);
     //}
 
-    public IEnumerable<Grafiek> GetGrafieken(int dashboardId, int deelplatformId)
+    public IEnumerable<Grafiek> GetGrafieken(int dashboardId, int deelplatformId, bool legeLegende)
     {
       InitNonExistingRepo();
       GemonitordeItemsManager itemsManager = new GemonitordeItemsManager();
@@ -53,7 +53,7 @@ namespace BL
         {
           foreach (GemonitordItem gevuldItem in alleItems)
           {
-            if (gevuldItem.GemonitordItemId == item.GrafiekItemId)
+            if (gevuldItem.GemonitordItemId == item.ItemId)
             {
               grafiekItems.Add(gevuldItem);
             }
@@ -92,54 +92,43 @@ namespace BL
 
         if (grafiek.Type.Equals("bar"))
         {
-          List<ItemHistoriek> historieken = new List<ItemHistoriek>();
           List<double> waarden = new List<double>();
           foreach (GemonitordItem item in grafiekItems)
           {
-            foreach (ItemHistoriek historiek in item.ItemHistorieken)
-            {
-              if ((huidigeTijd - historiek.HistoriekDatum).Days <= grafiek.Periode)
-              {
-                historieken.Add(historiek);
-              }
-            }
+            
             grafiek.XLabels.Add(item.Naam);
-            grafiek.LegendeLijst.Add(item.Naam);
-          }
 
-          foreach (ItemHistoriek historiek in historieken)
-          {
-            if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(historiek.AantalVermeldingen);
-            if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit) waarden.Add(historiek.GemPolariteit);
-            if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historiek.GemObjectiviteit);
+            if (legeLegende)
+            {
+              grafiek.LegendeLijst.Add(null);
+            } else
+            {
+              grafiek.LegendeLijst.Add(item.Naam);
+            }
+         
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(item.TotaalAantalVermeldingen);
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit) waarden.Add(item.GemPolariteit);
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(item.GemObjectiviteit);
           }
           grafiek.Datawaarden.Add(waarden);
+
         }
 
         if (grafiek.Type.Equals("pie"))
         {
-          List<ItemHistoriek> historieken = new List<ItemHistoriek>();
           List<double> waarden = new List<double>();
           foreach (GemonitordItem item in grafiekItems)
           {
-            foreach (ItemHistoriek historiek in item.ItemHistorieken)
-            {
-              if ((huidigeTijd - historiek.HistoriekDatum).Days <= grafiek.Periode)
-              {
-                historieken.Add(historiek);
-              }
-            }
+
             grafiek.XLabels.Add(item.Naam);
             grafiek.LegendeLijst.Add(item.Naam);
-          }
 
-          foreach (ItemHistoriek historiek in historieken)
-          {
-            if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(historiek.AantalVermeldingen);
-            if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit) waarden.Add(historiek.GemPolariteit);
-            if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historiek.GemObjectiviteit);
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(item.TotaalAantalVermeldingen);
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit) waarden.Add(item.GemPolariteit);
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(item.GemObjectiviteit);
           }
           grafiek.Datawaarden.Add(waarden);
+
         }
         #endregion
       }
@@ -442,7 +431,7 @@ namespace BL
 
           grafiek4GrafiekItems.Add(new GrafiekItem()
           {
-           ItemId = element.GemonitordItemId
+            ItemId = element.GemonitordItemId
           });
         }
 
@@ -530,7 +519,7 @@ namespace BL
 
       new Grafiek()
       {
-
+        GrafiekId = 1,
         DeelplatformId = 1,
         DashboardId = 1,
 
@@ -539,6 +528,7 @@ namespace BL
         ToonXAs = true,
         ToonYAs = true,
 
+        //Type = GrafiekType.bar,
         Type = "bar",
 
         XOorsprongNul     = true,
@@ -547,7 +537,6 @@ namespace BL
         YTitel            = "Waarden",
         XLabels = grafiek1XLabels,
         Datawaarden = new List<List<double>>(){ grafiek1Datawaarden },
-
 
         Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
         Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
@@ -565,11 +554,11 @@ namespace BL
       },
       new Grafiek()
       {
-
+         GrafiekId = 2,
         DeelplatformId = 1,
         DashboardId = 1,
 
-        Titel = "aantal tweets",
+        Titel = "Aantal tweets - Alexander De Croo",
         ToonLegende = false,
         ToonXAs = true,
         ToonYAs = true,
@@ -581,6 +570,7 @@ namespace BL
         YOorsprongNul     = true,
         YTitel            = "Waarden",
         XLabels = grafiek2XLabels,
+        Periode = 10,
 
         Datawaarden = new List<List<double>>(){ grafiek2Waarden},
 
@@ -599,22 +589,23 @@ namespace BL
 
        new Grafiek()
       {
-
+          GrafiekId = 3,
         DeelplatformId = 1,
         DashboardId = 1,
 
-        Titel = "aantal tweets",
+        Titel = "Aantal tweets - Groen",
         ToonLegende = false,
         ToonXAs = true,
         ToonYAs = true,
 
-        Type = "line",
+        Type =  "line",
 
         XOorsprongNul     = true,
         XTitel            = "Items",
         YOorsprongNul     = true,
         YTitel            = "Waarden",
         XLabels = grafiek3XLabels,
+                Periode = 7,
 
         Datawaarden = new List<List<double>>(){ grafiek3Waarden},
 
@@ -633,22 +624,23 @@ namespace BL
       },
        new Grafiek()
       {
-
+          GrafiekId = 4,
         DeelplatformId = 1,
         DashboardId = 1,
 
-        Titel = "aantal tweets",
+        Titel = "aantal tweets - verschillende politici",
         ToonLegende = true,
         ToonXAs = true,
         ToonYAs = true,
 
-        Type = "line",
+        Type =  "line",
 
         XOorsprongNul     = true,
         XTitel            = "Items",
         YOorsprongNul     = true,
         YTitel            = "Waarden",
         XLabels = grafiek4XLabels,
+                Periode = 5,
 
         Datawaarden = alleWaarden,
 
