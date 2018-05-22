@@ -1,26 +1,27 @@
-﻿@*<div>
-        <canvas id="@ViewBag.GrafiekId" height="250"></canvas>
+﻿<div>
+    <canvas id="@ViewBag.GrafiekId" height="250"></canvas>
 
-        <button id="bewerken-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+    <button id="bewerken-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
         <span class="glyphicon glyphicon-pencil"></span>
-        </button>
+    </button>
 
-        <button id="verwijderen-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-    </div>*@
-
-
-
-<div>
-    <canvas id="barChart1Item" height="250"></canvas>
-
+    <button id="verwijderen-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+        <span class="glyphicon glyphicon-remove"></span>
+    </button>
 </div>
+
+
+
+@*<div>
+        <canvas id="barChart1Item" height="250"></canvas>
+
+    </div>*@
 
 
 <script>
     //Staafdiagram
 
+    var grafiekId = @Html.Raw(Json.Encode(ViewBag.GrafiekId))
     var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
     var xLabels = @Html.Raw(Json.Encode(ViewBag.XLabels));
     var data = @Html.Raw(Json.Encode(ViewBag.Data));
@@ -32,7 +33,8 @@
     var toonYAs = @Html.Raw(Json.Encode(ViewBag.ToonYAs));
 
 
-    GrafiekOpbouwen("barChart1Item", grafiekTitel, grafiektype, true, true, true, toonXAs, toonYAs, false, true, 90, 0, "x", "y", xLabels,
+
+    GrafiekOpbouwen(grafiekId, grafiekTitel, grafiektype, true, true, true, toonXAs, toonYAs, false, true, 90, 0, "x", "y", xLabels,
         null, null, null, null, null, data, null, null, null, null, ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"], null, null, null, null,
         ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"], null, null, null, null)
 

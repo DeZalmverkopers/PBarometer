@@ -76,7 +76,7 @@ namespace MVC.Controllers.Api
             DashboardsManager dashboardsManager = new DashboardsManager();
             Dashboard dashboard = dashboardsManager.GetDashboardVanGebruikerMetGrafieken(User.Identity.GetUserId(), deelplatformId);
             GrafiekenManager grafiekenManager = new GrafiekenManager();
-            List<Grafiek> grafieken = grafiekenManager.GetGrafieken(dashboard.DashboardId, deelplatformId).ToList();
+            List<Grafiek> grafieken = grafiekenManager.GetGrafieken(dashboard.DashboardId, deelplatformId, true).ToList();
             List<GrafiekDTO> grafiekDTOs = new List<GrafiekDTO>();
             if (grafieken == null || grafieken.Count() == 0)
             {

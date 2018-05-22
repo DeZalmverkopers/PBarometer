@@ -50,17 +50,13 @@ namespace MVC.Controllers
       ViewBag.DeelplatformNaam = HuidigDeelplatform.Naam;
       ViewBag.Afbeelding = HuidigDeelplatform.AfbeeldingPad ?? "default.png";
 
-      List<Grafiek> testgrafieken = grafiekenManager.GetGrafiekenTest();
+      var grafieken = grafiekenManager.GetGrafieken(1, deelplatformId, true).ToList();
 
-      if (grafiekenManager.GetGrafieken(1, deelplatformId).ToList().Count == 0)
-      {
-        foreach (var item in testgrafieken)
-        {
-          grafiekenManager.AddGrafiek(item);
-        }
-      }
 
-      ViewBag.Grafieken = grafiekenManager.GetGrafieken(1, deelplatformId).ToList();
+      ViewBag.Grafieken = grafieken;
+
+
+
 
       return View();
     }
@@ -71,7 +67,7 @@ namespace MVC.Controllers
 
       GrafiekenManager grafiekenManager = new GrafiekenManager();
       //List<Grafiek> grafieken = grafiekenManager.GetGrafiekenTest();
-      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(1, 1).ToList();
+      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(1, 1, true).ToList();
 
       //List<SelectListItem> schaalopties = new List<SelectListItem>
       //{
@@ -112,9 +108,10 @@ namespace MVC.Controllers
     public virtual ActionResult LaadGrafiekenNietIngelogd()
     {
 
-      //ViewBag.GrafiekenDefault = grafiekenManager.GetGrafiekenTest();
+      List<Grafiek> testgrafieken = grafiekenManager.GetGrafiekenTest();
+      ViewBag.GrafiekenNietIngelogd = testgrafieken;
 
-      return PartialView("~/Views/Shared/Dashboard/Grafieken/GrafiekenNietIngelogd.cshtml");
+      return PartialView("~/Views/Shared/Dashboard/Grafieken/GrafiekenNietIngelogd.cshtml", ViewBag);
     }
 
 
@@ -396,8 +393,12 @@ namespace MVC.Controllers
     {
       items = itemManager.GetGemonitordeItems(1).ToList();
 
-      List<string> xLabels = new List<string>();
+      List<dynamic> xLabels = new List<dynamic>();
       List<double> data = new List<double>();
+
+      GrafiekWaarde grafiekwaarde = new GrafiekWaarde();
+
+      List<GrafiekItem> grafiekitems = new List<GrafiekItem>();
 
       switch (gewensteData)
       {
@@ -408,15 +409,26 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
 
           }
 
+          grafiekwaarde = GrafiekWaarde.Vermeldingen;
 
           break;
         case "gp":
@@ -426,14 +438,27 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
 
           }
+
+          grafiekwaarde = GrafiekWaarde.Polariteit;
+
 
           break;
         case "go":
@@ -444,19 +469,30 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
 
           }
 
+          grafiekwaarde = GrafiekWaarde.Objectiviteit;
+
           break;
 
       }
-
 
       string grafiektype = "";
       bool toonLegende = true;
@@ -474,6 +510,7 @@ namespace MVC.Controllers
         toonLegende = true;
         toonXAs = false;
         toonYAs = false;
+
       }
 
       ViewBag.Grafiektype = grafiektype;
@@ -487,16 +524,62 @@ namespace MVC.Controllers
       ViewBag.Data = data;
       ViewBag.Grafiektitel = grafiektitel;
 
-      return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram1Dataset.cshtml", ViewBag);
+
+      Grafiek grafiek = new Grafiek()
+      {
+        DeelplatformId = HuidigDeelplatform.DeelplatformId,
+        //Nog aanpassen
+        DashboardId = 1,
+
+        Titel = grafiektitel,
+        ToonLegende = toonLegende,
+        ToonXAs = toonXAs,
+        ToonYAs = toonYAs,
+
+        Type = grafiektype,
+
+        XOorsprongNul = true,
+        XTitel = "items",
+        YOorsprongNul = true,
+        YTitel = "data",
+        XLabels = xLabels,
+        Periode = 10,
+
+        Datawaarden = new List<List<double>>() { data },
+
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        LegendeLijst = new List<dynamic> { null, null, null, null, null },
+
+        XAsMaxrotatie = 90,
+        XAsMinrotatie = 90,
+        FillDataset = false,
+        Lijnlegendeweergave = false,
+
+        GrafiekItems = grafiekitems,
+        GrafiekWaarde = grafiekwaarde,
+      };
+
+      grafiekenManager.AddGrafiek(grafiek);
+
+      ViewBag.GrafiekId = grafiek.GrafiekId;
+
+
+      return PartialView("~/Views/Shared/Grafieken/StaafdiagramTaartdiagram/StaafdiagramTaartDiagram1Dataset.cshtml", ViewBag);
 
     }
+
 
     public virtual ActionResult LaadVergelijkingOpMoment3Items(string grafiektitel, string item1, string item2, string item3, string gewensteData, string soortGrafiek)
     {
       items = itemManager.GetGemonitordeItems(1).ToList();
 
-      List<string> xLabels = new List<string>();
+      List<dynamic> xLabels = new List<dynamic>();
       List<double> data = new List<double>();
+
+      GrafiekWaarde grafiekwaarde = new GrafiekWaarde();
+
+      List<GrafiekItem> grafiekitems = new List<GrafiekItem>();
 
       switch (gewensteData)
       {
@@ -507,20 +590,37 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item3))
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
+           
 
           }
 
+          grafiekwaarde = GrafiekWaarde.Vermeldingen;
 
           break;
         case "gp":
@@ -530,19 +630,37 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item3))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
-            }
 
-          }
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
+            }
+           
+         }
+
+          grafiekwaarde = GrafiekWaarde.Polariteit;
+
 
           break;
         case "go":
@@ -553,53 +671,130 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item3))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
+           
 
           }
 
+          grafiekwaarde = GrafiekWaarde.Objectiviteit;
+
           break;
 
       }
 
-
       string grafiektype = "";
-      switch (soortGrafiek)
+      bool toonLegende = true;
+      bool toonXAs = false;
+      bool toonYAs = false;
+      if (soortGrafiek.Equals("staaf"))
       {
-        case "staaf":
-          grafiektype = "bar";
-          break;
-        case "taart":
-          grafiektype = "pie";
-          break;
+        grafiektype = "bar";
+        toonLegende = false;
+        toonXAs = true;
+        toonYAs = true;
+      }
+      else if (soortGrafiek.Equals("taart"))
+      {
+        grafiektype = "pie";
+        toonLegende = true;
+        toonXAs = false;
+        toonYAs = false;
+
       }
 
       ViewBag.Grafiektype = grafiektype;
+      ViewBag.ToonLegende = toonLegende;
+      ViewBag.ToonXAs = toonXAs;
+      ViewBag.ToonYAs = toonYAs;
+
 
 
       ViewBag.XLabels = xLabels;
       ViewBag.Data = data;
       ViewBag.Grafiektitel = grafiektitel;
 
-      return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram1Dataset.cshtml", ViewBag);
+
+      Grafiek grafiek = new Grafiek()
+      {
+        DeelplatformId = HuidigDeelplatform.DeelplatformId,
+        //Nog aanpassen
+        DashboardId = 1,
+
+        Titel = grafiektitel,
+        ToonLegende = toonLegende,
+        ToonXAs = toonXAs,
+        ToonYAs = toonYAs,
+
+        Type = grafiektype,
+
+        XOorsprongNul = true,
+        XTitel = "items",
+        YOorsprongNul = true,
+        YTitel = "data",
+        XLabels = xLabels,
+        Periode = 10,
+
+        Datawaarden = new List<List<double>>() { data },
+
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        LegendeLijst = new List<dynamic> { null, null, null, null, null },
+
+        XAsMaxrotatie = 90,
+        XAsMinrotatie = 90,
+        FillDataset = false,
+        Lijnlegendeweergave = false,
+
+        GrafiekItems = grafiekitems,
+        GrafiekWaarde = grafiekwaarde,
+      };
+
+      grafiekenManager.AddGrafiek(grafiek);
+
+      ViewBag.GrafiekId = grafiek.GrafiekId;
+
+
+      return PartialView("~/Views/Shared/Grafieken/StaafdiagramTaartdiagram/StaafdiagramTaartDiagram1Dataset.cshtml", ViewBag);
 
     }
 
-    public virtual ActionResult LaadVergelijkingOpMoment4Items(string grafiektitel, string item1, string item2, string item3, string item4, string gewensteData, string soortGrafiek)
+
+
+    public virtual ActionResult LaadVergelijkingOpMoment4Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string gewensteData, string soortGrafiek)
     {
       items = itemManager.GetGemonitordeItems(1).ToList();
 
-      List<string> xLabels = new List<string>();
+      List<dynamic> xLabels = new List<dynamic>();
       List<double> data = new List<double>();
+
+      GrafiekWaarde grafiekwaarde = new GrafiekWaarde();
+
+      List<GrafiekItem> grafiekitems = new List<GrafiekItem>();
 
       switch (gewensteData)
       {
@@ -610,25 +805,46 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item3))
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item4))
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
-            }
 
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
+            }
+            
           }
 
+          grafiekwaarde = GrafiekWaarde.Vermeldingen;
 
           break;
         case "gp":
@@ -638,24 +854,48 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item3))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item4))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
+           
 
           }
+
+          grafiekwaarde = GrafiekWaarde.Polariteit;
+
 
           break;
         case "go":
@@ -666,60 +906,138 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item3))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item4))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
-            }
 
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
+            }
+           
           }
+
+          grafiekwaarde = GrafiekWaarde.Objectiviteit;
 
           break;
 
       }
 
       string grafiektype = "";
-      switch (soortGrafiek)
+      bool toonLegende = true;
+      bool toonXAs = false;
+      bool toonYAs = false;
+      if (soortGrafiek.Equals("staaf"))
       {
-        case "staaf":
-          grafiektype = "bar";
-          break;
-        case "taart":
-          grafiektype = "pie";
-          break;
+        grafiektype = "bar";
+        toonLegende = false;
+        toonXAs = true;
+        toonYAs = true;
+      }
+      else if (soortGrafiek.Equals("taart"))
+      {
+        grafiektype = "pie";
+        toonLegende = true;
+        toonXAs = false;
+        toonYAs = false;
+
       }
 
       ViewBag.Grafiektype = grafiektype;
+      ViewBag.ToonLegende = toonLegende;
+      ViewBag.ToonXAs = toonXAs;
+      ViewBag.ToonYAs = toonYAs;
+
 
 
       ViewBag.XLabels = xLabels;
       ViewBag.Data = data;
       ViewBag.Grafiektitel = grafiektitel;
 
-      return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram1Dataset.cshtml", ViewBag);
+
+      Grafiek grafiek = new Grafiek()
+      {
+        DeelplatformId = HuidigDeelplatform.DeelplatformId,
+        //Nog aanpassen
+        DashboardId = 1,
+
+        Titel = grafiektitel,
+        ToonLegende = toonLegende,
+        ToonXAs = toonXAs,
+        ToonYAs = toonYAs,
+
+        Type = grafiektype,
+
+        XOorsprongNul = true,
+        XTitel = "items",
+        YOorsprongNul = true,
+        YTitel = "data",
+        XLabels = xLabels,
+        Periode = 10,
+
+        Datawaarden = new List<List<double>>() { data },
+
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        LegendeLijst = new List<dynamic> { null, null, null, null, null },
+
+        XAsMaxrotatie = 90,
+        XAsMinrotatie = 90,
+        FillDataset = false,
+        Lijnlegendeweergave = false,
+
+        GrafiekItems = grafiekitems,
+        GrafiekWaarde = grafiekwaarde,
+      };
+
+      grafiekenManager.AddGrafiek(grafiek);
+
+      ViewBag.GrafiekId = grafiek.GrafiekId;
+
+
+      return PartialView("~/Views/Shared/Grafieken/StaafdiagramTaartdiagram/StaafdiagramTaartDiagram1Dataset.cshtml", ViewBag);
 
     }
-
-
 
 
     public virtual ActionResult LaadVergelijkingOpMoment5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string gewensteData, string soortGrafiek)
     {
       items = itemManager.GetGemonitordeItems(1).ToList();
 
-      List<string> xLabels = new List<string>();
+      List<dynamic> xLabels = new List<dynamic>();
       List<double> data = new List<double>();
+
+      GrafiekWaarde grafiekwaarde = new GrafiekWaarde();
+
+      List<GrafiekItem> grafiekitems = new List<GrafiekItem>();
 
       switch (gewensteData)
       {
@@ -730,29 +1048,55 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item3))
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item4))
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item5))
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
           }
 
+          grafiekwaarde = GrafiekWaarde.Vermeldingen;
 
           break;
         case "gp":
@@ -762,28 +1106,57 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item3))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item4))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item5))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
+
           }
+
+          grafiekwaarde = GrafiekWaarde.Polariteit;
+
 
           break;
         case "go":
@@ -794,56 +1167,491 @@ namespace MVC.Controllers
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item2))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item3))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item4))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
             if (element.Naam.Equals(item5))
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
+
+              grafiekitems.Add(new GrafiekItem()
+              {
+                ItemId = element.GemonitordItemId
+              });
             }
           }
+
+          grafiekwaarde = GrafiekWaarde.Objectiviteit;
 
           break;
 
       }
 
-
       string grafiektype = "";
-
+      bool toonLegende = true;
+      bool toonXAs = false;
+      bool toonYAs = false;
       if (soortGrafiek.Equals("staaf"))
       {
         grafiektype = "bar";
-
+        toonLegende = false;
+        toonXAs = true;
+        toonYAs = true;
       }
-      else
+      else if (soortGrafiek.Equals("taart"))
       {
         grafiektype = "pie";
+        toonLegende = true;
+        toonXAs = false;
+        toonYAs = false;
+
       }
 
-
       ViewBag.Grafiektype = grafiektype;
+      ViewBag.ToonLegende = toonLegende;
+      ViewBag.ToonXAs = toonXAs;
+      ViewBag.ToonYAs = toonYAs;
+
+
 
       ViewBag.XLabels = xLabels;
       ViewBag.Data = data;
       ViewBag.Grafiektitel = grafiektitel;
 
-      return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram1Dataset.cshtml", ViewBag);
+
+      Grafiek grafiek = new Grafiek()
+      {
+        DeelplatformId = HuidigDeelplatform.DeelplatformId,
+        //Nog aanpassen
+        DashboardId = 1,
+
+        Titel = grafiektitel,
+        ToonLegende = toonLegende,
+        ToonXAs = toonXAs,
+        ToonYAs = toonYAs,
+
+        Type = grafiektype,
+
+        XOorsprongNul = true,
+        XTitel = "items",
+        YOorsprongNul = true,
+        YTitel = "data",
+        XLabels = xLabels,
+        Periode = 10,
+
+        Datawaarden = new List<List<double>>() { data },
+
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        LegendeLijst = new List<dynamic> { null, null, null, null, null },
+
+        XAsMaxrotatie = 90,
+        XAsMinrotatie = 90,
+        FillDataset = false,
+        Lijnlegendeweergave = false,
+
+        GrafiekItems = grafiekitems,
+        GrafiekWaarde = grafiekwaarde,
+      };
+
+      grafiekenManager.AddGrafiek(grafiek);
+
+      ViewBag.GrafiekId = grafiek.GrafiekId;
+
+
+      return PartialView("~/Views/Shared/Grafieken/StaafdiagramTaartdiagram/StaafdiagramTaartDiagram1Dataset.cshtml", ViewBag);
 
     }
+
+
+
+    //public virtual ActionResult LaadVergelijkingOpMoment3Items(string grafiektitel, string item1, string item2, string item3, string gewensteData, string soortGrafiek)
+    //{
+    //  items = itemManager.GetGemonitordeItems(1).ToList();
+
+    //  List<string> xLabels = new List<string>();
+    //  List<double> data = new List<double>();
+
+    //  switch (gewensteData)
+    //  {
+    //    case "av":
+    //      foreach (var element in items)
+    //      {
+    //        if (element.Naam.Equals(item1))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+    //        if (element.Naam.Equals(item2))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+    //        if (element.Naam.Equals(item3))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+
+    //      }
+
+
+    //      break;
+    //    case "gp":
+    //      foreach (var element in items)
+    //      {
+    //        if (element.Naam.Equals(item1))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+    //        if (element.Naam.Equals(item2))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+    //        if (element.Naam.Equals(item3))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+
+    //      }
+
+    //      break;
+    //    case "go":
+
+    //      foreach (var element in items)
+    //      {
+    //        if (element.Naam.Equals(item1))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+    //        if (element.Naam.Equals(item2))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+    //        if (element.Naam.Equals(item3))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+
+    //      }
+
+    //      break;
+
+    //  }
+
+
+    //  string grafiektype = "";
+    //  switch (soortGrafiek)
+    //  {
+    //    case "staaf":
+    //      grafiektype = "bar";
+    //      break;
+    //    case "taart":
+    //      grafiektype = "pie";
+    //      break;
+    //  }
+
+    //  ViewBag.Grafiektype = grafiektype;
+
+
+    //  ViewBag.XLabels = xLabels;
+    //  ViewBag.Data = data;
+    //  ViewBag.Grafiektitel = grafiektitel;
+
+    //  return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram1Dataset.cshtml", ViewBag);
+
+    //}
+
+    //public virtual ActionResult LaadVergelijkingOpMoment4Items(string grafiektitel, string item1, string item2, string item3, string item4, string gewensteData, string soortGrafiek)
+    //{
+    //  items = itemManager.GetGemonitordeItems(1).ToList();
+
+    //  List<string> xLabels = new List<string>();
+    //  List<double> data = new List<double>();
+
+    //  switch (gewensteData)
+    //  {
+    //    case "av":
+    //      foreach (var element in items)
+    //      {
+    //        if (element.Naam.Equals(item1))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+    //        if (element.Naam.Equals(item2))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+    //        if (element.Naam.Equals(item3))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+    //        if (element.Naam.Equals(item4))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+
+    //      }
+
+
+    //      break;
+    //    case "gp":
+    //      foreach (var element in items)
+    //      {
+    //        if (element.Naam.Equals(item1))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+    //        if (element.Naam.Equals(item2))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+    //        if (element.Naam.Equals(item3))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+    //        if (element.Naam.Equals(item4))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+
+    //      }
+
+    //      break;
+    //    case "go":
+
+    //      foreach (var element in items)
+    //      {
+    //        if (element.Naam.Equals(item1))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+    //        if (element.Naam.Equals(item2))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+    //        if (element.Naam.Equals(item3))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+    //        if (element.Naam.Equals(item4))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+
+    //      }
+
+    //      break;
+
+    //  }
+
+    //  string grafiektype = "";
+    //  switch (soortGrafiek)
+    //  {
+    //    case "staaf":
+    //      grafiektype = "bar";
+    //      break;
+    //    case "taart":
+    //      grafiektype = "pie";
+    //      break;
+    //  }
+
+    //  ViewBag.Grafiektype = grafiektype;
+
+
+    //  ViewBag.XLabels = xLabels;
+    //  ViewBag.Data = data;
+    //  ViewBag.Grafiektitel = grafiektitel;
+
+    //  return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram1Dataset.cshtml", ViewBag);
+
+    //}
+
+
+
+
+    //public virtual ActionResult LaadVergelijkingOpMoment5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string gewensteData, string soortGrafiek)
+    //{
+    //  items = itemManager.GetGemonitordeItems(1).ToList();
+
+    //  List<string> xLabels = new List<string>();
+    //  List<double> data = new List<double>();
+
+    //  switch (gewensteData)
+    //  {
+    //    case "av":
+    //      foreach (var element in items)
+    //      {
+    //        if (element.Naam.Equals(item1))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+    //        if (element.Naam.Equals(item2))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+    //        if (element.Naam.Equals(item3))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+    //        if (element.Naam.Equals(item4))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+    //        if (element.Naam.Equals(item5))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.TotaalAantalVermeldingen);
+    //        }
+    //      }
+
+
+    //      break;
+    //    case "gp":
+    //      foreach (var element in items)
+    //      {
+    //        if (element.Naam.Equals(item1))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+    //        if (element.Naam.Equals(item2))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+    //        if (element.Naam.Equals(item3))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+    //        if (element.Naam.Equals(item4))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+    //        if (element.Naam.Equals(item5))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemPolariteit);
+    //        }
+    //      }
+
+    //      break;
+    //    case "go":
+
+    //      foreach (var element in items)
+    //      {
+    //        if (element.Naam.Equals(item1))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+    //        if (element.Naam.Equals(item2))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+    //        if (element.Naam.Equals(item3))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+    //        if (element.Naam.Equals(item4))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+    //        if (element.Naam.Equals(item5))
+    //        {
+    //          xLabels.Add(element.Naam);
+    //          data.Add(element.GemObjectiviteit);
+    //        }
+    //      }
+
+    //      break;
+
+    //  }
+
+
+    //  string grafiektype = "";
+
+    //  if (soortGrafiek.Equals("staaf"))
+    //  {
+    //    grafiektype = "bar";
+
+    //  }
+    //  else
+    //  {
+    //    grafiektype = "pie";
+    //  }
+
+
+    //  ViewBag.Grafiektype = grafiektype;
+
+    //  ViewBag.XLabels = xLabels;
+    //  ViewBag.Data = data;
+    //  ViewBag.Grafiektitel = grafiektitel;
+
+    //  return PartialView("~/Views/Shared/Grafieken/Staafdiagram/Staafdiagram1Dataset.cshtml", ViewBag);
+
+    //}
 
     #endregion
 

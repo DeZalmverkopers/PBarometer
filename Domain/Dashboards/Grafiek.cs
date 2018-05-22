@@ -26,56 +26,23 @@ namespace Domain.Dashboards
 
     [NotMapped]
     public List<dynamic> LegendeLijst { get; set; }
+    [NotMapped]
     public List<dynamic> XLabels { get; set; }
-    //public List<string> XLabelsDatums { get; set; }
-    //public List<string> XLabelsItems { get; set; }
-
-    //[NotMapped]
-    //public List<dynamic> XLabels
-    //{
-    //  get
-    //  {
-    //    return XLabelsJSON == null ? null :
-    //    JsonConvert.DeserializeObject<List<dynamic>>(XLabelsJSON);
-    //  }
-    //  set
-    //  {
-    //    XLabelsJSON = JsonConvert.SerializeObject(value);
-    //  }
-    //}
-
-    //public string XLabelsJSON { get; set; }
-
+   
 
 
     [NotMapped]
     public List<List<double>> Datawaarden { get; set; }
-    //[NotMapped]
-    //public List<List<double>> Datawaarden
-    //{
-    //  get
-    //  {
-    //    return DatawaardenJSON == null ? null :
-    //    JsonConvert.DeserializeObject<List<List<double>>>(DatawaardenJSON);
-    //  }
-    //  set
-    //  {
-    //    DatawaardenJSON = JsonConvert.SerializeObject(value);
-    //  }
-    //}
-
-    //public string DatawaardenJSON { get; set; }
-
-
-
+  
 
 
     public int Periode { get; set; }
+
+
     //[NotMapped]
     //public GrafiekType Type { get; set; }
-
     public string Type { get; set; }
-    //public GrafiekKeuze Keuze { get; set; }
+
 
     //Foreign keys
     //Dashboard: Het Dashboard waartoe de Grafiek behoort.
