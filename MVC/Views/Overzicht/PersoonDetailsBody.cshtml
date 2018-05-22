@@ -163,16 +163,11 @@
         </table>
 
         <div>
-
+            <button class="btn btn-primary" title="Klik hier om deze grafiek toe te voegen aan uw dashboard." onclick="location.href='@Url.Action("VoegGrafiekAantalTweetsToeUitOverzicht", "Dashboard",new { gemonitordItemId = ViewBag.persoon.GemonitordItemId})'">
+                <span class="glyphicon glyphicon-pushpin"></span>
+            </button>
             <canvas id="lijnGrafiekPersoonDetail" height="250"></canvas>
-
         </div>
-
-
-
-
-
-        @*@Html.Partial("~/Views/Shared/Grafieken/Lijndiagram/LijndiagramAantalTweets.cshtml")*@
 
     </div>
 </div>
@@ -204,8 +199,6 @@
 
     </div>
 </div>
-
-
 
 <script src="~/Scripts/Chart.js"></script>
 
