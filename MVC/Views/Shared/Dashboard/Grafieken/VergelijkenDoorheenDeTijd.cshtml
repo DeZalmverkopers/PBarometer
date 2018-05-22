@@ -14,6 +14,7 @@
 
     <select id="aantalItems">
         <option hidden selected>Selecteer een optie</option>
+        <option>1</option>
         <option>2</option>
         <option>3</option>
         <option>4</option>
@@ -117,7 +118,37 @@
                         var aantalItems = $("#aantalItems").val();
 
                         switch (aantalItems) {
-                         
+                          case "1":
+                                switch (vergelijkingskeuze) {
+                                    case "Persoon":
+                                        $.get('@Url.Action("LaadPersonen1Item", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "persoon1item"
+
+
+                                        break;
+                                    case "Organisatie":
+                                        $.get('@Url.Action("LaadOrganisaties1Item", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "organisatie1item";
+
+
+                                        break;
+
+                                    case "Thema":
+                                        $.get('@Url.Action("LaadThemas1Item", "Dashboard")', {}, function (resultaat) {
+                                            $("#divSelectie").html(resultaat);
+                                        });
+
+                                        typeAantal = "thema1item";
+
+
+                                }
+                                break;
 
                             case "2":
                                 switch (vergelijkingskeuze) {
@@ -254,7 +285,27 @@
         var link;
 
         switch (typeAantal) {
-          
+
+            case "persoon1item":
+
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingDoorheenTijd1Item", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               gewensteData = "replaceGewensteData",
+                               aantalDagen = "replaceDagen"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#persoon1").val());
+
+                var templink3 = templink2.replace("replaceGewensteData", $("#gewensteData").val());
+
+                link = templink3.replace("replaceDagen", $("#aantalDagen").val());
+
+                break;
+
+            break;
 
             case "persoon2items":
 
@@ -262,7 +313,7 @@
                            {
                                grafiektitel = "replaceGrafiektitel",
                                item1 = "replaceItem1",
-                               item2 = "replaceItem2",                             
+                               item2 = "replaceItem2",
                                gewensteData = "replaceGewensteData",
                                aantalDagen = "replaceDagen"
                            }))'
@@ -365,8 +416,22 @@
 
                 break;
 
+           case "organisatie1item":
 
-            
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingDoorheenTijd1Item", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               gewensteData = "replaceGewensteData",
+                               aantalDagen = "replaceDagen"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#organisatie1").val());
+
+                var templink3 = templink2.replace("replaceGewensteData", $("#gewensteData").val());
+
+                link = templink3.replace("replaceDagen", $("#aantalDagen").val());
 
             break;
 
@@ -477,7 +542,24 @@
 
                 break;
 
+            case "thema1item":
 
+                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingDoorheenTijd1Item", "Dashboard", new
+                           {
+                               grafiektitel = "replaceGrafiektitel",
+                               item1 = "replaceItem1",
+                               gewensteData = "replaceGewensteData",
+                               aantalDagen = "replaceDagen"
+                           }))'
+                    .replace("replaceGrafiektitel", $("#grafiektitel").val());
+
+                var templink2 = tempLink.replace("replaceItem1", $("#thema1").val());
+
+                var templink3 = templink2.replace("replaceGewensteData", $("#gewensteData").val());
+
+                link = templink3.replace("replaceDagen", $("#aantalDagen").val());
+
+            break;
 
             case "thema2items":
 
