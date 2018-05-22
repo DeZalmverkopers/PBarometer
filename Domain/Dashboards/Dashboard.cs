@@ -19,7 +19,7 @@ namespace Domain.Dashboards
     //Grafieken: De Grafieken die bij het Dashboard horen.
     //public ApplicationUser Gebruiker { get; set; }
     public List<Grafiek> Grafieken { get; set; }
-    public int DeelplatformId { get; set; }
+    public int? DeelplatformId { get; set; }
     public Deelplatform Deelplatform { get; set; }
     public ApplicationUser Gebruiker { get; set; }
     public Dashboard()

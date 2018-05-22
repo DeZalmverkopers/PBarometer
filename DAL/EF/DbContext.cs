@@ -80,7 +80,12 @@ namespace DAL.EF
             //  modelBuilder.Entity<ItemHistoriek>().HasRequired(itemHistoriek => itemHistoriek.GemonitordItem).WithMany(gemonitordItem => gemonitordItem.ItemHistorieken);
             modelBuilder.Entity<Deelplatform>().Property(a => a.URLnaam).HasMaxLength(20);
             modelBuilder.Entity<Deelplatform>().HasIndex(deelplatform => deelplatform.URLnaam).IsUnique();
-    }
+
+            //modelBuilder.Entity<Deelplatform>(). .WithOptional(dashboard => dashboard.Deelplatform).WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Deelplatform>().HasMany(deelplatform => deelplatform.GemonitordeItems).WithRequired(item => item.Deelplatform);
+            //modelBuilder.Entity<Deelplatform>().HasMany(deelplatform => deelplatform.Alerts).WithRequired(alert => alert.Deelplatform);
+            //modelBuilder.Entity<Deelplatform>().HasMany(deelplatform => deelplatform.DetailItems).WithRequired(detailitem => detailitem.Deelplatform);
+        }
 
     public override int SaveChanges()
     {

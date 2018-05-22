@@ -21,9 +21,14 @@ namespace MVC.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public partial class SuperAdminController : Controller
     {
+
         // GET: SuperAdmin
         public virtual ActionResult Index()
         {
+            if (RouteData.Values["deelplatform"] == null)
+            {
+                ViewBag.GeenDeelplatformGeselecteerd = true;
+            }
             return View();
         }
 
@@ -105,7 +110,6 @@ namespace MVC.Controllers
                     var result = await userManager.RemoveFromRoleAsync(user.Id, item);
                 }
             }
-
             userManager.Delete(user);
             return RedirectToAction("Index");
         }
@@ -187,14 +191,9 @@ namespace MVC.Controllers
         public virtual ActionResult DeelplatformOverzicht()
         {
             DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
-            
-            return PartialView("OverzichtDeelplatformen", deelplatformenManager.GetDeelplatformen().Select(a => new DeelplatformOverzichtViewModel() { Id = a.DeelplatformId,Naam = a.Naam, URL = a.URLnaam}));
+            return PartialView("OverzichtDeelplatform", deelplatformenManager.GetDeelplatformen().Select(a => new DeelplatformOverzichtViewModel() { Id = a.DeelplatformId,Naam = a.Naam, URL = a.URLnaam}));
         }
-        [HttpGet]
-        public ActionResult BeheerDeelplatformen()
-        {
-            return PartialView();
-        }
+
         [HttpGet]
         public ActionResult MaakDeelplatform()
         {
@@ -235,7 +234,14 @@ namespace MVC.Controllers
         public ActionResult EditDeelplatform(int id)
         {
             DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
-            return PartialView(deelplatformenManager.GetDeelplatform(id));
+            Deelplatform deelplatform = deelplatformenManager.GetDeelplatform(id);
+            MaakDeelplatformViewModel maakDeelplatformViewModel = new MaakDeelplatformViewModel() {
+                Id = id,
+                AantalDagenHistoriek = deelplatform.AantalDagenHistoriek,
+                Naam = deelplatform.Naam,
+                URLNaam = deelplatform.URLnaam
+            };
+            return PartialView(maakDeelplatformViewModel);
         }
         [HttpPost]
         public ActionResult EditDeelplatform(MaakDeelplatformViewModel deelplatformViewModel)
@@ -259,7 +265,7 @@ namespace MVC.Controllers
         {
             DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
             deelplatformenManager.RemoveDeelplatform(id);
-            return PartialView("OverzichtDeelplatformen");
+            return RedirectToAction("Index","Home");
         }
         }
     }

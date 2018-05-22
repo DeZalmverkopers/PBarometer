@@ -2,7 +2,7 @@
 
 
 
-@using (Ajax.BeginForm("CreateAlert", "Alerts", new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "createComplexeAlertBody"}))
+@using (Html.BeginForm("CreateAlert", "Alerts"))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -45,7 +45,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MinDaling, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.MinDaling, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.MinDaling, new { htmlAttributes = new { @class = "form-control", @type = "number", @value = "1" } })
                 @Html.ValidationMessageFor(model => model.MinDaling, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -154,6 +154,7 @@
             </div>
         </div>
     </div>
+  
 
 }
 

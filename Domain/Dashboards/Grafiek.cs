@@ -24,27 +24,8 @@ namespace Domain.Dashboards
     public string YTitel { get; set; }
 
 
-
-    //public List<string> LegendeLijst { get; set; }
-
     [NotMapped]
-    public List<string> LegendeLijst
-    {
-      get
-      {
-        return LegendelijstJSON == null ? null :
-        JsonConvert.DeserializeObject<List<string>>(LegendelijstJSON);
-      }
-      set
-      {
-        LegendelijstJSON = JsonConvert.SerializeObject(value);
-      }
-    }
-
-    public string LegendelijstJSON { get; set; }
-
-
-
+    public List<dynamic> LegendeLijst { get; set; }
     public List<dynamic> XLabels { get; set; }
     //public List<string> XLabelsDatums { get; set; }
     //public List<string> XLabelsItems { get; set; }
@@ -89,7 +70,7 @@ namespace Domain.Dashboards
 
 
 
-    //public int Periode { get; set; }
+    public int Periode { get; set; }
     //[NotMapped]
     //public GrafiekType Type { get; set; }
 
@@ -123,11 +104,6 @@ namespace Domain.Dashboards
     }
 
     public string GrafiekItemsJSON { get; set; }
-
-
-
-
-
 
     //public List<List<string>> Randkleur { get; set; }
     [NotMapped]
@@ -193,11 +169,12 @@ namespace Domain.Dashboards
 
     public Grafiek()
     {
-      LegendeLijst = new List<string>();
+      LegendeLijst = new List<dynamic>();
       //Data = new Dictionary<int, List<dynamic>>();
       //Items = new List<GemonitordItem>();
       //GrafiekItems = new List<GrafiekItem>();
       //Waarden = new List<GrafiekWaarde>();
+      Datawaarden = new List<List<double>>();
       XLabels = new List<dynamic>();
     }
   }

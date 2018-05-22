@@ -55,6 +55,12 @@ namespace BL
             return repository.ReadAlert(id, gebruiker, gemonitordItem);
         }
 
+        public void RemoveAlerts(IEnumerable<Alert> alerts)
+        {
+            InitNonExistingRepo(true);
+            repository.DeleteAlerts(alerts);
+        }
+
         public void ChangeAlert(Alert alert)
         {
             InitNonExistingRepo();
@@ -296,6 +302,12 @@ namespace BL
         private void SendMail(Alert alert)
         {
             //Verstuur mail
+        }
+
+        public IEnumerable<Alert> GetGetriggerdeMobieleAlerts(int deelplatformId)
+        {
+            InitNonExistingRepo();
+            return repository.ReadAlerts(true, false).Where(a => a.DeelplatformId == deelplatformId && a.Mobiel == true && a.Triggered == true);
         }
 
         public void InitNonExistingRepo(bool uow = false)

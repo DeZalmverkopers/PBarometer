@@ -16,6 +16,7 @@ namespace MVC.Models.Alerts
         public bool Mail { get; set; }
         public bool Mobiel { get; set; }
         [Display(Name = "Minimum daling")]
+        [DisplayFormat(DataFormatString = "{0:F2}", ApplyFormatInEditMode = true)]
         public double MinDaling { get; set; }
         [Display(Name = "Minimum dalingsperiode")]
         public double MinDalingPeriode { get; set; }

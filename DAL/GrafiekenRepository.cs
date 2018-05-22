@@ -29,21 +29,17 @@ namespace DAL
       context.SaveChanges();
     }
 
-    public IEnumerable<Grafiek> ReadGrafieken(bool dashboard, bool items)
+    public IEnumerable<Grafiek> ReadGrafieken(bool dashboard)
     {
-      if (!dashboard && !items) return context.Grafieken.AsEnumerable();
-      if (!dashboard && items) return context.Grafieken.Include("Items").AsEnumerable();
-      if (dashboard && !items) return context.Grafieken.Include("Dashboard").AsEnumerable();
-      else return context.Grafieken.Include("Dashboard").Include("Items").AsEnumerable();
+      if (!dashboard) return context.Grafieken.AsEnumerable();
+      else return context.Grafieken.Include("Dashboard").AsEnumerable();
     }
 
-    //public IEnumerable<Grafiek> ReadGrafieken(int dashboardId, bool dashboard, bool items)
-    //{
-    //  if (!dashboard && !items) return context.Grafieken.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
-    //  if (!dashboard && items) return context.Grafieken/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
-    //  if (dashboard && !items) return context.Grafieken.Include("Dashboard").Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
-    //  else return context.Grafieken.Include("Dashboard")/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
-    //}
+    public IEnumerable<Grafiek> ReadGrafieken(int dashboardId, bool dashboard)
+    {
+      if (!dashboard) return context.Grafieken.AsEnumerable().Where(a => a.DashboardId.Equals(dashboardId));
+      else return context.Grafieken.Include("Dashboard").AsEnumerable().Where(a => a.DashboardId.Equals(dashboardId));
+    }
 
     public IEnumerable<Grafiek> ReadGrafieken(int dashboardId, int deelplatformId)
     {

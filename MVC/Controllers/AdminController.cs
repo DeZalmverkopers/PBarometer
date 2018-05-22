@@ -102,17 +102,37 @@ namespace MVC.Controllers
             return PartialView("~/Views/Shared/AdminSuperadmin/GebruikersActiviteitMonitoren.cshtml");
         }
 
-        public virtual ActionResult LaadLayout()
+        [HttpGet]
+        public virtual ActionResult LayoutAanpassen()
         {
-            LayoutViewModel model = new LayoutViewModel();
-            model.kleur = manager.GetAchtergrondkleur();
-            return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml", model);
+            LayoutViewModel model = new LayoutViewModel
+            {
+                Kleur = HuidigDeelplatform.Achtergrondkleur
+            };
+            return PartialView(model);
+        }
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult LayoutAanpassen(LayoutViewModel layoutViewModel)
+        {
+            HuidigDeelplatform.Achtergrondkleur = layoutViewModel.Kleur;
+            string afbeelding = layoutViewModel.Afbeelding.FileName;
+            string extensie = Path.GetExtension(afbeelding);
+            if (layoutViewModel.Afbeelding != null && extensie.Equals(".png") || extensie.Equals(".jpeg") || extensie.Equals(".jpg") || extensie.Equals(".gif"))
+            {
+                layoutViewModel.Afbeelding.SaveAs(Path.Combine(Server.MapPath("~/images/Deelplatformen"), HuidigDeelplatform.URLnaam + extensie));
+                Deelplatform deelplatform = HuidigDeelplatform;
+                deelplatform.AfbeeldingPad = HuidigDeelplatform.URLnaam + extensie;
+                DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
+                deelplatformenManager.ChangeDeelplatform(deelplatform);
+            }
+            return RedirectToAction("Index", "Dashboard");
         }
 
         public virtual ActionResult LaadNietIngelogd()
         {
             SettingsNotLoggedInViewModel model = new SettingsNotLoggedInViewModel();
-            Settings settings = manager.GetSettings();
+            Settings settings = manager.GetSettings(HuidigDeelplatform.DeelplatformId);
             model.OverzichtAdded = settings.OverzichtAdded;
             model.WeeklyReviewAdded = settings.WeeklyReviewAdded;
             model.AlertsAdded = settings.AlertsAdded;
@@ -128,14 +148,6 @@ namespace MVC.Controllers
             return RedirectToAction("Index", controller);
         }
 
-        [HttpGet]
-        public virtual ActionResult SlaWeeklyReviewAddedOp(bool WeeklyReviewAdded)
-        {
-            ViewBag.WeeklyReviewAdded = WeeklyReviewAdded;
-            manager.ChangeWeeklyReviewAdded(WeeklyReviewAdded);
-            string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
-            return RedirectToAction("Index", controller);
-        }
 
         [HttpGet]
         public virtual ActionResult SlaAlertsAddedOp(bool AlertsAdded)
