@@ -20,9 +20,9 @@ namespace BL.IdentityFramework
     public ApplicationUserManager() : base(new UserStore<ApplicationUser>(new DbContext()))
     {
       deelplatformenManager = new DeelplatformenManager();
-      CreateFirstAdmin();
+      //CreateFirstAdmin();
       CreateFirstSuperAdmin();
-      CreateUsers();
+      //CreateUsers();
     }
 
     private void CreateFirstAdmin()

@@ -462,6 +462,8 @@
     <Content Include="Views\SpecifiekePagina\FAQ.cshtml" />
     <Content Include="Views\SpecifiekePagina\NieuweVraag.cshtml" />
     <Content Include="Views\SpecifiekePagina\NieuweVraagVerzonden.cshtml" />
+    <Content Include="Views\Shared\AdminSuperadmin\LaadFAQItemToevoegen.cshtml" />
+    <Content Include="Views\Shared\AdminSuperadmin\LaadFAQItemVerwijderen.cshtml" />
     <None Include="Web.CustomProfile.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -515,7 +517,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61947</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44314/</IISUrl>
+          <IISUrl>http://localhost:44314/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
