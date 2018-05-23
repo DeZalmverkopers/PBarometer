@@ -2,8 +2,8 @@
 
 namespace MVC.Controllers.Api
 {
-    public interface IDataController
-    {
-        void HaalBerichtenOp(Deelplatform deelplatform);
-    }
+  public interface IDataController
+  {
+    void HaalBerichtenOp(Deelplatform deelplatform);
+  }
 }

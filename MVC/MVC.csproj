@@ -226,6 +226,7 @@
     <Compile Include="Controllers\DashboardStatistiekenController.cs" />
     <Compile Include="Controllers\GemonitordItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SpecifiekePaginaController.cs" />
     <Compile Include="Models\Android\DeelplatformDTO.cs" />
     <Compile Include="Models\Android\GrafiekDTO.cs" />
     <Compile Include="Models\Android\Notificaties\Message.cs" />
@@ -250,6 +251,8 @@
     <Compile Include="Models\Overzicht\ThemaViewModel.cs" />
     <Compile Include="Models\ProfielViewModels.cs" />
     <Compile Include="Models\SettingsNotLoggedInViewModel.cs" />
+    <Compile Include="Models\Specifieke Pagina\FAQContactViewModel.cs" />
+    <Compile Include="Models\Specifieke Pagina\FAQViewModel.cs" />
     <Compile Include="Models\SuperAdminUserViewModels.cs" />
     <Compile Include="Models\SuperAdmin\DeelplatformOverzichtViewModel.cs" />
     <Compile Include="Models\SuperAdmin\MaakDeelplatformViewModel.cs" />
@@ -456,6 +459,9 @@
     <Content Include="Views\Shared\Dashboard\Statistieken\PopulairsteItemsKeuze.cshtml" />
     <Content Include="Views\Shared\Dashboard\Grafieken\ItemsKruisen.cshtml" />
     <Content Include="Views\Shared\Grafieken\StaafdiagramTaartdiagram\StaafdiagramTaartDiagram1Dataset.cshtml" />
+    <Content Include="Views\SpecifiekePagina\FAQ.cshtml" />
+    <Content Include="Views\SpecifiekePagina\NieuweVraag.cshtml" />
+    <Content Include="Views\SpecifiekePagina\NieuweVraagVerzonden.cshtml" />
     <None Include="Web.CustomProfile.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -509,9 +515,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61947</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44314/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:44314/</IISAppRootUrl>
+          <IISUrl>https://localhost:44314/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

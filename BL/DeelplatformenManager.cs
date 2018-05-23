@@ -13,6 +13,8 @@ namespace BL
 
     public DeelplatformenManager()
     {
+      repository = new DeelplatformenRepository();
+      uowManager = new UnitOfWorkManager();
     }
 
     public void AddDeelplatform(Deelplatform deelplatform)

@@ -1,7 +1,4 @@
-﻿using Domain.Dashboards;
-using Domain.Deelplatformen;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Models
 {

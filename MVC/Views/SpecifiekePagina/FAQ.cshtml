@@ -1,0 +1,34 @@
+﻿@model List<MVC.Models.Specifieke_Pagina.FAQViewModel>
+
+@{
+  ViewBag.Title = "FAQ";
+}
+
+<h3>FAQ</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Vraag
+        </th>
+        <th>
+            Antwoord
+        </th>
+    </tr>
+    @foreach (var FAQItem in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => FAQItem.Vraag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => FAQItem.Antwoord)
+        </td>
+    </tr>
+    }
+</table>
+<br />
+<br />
+<button class="btn btn-primary btn-algemene-layout" onclick="location.href='@Url.Action("NieuweVraag", "SpecifiekePagina")'">
+    <span>Nieuwe vraag stellen</span>
+</button>
