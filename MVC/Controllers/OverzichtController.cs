@@ -188,7 +188,7 @@ namespace MVC.Controllers
         Persoon persoon = new Persoon
         {
           Naam = maakPersoonViewModel.Naam,
-          OrganisatieId = organisatie.GemonitordItemId,
+          Organisatie = organisatie,
           Gemeente = maakPersoonViewModel.Gemeente,
           Geboortedatum = maakPersoonViewModel.Geboortedatum,
           Facebook = maakPersoonViewModel.Facebook,
