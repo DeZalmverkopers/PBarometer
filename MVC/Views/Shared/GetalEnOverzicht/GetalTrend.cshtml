@@ -14,11 +14,16 @@
 
     </div>
 
-    <button id="verwijderen-@ViewBag.StatistiekId" class="btn btn-primary" onclick="statistiekVerwijderen(this.id)">
-        <span class="glyphicon glyphicon-remove"></span>
-    </button>
 
-   
+    @if (Request.IsAuthenticated)
+
+    {
+        <button id="verwijderen-@ViewBag.StatistiekId" class="btn btn-primary" onclick="statistiekVerwijderen(this.id)">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+
+    }
+
 
 </div>
 
