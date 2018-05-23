@@ -80,7 +80,7 @@ namespace BL
     //GenereerAlerts: De Alerts worden allemaal nagekeken en getriggerd wanneer nodig.
     public void GenereerAlerts()
     {
-      List<Alert> alerts = GetAlerts(false, true).ToList();
+      List<Alert> alerts = GetAlerts(true, true).ToList();
 
       foreach (var alert in alerts)
       {
@@ -104,9 +104,10 @@ namespace BL
           string objectiviteit = BerekenObjectiviteit(alert, alert.GemonitordItem);
           bob.Append(vergelijkingDaling).Append(vergelijkingStijging).Append(belangrijkheid).Append(polariteit).Append(objectiviteit);
           alert.TriggerRedenen = bob.ToString();
-          if (alert.Mail)
+          if (alert.Mail && alert.Triggered && !alert.AlGetriggerd)
           {
             SendMail(alert);
+            alert.AlGetriggerd = true;
           }
           ChangeAlert(alert);
         }
@@ -313,7 +314,7 @@ namespace BL
         Body = alert.GemonitordItem.Naam
       };
 
-      UserManager.EmailService.Send(message);
+      new EmailService().Send(message);
     }
 
     public IEnumerable<Alert> GetGetriggerdeMobieleAlerts(int deelplatformId)

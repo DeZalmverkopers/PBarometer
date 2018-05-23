@@ -52,6 +52,8 @@ namespace Domain.Dashboards
 
     //Triggered: De status die aangeeft of de Alert getriggerd werd of niet.
     public bool Triggered { get; set; }
+    //AlGetriggerd: De status die aangeeft of de Alert in een verleden al getriggerd is geweest.
+    public bool AlGetriggerd { get; set; }
     //Trends: De trends van het gemonitorditem
     public Trend? PolariteitsTrend { get; set; }
     public Trend? ObjectiviteitsTrend { get; set; }
@@ -74,6 +76,7 @@ namespace Domain.Dashboards
     {
       Geactiveerd = true;
       Triggered = false;
+      AlGetriggerd = false;
       TriggerRedenen = "";
     }
   }

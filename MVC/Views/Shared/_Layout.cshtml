@@ -54,8 +54,6 @@
 
                     }
 
-                    @*@if ((bool?)ViewBag.OverzichtAdded == true)
-        {*@
                     @if (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
                     {
 
@@ -65,11 +63,10 @@
 
                     }
 
-
-                    @*@if ((bool?)ViewBag.WeeklyReviewAdded == true)
-        {*@
-                    @*<li>@Html.ActionLink("Weekly Review", "Index", "WeeklyReview")</li>*@
-
+                    @if (Request.IsAuthenticated)
+                    {
+                      <li>@Html.ActionLink("FAQ", "FAQ", "SpecifiekePagina")</li>
+                    }
 
                     @if (User.IsInRole("SuperAdmin") && (ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false))
                     {
