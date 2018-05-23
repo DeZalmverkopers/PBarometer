@@ -1,6 +1,5 @@
 ﻿//Bart
 using Domain.Dashboards;
-using Domain.Deelplatformen;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
@@ -9,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace Domain.IdentityFramework
 {
-    public class ApplicationUser : IdentityUser
+  //De gebruiker van de applicatie. Door de overerving van IdentityUser
+  //kunnen er nog attributen toegevoegd worden.
+  public class ApplicationUser : IdentityUser
     {
         public List<Dashboard> Dashboards { get; set; }
         public string FirstName { get; set; }

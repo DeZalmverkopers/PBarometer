@@ -1,12 +1,6 @@
 ﻿using Domain.Deelplatformen;
 using Domain.Gemonitordeitems;
 using Domain.IdentityFramework;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Dashboards
 {
