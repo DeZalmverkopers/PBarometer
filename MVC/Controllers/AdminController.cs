@@ -139,31 +139,31 @@ namespace MVC.Controllers
             return PartialView("~/Views/Shared/AdminSuperadmin/NietIngelogdeGebruikerInstellen.cshtml", model);
         }
 
-        [HttpGet]
-        public virtual ActionResult SlaOverzichtAddedOp(bool OverzichtAdded)
-        {
-            ViewBag.OverzichtAdded = OverzichtAdded;
-            manager.ChangeOverzichtAdded(OverzichtAdded);
-            string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
-            return RedirectToAction("Index", controller);
-        }
+        //[HttpGet]
+        //public virtual ActionResult SlaOverzichtAddedOp(bool OverzichtAdded)
+        //{
+        //    ViewBag.OverzichtAdded = OverzichtAdded;
+        //    manager.ChangeOverzichtAdded(OverzichtAdded);
+        //    string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
+        //    return RedirectToAction("Index", controller);
+        //}
 
 
-        [HttpGet]
-        public virtual ActionResult SlaAlertsAddedOp(bool AlertsAdded)
-        {
-            ViewBag.AlertsAdded = AlertsAdded;
-            manager.ChangeAlertsAdded(AlertsAdded);
-            string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
-            return RedirectToAction("Index", controller);
-        }
+        //[HttpGet]
+        //public virtual ActionResult SlaAlertsAddedOp(bool AlertsAdded)
+        //{
+        //    ViewBag.AlertsAdded = AlertsAdded;
+        //    manager.ChangeAlertsAdded(AlertsAdded);
+        //    string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
+        //    return RedirectToAction("Index", controller);
+        //}
 
-        [HttpGet]
-        public virtual ActionResult SlaAchtergrondOp(string kleur)
-        {
-            manager.ChangeAchtergrondkleur(kleur);
-            string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
-            return RedirectToAction("Index", controller);
-        }
+        //[HttpGet]
+        //public virtual ActionResult SlaAchtergrondOp(string kleur)
+        //{
+        //    manager.ChangeAchtergrondkleur(kleur);
+        //    string controller = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
+        //    return RedirectToAction("Index", controller);
+        //}
     }
 }

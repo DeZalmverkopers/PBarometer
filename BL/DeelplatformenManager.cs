@@ -69,42 +69,42 @@ namespace BL
       return repository.ReadSettings(id);
     }
 
-    //Verandert of de niet-ingelogde gebruikers al dan niet het overzicht kunnen raadplegen.
-    public void ChangeOverzichtAdded(int id, bool OverzichtAdded)
-    {
-      repository.UpdateOverzichtAdded(id, OverzichtAdded);
-    }
+    ////Verandert of de niet-ingelogde gebruikers al dan niet het overzicht kunnen raadplegen.
+    //public void ChangeOverzichtAdded(int id, bool OverzichtAdded)
+    //{
+    //  repository.UpdateOverzichtAdded(id, OverzichtAdded);
+    //}
 
-    //Verandert of de niet-ingelogde gebruikers al dan niet de alerts kunnen raadplegen.
-    public void ChangeAlertsAdded(int id, bool AlertsAdded)
-    {
-      repository.UpdateAlertsAdded(id, AlertsAdded);
-    }
+    ////Verandert of de niet-ingelogde gebruikers al dan niet de alerts kunnen raadplegen.
+    //public void ChangeAlertsAdded(int id, bool AlertsAdded)
+    //{
+    //  repository.UpdateAlertsAdded(id, AlertsAdded);
+    //}
 
-    public string GetAchtergrondkleur(int id)
-    {
-      return repository.ReadAchtergrondkleur(id);
-    }
+    //public string GetAchtergrondkleur(int id)
+    //{
+    //  return repository.ReadAchtergrondkleur(id);
+    //}
 
-    public void ChangeAchtergrondkleur(int id, string kleur)
-    {
-      repository.UpdateAchtergrondkleur(id, kleur);
-    }
+    //public void ChangeAchtergrondkleur(int id, string kleur)
+    //{
+    //  repository.UpdateAchtergrondkleur(id, kleur);
+    //}
 
-    public List<FAQItem> GetFAQItems(int id)
-    {
-      return repository.ReadFAQItems(id);
-    }
+    //public List<FAQItem> GetFAQItems(int id)
+    //{
+    //  return repository.ReadFAQItems(id);
+    //}
 
-    public void AddNieuweFAQItem(int id, FAQItem NieuweFAQItem)
-    {
-      repository.CreateNieuweFAQItem(id, NieuweFAQItem);
-    }
+    //public void AddNieuweFAQItem(int id, FAQItem NieuweFAQItem)
+    //{
+    //  repository.CreateNieuweFAQItem(id, NieuweFAQItem);
+    //}
 
-    public void RemoveFAQItem(int id, string vraag)
-    {
-      repository.DeleteFAQItem(id, vraag);
-    }
+    //public void RemoveFAQItem(int id, string vraag)
+    //{
+    //  repository.DeleteFAQItem(id, vraag);
+    //}
 
     public void InitNonExistingRepo(bool uow = false)
     {
