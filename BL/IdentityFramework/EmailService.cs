@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace BL.IdentityFramework
 {
+  //EmailService: Zendt emails naar gebruikers.
   public class EmailService : IIdentityMessageService
   {
     public Task SendAsync(IdentityMessage message)
     {
-
       var mailAdress = "IdentityMailServiceKdG@gmail.com";
       var sentFrom = "IdentityMailServiceKdG@gmail.com";
       var password = "IdentityMailServicePaswoord";
