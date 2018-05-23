@@ -17,11 +17,12 @@ namespace MVC.Controllers
   public partial class AdminController : Controller
   {
     DeelplatformenManager manager = new DeelplatformenManager();
+
     public Deelplatform HuidigDeelplatform
     {
       get
       {
-        return new DeelplatformenManager().GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
+        return manager.GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
       }
     }
 
