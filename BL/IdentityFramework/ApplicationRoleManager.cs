@@ -16,5 +16,10 @@ namespace BL.IdentityFramework
     {
       return new ApplicationRoleManager();
     }
+
+    public void TestMethode()
+    {
+
+    }
   }
 }
