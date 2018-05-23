@@ -1,7 +1,11 @@
-﻿using BL.IdentityFramework;
+﻿using BL;
+using BL.IdentityFramework;
+using Domain.Dashboards;
+using Domain.Deelplatformen;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,6 +20,14 @@ namespace MVC.Controllers
   {
     private ApplicationSignInManager _signInManager;
     private ApplicationUserManager _userManager;
+
+    public Deelplatform HuidigDeelplatform
+    {
+      get
+      {
+        return new DeelplatformenManager().GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
+      }
+    }
 
     public ProfielController()
     {
@@ -76,11 +88,13 @@ namespace MVC.Controllers
       return View(model);
     }
 
+    //Naar de verander naam pagina.
     public virtual ActionResult ChangeName()
     {
       return View();
     }
 
+    //Verandert de naam van de gebruiker.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public virtual async Task<ActionResult> ChangeName(Models.ChangeNameViewModel model)
@@ -103,11 +117,13 @@ namespace MVC.Controllers
     }
 
     // GET: /Profiel/ChangeEmail
+    //Naar de verander email pagina.
     public virtual ActionResult ChangeEmail()
     {
       return View();
     }
 
+    //Verandert het emailadres van de gebruiker.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public virtual async Task<ActionResult> ChangeEmail(Models.ChangeEmailViewModel model)
@@ -135,6 +151,7 @@ namespace MVC.Controllers
 
     //
     // GET: /Profiel/ChangePassword
+    //Naar het verander wachtwoord pagina.
     public virtual ActionResult ChangePassword()
     {
       return View();
@@ -142,6 +159,7 @@ namespace MVC.Controllers
 
     //
     // POST: /Profiel/ChangePassword
+    //Verandert het wachtwoord van de gebruiker.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public virtual async Task<ActionResult> ChangePassword(Models.ChangePasswordViewModel model)
@@ -164,12 +182,14 @@ namespace MVC.Controllers
       return View(model);
     }
 
+    //Naar de account verwijderen pagina.
     public virtual ActionResult DeleteAccount()
     {
       return View();
     }
 
     // POST: /Profiel/DeleteAccount
+    //Verwijdert het account van de gebruiker uit de databank.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public virtual async Task<ActionResult> DeleteAccount(string test)
@@ -200,7 +220,7 @@ namespace MVC.Controllers
           }
         }
 
-        UserManager.Delete(user);
+        UserManager.DeleteUser(user);
 
         return RedirectToAction("AccountDeleted");
       }
@@ -210,6 +230,7 @@ namespace MVC.Controllers
       }
     }
 
+    //Logt de gebruiker uit en gaat naar de account verwijderd pagina.
     public virtual ActionResult AccountDeleted()
     {
       SignInManager.AuthenticationManager.SignOut();

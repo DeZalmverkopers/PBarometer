@@ -21,7 +21,7 @@ namespace Domain.Deelplatformen
     public List<DetailItem> DetailItems { get; set; }
     public List<Grafiek> Grafieken { get; set; }
     public List<Statistiek> Statistieken { get; set; }
-
+    public List<FAQItem> FAQItems { get; set; }
 
 
     public int DataOphaalFrequentie { get; set; }
@@ -33,7 +33,7 @@ namespace Domain.Deelplatformen
       Alerts = new List<Alert>();
       DetailItems = new List<DetailItem>();
       Dashboards = new List<Dashboard>();
-
+      FAQItems = new List<FAQItem>();
     }
 
     //De instelling of het overzicht al dan niet raadpleegbaar is door niet-ingelogde gebruikers.

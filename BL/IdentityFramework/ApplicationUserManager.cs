@@ -279,5 +279,18 @@ namespace BL.IdentityFramework
 
       return admins;
     }
+
+    public void DeleteUser(ApplicationUser user)
+    {
+      DashboardsManager dashboardsManager = new DashboardsManager();
+      List<Dashboard> dashboards = dashboardsManager.GetDashboards(true).Where(d => d.Gebruiker.Id == user.Id).ToList();
+
+      foreach (Dashboard dashboard in dashboards)
+      {
+        dashboardsManager.RemoveDashboard(dashboard);
+      }
+
+      this.Delete(user);
+    }
   }
 }

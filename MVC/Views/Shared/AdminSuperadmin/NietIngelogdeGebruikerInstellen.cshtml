@@ -35,19 +35,6 @@
 
     <tr>
         <td>
-            @Html.DisplayFor(m => m.WeeklyReviewAdded)
-        </td>
-        <td>
-            @Html.LabelFor(m => m.WeeklyReviewAdded)
-        </td>
-        <td>
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("SlaWeeklyReviewAddedOp", "Admin", new { WeeklyReviewAdded = !Model.WeeklyReviewAdded })'">
-                <span>Verander</span>
-            </button>
-        </td>
-    </tr>
-    <tr>
-        <td>
             @Html.DisplayFor(m => m.AlertsAdded)
         </td>
         <td>
