@@ -1,12 +1,10 @@
-using Domain.Dashboards;
 using Domain.Deelplatformen;
-using Domain.Gemonitordeitems;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace DAL.EF
 {
+  //De initializer van de databank. De databank wordt alleen gedropt en terug gecreëerd als het model verandert.
   internal class DbInitializer : DropCreateDatabaseIfModelChanges<DbContext>
   {
     protected override void Seed(DbContext context)

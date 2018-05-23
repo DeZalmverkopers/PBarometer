@@ -1,11 +1,8 @@
 ﻿using DAL;
 using Domain.Dashboards;
 using Domain.Gemonitordeitems;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
@@ -107,7 +104,7 @@ namespace BL
 
           for (int i = grafiekItems[0].ItemHistorieken.Count - grafiek.Periode; i < grafiekItems[0].ItemHistorieken.Count; i++)
           {
-            grafiek.XLabels.Add(grafiekItems[0].ItemHistorieken[i].HistoriekDatum.ToShortDateString());   
+            grafiek.XLabels.Add(grafiekItems[0].ItemHistorieken[i].HistoriekDatum.ToShortDateString());
 
           }
 
@@ -118,17 +115,18 @@ namespace BL
           List<double> waarden = new List<double>();
           foreach (GemonitordItem item in grafiekItems)
           {
-            
+
             grafiek.XLabels.Add(item.Naam);
 
             if (legeLegende)
             {
               grafiek.LegendeLijst.Add(null);
-            } else
+            }
+            else
             {
               grafiek.LegendeLijst.Add(item.Naam);
             }
-         
+
             if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(item.TotaalAantalVermeldingen);
             if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit) waarden.Add(item.GemPolariteit);
             if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(item.GemObjectiviteit);

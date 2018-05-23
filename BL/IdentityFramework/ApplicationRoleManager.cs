@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BL.IdentityFramework
 {
+  //ApplicationRoleManager: CRUD-functionaliteit voor roles
   public class ApplicationRoleManager : RoleManager<IdentityRole>
   {
 
@@ -15,11 +16,6 @@ namespace BL.IdentityFramework
     public static ApplicationRoleManager Create()
     {
       return new ApplicationRoleManager();
-    }
-
-    public void TestMethode()
-    {
-
     }
   }
 }
