@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -35,6 +36,14 @@ namespace MVC.Controllers
       get
       {
         return Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+      }
+    }
+
+    public Deelplatform HuidigDeelplatform
+    {
+      get
+      {
+        return deelplatformenManager.GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
       }
     }
 
@@ -152,6 +161,8 @@ namespace MVC.Controllers
     [HttpGet]
     public virtual ActionResult SlaAdminOp(string email, bool setAdmin)
     {
+      Claim claim = new Claim("DeelplatformId", HuidigDeelplatform.DeelplatformId.ToString());
+
       ApplicationRoleManager roleManager = new ApplicationRoleManager();
 
       ApplicationUser user = users.Find(u => u.Email.Equals(email));
@@ -168,10 +179,12 @@ namespace MVC.Controllers
       if (!isAdmin && setAdmin)
       {
         UserManager.AddToRole(user.Id, adminRole.Name);
+        UserManager.AddClaim(user.Id, claim);
       }
       else if (isAdmin && !setAdmin)
       {
         UserManager.RemoveFromRole(user.Id, adminRole.Name);
+        UserManager.RemoveClaim(user.Id, claim);
       }
       return RedirectToAction("Index");
     }
@@ -179,7 +192,6 @@ namespace MVC.Controllers
     [HttpGet]
     public virtual ActionResult DeelplatformOverzicht()
     {
-      DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
       return PartialView("OverzichtDeelplatform", deelplatformenManager.GetDeelplatformen().Select(a => new DeelplatformOverzichtViewModel() { Id = a.DeelplatformId, Naam = a.Naam, URL = a.URLnaam }));
     }
 
@@ -193,7 +205,6 @@ namespace MVC.Controllers
     [ValidateAntiForgeryToken]
     public ActionResult MaakDeelplatform(MaakDeelplatformViewModel maakDeelplatformViewModel)
     {
-      DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
       if (ModelState.IsValid)
       {
 
@@ -222,7 +233,6 @@ namespace MVC.Controllers
     [HttpGet]
     public ActionResult EditDeelplatform(int id)
     {
-      DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
       Deelplatform deelplatform = deelplatformenManager.GetDeelplatform(id);
       MaakDeelplatformViewModel maakDeelplatformViewModel = new MaakDeelplatformViewModel()
       {
@@ -239,7 +249,6 @@ namespace MVC.Controllers
     {
       if (ModelState.IsValid)
       {
-        DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
         Deelplatform deelplatform = deelplatformenManager.GetDeelplatform(deelplatformViewModel.Id);
         deelplatform.AantalDagenHistoriek = deelplatformViewModel.AantalDagenHistoriek;
         deelplatform.Naam = deelplatformViewModel.Naam;
@@ -265,7 +274,6 @@ namespace MVC.Controllers
     [HttpGet]
     public ActionResult VerwijderDeelplatform(int id)
     {
-      DeelplatformenManager deelplatformenManager = new DeelplatformenManager();
       string afbeelding = deelplatformenManager.GetDeelplatform(id).AfbeeldingPad;
       if (afbeelding != null)
       {
