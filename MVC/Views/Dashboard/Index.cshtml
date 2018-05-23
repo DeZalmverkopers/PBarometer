@@ -25,26 +25,25 @@
         </button>
     </div>
 
-    @*@Html.Action("LaadGrafiekenNietIngelogd", "Dashboard")*@
+    <div>
+        @Html.Action("LaadGrafiekenNietIngelogd", "Dashboard")
+    </div>
+
 }
+
 else
 {
     <h1>Deelplatform</h1>
-}
+    <div class="container" id="elementenGrafieken">
 
-
-
-
-<div class="container" id="elementenGrafieken">
-
-    <div>
-        <div class="col-md-11"></div>
-        <div class="col-md-1">
-            <button class="btn btn-primary button-xx-large" id="btnToevoegen" data-target="#modalGrafiekToevoegen" data-toggle="modal">+</button>
+        <div>
+            <div class="col-md-11"></div>
+            <div class="col-md-1">
+                <button class="btn btn-primary button-xx-large" id="btnToevoegen" data-target="#modalGrafiekToevoegen" data-toggle="modal">+</button>
+            </div>
         </div>
-    </div>
 
-    @foreach (var grafiek in ViewBag.Grafieken)
+        @foreach (var grafiek in ViewBag.Grafieken)
     {
         <div class="col-md-5">
 
@@ -62,10 +61,16 @@ else
         <div class="col-md-1">
 
         </div>
-    }
+      }
 
 
-</div>
+    </div>
+}
+
+
+
+
+
 
 
 <div class="modal" id="modalGrafiekToevoegen" role="dialog">

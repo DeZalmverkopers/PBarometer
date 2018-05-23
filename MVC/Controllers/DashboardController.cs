@@ -20,6 +20,7 @@ namespace MVC.Controllers
   public partial class DashboardController : Controller
   {
     GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
+    DashboardsManager dashboardsManager = new DashboardsManager();
     List<SelectListItem> selects;
     List<GemonitordItem> items;
     //List<Thema> themas;
@@ -33,6 +34,13 @@ namespace MVC.Controllers
       get
       {
         return new DeelplatformenManager().GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
+      }
+    }
+    public Dashboard HuidigDashboard
+    {
+      get
+      {
+        return dashboardsManager.GetDashboardVanGebruikerMetGrafieken(User.Identity.GetUserId(), HuidigDeelplatform.DeelplatformId);
       }
     }
     // GET: Dashboard
@@ -53,10 +61,13 @@ namespace MVC.Controllers
       ViewBag.Afbeelding = HuidigDeelplatform.AfbeeldingPad ?? "default.png";
 
 
+      if (HuidigDashboard != null)
+      {
+        var grafieken = grafiekenManager.GetGrafieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId, true).ToList();
 
-      var grafieken = grafiekenManager.GetGrafieken(1, HuidigDeelplatform.DeelplatformId, true).ToList();
-
-      ViewBag.Grafieken = grafieken;
+        ViewBag.Grafieken = grafieken;
+      }
+     
 
       return View();
     }
@@ -68,7 +79,7 @@ namespace MVC.Controllers
       GrafiekenManager grafiekenManager = new GrafiekenManager();
       List<Grafiek> grafieken = grafiekenManager.GetGrafieken(1, 1, true).ToList();
 
-     
+
 
       foreach (var grafiek in grafieken)
       {
@@ -78,7 +89,7 @@ namespace MVC.Controllers
         }
       }
 
-     
+
 
       return PartialView("~/Views/Shared/Dashboard/GrafiekAanpassen.cshtml", ViewBag);
     }
@@ -141,9 +152,9 @@ namespace MVC.Controllers
     public virtual ActionResult LaadGrafiekenNietIngelogd()
     {
 
-      //ViewBag.GrafiekenDefault = grafiekenManager.GetGrafiekenTest();
+      ViewBag.GrafiekenNietIngelogd = grafiekenManager.GetGrafiekenTest();
 
-      return PartialView("~/Views/Shared/Dashboard/Grafieken/GrafiekenNietIngelogd.cshtml");
+      return PartialView("~/Views/Shared/Dashboard/Grafieken/GrafiekenNietIngelogd.cshtml", ViewBag);
     }
 
     [Authorize]
@@ -431,8 +442,10 @@ namespace MVC.Controllers
 
 
     #region laad vergelijking op moment
+
     public virtual ActionResult LaadVergelijkingOpMoment2Items(string grafiektitel, string item1, string item2, string gewensteData, string soortGrafiek)
     {
+
       items = itemManager.GetGemonitordeItems(1).ToList();
 
       List<dynamic> xLabels = new List<dynamic>();
@@ -571,9 +584,7 @@ namespace MVC.Controllers
       Grafiek grafiek = new Grafiek()
       {
         DeelplatformId = HuidigDeelplatform.DeelplatformId,
-        //Nog aanpassen
-        DashboardId = 1,
-
+        DashboardId = HuidigDashboard.DashboardId,
         Titel = grafiektitel,
         ToonLegende = toonLegende,
         ToonXAs = toonXAs,
@@ -611,10 +622,11 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Grafieken/StaafdiagramTaartdiagram/StaafdiagramTaartDiagram1Dataset.cshtml", ViewBag);
 
     }
-
 
     public virtual ActionResult LaadVergelijkingOpMoment3Items(string grafiektitel, string item1, string item2, string item3, string gewensteData, string soortGrafiek)
     {
+
+
       items = itemManager.GetGemonitordeItems(1).ToList();
 
       List<dynamic> xLabels = new List<dynamic>();
@@ -785,8 +797,8 @@ namespace MVC.Controllers
       Grafiek grafiek = new Grafiek()
       {
         DeelplatformId = HuidigDeelplatform.DeelplatformId,
-        //Nog aanpassen
-        DashboardId = 1,
+
+        DashboardId = HuidigDashboard.DashboardId,
 
         Titel = grafiektitel,
         ToonLegende = toonLegende,
@@ -825,11 +837,12 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Grafieken/StaafdiagramTaartdiagram/StaafdiagramTaartDiagram1Dataset.cshtml", ViewBag);
 
     }
-
 
 
     public virtual ActionResult LaadVergelijkingOpMoment4Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string gewensteData, string soortGrafiek)
     {
+
+
       items = itemManager.GetGemonitordeItems(1).ToList();
 
       List<dynamic> xLabels = new List<dynamic>();
@@ -1030,7 +1043,7 @@ namespace MVC.Controllers
       {
         DeelplatformId = HuidigDeelplatform.DeelplatformId,
         //Nog aanpassen
-        DashboardId = 1,
+        DashboardId = HuidigDashboard.DashboardId,
 
         Titel = grafiektitel,
         ToonLegende = toonLegende,
@@ -1070,9 +1083,9 @@ namespace MVC.Controllers
 
     }
 
-
     public virtual ActionResult LaadVergelijkingOpMoment5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string gewensteData, string soortGrafiek)
     {
+
       items = itemManager.GetGemonitordeItems(1).ToList();
 
       List<dynamic> xLabels = new List<dynamic>();
@@ -1300,7 +1313,7 @@ namespace MVC.Controllers
       {
         DeelplatformId = HuidigDeelplatform.DeelplatformId,
         //Nog aanpassen
-        DashboardId = 1,
+        DashboardId = HuidigDashboard.DashboardId,
 
         Titel = grafiektitel,
         ToonLegende = toonLegende,
@@ -1345,7 +1358,6 @@ namespace MVC.Controllers
 
 
     #region aantal tweets
-
     public virtual ActionResult LaadLijndiagramAantalTweets(string grafiektitel, string item, string aantalDagen)
     {
 
@@ -1392,7 +1404,7 @@ namespace MVC.Controllers
       {
         DeelplatformId = HuidigDeelplatform.DeelplatformId,
         //Nog aanpassen
-        DashboardId = 1,
+        DashboardId = HuidigDashboard.DashboardId,
 
         Titel = grafiektitel,
         ToonLegende = false,
@@ -1435,7 +1447,6 @@ namespace MVC.Controllers
 
 
     #region vergelijking doorheen tijd
-
     public virtual ActionResult LaadVergelijkingDoorheenTijd1Item(string grafiektitel, string item1, string aantalDagen, string gewensteData)
     {
 
@@ -1500,7 +1511,7 @@ namespace MVC.Controllers
       {
         DeelplatformId = HuidigDeelplatform.DeelplatformId,
         //Nog aanpassen
-        DashboardId = 1,
+        DashboardId = HuidigDashboard.DashboardId,
 
         Titel = grafiektitel,
         ToonLegende = false,
@@ -1637,7 +1648,7 @@ namespace MVC.Controllers
       {
         DeelplatformId = HuidigDeelplatform.DeelplatformId,
         //Nog aanpassen
-        DashboardId = 1,
+        DashboardId = HuidigDashboard.DashboardId,
 
         Titel = grafiektitel,
         ToonLegende = true,
@@ -1677,7 +1688,6 @@ namespace MVC.Controllers
 
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram2Items.cshtml", ViewBag);
     }
-
 
     public virtual ActionResult LaadVergelijkingDoorheenTijd3Items(string grafiektitel, string item1, string item2, string item3, string aantalDagen, string gewensteData)
     {
@@ -1798,7 +1808,7 @@ namespace MVC.Controllers
       {
         DeelplatformId = HuidigDeelplatform.DeelplatformId,
         //Nog aanpassen
-        DashboardId = 1,
+        DashboardId = HuidigDashboard.DashboardId,
 
         Titel = grafiektitel,
         ToonLegende = true,
@@ -1836,7 +1846,6 @@ namespace MVC.Controllers
 
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram3Items.cshtml", ViewBag);
     }
-
 
     public virtual ActionResult LaadVergelijkingDoorheenTijd4Items(string grafiektitel, string item1, string item2, string item3, string item4, string aantalDagen, string gewensteData)
     {
@@ -1967,7 +1976,7 @@ namespace MVC.Controllers
       {
         DeelplatformId = HuidigDeelplatform.DeelplatformId,
         //Nog aanpassen
-        DashboardId = 1,
+        DashboardId = HuidigDashboard.DashboardId,
 
         Titel = grafiektitel,
         ToonLegende = true,
@@ -2007,7 +2016,6 @@ namespace MVC.Controllers
 
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram4Items.cshtml", ViewBag);
     }
-
 
 
 
@@ -2156,7 +2164,7 @@ namespace MVC.Controllers
       {
         DeelplatformId = HuidigDeelplatform.DeelplatformId,
         //Nog aanpassen
-        DashboardId = 1,
+        DashboardId = HuidigDashboard.DashboardId,
 
         Titel = grafiektitel,
         ToonLegende = true,

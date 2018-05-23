@@ -21,8 +21,11 @@ namespace Domain.Dashboards
         public Dashboard Dashboard { get; set; }
 
         public int GemonitordItemId { get; set; }
+        public int GemonitordItemId2 { get; set; }
 
-        //getal, getalTrend
-        public string SoortStatistiek { get; set; }
-    }
+    public string StatistiekSoort { get; set; }
+
+
+    //public StatistiekSoort StatistiekSoort { get; set; }
+  }
 }

@@ -60,77 +60,54 @@ namespace BL
 
     public List<Statistiek> GetStatistiekenTest()
     {
-      GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
 
-      //List<GemonitordItem> gemonitordeItems = gemonitordeItemsManager.GetGemonitordeItems(1).ToList();
 
       List<Statistiek> statistieken = new List<Statistiek>()
       {
         new Statistiek()
         {
-          //StatistiekId    = 1,
+          StatistiekId    = 1,
           GemonitordItemId  = 1,
-          DashboardId = 1,
-          DeelplatformId = 1,
-          SoortStatistiek = "getal"
+          //DashboardId = 1,
+          //DeelplatformId = 1,
+          StatistiekSoort = "getal"
         },
         new Statistiek()
         {
-          //StatistiekId   = 2,
+          StatistiekId   = 2,
           GemonitordItemId = 2,
-          DashboardId = 1,
-          DeelplatformId = 1,
-          SoortStatistiek = "getal"
-
+          //DashboardId = 1,
+          //DeelplatformId = 1,
+          StatistiekSoort = "getal"
         },
         new Statistiek()
         {
-          //StatistiekId   = 3,
+          StatistiekId   = 3,
           GemonitordItemId = 3,
-          DashboardId = 1,
-          DeelplatformId = 1,
-          SoortStatistiek = "getalTrend"
-
+          //DashboardId = 1,
+          //DeelplatformId = 1,
+          StatistiekSoort = "getalTrend"
         },
         new Statistiek()
         {
-          //StatistiekId   = 4,
+          StatistiekId   = 4,
           GemonitordItemId = 4,
-          DashboardId = 1,
-          DeelplatformId = 1,
-          SoortStatistiek = "getalTrend"
+          //DashboardId = 1,
+          //DeelplatformId = 1,
+          StatistiekSoort = "getalTrend"
+
+        },
+
+        new Statistiek()
+        {
+          StatistiekId   = 5,
+          GemonitordItemId = 5,
+          GemonitordItemId2 = 6,
+          StatistiekSoort = "kruising"
 
         }
-        //,
-        //new Statistiek()
-        //{
-        //  StatistiekId   = 5,
-        //  GemonitordItem = gemonitordeItems[4],
-        //  SoortStatistiek = "top5"
-
-        //},
-        //new Statistiek()
-        //{
-        //  StatistiekId   = 6,
-        //  GemonitordItem = gemonitordeItems[5],
-        //  SoortStatistiek = "top5"
-
-        //},
-        //new Statistiek()
-        //{
-        //  StatistiekId   = 7,
-        //  GemonitordItem = gemonitordeItems[6],
-        //  SoortStatistiek = "top10"
-
-        //},
-        //new Statistiek()
-        //{
-        //  StatistiekId   = 8,
-        //  GemonitordItem = gemonitordeItems[7],
-        //  SoortStatistiek = "top10"
-
-        //}
-    };
+ 
+      };
 
       return statistieken;
     }
