@@ -63,7 +63,7 @@
 
                     }
 
-                    @if (Request.IsAuthenticated)
+                    @if (Request.IsAuthenticated && ViewBag.GeenDeelplatformGeselecteerd == null || ViewBag.GeenDeelplatformGeselecteerd == false)
                     {
                       <li>@Html.ActionLink("FAQ", "FAQ", "SpecifiekePagina")</li>
                     }

@@ -318,7 +318,7 @@ namespace BL
 
       GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
 
-      List<GemonitordItem> personen = itemManager.GetPersonen(1).ToList();
+      List<GemonitordItem> personen = itemManager.GetPersonen(2).ToList();
       List<dynamic> grafiek1XLabels = new List<dynamic>();
       List<double> grafiek1Datawaarden = new List<double>();
 

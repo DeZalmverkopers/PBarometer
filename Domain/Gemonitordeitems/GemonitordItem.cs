@@ -15,7 +15,6 @@ namespace Domain.Gemonitordeitems
         public Trend PolariteitsTrend { get; set; }
         public Trend ObjectiviteitsTrend { get; set; }
 
-        public bool Volgbaar { get; set; }
         public int TotaalAantalVermeldingen { get; set; }
         public double GemPolariteit { get; set; }
         public double GemObjectiviteit { get; set; }
@@ -39,31 +38,31 @@ namespace Domain.Gemonitordeitems
             ObjectiviteitsTrend = Trend.NEUTRAL;
         }
 
-        public virtual void BerekenEigenschappen()
-        {
-            if (DetailItems != null && DetailItems.Count > 0)
-            {
-                TotaalAantalVermeldingen = DetailItems.Count;
-                BerekenGemiddeldeObjectiviteit();
-                BerekenGemiddeldePolariteit();
-                BepaalMeestVoorkomendeURL();
-                BerekenTotaalAantalVrouwenEnMannen();
-                if (ItemHistorieken != null && ItemHistorieken.Count > 0 && TotaalAantalVermeldingen > 0)
-                {
-                    BerekenPolTrend();
-                    BerekenObjTrend();
-                    BerekenVermeldingenTrend();
-                }
-            }
-            else
-            {
-                TotaalAantalVermeldingen = 0;
-                PolariteitsTrend = Trend.NEUTRAL;
-                ObjectiviteitsTrend = Trend.NEUTRAL;
-                VermeldingenTrend = Trend.NEUTRAL;
-            }
+        //public virtual void BerekenEigenschappen()
+        //{
+        //    if (DetailItems != null && DetailItems.Count > 0)
+        //    {
+        //        TotaalAantalVermeldingen = DetailItems.Count;
+        //        BerekenGemiddeldeObjectiviteit();
+        //        BerekenGemiddeldePolariteit();
+        //        BepaalMeestVoorkomendeURL();
+        //        BerekenTotaalAantalVrouwenEnMannen();
+        //        if (ItemHistorieken != null && ItemHistorieken.Count > 0 && TotaalAantalVermeldingen > 0)
+        //        {
+        //            BerekenPolTrend();
+        //            BerekenObjTrend();
+        //            BerekenVermeldingenTrend();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        TotaalAantalVermeldingen = 0;
+        //        PolariteitsTrend = Trend.NEUTRAL;
+        //        ObjectiviteitsTrend = Trend.NEUTRAL;
+        //        VermeldingenTrend = Trend.NEUTRAL;
+        //    }
 
-        }
+        //}
 
         private void BerekenTotaalAantalVrouwenEnMannen()
         {
