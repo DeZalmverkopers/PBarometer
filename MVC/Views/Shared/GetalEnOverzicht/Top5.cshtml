@@ -1,11 +1,11 @@
-﻿<div class=col-md-6 id="" @ViewBag.StatistiekId ">
-    <h3 class="statistieken-opmaak-titel">Top 5</h3>
+﻿<div class=col-md-6 id="@ViewBag.StatistiekId">
+    <h3 class="statistieken-opmaak-titel">Top 5 - aantal tweets</h3>
 
     <ol class="statistieken-opmaak-inhoud">
 
         @for (int i = 0; i < ViewBag.ItemsNamen.Count; i++)
         {
-            <li>@ViewBag.ItemsNamen[i] - @ViewBag.ItemsWaarden[i]</li>
+        <li>@ViewBag.ItemsNamen[i] - @ViewBag.ItemsWaarden[i] - @ViewBag.ItemsTrend[i]</li>
         }
 
 
@@ -22,7 +22,7 @@
 
 </div>
 
-<script src="~/Scripts/EigenScripts.js"></script>
+@*<script src="~/Scripts/EigenScripts.js"></script>*@
 
 
 

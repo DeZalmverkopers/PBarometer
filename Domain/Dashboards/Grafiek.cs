@@ -12,8 +12,9 @@ namespace Domain.Dashboards
     {
 
         public int GrafiekId { get; set; }
+    public int GrafiekIdNietOpslaan { get; set; }
 
-        public string Titel { get; set; }
+    public string Titel { get; set; }
 
         public bool ToonLegende { get; set; }
         public bool ToonXAs { get; set; }
@@ -29,55 +30,23 @@ namespace Domain.Dashboards
         [NotMapped]
         public List<dynamic> LegendeLijst { get; set; }
         public List<dynamic> XLabels { get; set; }
-        //public List<string> XLabelsDatums { get; set; }
-        //public List<string> XLabelsItems { get; set; }
-
-        //[NotMapped]
-        //public List<dynamic> XLabels
-        //{
-        //  get
-        //  {
-        //    return XLabelsJSON == null ? null :
-        //    JsonConvert.DeserializeObject<List<dynamic>>(XLabelsJSON);
-        //  }
-        //  set
-        //  {
-        //    XLabelsJSON = JsonConvert.SerializeObject(value);
-        //  }
-        //}
-
-        //public string XLabelsJSON { get; set; }
+       
 
 
 
         [NotMapped]
         public List<List<double>> Datawaarden { get; set; }
-        //[NotMapped]
-        //public List<List<double>> Datawaarden
-        //{
-        //  get
-        //  {
-        //    return DatawaardenJSON == null ? null :
-        //    JsonConvert.DeserializeObject<List<List<double>>>(DatawaardenJSON);
-        //  }
-        //  set
-        //  {
-        //    DatawaardenJSON = JsonConvert.SerializeObject(value);
-        //  }
-        //}
-
-        //public string DatawaardenJSON { get; set; }
+        
 
 
 
 
 
         public int Periode { get; set; }
-        //[NotMapped]
-        //public GrafiekType Type { get; set; }
+        
 
         public string Type { get; set; }
-        //public GrafiekKeuze Keuze { get; set; }
+        
 
         //Foreign keys
         //Dashboard: Het Dashboard waartoe de Grafiek behoort.
@@ -88,11 +57,7 @@ namespace Domain.Dashboards
         public Deelplatform Deelplatform { get; set; }
 
 
-        //[NotMapped]
-        //public List<GemonitordItem> Items { get; set; }
-
-
-        //public List<GrafiekItem> GrafiekItems { get; set; }
+       
         [NotMapped]
         public List<GrafiekItem> GrafiekItems
         {
@@ -109,7 +74,7 @@ namespace Domain.Dashboards
 
         public string GrafiekItemsJSON { get; set; }
 
-        //public List<List<string>> Randkleur { get; set; }
+       
         [NotMapped]
         public List<List<string>> Randkleur
         {
@@ -126,9 +91,7 @@ namespace Domain.Dashboards
 
         public string RandkleurJSON { get; set; }
 
-
-
-        //public List<List<string>> Achtergrondkleur { get; set; }
+       
         [NotMapped]
         public List<List<string>> Achtergrondkleur
         {
@@ -154,22 +117,7 @@ namespace Domain.Dashboards
         public int XAsMinrotatie { get; set; }
         public bool FillDataset { get; set; }
         public bool Lijnlegendeweergave { get; set; }
-
-
-        //[NotMapped]
-        //public List<GrafiekWaarde> Waarden
-        //{
-        //  get
-        //  {
-        //    return WaardenJSON == null ? null : JsonConvert.DeserializeObject<List<GrafiekWaarde>>(WaardenJSON);
-        //  }
-        //  set
-        //  {
-        //    WaardenJSON = JsonConvert.SerializeObject(value);
-        //  }
-        //}
-
-        //public string WaardenJSON { get; set; }
+   
 
         public Grafiek()
         {
