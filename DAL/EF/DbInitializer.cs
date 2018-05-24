@@ -1,5 +1,8 @@
+using Domain.Dashboards;
 using Domain.Deelplatformen;
+using Domain.Gemonitordeitems;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 
 
@@ -15,8 +18,7 @@ namespace DAL.EF
         Naam = "Politieke Barometer",
         LaatsteSynchronisatie = DateTime.Now.AddYears(-100),
         AantalDagenHistoriek = 14,
-        URLnaam = "politiek",
-        DataOphaalFrequentie = 2
+        URLnaam = "politiek"
       };
 
 
@@ -24,9 +26,6 @@ namespace DAL.EF
       context.Deelplatformen.Add(deelplatform);
 
       context.SaveChanges();
-
-      context.SaveChanges();
-
     }
   }
 }
