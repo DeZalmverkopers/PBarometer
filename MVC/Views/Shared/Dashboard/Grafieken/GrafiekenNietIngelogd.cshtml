@@ -1,11 +1,18 @@
-﻿@foreach (var grafiek in ViewBag.GrafiekenNietIngelogd)
+﻿@if (ViewBag.AantalItems == 0)
 {
-    <div class="col-md-5">
+    <div>Er zijn geen gemonitorde items voor dit deelplatform.</div>
+}
+else
+{
+    foreach (var grafiek in ViewBag.GrafiekenNietIngelogd)
+    {
+        <div class="col-md-5">
 
-        <canvas id="@grafiek.GrafiekIdNietOpslaan" height="300"></canvas>
+            <canvas id="@grafiek.GrafiekIdNietOpslaan" height="300"></canvas>
 
-    </div>
-   
+        </div>
+
+    }
 }
 
 <script src="~/Scripts/jquery-3.3.1.js"></script>
