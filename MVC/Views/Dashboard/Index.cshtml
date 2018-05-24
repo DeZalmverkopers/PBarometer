@@ -44,24 +44,21 @@ else
         </div>
 
         @foreach (var grafiek in ViewBag.Grafieken)
-    {
-        <div class="col-md-5">
+        {
+            <div class="col-md-5">
 
-            <canvas id="@grafiek.GrafiekId" height="300"></canvas>
+                <canvas id="@grafiek.GrafiekId" height="300"></canvas>
 
-            <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </button>
+                <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
 
-            <button id="verwijderen-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
-                <span class="glyphicon glyphicon-remove"></span>
-            </button>
+                <button id="verwijderen-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
 
-        </div>
-        <div class="col-md-1">
-
-        </div>
-      }
+            </div>
+        }
 
 
     </div>
@@ -202,10 +199,10 @@ function grafiekVerwijderen(id) {
     var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
     var subid;
 
-    if (lengteId === 0) {
+    if (lengteId == 0) {
         subid = id.substring(id.length - 1);
     } else if (lengteId > 0) {
-        subid = id.substring(id.indexOf("-") + 1, id.length - 1);
+        subid = id.substring(id.indexOf("-") + 1, id.length);
     }
 
     var grafiekVerwijderen = confirm("Ben je zeker dat je de grafiek wilt verwijderen?");
@@ -229,8 +226,7 @@ function grafiekVerwijderen(id) {
 
 }
 
-
-        function grafiekBewerken(id) {
+function grafiekBewerken(id) {
 
         var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
         var subid;
@@ -238,7 +234,7 @@ function grafiekVerwijderen(id) {
         if (lengteId == 0) {
             subid = id.substring(id.length - 1);
         } else if (lengteId > 0) {
-            subid = id.substring(id.indexOf("-") + 1, id.length - 1);
+            subid = id.substring(id.indexOf("-") + 1, id.length);
         }
 
 
@@ -250,12 +246,11 @@ function grafiekVerwijderen(id) {
          $.get(link, {}, function (resultaat) {
              $("#divGrafiekAanpassen").html(resultaat);
          });
-          
+
 
          $("#modalGrafiekAanpassen").modal();
 
-
-        }
+}
 
 </script>
 

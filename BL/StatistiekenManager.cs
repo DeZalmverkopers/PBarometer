@@ -41,7 +41,7 @@ namespace BL
     {
       InitNonExistingRepo();
       return repository.ReadStatistieken(dashboardId, deelplatformId);
-    }
+    }  
 
     public Statistiek GetStatistiek(int id)
     {
@@ -49,7 +49,11 @@ namespace BL
       return repository.ReadStatistiek(id);
     }
 
-
+    public void RemoveStatistiek(Statistiek statistiek)
+    {
+      InitNonExistingRepo();
+      repository.DeleteStatistiek(statistiek);
+    }
 
 
 
@@ -61,7 +65,9 @@ namespace BL
       {
         new Statistiek()
         {
-          StatistiekId    = 1,
+          //StatistiekId    = 1,
+
+          StatistiekIdNietOpslaan = 1,
           GemonitordItemId  = 1,
           //DashboardId = 1,
           //DeelplatformId = 1,
@@ -69,7 +75,8 @@ namespace BL
         },
         new Statistiek()
         {
-          StatistiekId   = 2,
+          StatistiekIdNietOpslaan = 2,
+          //StatistiekId   = 2,
           GemonitordItemId = 2,
           //DashboardId = 1,
           //DeelplatformId = 1,
@@ -77,7 +84,8 @@ namespace BL
         },
         new Statistiek()
         {
-          StatistiekId   = 3,
+           StatistiekIdNietOpslaan = 3,
+          //StatistiekId   = 3,
           GemonitordItemId = 3,
           //DashboardId = 1,
           //DeelplatformId = 1,
@@ -85,7 +93,8 @@ namespace BL
         },
         new Statistiek()
         {
-          StatistiekId   = 4,
+           StatistiekIdNietOpslaan = 4,
+          //StatistiekId   = 4,
           GemonitordItemId = 4,
           //DashboardId = 1,
           //DeelplatformId = 1,
@@ -95,7 +104,8 @@ namespace BL
 
         new Statistiek()
         {
-          StatistiekId   = 5,
+          StatistiekIdNietOpslaan = 5,
+          //StatistiekId   = 5,
           GemonitordItemId = 5,
           GemonitordItemId2 = 6,
           StatistiekSoort = "kruising"

@@ -125,16 +125,7 @@ textarea {
     display: inline;
 }
 
-/*Deze class wordt gebruikt om aan te geven dat het om een bewerkingsknop gaat, 
-    background-color heeft dus eigenlijk geen nut, maar de CSS mag niet leeg zijn*/
 
-/*.bewerken {
-    background-color: #428bca
-}
-
-.verwijderen {
-    background-color: #428bca
-}*/
 
 
 h1 {
@@ -154,6 +145,7 @@ h1 {
 .statistieken-opmaak-inhoud {
     font-family: 'Palatino Linotype'
 }
+
 
 
 

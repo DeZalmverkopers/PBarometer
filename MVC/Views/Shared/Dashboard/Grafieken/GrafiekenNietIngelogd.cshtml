@@ -2,15 +2,10 @@
 {
     <div class="col-md-5">
 
-        <canvas id="@grafiek.GrafiekId" height="300"></canvas>
-
-
-    </div>
-    <div class="col-md-1">
-
-
+        <canvas id="@grafiek.GrafiekIdNietOpslaan" height="300"></canvas>
 
     </div>
+   
 }
 
 <script src="~/Scripts/jquery-3.3.1.js"></script>
@@ -22,7 +17,7 @@
 
      for (var i = 0; i < grafieken.length; i++) {
 
-         var grafiekIdViewbag = grafieken[i].GrafiekId;
+         var grafiekIdViewbag = grafieken[i].GrafiekIdNietOpslaan;
          var titelViewbag = grafieken[i].Titel;
          var toonLegendeViewbag = grafieken[i].ToonLegende
          var toonXAsViewbag = grafieken[i].ToonXAs;

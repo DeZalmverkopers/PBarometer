@@ -1,4 +1,6 @@
-﻿<label>Kies een soort item</label>
+﻿
+
+<label>Kies een soort item</label>
 
 <select id="itemOpties">
     <option hidden selected>Selecteer een optie</option>
@@ -7,31 +9,43 @@
     <option>Thema</option>
 </select>
 
+
+
 <div>
-    <label id="lblKiezen"></label>
     <div id="itemAantalTweetsKeuzelijst"></div>
 </div>
 
 
 
 <div>
-        <label>Van hoeveel dagen wilt u de evolutie zien?</label>
-        <select id="aantalDagen">
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
-            <option>13</option>
-        </select>
+    <label>Van hoeveel dagen wilt u de evolutie zien?</label>
+    <select id="aantalDagen">
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+        <option>13</option>
+        <option>14</option>
+    </select>
 </div>
 
+
+<div>
+    <label>Weergave tweets</label>
+    <select id="tweetsGeslacht">
+        <option value="a">Alle tweets</option>
+        <option value="v">Enkel vrouwelijke tweets</option>
+        <option value="m">Enkel mannelijke tweets</option>
+        <option value="mv">Tweets mannen en vrouwen vergelijken</option>
+    </select>
+</div>
 
 <div>
     <label>Geef een grafiektitel in</label>
@@ -53,7 +67,6 @@
 
                 $.get('@Url.Action("LaadPersonen1Item", "Dashboard")', {}, function (resultaat) {
                     $("#itemAantalTweetsKeuzelijst").html(resultaat);
-                    $("#lblKiezen").html("Kies een persoon")
                 });
 
             break;
@@ -62,7 +75,6 @@
 
                 $.get('@Url.Action("LaadOrganisaties1Item", "Dashboard")', {}, function (resultaat) {
                     $("#itemAantalTweetsKeuzelijst").html(resultaat)
-                    $("#lblKiezen").html("Kies een organisatie")
 
                  });
 
@@ -72,7 +84,6 @@
 
                 $.get('@Url.Action("LaadThemas1Item", "Dashboard")', {}, function (resultaat) {
                     $("#itemAantalTweetsKeuzelijst").html(resultaat)
-                    $("#lblKiezen").html("Kies een thema")
 
                  });
 
@@ -92,7 +103,7 @@
         var keuze = $("#itemOpties").val();
         var link;
 
-      
+
 
 
         switch (keuze) {
@@ -101,14 +112,16 @@
                 var sublink1 = '@Html.Raw(Url.Action("LaadLijndiagramAantalTweets", "Dashboard",
                      new { grafiektitel = "replaceGrafiektitel",
                          item = "replaceItem",
-                         aantalDagen = "replaceAantalDagen"
+                         aantalDagen = "replaceAantalDagen",
+                         mannenVrouwen = "replaceGeslacht"
                      }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 var sublink2 = sublink1.replace("replaceItem", $("#persoon1").val());
 
-                link = sublink2.replace("replaceAantalDagen", $("#aantalDagen").val());
+                var sublink3 = sublink2.replace("replaceAantalDagen", $("#aantalDagen").val());
 
+                link = sublink3.replace("replaceGeslacht", $("#tweetsGeslacht").val());
 
             break;
 
@@ -117,13 +130,18 @@
                 var sublink1 = '@Html.Raw(Url.Action("LaadLijndiagramAantalTweets", "Dashboard",
                      new { grafiektitel = "replaceGrafiektitel",
                          item = "replaceItem",
-                         aantalDagen = "replaceAantalDagen"
+                         aantalDagen = "replaceAantalDagen",
+                         mannenVrouwen = "replaceGeslacht"
+
                      }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 var sublink2 = sublink1.replace("replaceItem", $("#organisatie1").val());
 
-                link = sublink2.replace("replaceAantalDagen", $("#aantalDagen").val());
+                var sublink3 = sublink2.replace("replaceAantalDagen", $("#aantalDagen").val());
+
+                link = sublink3.replace("replaceGeslacht", $("#tweetsGeslacht").val());
+
 
             break;
 
@@ -132,19 +150,26 @@
                var sublink1 = '@Html.Raw(Url.Action("LaadLijndiagramAantalTweets", "Dashboard",
                      new { grafiektitel = "replaceGrafiektitel",
                          item = "replaceItem",
-                         aantalDagen = "replaceAantalDagen"
+                         aantalDagen = "replaceAantalDagen",
+                         mannenVrouwen = "replaceGeslacht"
+
                      }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());
 
                 var sublink2 = sublink1.replace("replaceItem", $("#thema1").val());
 
-                link = sublink2.replace("replaceAantalDagen", $("#aantalDagen").val());
+                var sublink3 = sublink2.replace("replaceAantalDagen", $("#aantalDagen").val());
+
+                link = sublink3.replace("replaceGeslacht", $("#tweetsGeslacht").val());
+
 
             break;
         }
 
         $.get(link, {}, function (resultaat) {
-            $("#elementenGrafieken").append("<div class=col-md-6>" + resultaat + "</div>");
+            //$("#elementenGrafieken").append("<div class=col-md-5>" + resultaat + "</div><div class=col-md-1></div>");
+            $("#elementenGrafieken").append("<div class=col-md-5>" + resultaat + "</div>");
+
 
         });
 
