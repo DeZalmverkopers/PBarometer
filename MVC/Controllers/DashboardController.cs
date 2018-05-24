@@ -67,7 +67,7 @@ namespace MVC.Controllers
 
         ViewBag.Grafieken = grafieken;
       }
-     
+
 
       return View();
     }
@@ -76,10 +76,7 @@ namespace MVC.Controllers
     {
       int idInt = Int32.Parse(id);
 
-      GrafiekenManager grafiekenManager = new GrafiekenManager();
-      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(1, 1, true).ToList();
-
-
+      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId, true).ToList();
 
       foreach (var grafiek in grafieken)
       {
@@ -95,12 +92,10 @@ namespace MVC.Controllers
     }
 
 
-    public ActionResult GrafiekAanpassen(int id, string titel, string type)
+    public ActionResult GrafiekAanpassen(int id, string titel, string xTitel, string yTitel, string type)
     {
 
-      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(1, 1, true).ToList();
-
-
+      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId, true).ToList();
 
       foreach (var grafiek in grafieken)
       {
@@ -108,19 +103,23 @@ namespace MVC.Controllers
         {
           grafiek.Titel = titel;
           grafiek.Type = type;
+          grafiek.XTitel = xTitel;
+          grafiek.YTitel = yTitel;
           grafiekenManager.ChangeGrafiek(grafiek);
         }
       }
 
+
       return RedirectToAction("Index");
+
     }
 
     public ActionResult GrafiekVerwijderen(string id)
     {
       int idInt = Int32.Parse(id);
 
-      GrafiekenManager grafiekenManager = new GrafiekenManager();
-      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(1, 1, true).ToList();
+      //GrafiekenManager grafiekenManager = new GrafiekenManager();
+      List<Grafiek> grafieken = grafiekenManager.GetGrafieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId, true).ToList();
 
 
 
@@ -176,7 +175,7 @@ namespace MVC.Controllers
     public virtual ActionResult LaadOrganisaties1Item()
     {
 
-      var items = itemManager.GetOrganisaties(1).ToList();
+      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -190,7 +189,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties2Items()
     {
-      var items = itemManager.GetOrganisaties(1).ToList();
+      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -204,7 +203,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties3Items()
     {
-      var items = itemManager.GetOrganisaties(1).ToList();
+      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -218,7 +217,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties4Items()
     {
-      var items = itemManager.GetOrganisaties(1).ToList();
+      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -232,7 +231,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties5Items()
     {
-      var items = itemManager.GetOrganisaties(1).ToList();
+      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -251,7 +250,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen1Item()
     {
-      var items = itemManager.GetPersonen(1).ToList();
+      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -267,7 +266,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen2Items()
     {
-      var items = itemManager.GetPersonen(1).ToList();
+      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -283,7 +282,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen3Items()
     {
-      var items = itemManager.GetPersonen(1).ToList();
+      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -299,7 +298,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen4Items()
     {
-      var items = itemManager.GetPersonen(1).ToList();
+      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -314,7 +313,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen5Items()
     {
-      var items = itemManager.GetPersonen(1).ToList();
+      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -335,7 +334,7 @@ namespace MVC.Controllers
     #region themas laden
     public virtual ActionResult LaadThemas1Item()
     {
-      var items = itemManager.GetThemas(1).ToList();
+      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -350,7 +349,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas2Items()
     {
-      var items = itemManager.GetThemas(1).ToList();
+      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -364,7 +363,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas3Items()
     {
-      var items = itemManager.GetThemas(1).ToList();
+      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -378,7 +377,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas4Items()
     {
-      var items = itemManager.GetThemas(1).ToList();
+      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -392,7 +391,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas5Items()
     {
-      var items = itemManager.GetThemas(1).ToList();
+      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -416,7 +415,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadItemsKruisen()
     {
-      var items = itemManager.GetGemonitordeItems(1).ToList();
+      var items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
@@ -446,7 +445,7 @@ namespace MVC.Controllers
     public virtual ActionResult LaadVergelijkingOpMoment2Items(string grafiektitel, string item1, string item2, string gewensteData, string soortGrafiek)
     {
 
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
       List<dynamic> xLabels = new List<dynamic>();
       List<double> data = new List<double>();
@@ -597,7 +596,6 @@ namespace MVC.Controllers
         YOorsprongNul = true,
         YTitel = "data",
         XLabels = xLabels,
-        Periode = 10,
 
         Datawaarden = new List<List<double>>() { data },
 
@@ -627,7 +625,7 @@ namespace MVC.Controllers
     {
 
 
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
       List<dynamic> xLabels = new List<dynamic>();
       List<double> data = new List<double>();
@@ -812,7 +810,6 @@ namespace MVC.Controllers
         YOorsprongNul = true,
         YTitel = "data",
         XLabels = xLabels,
-        Periode = 10,
 
         Datawaarden = new List<List<double>>() { data },
 
@@ -843,7 +840,7 @@ namespace MVC.Controllers
     {
 
 
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
       List<dynamic> xLabels = new List<dynamic>();
       List<double> data = new List<double>();
@@ -1057,7 +1054,6 @@ namespace MVC.Controllers
         YOorsprongNul = true,
         YTitel = "data",
         XLabels = xLabels,
-        Periode = 10,
 
         Datawaarden = new List<List<double>>() { data },
 
@@ -1086,7 +1082,7 @@ namespace MVC.Controllers
     public virtual ActionResult LaadVergelijkingOpMoment5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string gewensteData, string soortGrafiek)
     {
 
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
       List<dynamic> xLabels = new List<dynamic>();
       List<double> data = new List<double>();
@@ -1327,7 +1323,6 @@ namespace MVC.Controllers
         YOorsprongNul = true,
         YTitel = "data",
         XLabels = xLabels,
-        Periode = 10,
 
         Datawaarden = new List<List<double>>() { data },
 
@@ -1358,7 +1353,7 @@ namespace MVC.Controllers
 
 
     #region aantal tweets
-    public virtual ActionResult LaadLijndiagramAantalTweets(string grafiektitel, string item, string aantalDagen)
+    public virtual ActionResult LaadLijndiagramAantalTweets(string grafiektitel, string item, string aantalDagen, string mannenVrouwen)
     {
 
       int dagen = Int32.Parse(aantalDagen);
@@ -1368,9 +1363,16 @@ namespace MVC.Controllers
 
       List<dynamic> grafiekXLabels = new List<dynamic>();
       List<double> grafiekWaarden = new List<double>();
+      List<double> grafiekWaarden2 = new List<double>();
+      List<dynamic> legendelijst = new List<dynamic>();
+      bool legendeTonen = false;
+
       List<GrafiekItem> grafiekItems = new List<GrafiekItem>();
-      List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
+      List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       GemonitordItem gemonitordItem = new GemonitordItem();
+      List<List<double>> waarden = new List<List<double>>();
+      string link = "";
+      GrafiekWaarde grafiekWaarde = new GrafiekWaarde();
 
       foreach (var element in gemonitordeItems)
       {
@@ -1390,13 +1392,55 @@ namespace MVC.Controllers
       for (int i = grafiekItemhistorieken.Count - dagen; i < grafiekItemhistorieken.Count; i++)
       {
         grafiekXLabels.Add(grafiekItemhistorieken[i].HistoriekDatum.ToShortDateString());
-        grafiekWaarden.Add(grafiekItemhistorieken[i].AantalVermeldingen);
+
+        switch (mannenVrouwen)
+        {
+          case "a":
+            grafiekWaarden.Add(grafiekItemhistorieken[i].AantalVermeldingen);
+            link = "~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram1Item.cshtml";
+            waarden.Add(grafiekWaarden);
+           
+            legendeTonen = false;
+            grafiekWaarde = GrafiekWaarde.Vermeldingen;
+            break;
+          case "v":
+            grafiekWaarden.Add(grafiekItemhistorieken[i].AantalBerichtenVanVrouwen);
+            link = "~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram1Item.cshtml";
+            waarden.Add(grafiekWaarden);
+     
+            legendeTonen = false;
+            grafiekWaarde = GrafiekWaarde.VermeldingenVrouwen;
+            break;
+          case "m":
+            grafiekWaarden.Add(grafiekItemhistorieken[i].AantalBerichtenVanMannen);
+            link = "~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram1Item.cshtml";
+            waarden.Add(grafiekWaarden);
+
+            legendeTonen = false;
+            grafiekWaarde = GrafiekWaarde.VermeldingenMannen;
+            break;
+          case "mv":
+            grafiekWaarden.Add(grafiekItemhistorieken[i].AantalBerichtenVanMannen);
+            grafiekWaarden2.Add(grafiekItemhistorieken[i].AantalBerichtenVanVrouwen);
+            link = "~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram2Items.cshtml";
+            waarden.Add(grafiekWaarden);
+            waarden.Add(grafiekWaarden2);
+
+            legendelijst.Add("mannen");
+            legendelijst.Add("vrouwen");
+     
+            legendeTonen = true;
+            grafiekWaarde = GrafiekWaarde.VermeldingenMannenVrouwen;
+            break;
+        }
+
       }
 
-      ViewBag.ItemDagen = grafiekXLabels;
-      ViewBag.Item1Data = grafiekWaarden;
-      ViewBag.Grafiektitel = grafiektitel;
+      ViewBag.Data = waarden;
 
+      ViewBag.XLabels = grafiekXLabels;
+      ViewBag.Grafiektitel = grafiektitel;
+      ViewBag.Legendelijst = legendelijst;
 
 
 
@@ -1407,7 +1451,7 @@ namespace MVC.Controllers
         DashboardId = HuidigDashboard.DashboardId,
 
         Titel = grafiektitel,
-        ToonLegende = false,
+        ToonLegende = legendeTonen,
         ToonXAs = true,
         ToonYAs = true,
 
@@ -1420,26 +1464,26 @@ namespace MVC.Controllers
         XLabels = grafiekXLabels,
         Periode = dagen,
 
-        Datawaarden = new List<List<double>>() { grafiekWaarden },
+        Datawaarden = new List<List<double>>() { waarden[0], waarden[1] },
 
-        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, null, null, null, null },
-        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, null, null, null, null },
-        LegendeLijst = new List<dynamic> { null, null, null, null, null },
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, null, null, null },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, null, null, null },
+        LegendeLijst = legendelijst,
 
         XAsMaxrotatie = 90,
         XAsMinrotatie = 90,
         FillDataset = false,
-        Lijnlegendeweergave = false,
+        Lijnlegendeweergave = true,
 
         GrafiekItems = grafiekItems,
-        GrafiekWaarde = GrafiekWaarde.Vermeldingen,
+        GrafiekWaarde = grafiekWaarde
       };
 
       grafiekenManager.AddGrafiek(grafiek);
 
       ViewBag.GrafiekId = grafiek.GrafiekId;
 
-      return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram1Item.cshtml", ViewBag);
+      return PartialView(link, ViewBag);
     }
 
     #endregion
@@ -1458,7 +1502,7 @@ namespace MVC.Controllers
       List<dynamic> grafiekXLabels = new List<dynamic>();
       List<double> grafiekWaarden = new List<double>();
       List<GrafiekItem> grafiekItems = new List<GrafiekItem>();
-      List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
+      List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       GemonitordItem gemonitordItem = new GemonitordItem();
 
       foreach (var element in gemonitordeItems)
@@ -1531,7 +1575,7 @@ namespace MVC.Controllers
 
         Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, null, null, null, null },
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, null, null, null, null },
-        LegendeLijst = new List<dynamic> { null, null, null, null, null },
+        LegendeLijst = new List<dynamic>() { null, null, null, null, null },
 
         XAsMaxrotatie = 90,
         XAsMinrotatie = 90,
@@ -1557,7 +1601,7 @@ namespace MVC.Controllers
       int dagen = Int32.Parse(aantalDagen);
       GrafiekWaarde grafiekWaarde = new GrafiekWaarde();
 
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
       List<dynamic> grafiekXLabels = new List<dynamic>();
       List<ItemHistoriek> grafiekItemhistorieken = new List<ItemHistoriek>();
@@ -1695,7 +1739,7 @@ namespace MVC.Controllers
       int dagen = Int32.Parse(aantalDagen);
       GrafiekWaarde grafiekWaarde = new GrafiekWaarde();
 
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
       List<dynamic> grafiekXLabels = new List<dynamic>();
       List<ItemHistoriek> grafiekItemhistorieken = new List<ItemHistoriek>();
@@ -1853,7 +1897,7 @@ namespace MVC.Controllers
       int dagen = Int32.Parse(aantalDagen);
       GrafiekWaarde grafiekWaarde = new GrafiekWaarde();
 
-      items = itemManager.GetGemonitordeItems(1).ToList();
+      items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
       List<dynamic> grafiekXLabels = new List<dynamic>();
       List<ItemHistoriek> grafiekItemhistorieken = new List<ItemHistoriek>();
@@ -2220,7 +2264,7 @@ namespace MVC.Controllers
       List<ItemHistoriek> itemhistorieken = new List<ItemHistoriek>();
       List<dynamic> grafiekXLabels = new List<dynamic>();
       List<double> grafiekWaarden = new List<double>();
-      List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(1).ToList();
+      List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
       GemonitordItem gemonitordItem1 = new GemonitordItem();
       GemonitordItem gemonitordItem2 = new GemonitordItem(); ;

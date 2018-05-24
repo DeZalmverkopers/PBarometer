@@ -62,7 +62,6 @@ namespace BL
         #endregion
 
         #region Voeg de waarden van de historieken en plaats ze in de List
-        //DateTime huidigeTijd = DateTime.Now;
         if (grafiek.Type.Equals("line"))
         {
 
@@ -70,44 +69,74 @@ namespace BL
           {
             List<ItemHistoriek> historieken = item.ItemHistorieken;
             List<double> waarden = new List<double>();
-            //foreach (ItemHistoriek historiek in item.ItemHistorieken)
-            //{
-            //  if ((huidigeTijd - historiek.HistoriekDatum).Days <= grafiek.Periode)
-            //  {
-            //    historieken.Add(historiek);
-            //  }
-            //}
+            List<double> waarden2 = new List<double>();
+
+   
 
             for (int i = historieken.Count - grafiek.Periode; i < historieken.Count; i++)
             {
 
-              //grafiekXLabels.Add(grafiekItemhistorieken[i].HistoriekDatum.ToShortDateString());
-              //grafiekWaarden.Add(grafiekItemhistorieken[i].AantalVermeldingen);
+             
 
-              if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(historieken[i].AantalVermeldingen);
-              if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit) waarden.Add(historieken[i].GemPolariteit);
-              if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historieken[i].GemObjectiviteit);
+              if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen)
+              {
+                waarden.Add(historieken[i].AantalVermeldingen);
+
+              }
+              if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit)
+              {
+                waarden.Add(historieken[i].GemPolariteit);
+
+              }
+              if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit)
+              {
+                waarden.Add(historieken[i].GemObjectiviteit);
+
+              }
+
+              if (grafiek.GrafiekWaarde == GrafiekWaarde.VermeldingenMannen)
+              {
+                waarden.Add(historieken[i].AantalBerichtenVanMannen);
+
+              }
+
+              if (grafiek.GrafiekWaarde == GrafiekWaarde.VermeldingenVrouwen)
+              {
+                waarden.Add(historieken[i].AantalBerichtenVanVrouwen);
+
+              }
+
+              if (grafiek.GrafiekWaarde == GrafiekWaarde.VermeldingenMannenVrouwen)
+              {
+
+                waarden.Add(historieken[i].AantalBerichtenVanMannen);
+                waarden2.Add(historieken[i].AantalBerichtenVanVrouwen);
+
+              }
 
             }
 
-            //foreach (ItemHistoriek historiek in historieken)
-            //{
-            //  if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(historiek.AantalVermeldingen);
-            //  if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit) waarden.Add(historiek.GemPolariteit);
-            //  if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(historiek.GemObjectiviteit);
-            //  if (!grafiek.XLabels.Contains(historiek.HistoriekDatum)) grafiek.XLabels.Add(historiek.HistoriekDatum.ToShortDateString());
-            //}
-            grafiek.LegendeLijst.Add(item.Naam);
-            grafiek.Datawaarden.Add(waarden);
+
+            if (grafiek.GrafiekWaarde == GrafiekWaarde.VermeldingenMannenVrouwen)
+            {
+              grafiek.LegendeLijst.Add("mannen");
+              grafiek.LegendeLijst.Add("vrouwen");
+              grafiek.Datawaarden.Add(waarden);
+              grafiek.Datawaarden.Add(waarden2);
+            }
+            else
+            {
+              grafiek.LegendeLijst.Add(item.Naam);
+              grafiek.Datawaarden.Add(waarden);
+            }
 
 
           }
 
-          //grafiek.XLabels.Add((grafiekItems[0].ItemHistorieken.HistoriekDatum.ToShortDateString());
 
           for (int i = grafiekItems[0].ItemHistorieken.Count - grafiek.Periode; i < grafiekItems[0].ItemHistorieken.Count; i++)
           {
-            grafiek.XLabels.Add(grafiekItems[0].ItemHistorieken[i].HistoriekDatum.ToShortDateString());   
+            grafiek.XLabels.Add(grafiekItems[0].ItemHistorieken[i].HistoriekDatum.ToShortDateString());
 
           }
 
@@ -118,17 +147,18 @@ namespace BL
           List<double> waarden = new List<double>();
           foreach (GemonitordItem item in grafiekItems)
           {
-            
+
             grafiek.XLabels.Add(item.Naam);
 
             if (legeLegende)
             {
               grafiek.LegendeLijst.Add(null);
-            } else
+            }
+            else
             {
               grafiek.LegendeLijst.Add(item.Naam);
             }
-         
+
             if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen) waarden.Add(item.TotaalAantalVermeldingen);
             if (grafiek.GrafiekWaarde == GrafiekWaarde.Polariteit) waarden.Add(item.GemPolariteit);
             if (grafiek.GrafiekWaarde == GrafiekWaarde.Objectiviteit) waarden.Add(item.GemObjectiviteit);
@@ -393,16 +423,16 @@ namespace BL
       }
 
 
-      for (int i = grafiek3Itemhistorieken.Count - 7; i < grafiek3Itemhistorieken.Count; i++)
-      {
-        grafiek3XLabels.Add(grafiek3Itemhistorieken[i].HistoriekDatum.ToShortDateString());
-        grafiek3Waarden.Add(grafiek3Itemhistorieken[i].AantalVermeldingen);
-      }
-      //for (int i = 0; i < grafiek3Itemhistorieken.Count; i++)
+      //for (int i = grafiek3Itemhistorieken.Count - 7; i < grafiek3Itemhistorieken.Count; i++)
       //{
       //  grafiek3XLabels.Add(grafiek3Itemhistorieken[i].HistoriekDatum.ToShortDateString());
       //  grafiek3Waarden.Add(grafiek3Itemhistorieken[i].AantalVermeldingen);
       //}
+      for (int i = 0; i < grafiek3Itemhistorieken.Count; i++)
+      {
+        grafiek3XLabels.Add(grafiek3Itemhistorieken[i].HistoriekDatum.ToShortDateString());
+        grafiek3Waarden.Add(grafiek3Itemhistorieken[i].AantalVermeldingen);
+      }
 
 
 
@@ -494,19 +524,7 @@ namespace BL
       }
 
 
-      for (int i = itemhistoriekItem4Grafiek4.Count - 5; i < itemhistoriekItem4Grafiek4.Count; i++)
-      {
-        grafiek4XLabels.Add(itemhistoriekItem1Grafiek4[i].HistoriekDatum.ToShortDateString());
-
-        waardenItem1Grafiek4.Add(itemhistoriekItem1Grafiek4[i].AantalVermeldingen);
-        waardenItem2Grafiek4.Add(itemhistoriekItem2Grafiek4[i].AantalVermeldingen);
-        waardenItem3Grafiek4.Add(itemhistoriekItem3Grafiek4[i].AantalVermeldingen);
-        waardenItem4Grafiek4.Add(itemhistoriekItem4Grafiek4[i].AantalVermeldingen);
-        waardenItem5Grafiek4.Add(itemhistoriekItem5Grafiek4[i].AantalVermeldingen);
-
-      }
-
-      //for (int i = 0; i < itemhistoriekItem1Grafiek4.Count; i++)
+      //for (int i = itemhistoriekItem4Grafiek4.Count - 5; i < itemhistoriekItem4Grafiek4.Count; i++)
       //{
       //  grafiek4XLabels.Add(itemhistoriekItem1Grafiek4[i].HistoriekDatum.ToShortDateString());
 
@@ -517,6 +535,18 @@ namespace BL
       //  waardenItem5Grafiek4.Add(itemhistoriekItem5Grafiek4[i].AantalVermeldingen);
 
       //}
+
+      for (int i = 0; i < itemhistoriekItem1Grafiek4.Count; i++)
+      {
+        grafiek4XLabels.Add(itemhistoriekItem1Grafiek4[i].HistoriekDatum.ToShortDateString());
+
+        waardenItem1Grafiek4.Add(itemhistoriekItem1Grafiek4[i].AantalVermeldingen);
+        waardenItem2Grafiek4.Add(itemhistoriekItem2Grafiek4[i].AantalVermeldingen);
+        waardenItem3Grafiek4.Add(itemhistoriekItem3Grafiek4[i].AantalVermeldingen);
+        waardenItem4Grafiek4.Add(itemhistoriekItem4Grafiek4[i].AantalVermeldingen);
+        waardenItem5Grafiek4.Add(itemhistoriekItem5Grafiek4[i].AantalVermeldingen);
+
+      }
 
 
       alleWaarden.Add(waardenItem1Grafiek4);
@@ -531,10 +561,10 @@ namespace BL
 
       new Grafiek()
       {
-        GrafiekId = 1,
+        //GrafiekId = 1,
         //DeelplatformId = 1,
         //DashboardId = 1,
-
+        GrafiekIdNietOpslaan = 1,
         Titel = "Politici - gemiddelde polariteit",
         ToonLegende = false,
         ToonXAs = true,
@@ -565,9 +595,10 @@ namespace BL
       },
       new Grafiek()
       {
-         GrafiekId = 2,
+         //GrafiekId = 2,
         //DeelplatformId = 1,
         //DashboardId = 1,
+        GrafiekIdNietOpslaan = 2,
 
         Titel = "Partijen - gemiddelde objectiviteit",
         ToonLegende = true,
@@ -599,9 +630,10 @@ namespace BL
 
        new Grafiek()
       {
-          GrafiekId = 3,
+          //GrafiekId = 3,
         //DeelplatformId = 1,
         //DashboardId = 1,
+         GrafiekIdNietOpslaan = 3,
 
         Titel = "Thema migratie - aantal tweets",
         ToonLegende = false,
@@ -634,9 +666,10 @@ namespace BL
       },
        new Grafiek()
       {
-          GrafiekId = 4,
+          //GrafiekId = 4,
         //DeelplatformId = 1,
         //DashboardId = 1,
+        GrafiekIdNietOpslaan = 4,
 
         Titel = "Politici - aantal tweets",
         ToonLegende = true,

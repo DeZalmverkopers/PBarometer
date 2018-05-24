@@ -5,10 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 
+
 namespace DAL.EF
 {
   internal class DbInitializer : DropCreateDatabaseIfModelChanges<DbContext>
   {
+    
     protected override void Seed(DbContext context)
     {
       Deelplatform deelplatform = new Deelplatform()
@@ -22,7 +24,6 @@ namespace DAL.EF
 
 
       context.Deelplatformen.Add(deelplatform);
-      context.SaveChanges();
 
       context.SaveChanges();
     }
