@@ -33,31 +33,11 @@ textarea {
 
 
 
-/*Afbeelding van de bel die gebruikt wordt in de navigatiebalk*/
-/*.alert-image {
-    background: url(../images/alert.png) no-repeat top left;
-    display: block;
-    width: 50px;
-    height: 50px;
-    text-indent: -9999px;
-}*/
-
-
-
 .navbar, .navbar-inverse {
     background-color: #428bca !important
 }
 
-/*.navbar > .active > a, .navbar > .active > a:focus, .navbar > .active > a:hover,
-.navbar-inverse > .active > a, .navbar-inverse > .active > a:focus, .navbar-inverse > .active > a:hover {
-    
-    
-}*/
 
-
-/*.btn-group-block {
-    display: block; 
-}*/
 
 .btn-algemene-layout {
     margin-top: 5px;

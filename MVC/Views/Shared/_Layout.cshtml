@@ -1,6 +1,4 @@
-﻿@*Seppe*@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -14,10 +12,6 @@
         <div class="container">
             <div class="navbar-header">
 
-                @*<span class="noti glyphicon glyphicon-bell"><span class="count">&nbsp;</span></span>*@
-
-
-
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -25,11 +19,7 @@
 
                 </button>
 
-                @* @Html.ActionLink("Home", MVC.Home.Index(), new { @class = "navbar-brand" })*@
-
-
-
-            </div>
+           </div>
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -112,7 +102,6 @@
                         {
                             <li><a href="@Url.Action("Index", "Alerts")">Alerts <span class="glyphicon glyphicon-bell"></span></a></li>
                         }
-                        @*<li>@Html.ActionLink("Profiel", MVC.Profiel.Index())</li>*@
                         <li>@Html.ActionLink("Profiel", "Index", "Profiel")</li>
 
                         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -142,23 +131,6 @@
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
     @RenderSection("scripts", required: false)
 
-    @*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
-
-    @*<script>
-            $(window).load(function setImage() {
-                $.ajax("https://localhost:44314/Alerts/IsTriggered", {
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.status) {
-                            $('#alertID').css({ 'color', 'yellow' })
-                        } else {
-                            $('#alertID').css({ 'color', 'black' })
-                        }
-                    }
-                })
-            })
-        </script>*@
-    @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+   
 </body>
 </html>

@@ -106,16 +106,6 @@ else
 
 <script src="~/Scripts/EigenScripts.js"></script>
 
-@*<script src="~/Scripts/Common.js"></script>
-
-
-    @Html.Partial("~/Views/Shared/Grafieken/Grafieken.cshtml")*@
-
-
-
-
-
-
 <script type="text/javascript">
                 $("#btnToevoegen").click(function () {
                     $.get('@Url.Action("LaadGrafiekToevoegen", "Dashboard")', {}, function (resultaat) {
@@ -146,24 +136,7 @@ else
 
          var xLabelsViewbag = grafieken[i].XLabels;
          var typeViewbag = grafieken[i].Type;
-         //var typeViewbag;
-
-         //switch (type) {
-         //    case 0:
-         //        typeViewbag = "horizontalBar"
-         //        break;
-         //    case 1:
-         //        typeViewbag = "bar"
-         //        break;
-
-         //    case 2:
-         //        typeViewbag = "pie"
-         //        break;
-
-         //    case 3:
-         //        typeViewbag = "line"
-         //        break;
-         //}
+        
 
          var dataViewbag = grafieken[i].Datawaarden;
          var legendelijstViewbag = grafieken[i].LegendeLijst;

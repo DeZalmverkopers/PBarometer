@@ -1,6 +1,6 @@
 ﻿<div>
     <label>Titel grafiek</label>
-    <input id="inputTitel" type="text"/>
+    <input id="inputTitel" type="text" />
 </div>
 
 <div>
@@ -13,27 +13,11 @@
     <input id="inputTitelYAs" type="text" />
 </div>
 
-<div>
-        <button type="button" data-toggle="collapse" data-target="#gi" class="btn btn-primary btn-algemene-layout">Geavanceerde instellingen</button>
-        <div id="gi" class="collapse">
-            <h4>Geavanceerde instellingen</h4>
 
-
-            <input type="checkbox" id="chkAssenWisselen">Assen wisselen (als horizontaal staafdiagram weergeven)<br>
-
-            @*<div>
-                <label>Schaal aanpassen</label>
-                @Html.DropDownList("Beheer", ViewBag.Schaalopties as List<SelectListItem>)
-            </div>*@
-        </div>
-    </div>
 
 <div>
     <button class="btn btn-primary btn-algemene-layout" id="btnAanpassenOpslaan">Opslaan</button>
 </div>
-
-
-@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
 
 
 
@@ -44,52 +28,19 @@
     $("#btnAanpassenOpslaan").click(function () {
         var link;
 
-       
+
         var aanTePassenGrafiek = @Html.Raw(Json.Encode(ViewBag.AanTePassenGrafiek));
 
         var titel = $("#inputTitel").val();
         var xTitel = $("#inputTitelXAs").val();
         var yTitel = $("#inputTitelYAs").val();
 
-        var typeViewbag;
-        var titelViewbag;
-        var xTitelViewbag;
-        var yTitelViewbag;
 
-        if (titel === null) {
-            titelViewbag = aanTePassenGrafiek.Titel;
-        } else {
-            titelViewbag = titel;
-        }
+        var titelViewbag = titel;
+        var xTitelViewbag = xTitel;
+        var yTitelViewbag = yTitel;
 
-        if (xTitel === null) {
-            xTitelViewbag = aanTePassenGrafiek.XTitel;
-        } else {
-            xTitelViewbag = xTitel;
-       }
-
-        if (yTitel === null) {
-            yTitelViewbag = aanTePassenGrafiek.YTitel;
-        } else {
-            yTitelViewbag = yTitel;
-        }
-
-        var type = aanTePassenGrafiek.Type;
-        if (type === "bar") {
-            if (document.getElementById('chkAssenWisselen').checked) {
-                typeViewbag = "horizontalBar";
-            } else {
-                typeViewbag = "bar";
-            }
-        } else if (type === "horizontalBar") {
-            if (document.getElementById('chkAssenWisselen').checked) {
-                typeViewbag = "bar";
-            } else {
-                typeViewbag = "horizontalBar";
-            }
-        } else {
-            typeViewbag = type;
-        }
+        var typeViewbag = aanTePassenGrafiek.Type;
 
         var grafiekIdViewbag = aanTePassenGrafiek.GrafiekId;
 
@@ -99,7 +50,7 @@
         var yOorsprongNulViewbag = aanTePassenGrafiek.YOorsprongNul;
 
         var toonYAsViewbag = aanTePassenGrafiek.ToonYAs;
-     
+
 
         var xLabelsViewbag = aanTePassenGrafiek.XLabels;
 
@@ -157,7 +108,7 @@
         });
 
         $("#modalGrafiekAanpassen").modal('hide');
-        
+
     });
 
 </script>

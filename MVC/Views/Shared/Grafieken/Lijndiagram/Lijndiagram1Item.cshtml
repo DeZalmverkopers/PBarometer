@@ -27,31 +27,3 @@
 
 
 </script>
-
-@*<script>
-    function grafiekBewerken(id) {
-
-        var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
-        var subid;
-
-        if (lengteId == 0) {
-            subid = id.substring(id.length - 1);
-        } else if (lengteId > 0) {
-            subid = id.substring(id.indexOf("-") + 1, id.length - 1);
-        }
-
-
-        var link = '@Html.Raw(Url.Action("LaadGrafiekAanpassen", "Dashboard",
-        new { id = "replaceId" }
-                     ))'.replace("replaceId", subid);
-
-
-        $.get(link, {}, function (resultaat) {
-            $("#divGrafiekAanpassen").html(resultaat);
-        });
-
-
-        $("#modalGrafiekAanpassen").modal();
-
-    } 
-</script>*@
