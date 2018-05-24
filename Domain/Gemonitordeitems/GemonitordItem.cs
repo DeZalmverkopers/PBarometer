@@ -34,6 +34,9 @@ namespace Domain.Gemonitordeitems
             DetailItems = new List<DetailItem>();
             ItemHistorieken = new List<ItemHistoriek>();
             Alerts = new List<Alert>();
+            VermeldingenTrend = Trend.NEUTRAL;
+            PolariteitsTrend = Trend.NEUTRAL;
+            ObjectiviteitsTrend = Trend.NEUTRAL;
         }
 
         public virtual void BerekenEigenschappen()
