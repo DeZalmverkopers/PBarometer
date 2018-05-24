@@ -84,7 +84,7 @@
         </table>
 
         <div>
-            <button class="btn btn-primary" title="Klik hier om deze grafiek toe te voegen aan uw dashboard." onclick="location.href='@Url.Action("VoegGrafiekAantalTweetsToeUitOverzicht", "Dashboard",new { gemonitordItemId = ViewBag.Organisatie.GemonitordItemId})'">
+            <button id="btnToevoegenDashboard" class="btn btn-primary" title="Klik hier om deze grafiek toe te voegen aan uw dashboard." onclick="location.href='@Url.Action("VoegGrafiekAantalTweetsToeUitOverzicht", "Dashboard",new { gemonitordItemId = ViewBag.Organisatie.GemonitordItemId})'">
                 <span class="glyphicon glyphicon-pushpin"></span>
             </button>
             <canvas id="lijnGrafiekOrganisatieDetail" height="250"></canvas>
@@ -109,4 +109,27 @@
         GrafiekOpbouwen("lijnGrafiekOrganisatieDetail", "Vermeldingen doorheen de tijd", "line" , false, true, true, true, true, false, true, 90, 0, "Datum" , "Vermeldingen" , dagen,
             null, null, null, null, null, aantalTweets, null, null, null, null, 'rgba(23,158,241,1)', null, null, null, null, 'rgba(23,158,241,1)', null, null, null, null)
 
+         $("#btnToevoegenDashboard").click(function () {
+            var sublink1 = '@Html.Raw(Url.Action("LaadLijndiagramAantalTweets", "Dashboard",
+            new {
+                grafiektitel = "replaceGrafiektitel",
+                item = "replaceItem",
+                aantalDagen = "replaceAantalDagen",
+                mannenVrouwen = "replaceGeslacht"
+
+            }))'
+                .replace("replaceGrafiektitel", "Vermeldingen doorheen de tijd - " + @Html.Raw(Json.Encode(ViewBag.OrganisatieNaam)));
+
+        var sublink2 = sublink1.replace("replaceItem", @Html.Raw(Json.Encode(ViewBag.OrganisatieNaam)));
+
+        var sublink3 = sublink2.replace("replaceAantalDagen", @Html.Raw(Json.Encode(ViewBag.DagenLengte)));
+
+        link = sublink3.replace("replaceGeslacht", "a");
+
+        $.get(link, {}, function (resultaat) {
+            $("#elementenGrafieken").append("<div class=col-md-5>" + resultaat + "</div>");
+        });
+
+        });
 </script>
+

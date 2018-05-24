@@ -12,6 +12,8 @@ namespace BL
     private GemonitordeItemsRepository repository;
     private UnitOfWorkManager uowManager;
 
+    
+
     public GemonitordeItemsManager()
     {
 
