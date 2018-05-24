@@ -4,6 +4,9 @@
   {
     Vermeldingen,
     Polariteit,
-    Objectiviteit
+    Objectiviteit,
+    VermeldingenMannen,
+    VermeldingenVrouwen,
+    VermeldingenMannenVrouwen
   }
 }

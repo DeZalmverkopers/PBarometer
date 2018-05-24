@@ -39,9 +39,6 @@ namespace DAL
 
     public IEnumerable<Grafiek> ReadGrafieken(int dashboardId, int deelplatformId)
     {
-      //if (!dashboard && !items) return context.Grafieken.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
-      //if (!dashboard && items) return context.Grafieken/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
-      //if (dashboard && !items) return context.Grafieken.Include("Dashboard").Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
       return context.Grafieken.AsEnumerable().Where(g => g.DashboardId == dashboardId).Where(g => g.DeelplatformId == deelplatformId);
     }
 
@@ -50,9 +47,9 @@ namespace DAL
     public Grafiek ReadGrafiek(int id, bool dashboard, bool items)
     {
       if (!dashboard && !items) return context.Grafieken.Include("GrafiekItems").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
-      if (!dashboard && items) return context.Grafieken/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
+      if (!dashboard && items) return context.Grafieken.Include("GrafiekItems").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
       if (dashboard && !items) return context.Grafieken.Include("Dashboard").Include("GrafiekItems").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
-      else return context.Grafieken.Include("Dashboard")/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
+      else return context.Grafieken.Include("Dashboard").Include("GrafiekItems").AsEnumerable().SingleOrDefault(g => g.GrafiekId == id);
     }
 
     public void UpdateGrafiek(Grafiek grafiek)

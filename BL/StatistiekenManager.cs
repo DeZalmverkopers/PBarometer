@@ -41,7 +41,7 @@ namespace BL
     {
       InitNonExistingRepo();
       return repository.ReadStatistieken(dashboardId, deelplatformId);
-    }
+    }  
 
     public Statistiek GetStatistiek(int id)
     {
@@ -49,63 +49,15 @@ namespace BL
       return repository.ReadStatistiek(id);
     }
 
-
-
-
-
-    public List<Statistiek> GetStatistiekenTest()
+    public void RemoveStatistiek(Statistiek statistiek)
     {
-
-
-      List<Statistiek> statistieken = new List<Statistiek>()
-      {
-        new Statistiek()
-        {
-          StatistiekId    = 1,
-          GemonitordItemId  = 1,
-          //DashboardId = 1,
-          //DeelplatformId = 1,
-          StatistiekSoort = "getal"
-        },
-        new Statistiek()
-        {
-          StatistiekId   = 2,
-          GemonitordItemId = 2,
-          //DashboardId = 1,
-          //DeelplatformId = 1,
-          StatistiekSoort = "getal"
-        },
-        new Statistiek()
-        {
-          StatistiekId   = 3,
-          GemonitordItemId = 3,
-          //DashboardId = 1,
-          //DeelplatformId = 1,
-          StatistiekSoort = "getalTrend"
-        },
-        new Statistiek()
-        {
-          StatistiekId   = 4,
-          GemonitordItemId = 4,
-          //DashboardId = 1,
-          //DeelplatformId = 1,
-          StatistiekSoort = "getalTrend"
-
-        },
-
-        new Statistiek()
-        {
-          StatistiekId   = 5,
-          GemonitordItemId = 5,
-          GemonitordItemId2 = 6,
-          StatistiekSoort = "kruising"
-
-        }
-
-      };
-
-      return statistieken;
+      InitNonExistingRepo();
+      repository.DeleteStatistiek(statistiek);
     }
+
+
+
+   
   }
 }
 

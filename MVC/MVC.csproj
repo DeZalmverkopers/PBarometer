@@ -371,17 +371,8 @@
     <Content Include="Views\Shared\GetalEnOverzicht\GetalTrend.cshtml" />
     <Content Include="Views\Shared\GetalEnOverzicht\Top10.cshtml" />
     <Content Include="Views\Shared\GetalEnOverzicht\Top5.cshtml" />
-    <Content Include="Views\Shared\Grafieken\Grafieken.cshtml" />
-    <Content Include="Views\Shared\Grafieken\HorizontaalStaafdiagram.cshtml" />
-    <Content Include="Views\Shared\Grafieken\HorizontaalStaafdiagramMulti.cshtml" />
-    <Content Include="Views\Shared\Grafieken\Lijndiagram.cshtml" />
-    <Content Include="Views\Shared\Grafieken\LijndiagramMulti.cshtml" />
-    <Content Include="Views\Shared\Grafieken\StaafdiagramMulti.cshtml" />
-    <Content Include="Views\Shared\Grafieken\Taartdiagram.cshtml" />
-    <Content Include="Views\Shared\Grafieken\TaartdiagramMulti.cshtml" />
     <Content Include="Views\Shared\LegePartialView.cshtml" />
     <Content Include="Views\Shared\Superadmin\GebruikersgegevensNakijken.cshtml" />
-    <Content Include="Views\Shared\Superadmin\SocialeMediabronnenInstellen.cshtml" />
     <Content Include="Views\SuperAdmin\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -441,7 +432,6 @@
     <Content Include="Views\Shared\Dashboard\Statistieken\GetalKeuze.cshtml" />
     <Content Include="Views\Shared\Dashboard\Statistieken\GetalTrendKeuze.cshtml" />
     <Content Include="Views\Shared\Dashboard\Statistieken\StatistiekToevoegen.cshtml" />
-    <Content Include="Views\Shared\Grafieken\Staafdiagram.cshtml" />
     <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram1Item.cshtml" />
     <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram2Items.cshtml" />
     <Content Include="Views\Shared\Grafieken\Lijndiagram\Lijndiagram3Items.cshtml" />
@@ -473,7 +463,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="bin\" />
     <Folder Include="obj\" />
-    <Folder Include="Views\GemonitordItem\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

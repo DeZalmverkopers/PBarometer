@@ -1,45 +1,23 @@
-﻿@*@*<div>
-        <label>X-as</label>
-        <select id="inputXas">
-            <option>data1</option>
-            <option>data2</option>
-            <option>data3</option>
-        </select>
-    </div>
-
-
-    <div>
-        <label>Y-as</label>
-        Html.DropDownList("Dashboard", ViewBag.YWaarden as List<SelectListItem>)
-
-    </div>*@
-
-<div>
-    <label>Titel</label>
-    <input id="inputTitel" type="text"/>
+﻿<div>
+    <label>Titel grafiek</label>
+    <input id="inputTitel" type="text" />
 </div>
 
 <div>
-        <button type="button" data-toggle="collapse" data-target="#gi" class="btn btn-primary btn-algemene-layout">Geavanceerde instellingen</button>
-        <div id="gi" class="collapse">
-            <h4>Geavanceerde instellingen</h4>
+    <label>Titel x-as</label>
+    <input id="inputTitelXAs" type="text" />
+</div>
+
+<div>
+    <label>Titel y-as</label>
+    <input id="inputTitelYAs" type="text" />
+</div>
 
 
-            <input type="checkbox" id="chkAssenWisselen">Assen wisselen (als horizontaal staafdiagram weergeven)<br>
-
-            @*<div>
-                <label>Schaal aanpassen</label>
-                @Html.DropDownList("Beheer", ViewBag.Schaalopties as List<SelectListItem>)
-            </div>*@
-        </div>
-    </div>
 
 <div>
     <button class="btn btn-primary btn-algemene-layout" id="btnAanpassenOpslaan">Opslaan</button>
 </div>
-
-
-@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
 
 
 
@@ -50,36 +28,21 @@
     $("#btnAanpassenOpslaan").click(function () {
         var link;
 
-        
-        @*grafiekWijzigen(@Html.Raw(Json.Encode(ViewBag.AanTePassenGrafiek)));*@
 
         var aanTePassenGrafiek = @Html.Raw(Json.Encode(ViewBag.AanTePassenGrafiek));
 
         var titel = $("#inputTitel").val();
-        var typeViewbag;
-        var titelViewbag;
+        var xTitel = $("#inputTitelXAs").val();
+        var yTitel = $("#inputTitelYAs").val();
+
+
+        var titelViewbag = titel;
+        var xTitelViewbag = xTitel;
+        var yTitelViewbag = yTitel;
+
+        var typeViewbag = aanTePassenGrafiek.Type;
 
         var grafiekIdViewbag = aanTePassenGrafiek.GrafiekId;
-
-
-        if (titel === null) {
-            titelViewbag = aanTePassenGrafiek.Titel;
-        } else {
-            titelViewbag = titel;
-        }
-
-
-        var type = aanTePassenGrafiek.Type;
-        if (type === "bar") {
-            if (document.getElementById('chkAssenWisselen').checked) {
-                typeViewbag = "horizontalBar";
-            } else {
-                typeViewbag = aanTePassenGrafiek.Type;
-            }
-        } else {
-            typeViewbag = aanTePassenGrafiek.Type;
-        }
-
 
         var toonLegendeViewbag = aanTePassenGrafiek.ToonLegende;
         var toonXAsViewbag = aanTePassenGrafiek.ToonXAs;
@@ -87,8 +50,7 @@
         var yOorsprongNulViewbag = aanTePassenGrafiek.YOorsprongNul;
 
         var toonYAsViewbag = aanTePassenGrafiek.ToonYAs;
-        var xTitelViewbag = aanTePassenGrafiek.XTitel;
-        var yTitelViewbag = aanTePassenGrafiek.YTitel;
+
 
         var xLabelsViewbag = aanTePassenGrafiek.XLabels;
 
@@ -120,25 +82,32 @@
 
 
 
-        var tempLink = '@Html.Raw(Url.Action("GrafiekAanpassen", "Dashboard", new
+        var templink = '@Html.Raw(Url.Action("GrafiekAanpassen", "Dashboard", new
                    {
                        id = "replaceId",
                        titel = "replaceGrafiektitel",
+                       xTitel = "replaceXTitel",
+                       yTitel = "replaceYTitel",
                        type = "replaceGrafiektype"
 
                    }))'
             .replace("replaceId", grafiekIdViewbag);
 
-        var templink2 = tempLink.replace("replaceGrafiektitel", titelViewbag);
+        var templink2 = templink.replace("replaceGrafiektitel", titelViewbag);
 
-        link = templink2.replace("replaceGrafiektype", typeViewbag);
-          
+        var templink3 = templink2.replace("replaceXTitel", xTitelViewbag);
+
+        var templink4 = templink3.replace("replaceYTitel", yTitelViewbag);
+
+        link = templink4.replace("replaceGrafiektype", typeViewbag);
+
+
+
         $.get(link, {}, function () {
 
         });
 
         $("#modalGrafiekAanpassen").modal('hide');
-        
 
     });
 

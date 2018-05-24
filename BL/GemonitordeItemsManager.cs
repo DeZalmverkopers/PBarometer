@@ -7,7 +7,9 @@ using System.Linq;
 
 namespace BL
 {
+
     public class GemonitordeItemsManager
+
     {
         private GemonitordeItemsRepository repository;
         private UnitOfWorkManager uowManager;

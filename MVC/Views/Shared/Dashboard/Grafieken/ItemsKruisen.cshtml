@@ -58,9 +58,12 @@
          var link = templink3.replace("replaceAantalDagen", $("#aantalDagen").val());
 
         $.get(link , {}, function (resultaat) {
-            $("#elementenGrafieken").append("<div class=col-md-6>" + resultaat + "</div>");
+            $("#elementenGrafieken").append("<div class=col-md-5>" + resultaat + "</div>");
 
-        });
+         });
+
+        $("#modalGrafiekToevoegen").modal('hide');
+
 
     });
 

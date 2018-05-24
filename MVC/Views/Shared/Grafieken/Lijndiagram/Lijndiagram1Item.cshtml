@@ -1,5 +1,5 @@
 ﻿<div>
-    <canvas id="@ViewBag.GrafiekId" height="250"></canvas>
+    <canvas id="@ViewBag.GrafiekId" height="300"></canvas>
 
     <button id="bewerken-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
         <span class="glyphicon glyphicon-pencil"></span>
@@ -16,15 +16,14 @@
 
     var grafiekId = @Html.Raw(Json.Encode(ViewBag.GrafiekId));
 
-    var dagen = @Html.Raw(Json.Encode(ViewBag.ItemDagen));
+    var dagen = @Html.Raw(Json.Encode(ViewBag.XLabels));
     var grafiekTitel = @Html.Raw(Json.Encode(ViewBag.Grafiektitel));
-    var data1 = @Html.Raw(Json.Encode(ViewBag.Item1Data));
-
+    var data1 = @Html.Raw(Json.Encode(ViewBag.Data));
+   
+   
     GrafiekOpbouwen(grafiekId, grafiekTitel, "line", false, true, true, true, true, false, true, 90, 90, "Dag", "Aantal tweets", dagen,
-        null, null, null, null, null, data1, null, null, null, null, ["#3e95cd"], null, null, null, null, ["#3e95cd"], null, null, null, null)
+        null, null, null, null, null, data1[0], null, null, null, null, ["#3e95cd"], null, null, null, null, ["#3e95cd"], null, null, null, null)
 
-    GrafiekOpbouwen()
+
 
 </script>
-
-

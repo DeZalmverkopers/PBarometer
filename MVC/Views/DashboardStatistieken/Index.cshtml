@@ -12,68 +12,68 @@
 }
 else
 {
-<div class="container" id="elementenStatistieken">
-    @*Rij 1*@
-    <div class="row">
-        <div class="col-md-11">
+    <div class="container" id="elementenStatistieken">
+        @*Rij 1*@
+        <div class="row">
+            <div class="col-md-11">
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-primary button-xx-large" id="btnToevoegen" data-target="#modalStatistiekToevoegen" data-toggle="modal">+</button>
+            </div>
         </div>
-        <div class="col-md-1">
-            <button class="btn btn-primary button-xx-large" id="btnToevoegen" data-target="#modalStatistiekToevoegen" data-toggle="modal">+</button>
-        </div>
+
+
+
+        @foreach (var item in ViewBag.StatistiekenViewbag)
+        {
+            if (item.StatistiekSoort == "getal")
+            {
+                <div class="col-md-6">
+
+                    @Html.Action("LaadGetalViaId", "DashboardStatistieken", new { id = item.StatistiekId })
+
+                </div>
+
+
+            }
+            else if (item.StatistiekSoort == "getalTrend")
+            {
+                <div class="col-md-6">
+
+                    @Html.Action("LaadGetalTrendViaId", "DashboardStatistieken", new { id = item.StatistiekId })
+
+                </div>
+
+
+            }
+            else if (item.StatistiekSoort == "top5")
+            {
+                <div class="col-md-6">
+
+                    @Html.Action("LaadTop5ViaId", "DashboardStatistieken", new { id = item.StatistiekId })
+
+                </div>
+            }
+            else if (item.StatistiekSoort == "top10")
+            {
+                <div class="col-md-6">
+
+                    @Html.Action("LaadTop10ViaId", "DashboardStatistieken", new { id = item.StatistiekId })
+
+                </div>
+            }
+            else if (item.StatistiekSoort == "kruising")
+            {
+                <div class="col-md-6">
+
+                    @Html.Action("LaadKruisingViaId", "DashboardStatistieken", new { id = item.StatistiekId })
+
+                </div>
+            }
+
+        }
+
     </div>
-
-
-
-    @*@foreach (var item in ViewBag.StatistiekenViewbag)
-    {
-        if (item.StatistiekSoort == "getal")
-        {
-            <div class="col-md-6">
-
-                @Html.Action("LaadGetalViaId", "DashboardStatistieken", new { id = item.StatistiekId })
-
-            </div>
-
-
-        }
-        else if (item.StatistiekSoortk == "getalTrend")
-        {
-            <div class="col-md-6">
-
-                @Html.Action("LaadGetalTrendViaId", "DashboardStatistieken", new { id = item.StatistiekId })
-
-            </div>
-
-
-        }
-        else if (item.StatistiekSoort == "top5")
-        {
-            <div class="col-md-6">
-
-                @Html.Action("LaadGetalTrendViaId", "DashboardStatistieken", new { id = item.StatistiekId })
-
-            </div>
-        }
-        else if (item.StatistiekSoort == "top10")
-        {
-            <div class="col-md-6">
-
-                @Html.Action("LaadGetalTrendViaId", "DashboardStatistieken", new { id = item.StatistiekId })
-
-            </div>
-        }
-        else if (item.StatistiekSoort == "kruising")
-        {
-            <div class="col-md-6">
-
-                @Html.Action("LaadGetalTrendViaId", "DashboardStatistieken", new { id = item.StatistiekId })
-
-            </div>
-        }
-
-    }*@
-
-</div>
 }
 
 
@@ -98,18 +98,44 @@ else
 
 <script src="~/Scripts/EigenScripts.js"></script>
 
-@*<script type="text/javascript">
-                $("#btnToevoegen").click(function () {
-                    $.get('@Url.Action("LaadStatistiekToevoegen", "DashboardStatistieken")', {}, function (resultaat) {
-                        $("#divStatistiekToevoegen").html(resultaat);
-                });
-                });
-    </script>*@
-
 <script type="text/javascript">
                 $("#btnToevoegen").click(function () {
                     $.get('@Url.Action("LaadStatistiekToevoegen", "DashboardStatistieken")', {}, function (resultaat) {
                         $("#divStatistiekToevoegen").html(resultaat);
                 });
                 });
+</script>
+
+<script>
+    
+    function statistiekVerwijderen(id) {
+    var lengteId = id.substring(id.indexOf("-") + 1, id.length - 1).length;
+    var subid;
+
+    if (lengteId == 0) {
+        subid = id.substring(id.length - 1);
+    } else if (lengteId > 0) {
+        subid = id.substring(id.indexOf("-") + 1, id.length);
+    }
+
+
+    var statistiekVerwijderen = confirm("Ben je zeker dat je de statistiek wilt verwijderen?");
+    if (statistiekVerwijderen === true) {
+        $("div#" + subid).remove()
+
+        $("#verwijderen-" + subid).remove();
+
+       var link = '@Html.Raw(Url.Action("StatistiekVerwijderen", "DashboardStatistieken",
+                    new { id = "replaceId"}
+                 ))'.replace("replaceId", subid);
+
+
+         $.get(link, {}, function () {
+
+         });
+
+    }
+
+
+}
 </script>

@@ -35,6 +35,7 @@ namespace MVC.Controllers
         }
         public virtual ActionResult PersoonDetails(int id)
         {
+
             var persoon = gemonitordeItemsManager.GetPersoon(id, true) as Persoon;
             ViewBag.Persoon = persoon;
             ViewBag.HeeftFacebook = persoon.Facebook != null && persoon.Facebook.Length > 0;
@@ -99,8 +100,14 @@ namespace MVC.Controllers
             {
                 ViewBag.HeeftMeestVoorkomendeURL = false;
             }
-            ViewBag.ItemDagen = persoon.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList();
-            ViewBag.ItemAantalTweets = persoon.ItemHistorieken.Select(a => a.AantalVermeldingen).ToList();
+
+
+      ViewBag.PersoonNaam = persoon.Naam;
+      ViewBag.ItemDagen = persoon.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList();
+      ViewBag.DagenLengte = persoon.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList().Count;
+
+
+      ViewBag.ItemAantalTweets = persoon.ItemHistorieken.Select(a => a.AantalVermeldingen).ToList();
 
             return PartialView("PersoonDetails", ViewBag);
         }
@@ -124,12 +131,19 @@ namespace MVC.Controllers
             {
                 ViewBag.HeeftMeestVoorkomendeURL = false;
             }
-            ViewBag.ItemDagen = organisatie.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList();
-            ViewBag.ItemAantalTweets = organisatie.ItemHistorieken.Select(a => a.AantalVermeldingen).ToList();
-            return PartialView("OrganisatieDetails", ViewBag);
-        }
-        public ActionResult ThemaDetails(int id)
-        {
+         
+      ViewBag.ItemDagen = organisatie.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList();
+      ViewBag.ItemAantalTweets = organisatie.ItemHistorieken.Select(a => a.AantalVermeldingen).ToList();
+
+      ViewBag.OrganisatieNaam = organisatie.Naam;
+      ViewBag.ItemDagen = organisatie.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList();
+      ViewBag.DagenLengte = organisatie.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList().Count;
+
+      return PartialView("OrganisatieDetails", ViewBag);
+    }
+    public ActionResult ThemaDetails(int id)
+  
+      {
             var thema = gemonitordeItemsManager.GetGemonitordItem(id) as Thema;
             ViewBag.Thema = thema;
             string kernwoorden = "";
@@ -154,9 +168,16 @@ namespace MVC.Controllers
                 ViewBag.HeeftMeestVoorkomendeURL = false;
             }
             ViewBag.ItemDagen = thema.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList();
-            ViewBag.ItemAantalTweets = thema.ItemHistorieken.Select(a => a.AantalVermeldingen).ToList();
-            return PartialView("ThemaDetails", ViewBag);
+      ViewBag.ItemAantalTweets = thema.ItemHistorieken.Select(a => a.AantalVermeldingen).ToList();
+
+      ViewBag.ThemaNaam = thema.Naam;
+      ViewBag.ItemDagen = thema.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList();
+      ViewBag.DagenLengte = thema.ItemHistorieken.Select(a => a.HistoriekDatum.ToShortDateString()).ToList().Count;
+
+      return PartialView("ThemaDetails", ViewBag);
         }
+
+
 
 
         [HttpGet]
