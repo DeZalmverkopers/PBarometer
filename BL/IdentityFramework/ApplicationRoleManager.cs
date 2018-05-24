@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BL.IdentityFramework
 {
+  //ApplicationRoleManager: CRUD-functionaliteit voor roles
   public class ApplicationRoleManager : RoleManager<IdentityRole>
   {
 

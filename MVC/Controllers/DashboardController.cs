@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using BL;
-using BL.IdentityFramework;
 using Domain.Dashboards;
 using Domain.Deelplatformen;
 using Domain.Gemonitordeitems;
-using Domain.IdentityFramework;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using MVC.Controllers.Api;
 
 //Seppe
 

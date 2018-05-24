@@ -1,31 +1,29 @@
-using Domain.Dashboards;
 using Domain.Deelplatformen;
-using Domain.Gemonitordeitems;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-
 
 namespace DAL.EF
 {
-  internal class DbInitializer : DropCreateDatabaseIfModelChanges<DbContext>
-  {
-    
-    protected override void Seed(DbContext context)
+    //De initializer van de databank. De databank wordt alleen gedropt en terug gecreëerd als het model verandert.
+    internal class DbInitializer : DropCreateDatabaseIfModelChanges<DbContext>
     {
-      Deelplatform deelplatform = new Deelplatform()
-      {
-        Naam = "Politieke Barometer",
-        LaatsteSynchronisatie = DateTime.Now.AddYears(-100),
-        AantalDagenHistoriek = 14,
-        URLnaam = "politiek"
-      };
+        protected override void Seed(DbContext context)
+        {
+            Deelplatform deelplatform = new Deelplatform()
+            {
+                Naam = "Politieke Barometer",
+                LaatsteSynchronisatie = DateTime.Now.AddYears(-100),
+                AantalDagenHistoriek = 14,
+                URLnaam = "politiek",
+                DataOphaalFrequentie = 2
+            };
 
 
 
-      context.Deelplatformen.Add(deelplatform);
+            context.Deelplatformen.Add(deelplatform);
+            context.SaveChanges();
 
-      context.SaveChanges();
+            context.SaveChanges();
+        }
     }
-  }
 }
