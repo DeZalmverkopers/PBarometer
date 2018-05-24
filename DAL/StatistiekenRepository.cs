@@ -30,17 +30,20 @@ namespace DAL
 
     public IEnumerable<Statistiek> ReadStatistieken(int dashboardId, int deelplatformId)
     {
-      //if (!dashboard && !items) return context.Grafieken.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
-      //if (!dashboard && items) return context.Grafieken/*.Include("Items")*/.Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
-      //if (dashboard && !items) return context.Grafieken.Include("Dashboard").Include("GrafiekItems").AsEnumerable().Where(a => a.Dashboard.DashboardId.Equals(dashboardId));
+      
       return context.Statistieken.AsEnumerable().Where(s => s.DashboardId == dashboardId).Where(s => s.DeelplatformId == deelplatformId);
     }
-
 
 
     public Statistiek ReadStatistiek(int id)
     {     
       return context.Statistieken.AsEnumerable().SingleOrDefault(s => s.StatistiekId == id);
+    }
+
+    public void DeleteStatistiek(Statistiek statisitiek)
+    {
+      context.Statistieken.Remove(statisitiek);
+      context.SaveChanges();
     }
 
   }

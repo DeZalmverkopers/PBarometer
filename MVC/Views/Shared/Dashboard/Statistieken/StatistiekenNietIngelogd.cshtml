@@ -4,7 +4,7 @@
     {
         <div class="col-md-6">
 
-            @Html.Action("LaadGetalViaId", "DashboardStatistieken", new { id = item.StatistiekId })
+            @Html.Action("LaadGetalViaIdNietOpslaan", "DashboardStatistieken", new { id = item.StatistiekIdNietOpslaan })
 
         </div>
 
@@ -14,7 +14,7 @@
     {
         <div class="col-md-6">
 
-            @Html.Action("LaadGetalTrendViaId", "DashboardStatistieken", new { id = item.StatistiekId })
+            @Html.Action("LaadGetalTrendViaIdNietOpslaan", "DashboardStatistieken", new { id = item.StatistiekIdNietOpslaan })
 
         </div>
 
@@ -26,7 +26,7 @@
         <div class="col-md-6">
 
 
-            @Html.Action("LaadKruisingViaId", "DashboardStatistieken", new { id = item.StatistiekId })
+            @Html.Action("LaadKruisingViaIdNietOpslaan", "DashboardStatistieken", new { id = item.StatistiekIdNietOpslaan })
 
         </div>
     }
@@ -34,5 +34,5 @@
 }
 
 <div class="col-md-6">
-    @Html.Action("LaadTop10", "DashboardStatistieken")
+    @Html.Action("LaadTop10NietOpslaan", "DashboardStatistieken")
 </div>
