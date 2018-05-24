@@ -46,7 +46,6 @@ else
         @foreach (var grafiek in ViewBag.Grafieken)
         {
             <div class="col-md-5">
-
                 <canvas id="@grafiek.GrafiekId" height="300"></canvas>
 
                 <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
@@ -56,7 +55,6 @@ else
                 <button id="verwijderen-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
-
             </div>
         }
 

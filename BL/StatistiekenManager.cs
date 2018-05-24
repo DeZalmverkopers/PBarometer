@@ -57,65 +57,7 @@ namespace BL
 
 
 
-    public List<Statistiek> GetStatistiekenTest()
-    {
-
-
-      List<Statistiek> statistieken = new List<Statistiek>()
-      {
-        new Statistiek()
-        {
-          //StatistiekId    = 1,
-
-          StatistiekIdNietOpslaan = 1,
-          GemonitordItemId  = 1,
-          //DashboardId = 1,
-          //DeelplatformId = 1,
-          StatistiekSoort = "getal"
-        },
-        new Statistiek()
-        {
-          StatistiekIdNietOpslaan = 2,
-          //StatistiekId   = 2,
-          GemonitordItemId = 2,
-          //DashboardId = 1,
-          //DeelplatformId = 1,
-          StatistiekSoort = "getal"
-        },
-        new Statistiek()
-        {
-           StatistiekIdNietOpslaan = 3,
-          //StatistiekId   = 3,
-          GemonitordItemId = 3,
-          //DashboardId = 1,
-          //DeelplatformId = 1,
-          StatistiekSoort = "getalTrend"
-        },
-        new Statistiek()
-        {
-           StatistiekIdNietOpslaan = 4,
-          //StatistiekId   = 4,
-          GemonitordItemId = 4,
-          //DashboardId = 1,
-          //DeelplatformId = 1,
-          StatistiekSoort = "getalTrend"
-
-        },
-
-        new Statistiek()
-        {
-          StatistiekIdNietOpslaan = 5,
-          //StatistiekId   = 5,
-          GemonitordItemId = 5,
-          GemonitordItemId2 = 6,
-          StatistiekSoort = "kruising"
-
-        }
-
-      };
-
-      return statistieken;
-    }
+   
   }
 }
 

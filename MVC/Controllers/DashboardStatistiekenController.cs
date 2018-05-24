@@ -86,7 +86,7 @@ namespace MVC.Controllers
     public virtual ActionResult LaadStatistiekenNietIngelogd()
     {
 
-      statistieken = statistiekenManager.GetStatistiekenTest();
+      statistieken = GetStatistiekenTest();
 
       ViewBag.StatistiekenNietIngelogdViewbag = statistieken;
 
@@ -736,7 +736,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadGetalViaIdNietOpslaan(int id)
     {
-      statistieken = statistiekenManager.GetStatistiekenTest();
+      statistieken = GetStatistiekenTest();
 
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       //string item = null;
@@ -776,7 +776,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadGetalTrendViaIdNietOpslaan(int id)
     {
-      statistieken = statistiekenManager.GetStatistiekenTest();
+      statistieken = GetStatistiekenTest();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       int gemonitordItemId = 0;
 
@@ -830,7 +830,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadKruisingViaIdNietOpslaan(int id)
     {
-      statistieken = statistiekenManager.GetStatistiekenTest();
+      statistieken = GetStatistiekenTest();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       int gemonitordItemId = 0;
       int gemonitordItemId2 = 0;
@@ -974,6 +974,69 @@ namespace MVC.Controllers
 
 
       return PartialView("~/Views/Shared/GetalEnOverzicht/Top10.cshtml", ViewBag);
+    }
+
+    public List<Statistiek> GetStatistiekenTest()
+    {
+      GemonitordeItemsManager itemsManager = new GemonitordeItemsManager();
+      List<GemonitordItem> personen = itemsManager.GetPersonen(HuidigDeelplatform.DeelplatformId).OrderByDescending(p => p.TotaalAantalVermeldingen).ToList();
+      List<GemonitordItem> organisaties = itemsManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).OrderByDescending(p => p.TotaalAantalVermeldingen).ToList();
+      List<GemonitordItem> themas = itemsManager.GetThemas(HuidigDeelplatform.DeelplatformId).OrderByDescending(p => p.TotaalAantalVermeldingen).ToList();
+
+      List<Statistiek> statistieken = new List<Statistiek>()
+      {
+        new Statistiek()
+        {
+          //StatistiekId    = 1,
+
+          StatistiekIdNietOpslaan = 1,
+          GemonitordItemId  = personen[0].GemonitordItemId,
+          //DashboardId = 1,
+          //DeelplatformId = 1,
+          StatistiekSoort = "getal"
+        },
+        new Statistiek()
+        {
+          StatistiekIdNietOpslaan = 2,
+          //StatistiekId   = 2,
+          GemonitordItemId = organisaties[0].GemonitordItemId,
+          //DashboardId = 1,
+          //DeelplatformId = 1,
+          StatistiekSoort = "getal"
+        },
+        new Statistiek()
+        {
+           StatistiekIdNietOpslaan = 3,
+          //StatistiekId   = 3,
+          GemonitordItemId = personen[1].GemonitordItemId,
+          //DashboardId = 1,
+          //DeelplatformId = 1,
+          StatistiekSoort = "getalTrend"
+        },
+        new Statistiek()
+        {
+           StatistiekIdNietOpslaan = 4,
+          //StatistiekId   = 4,
+          GemonitordItemId = organisaties[1].GemonitordItemId,
+          //DashboardId = 1,
+          //DeelplatformId = 1,
+          StatistiekSoort = "getalTrend"
+
+        },
+
+        new Statistiek()
+        {
+          StatistiekIdNietOpslaan = 5,
+          //StatistiekId   = 5,
+          GemonitordItemId = personen[0].GemonitordItemId,
+          GemonitordItemId2 = organisaties[0].GemonitordItemId,
+          StatistiekSoort = "kruising"
+
+        }
+
+      };
+
+      return statistieken;
     }
 
   }
