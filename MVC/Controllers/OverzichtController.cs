@@ -222,7 +222,7 @@ namespace MVC.Controllers
       if (ModelState.IsValid)
       {
         string naam = maakThemaViewModel.Naam;
-        List<string> kernwoorden = maakThemaViewModel.Kernwoorden.Split(',').ToList();
+        List<string> kernwoorden = maakThemaViewModel.Kernwoorden.Split(',').Where(a => !a.Equals("")).ToList();
         gemonitordeItemsManager.AddThema(naam, kernwoorden, HuidigDeelplatform.DeelplatformId);
         return RedirectToAction("Index");
       }
@@ -245,7 +245,7 @@ namespace MVC.Controllers
     {
       if (ModelState.IsValid)
       {
-        List<string> leden = maakOrganisatieViewModel.Leden.Split(',').ToList();
+        List<string> leden = maakOrganisatieViewModel.Leden.Split(',').Select(a => a.Trim()).Where(a => !a.Equals("")).ToList();
         gemonitordeItemsManager.AddOrganisatie(maakOrganisatieViewModel.Naam, HuidigDeelplatform.DeelplatformId, leden);
         return RedirectToAction("Index");
       }
@@ -257,6 +257,7 @@ namespace MVC.Controllers
     public ActionResult PasPersoonAan(int id)
     {
       Persoon persoon = gemonitordeItemsManager.GetPersoon(id, true);
+      string naamOrganisatie = persoon.Organisatie != null ? persoon.Organisatie.Naam : "";
       PersoonViewModel persoonViewModel = new PersoonViewModel()
       {
         Facebook = persoon.Facebook,
@@ -264,7 +265,7 @@ namespace MVC.Controllers
         Gemeente = persoon.Gemeente,
         Postcode = persoon.Postcode,
         Geboortedatum = persoon.Geboortedatum,
-        NaamOrganisatie = persoon.Organisatie.Naam,
+        NaamOrganisatie = naamOrganisatie,
         TwitterHandle = persoon.TwitterHandle,
         Website = persoon.Website,
         Id = id
@@ -309,7 +310,7 @@ namespace MVC.Controllers
       Thema thema = gemonitordeItemsManager.GetGemonitordItem(id) as Thema;
       ThemaViewModel themaViewModel = new ThemaViewModel()
       {
-        Kernwoorden = String.Join(",", thema.KernWoorden.ToArray()),
+        Kernwoorden = String.Join(", ", thema.KernWoorden.ToArray()),
         Naam = thema.Naam,
         Id = thema.GemonitordItemId
       };
@@ -324,7 +325,7 @@ namespace MVC.Controllers
       {
         Thema thema = gemonitordeItemsManager.GetGemonitordItem(themaViewModel.Id) as Thema;
         thema.Naam = themaViewModel.Naam;
-        thema.KernWoorden = themaViewModel.Kernwoorden.Split(',').ToList();
+        thema.KernWoorden = themaViewModel.Kernwoorden.Split(',').Select(a => a.Trim()).Where(a => !a.Equals("")).ToList();
         gemonitordeItemsManager.ChangeGemonitordItem(thema);
 
         return RedirectToAction("Index");
@@ -342,7 +343,7 @@ namespace MVC.Controllers
       List<string> leden = organisatie.Personen.Select(a => a.Naam).ToList();
       OrganisatieViewModel organisatieViewModel = new OrganisatieViewModel()
       {
-        Leden = String.Join(",", leden),
+        Leden = String.Join(", ", leden),
         Naam = organisatie.Naam,
         Id = organisatie.GemonitordItemId
       };
@@ -356,12 +357,13 @@ namespace MVC.Controllers
       if (ModelState.IsValid)
       {
         Organisatie organisatie = gemonitordeItemsManager.GetGemonitordItem(organisatieViewModel.Id) as Organisatie;
-        gemonitordeItemsManager.EditOrganisatie(organisatieViewModel.Id, HuidigDeelplatform.DeelplatformId, organisatieViewModel.Naam, organisatieViewModel.Leden.Split(',').ToList());
+        gemonitordeItemsManager.EditOrganisatie(organisatieViewModel.Id, HuidigDeelplatform.DeelplatformId, organisatieViewModel.Naam, 
+            organisatieViewModel.Leden.Split(',').Select(a => a.Trim()).Where(a => !a.Equals("")).ToList());
         return RedirectToAction("Index");
       }
       else
       {
-        return View();
+        return View(organisatieViewModel);
       }
     }
 
