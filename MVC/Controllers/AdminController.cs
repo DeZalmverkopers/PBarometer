@@ -72,7 +72,6 @@ namespace MVC.Controllers
               Postcode = persoonDict["postal_code"],
               Gemeente = persoonDict["town"],
               Facebook = persoonDict["facebook"],
-              Volgbaar = true,
               DeelplatformId = deelplatformId,
               Geboortedatum = geboorteDatum
             };
