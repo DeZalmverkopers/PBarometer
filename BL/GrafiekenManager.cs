@@ -354,7 +354,11 @@ namespace BL
       List<GemonitordItem> grafiek1GemonitordeItems = new List<GemonitordItem>();
       List<GrafiekItem> grafiek1Grafiekitems = new List<GrafiekItem>();
 
-      for (int i = 0; i < 5; i++)
+      //for (int i = 0; i < 5; i++)
+      //{
+      //  grafiek1GemonitordeItems.Add(personen[i]);
+      //}
+      for (int i = 0; i < personen.Count; i++)
       {
         grafiek1GemonitordeItems.Add(personen[i]);
       }
@@ -379,7 +383,11 @@ namespace BL
       List<GemonitordItem> grafiek2GemonitordeItems = new List<GemonitordItem>();
       List<GrafiekItem> grafiek2Grafiekitems = new List<GrafiekItem>();
 
-      for (int i = 0; i < 5; i++)
+      //for (int i = 0; i < 5; i++)
+      //{
+      //  grafiek2GemonitordeItems.Add(personen[i]);
+      //}
+      for (int i = 0; i < personen.Count; i++)
       {
         grafiek2GemonitordeItems.Add(personen[i]);
       }
