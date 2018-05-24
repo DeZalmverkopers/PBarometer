@@ -59,7 +59,7 @@ namespace MVC.Controllers
       {
         var statistieken = statistiekenManager.GetStatistieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId);
         ViewBag.StatistiekenViewbag = statistieken;
-        
+
       }
 
 
@@ -85,13 +85,18 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadStatistiekenNietIngelogd()
     {
+      GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
 
-      statistieken = GetStatistiekenTest();
+      var aantalItems = gemonitordeItemsManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList().Count;
+      ViewBag.AantalItems = aantalItems;
 
-      ViewBag.StatistiekenNietIngelogdViewbag = statistieken;
+      if (aantalItems > 0)
+      {
+        ViewBag.StatistiekenNietIngelogdViewbag = GetStatistiekenTest();
+
+      }
 
       return PartialView("~/Views/Shared/Dashboard/Statistieken/StatistiekenNietIngelogd.cshtml", ViewBag);
-
 
     }
 
@@ -160,7 +165,7 @@ namespace MVC.Controllers
         DeelplatformId = HuidigDeelplatform.DeelplatformId,
         DashboardId = HuidigDashboard.DashboardId,
         GemonitordItemId = gemonitordItem.GemonitordItemId,
-        StatistiekSoort ="getal"
+        StatistiekSoort = "getal"
 
       };
 
@@ -410,7 +415,7 @@ namespace MVC.Controllers
     }
 
 
-    
+
 
 
 
@@ -580,7 +585,7 @@ namespace MVC.Controllers
 
       }
 
-      
+
       for (int i = 0; i < 5; i++)
       {
         top5.Add(geordend[i]);
@@ -824,9 +829,9 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/GetalEnOverzicht/GetalTrend.cshtml", ViewBag);
     }
 
-    
 
- 
+
+
 
     public virtual ActionResult LaadKruisingViaIdNietOpslaan(int id)
     {

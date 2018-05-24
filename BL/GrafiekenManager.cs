@@ -79,12 +79,12 @@ namespace BL
             List<double> waarden = new List<double>();
             List<double> waarden2 = new List<double>();
 
-   
+
 
             for (int i = historieken.Count - grafiek.Periode; i < historieken.Count; i++)
             {
 
-             
+
 
               if (grafiek.GrafiekWaarde == GrafiekWaarde.Vermeldingen)
               {
@@ -142,12 +142,11 @@ namespace BL
           }
 
 
+
           for (int i = grafiekItems[0].ItemHistorieken.Count - grafiek.Periode; i < grafiekItems[0].ItemHistorieken.Count; i++)
           {
             grafiek.XLabels.Add(grafiekItems[0].ItemHistorieken[i].HistoriekDatum.ToShortDateString());
-
           }
-
         }
 
         if (grafiek.Type.Equals("bar"))

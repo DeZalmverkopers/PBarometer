@@ -1,38 +1,47 @@
-﻿@foreach (var item in ViewBag.StatistiekenNietIngelogdViewbag)
+﻿@if (ViewBag.AantalItems == 0)
 {
-    if (item.StatistiekSoort == "getal")
+    <div>Er zijn geen gemonitorde items voor dit deelplatform.</div>
+}
+else
+{
+    foreach (var item in ViewBag.StatistiekenNietIngelogdViewbag)
     {
-        <div class="col-md-6">
+        if (item.StatistiekSoort == "getal")
+        {
+            <div class="col-md-6">
 
-            @Html.Action("LaadGetalViaIdNietOpslaan", "DashboardStatistieken", new { id = item.StatistiekIdNietOpslaan })
+                @Html.Action("LaadGetalViaIdNietOpslaan", "DashboardStatistieken", new { id = item.StatistiekIdNietOpslaan })
 
-        </div>
+            </div>
 
+
+        }
+        else if (item.StatistiekSoort == "getalTrend")
+        {
+            <div class="col-md-6">
+
+                @Html.Action("LaadGetalTrendViaIdNietOpslaan", "DashboardStatistieken", new { id = item.StatistiekIdNietOpslaan })
+
+            </div>
+
+
+        }
+
+        else if (item.StatistiekSoort == "kruising")
+        {
+            <div class="col-md-6">
+
+
+                @Html.Action("LaadKruisingViaIdNietOpslaan", "DashboardStatistieken", new { id = item.StatistiekIdNietOpslaan })
+
+            </div>
+        }
 
     }
-    else if (item.StatistiekSoort == "getalTrend")
-    {
-        <div class="col-md-6">
 
-            @Html.Action("LaadGetalTrendViaIdNietOpslaan", "DashboardStatistieken", new { id = item.StatistiekIdNietOpslaan })
-
-        </div>
-
-
-    }
-    
-    else if (item.StatistiekSoort == "kruising")
-    {
-        <div class="col-md-6">
-
-
-            @Html.Action("LaadKruisingViaIdNietOpslaan", "DashboardStatistieken", new { id = item.StatistiekIdNietOpslaan })
-
-        </div>
-    }
-
+    <div class="col-md-6">
+        @Html.Action("LaadTop10NietOpslaan", "DashboardStatistieken")
+    </div>
 }
 
-<div class="col-md-6">
-    @Html.Action("LaadTop10NietOpslaan", "DashboardStatistieken")
-</div>
+

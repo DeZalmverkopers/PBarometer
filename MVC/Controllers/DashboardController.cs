@@ -49,11 +49,8 @@ namespace MVC.Controllers
         return RedirectToAction("Index", "Home");
       }
 
-
-
       ViewBag.DeelplatformNaam = HuidigDeelplatform.Naam;
       ViewBag.Afbeelding = HuidigDeelplatform.AfbeeldingPad ?? "default.png";
-
 
       if (HuidigDashboard != null)
       {
@@ -144,8 +141,16 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadGrafiekenNietIngelogd()
     {
+      GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
 
-      ViewBag.GrafiekenNietIngelogd = GetGrafiekenNietIngelogd();
+      var aantalItems = gemonitordeItemsManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList().Count;
+
+      ViewBag.AantalItems = aantalItems;
+
+      if (aantalItems > 0)
+      {        
+          ViewBag.GrafiekenNietIngelogd = GetGrafiekenNietIngelogd();
+      } 
 
       return PartialView("~/Views/Shared/Dashboard/Grafieken/GrafiekenNietIngelogd.cshtml", ViewBag);
     }
@@ -2258,12 +2263,14 @@ namespace MVC.Controllers
       List<ItemHistoriek> itemhistorieken = new List<ItemHistoriek>();
       List<dynamic> grafiekXLabels = new List<dynamic>();
       List<double> grafiekWaarden = new List<double>();
+      List<List<double>> waarden = new List<List<double>>();
       List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
+      List<GrafiekItem> grafiekItems = new List<GrafiekItem>();
 
       GemonitordItem gemonitordItem1 = new GemonitordItem();
       GemonitordItem gemonitordItem2 = new GemonitordItem(); ;
-      GekruistItem gekruistItem = new GekruistItem();
 
+      GemonitordItem gekruistItem = new GekruistItem();
 
 
       foreach (var gemonitordItem in gemonitordeItems)
@@ -2278,42 +2285,81 @@ namespace MVC.Controllers
         }
       }
 
-      gekruistItem = new GekruistItem()
-      {
-        Item1 = gemonitordItem1,
-        Item2 = gemonitordItem2
-      };
+      itemManager.AddGekruistItem(gemonitordItem1, gemonitordItem2, "gekruistItem", HuidigDeelplatform.DeelplatformId);
 
+      
+      int index = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList().Count - 1;
+
+      gekruistItem = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList()[index];
 
       gekruistItem.BerekenEigenschappen();
 
       itemManager.MaakHistorieken(gekruistItem, HuidigDeelplatform.AantalDagenHistoriek, HuidigDeelplatform.LaatsteSynchronisatie);
 
-      foreach (var item in gekruistItem.ItemHistorieken)
+
+      grafiekItems.Add(new GrafiekItem()
       {
-        itemhistorieken.Add(item);
-      }
+        ItemId = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList()[index].GemonitordItemId
+      });
 
 
-      //for (int i = itemhistorieken.Count - dagen; i < itemhistorieken.Count; i++)
-      //{
-      //  grafiekXLabels.Add(itemhistorieken[i].HistoriekDatum.ToShortDateString());
-      //  grafiekWaarden.Add(itemhistorieken[i].AantalVermeldingen);
-      //}
+      itemhistorieken = gekruistItem.ItemHistorieken;
 
-      for (int i = 0; i < itemhistorieken.Count; i++)
+
+      for (int i = itemhistorieken.Count - dagen; i < itemhistorieken.Count; i++)
       {
         grafiekXLabels.Add(itemhistorieken[i].HistoriekDatum.ToShortDateString());
         grafiekWaarden.Add(itemhistorieken[i].AantalVermeldingen);
       }
 
 
+
+      waarden.Add(grafiekWaarden);
+
+
       ViewBag.Grafiektitel = grafiektitel;
-      ViewBag.ItemDagen = grafiekXLabels;
-      ViewBag.ItemAantalTweets = grafiekWaarden;
+      ViewBag.XLabels = grafiekXLabels;
+      ViewBag.Data = waarden;
 
+      Grafiek grafiek = new Grafiek()
+      {
+        DeelplatformId = HuidigDeelplatform.DeelplatformId,
+        DashboardId = HuidigDashboard.DashboardId,
 
-      return PartialView("~/Views/Shared/Grafieken/Lijndiagram/LijndiagramAantalTweets.cshtml", ViewBag);
+        Titel = grafiektitel,
+        ToonLegende = false,
+        ToonXAs = true,
+        ToonYAs = true,
+
+        Type = "line",
+
+        XOorsprongNul = true,
+        XTitel = "Datum",
+        YOorsprongNul = true,
+        YTitel = "Aantal tweets",
+        XLabels = grafiekXLabels,
+        Periode = dagen,
+
+        Datawaarden = waarden,
+
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, null, null, null, null },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, null, null, null, null },
+        LegendeLijst = new List<dynamic>() { null, null, null, null, null },
+
+        XAsMaxrotatie = 90,
+        XAsMinrotatie = 90,
+        FillDataset = false,
+        Lijnlegendeweergave = true,
+
+        GrafiekItems = grafiekItems,
+        GrafiekWaarde = GrafiekWaarde.Vermeldingen
+      };
+
+      grafiekenManager.AddGrafiek(grafiek);
+
+      ViewBag.GrafiekId = grafiek.GrafiekId;
+
+      return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram1Item.cshtml", ViewBag);
     }
 
     #endregion
