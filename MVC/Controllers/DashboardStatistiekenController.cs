@@ -14,26 +14,17 @@ namespace MVC.Controllers
   {
 
     GemonitordeItemsManager itemManager = new GemonitordeItemsManager();
-    List<GemonitordItem> items;
-    List<SelectListItem> selects;
+    List<GemonitordItem> items = new List<GemonitordItem>();
+    List<SelectListItem> selects = new List<SelectListItem>();
     List<GemonitordItem> personenViewbag = new List<GemonitordItem>();
     List<GemonitordItem> organisatiesViewbag = new List<GemonitordItem>();
     List<GemonitordItem> themasViewbag = new List<GemonitordItem>();
-    List<Statistiek> statistieken;
+    List<Statistiek> statistieken = new List<Statistiek>();
     List<GemonitordItem> gemonitordeItems = new List<GemonitordItem>();
     StatistiekenManager statistiekenManager = new StatistiekenManager();
     DashboardsManager dashboardsManager = new DashboardsManager();
 
-    //public Deelplatform HuidigDeelplatform
-    //{
-    //  get
-    //  {
-    //    return new DeelplatformenManager().GetDeelplatformByURL(RouteData.Values["deelplatform"].ToString());
-    //  }
-    //}
 
-
-    // GET: DashboardStatistieken
 
     public Deelplatform HuidigDeelplatform
     {
@@ -53,7 +44,6 @@ namespace MVC.Controllers
 
     public ActionResult Index()
     {
-      //GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
 
       if (HuidigDashboard != null)
       {
@@ -62,45 +52,12 @@ namespace MVC.Controllers
 
       }
 
-
       return View();
     }
 
-    public virtual ActionResult LaadGetalKeuze()
-    {
+    
 
-      return PartialView("~/Views/Shared/Dashboard/Statistieken/GetalKeuze.cshtml");
-    }
-
-    public virtual ActionResult LaadGetalTrendKeuze()
-    {
-
-      return PartialView("~/Views/Shared/Dashboard/Statistieken/GetalTrendKeuze.cshtml");
-    }
-
-    public virtual ActionResult LaadPopulairsteItemsKeuze()
-    {
-      return PartialView("~/Views/Shared/Dashboard/Statistieken/PopulairsteItemsKeuze.cshtml");
-    }
-
-    public virtual ActionResult LaadStatistiekenNietIngelogd()
-    {
-      GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
-
-      var aantalItems = gemonitordeItemsManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList().Count;
-      ViewBag.AantalItems = aantalItems;
-
-      if (aantalItems > 0)
-      {
-        ViewBag.StatistiekenNietIngelogdViewbag = GetStatistiekenTest();
-
-      }
-
-      return PartialView("~/Views/Shared/Dashboard/Statistieken/StatistiekenNietIngelogd.cshtml", ViewBag);
-
-    }
-
-
+    #region Statistiek: toevoegen & verwijderen
     public ActionResult StatistiekVerwijderen(string id)
     {
       int idInt = Int32.Parse(id);
@@ -121,11 +78,68 @@ namespace MVC.Controllers
 
 
 
+
+    public virtual ActionResult LaadStatistiekToevoegen()
+    {
+
+
+      items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
+      selects = new List<SelectListItem>();
+      foreach (var item in items)
+      {
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+      }
+
+      ViewBag.Personen = selects;
+
+      items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
+      selects = new List<SelectListItem>();
+      foreach (var item in items)
+      {
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+      }
+
+      ViewBag.Themas = selects;
+
+
+      items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
+      selects = new List<SelectListItem>();
+      foreach (var item in items)
+      {
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+      }
+
+      ViewBag.Organisaties = selects;
+
+
+
+      return PartialView("~/Views/Shared/Dashboard/Statistieken/StatistiekToevoegen.cshtml", ViewBag);
+
+    }
+    #endregion
+
+
+
+    #region keuzeStatistiek
+    public virtual ActionResult LaadGetalKeuze()
+    {
+
+      return PartialView("~/Views/Shared/Dashboard/Statistieken/GetalKeuze.cshtml");
+    }
+
+    public virtual ActionResult LaadGetalTrendKeuze()
+    {
+
+      return PartialView("~/Views/Shared/Dashboard/Statistieken/GetalTrendKeuze.cshtml");
+    }
+
+    public virtual ActionResult LaadPopulairsteItemsKeuze()
+    {
+      return PartialView("~/Views/Shared/Dashboard/Statistieken/PopulairsteItemsKeuze.cshtml");
+    }
+
     public virtual ActionResult LaadKruisingKeuze()
     {
-      //items = itemManager.GetPersonen(1).ToList();
-
-      //ViewBag.ItemsViewbag = items;
 
       var items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
@@ -138,13 +152,14 @@ namespace MVC.Controllers
 
       return PartialView("~/Views/Shared/Dashboard/Statistieken/GekruistItemKeuze.cshtml", ViewBag);
     }
+    #endregion
 
+
+
+    #region Statistieken: weergave & persistentie
 
     public virtual ActionResult LaadGetal(string item)
     {
-      //int deelplatformId = HuidigDeelplatform.DeelplatformId;
-
-      //items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
@@ -181,9 +196,6 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadGetalTrend(string item)
     {
-      //int deelplatformId = HuidigDeelplatform.DeelplatformId;
-
-      //items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
@@ -236,12 +248,10 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/GetalEnOverzicht/GetalTrend.cshtml", ViewBag);
     }
 
+
+
     public virtual ActionResult LaadTop5()
     {
-
-      //int deelplatformId = HuidigDeelplatform.DeelplatformId;
-
-      //items = itemManager.GetGemonitordeItems(deelplatformId).ToList();
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
@@ -298,6 +308,8 @@ namespace MVC.Controllers
 
       return PartialView("~/Views/Shared/GetalEnOverzicht/Top5.cshtml", ViewBag);
     }
+
+
 
     public virtual ActionResult LaadTop10()
     {
@@ -413,78 +425,18 @@ namespace MVC.Controllers
 
       return PartialView("~/Views/Shared/GetalEnOverzicht/ItemsKruisen.cshtml", ViewBag);
     }
+    #endregion
 
 
 
-
-
-
-    public virtual ActionResult LaadStatistiekToevoegen()
-    {
-
-
-      items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
-      selects = new List<SelectListItem>();
-      foreach (var item in items)
-      {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-      }
-
-      ViewBag.Personen = selects;
-
-      items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
-      selects = new List<SelectListItem>();
-      foreach (var item in items)
-      {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-      }
-
-      ViewBag.Themas = selects;
-
-
-      items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
-      selects = new List<SelectListItem>();
-      foreach (var item in items)
-      {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-      }
-
-      ViewBag.Organisaties = selects;
-
-
-
-      return PartialView("~/Views/Shared/Dashboard/Statistieken/StatistiekToevoegen.cshtml", ViewBag);
-
-    }
-
-
-
-    //public virtual ActionResult LaadGemonitordeItemsKruising()
-    //{
-    //  var items = itemManager.GetGemonitordeItems(1).ToList();
-    //  selects = new List<SelectListItem>();
-    //  foreach (var item in items)
-    //  {
-    //    selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-    //  }
-
-    //  ViewBag.GemonitordeItemsViewbag = selects;
-
-
-    //  return PartialView("~/Views/Shared/Dashboard/Dropdown/GemonitordeItemsAantal.cshtml", ViewBag);
-
-    //}
-
-
+    #region Statistieken: inladen uit databank
 
     public virtual ActionResult LaadGetalViaId(int id)
     {
       statistieken = statistiekenManager.GetStatistieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId).ToList();
 
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
-      //string item = null;
-      //int vermeldingen = 0;
-      //int statistiekId = 0;
+
 
       int gemonitordItemId = 0;
 
@@ -492,9 +444,7 @@ namespace MVC.Controllers
       {
         if (statistiek.StatistiekId == id)
         {
-          //item = statistiek.GemonitordItem.Naam;
-          //vermeldingen = statistiek.GemonitordItem.Naam;
-          //statistiekId = statistiek.StatistiekId;
+
 
           gemonitordItemId = statistiek.GemonitordItemId;
 
@@ -514,7 +464,6 @@ namespace MVC.Controllers
 
       return PartialView("~/Views/Shared/GetalEnOverzicht/Getal.cshtml", ViewBag);
     }
-
 
 
     public virtual ActionResult LaadGetalTrendViaId(int id)
@@ -735,13 +684,14 @@ namespace MVC.Controllers
     }
 
 
+    #endregion
 
 
 
-
+    #region Statistieken die niet worden opgeslagen
     public virtual ActionResult LaadGetalViaIdNietOpslaan(int id)
     {
-      statistieken = GetStatistiekenTest();
+      statistieken = GetStatistiekenNietIngelogd();
 
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       //string item = null;
@@ -781,7 +731,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadGetalTrendViaIdNietOpslaan(int id)
     {
-      statistieken = GetStatistiekenTest();
+      statistieken = GetStatistiekenNietIngelogd();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       int gemonitordItemId = 0;
 
@@ -835,7 +785,7 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadKruisingViaIdNietOpslaan(int id)
     {
-      statistieken = GetStatistiekenTest();
+      statistieken = GetStatistiekenNietIngelogd();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       int gemonitordItemId = 0;
       int gemonitordItemId2 = 0;
@@ -980,8 +930,32 @@ namespace MVC.Controllers
 
       return PartialView("~/Views/Shared/GetalEnOverzicht/Top10.cshtml", ViewBag);
     }
+    #endregion
 
-    public List<Statistiek> GetStatistiekenTest()
+
+
+    #region statistieken voor niet-ingelogde gebruikers
+
+    //Voorbeeldgrafieken voor een niet-ingelogde gebruiker
+    public virtual ActionResult LaadStatistiekenNietIngelogd()
+    {
+      GemonitordeItemsManager gemonitordeItemsManager = new GemonitordeItemsManager();
+
+      var aantalItems = gemonitordeItemsManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList().Count;
+      ViewBag.AantalItems = aantalItems;
+
+      if (aantalItems > 0)
+      {
+        ViewBag.StatistiekenNietIngelogdViewbag = GetStatistiekenNietIngelogd();
+
+      }
+
+      return PartialView("~/Views/Shared/Dashboard/Statistieken/StatistiekenNietIngelogd.cshtml", ViewBag);
+
+    }
+
+
+    public List<Statistiek> GetStatistiekenNietIngelogd()
     {
       GemonitordeItemsManager itemsManager = new GemonitordeItemsManager();
       List<GemonitordItem> personen = itemsManager.GetPersonen(HuidigDeelplatform.DeelplatformId).OrderByDescending(p => p.TotaalAantalVermeldingen).ToList();
@@ -1043,6 +1017,9 @@ namespace MVC.Controllers
 
       return statistieken;
     }
+    #endregion
+
+    
 
   }
 }
