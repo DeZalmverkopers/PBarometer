@@ -114,10 +114,42 @@ namespace BL
             InitNonExistingRepo();
             repository.DeleteGemonitordItem(gemonitordItem);
         }
+        public void RemovePersoon(int gemonitordItemId) {
+            InitNonExistingRepo();
+            Persoon persoon = repository.ReadPersoonMetHistoriekenDetailItemsOrganisaties(gemonitordItemId);
+            Organisatie organisatie = persoon.Organisatie;
+            List<ItemHistoriek> itemHistorieken = persoon.ItemHistorieken;
+            List<DetailItem> detailItems = persoon.DetailItems;
+            repository.DeleteGemonitordItem(GetGemonitordItem(gemonitordItemId));
+            if (organisatie != null)
+            {
+                BepaalDetailItemsVoorOrganisatie(organisatie);
+                BerekenEigenschappen(organisatie);
+                repository.UpdateGemonitordItem(organisatie);
+            }
+            if (itemHistorieken != null)
+            {
+                repository.DeleteHistorieken(itemHistorieken);
+            }
+            if (detailItems != null)
+            {
+                repository.DeleteDetailItems(detailItems);
+            }
+        }
+
         public void RemoveGemonitordItem(int id)
         {
             InitNonExistingRepo();
-            repository.DeleteGemonitordItem(GetGemonitordItem(id));
+            GemonitordItem gemonitordItem = GetGemonitordItem(id);
+            if (gemonitordItem is Persoon)
+            {
+                RemovePersoon(id);
+            }
+            else
+            {
+                repository.DeleteGemonitordItem(gemonitordItem);
+            }
+            
         }
         public void AddThema(string naam, List<string> kernwoorden, int deelplatformId, bool volgbaar = true)
         {
@@ -134,7 +166,7 @@ namespace BL
             }
         }
 
-        public void AddPersoon(string naam, int deelplatformId, bool volgbaar = true)
+        public void AddPersoon(string naam, int deelplatformId)
         {
             InitNonExistingRepo();
             if (GetPersonen(deelplatformId).Where(a => a.Naam.Equals(naam, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() == null)
@@ -149,7 +181,7 @@ namespace BL
             List<Persoon> toeTeVoegenPersonen = new List<Persoon>();
             if (GetOrganisaties(deelplatformId).FirstOrDefault(a => a.Naam.Equals(naam, StringComparison.OrdinalIgnoreCase)) == null)
             {
-                Organisatie organisatie = new Organisatie() { Naam = naam, TotaalAantalVermeldingen = 0, DeelplatformId = deelplatformId };
+                
                 List<GemonitordItem> bestaandePersonen = GetPersonen(deelplatformId).ToList();
                 foreach (string persoon in namenPersonen)
                 {
@@ -160,9 +192,10 @@ namespace BL
                     }
                     toeTeVoegenPersonen.Add(toeTeVoegenPersoon as Persoon);
                 }
+                Organisatie organisatie = new Organisatie() { Naam = naam, DeelplatformId = deelplatformId, Personen = toeTeVoegenPersonen};
                 BepaalDetailItemsVoorOrganisatie(organisatie);
                 BerekenEigenschappen(organisatie);
-                AddGemonitordItem(new Organisatie() { Naam = naam, Personen = toeTeVoegenPersonen, DeelplatformId = deelplatformId });
+                AddGemonitordItem(organisatie);
             }
         }
 
@@ -213,8 +246,8 @@ namespace BL
             }
             foreach (GemonitordItem gemonitordItem in repository.ReadGemonitordeItems().Where(a => a.DeelplatformId == deelplatformId).ToList())
             {
-                BerekenEigenschappen(gemonitordItem);
                 MaakHistorieken(gemonitordItem, aantalDagenHistoriek, syncDatum);
+                BerekenEigenschappen(gemonitordItem);
             }
             AlertManager alertManager = new AlertManager();
             alertManager.GenereerAlerts();
@@ -235,23 +268,21 @@ namespace BL
 
         public void MaakHistorieken(GemonitordItem item, int aantalDagenHistoriek, DateTime syncDatum)
         {
-            DateTime startDatum;
+            DateTime startDag;
             if (item.ItemHistorieken == null || item.ItemHistorieken.Count < 1 ||
-                item.ItemHistorieken.OrderByDescending(a => a.HistoriekDatum).FirstOrDefault().HistoriekDatum < syncDatum.AddDays(-aantalDagenHistoriek))
+                item.ItemHistorieken.OrderByDescending(a => a.HistoriekDatum).FirstOrDefault().HistoriekDatum < syncDatum.Date.AddDays(-aantalDagenHistoriek))
             {
-                startDatum = syncDatum.AddDays(-aantalDagenHistoriek);
+                startDag = syncDatum.Date.AddDays(-aantalDagenHistoriek);
             }
             else
             {
-                startDatum = item.ItemHistorieken.OrderByDescending(a => a.HistoriekDatum).FirstOrDefault().HistoriekDatum;
+                startDag = item.ItemHistorieken.OrderByDescending(a => a.HistoriekDatum).FirstOrDefault().HistoriekDatum;
             }
-            DateTime startDag = startDatum.Date;
             if (startDag != syncDatum.Date)
             {
                 while (startDag <= syncDatum.Date)
                 {
                     DateTime grensDag = startDag.AddDays(1);
-                    //DateTime grensUur = startUur.AddHours(1);
                     List<DetailItem> relevanteDetailItems = item.DetailItems.Where(a => a.BerichtDatum > startDag && a.BerichtDatum < grensDag).ToList();
                     if (relevanteDetailItems.Count > 0)
                     {
@@ -289,7 +320,7 @@ namespace BL
         private void VerwijderHistorieken(List<ItemHistoriek> itemHistorieken)
         {
             InitNonExistingRepo();
-            repository.VerwijderHistorieken(itemHistorieken);
+            repository.DeleteHistorieken(itemHistorieken);
         }
 
         #region BerekenEigenschappen
@@ -306,7 +337,7 @@ namespace BL
                 BerekenGemiddeldePolariteit(gemonitordItem);
                 BepaalMeestVoorkomendeURL(gemonitordItem);
                 BerekenTotaalAantalVrouwenEnMannen(gemonitordItem);
-                if (itemHistorieken != null && itemHistorieken.Count > 0 && gemonitordItem.TotaalAantalVermeldingen > 0)
+                if (itemHistorieken != null && itemHistorieken.Count > 0)
                 {
                     BerekenPolTrend(gemonitordItem);
                     BerekenObjTrend(gemonitordItem);
@@ -460,7 +491,7 @@ namespace BL
 
         private void BerekenVermeldingenTrend(GemonitordItem gemonitordItem)
         {
-            int huidigaantalVermeldingen = gemonitordItem.ItemHistorieken.OrderByDescending(a => a.HistoriekDatum).Last().AantalVermeldingen;
+            int huidigaantalVermeldingen = gemonitordItem.ItemHistorieken.OrderByDescending(a => a.HistoriekDatum).First().AantalVermeldingen;
             double gemiddeldAantalVermeldingen = gemonitordItem.ItemHistorieken.Average(a => a.AantalVermeldingen);
             if (gemiddeldAantalVermeldingen > huidigaantalVermeldingen * 0.9 && gemonitordItem.TotaalAantalVermeldingen < huidigaantalVermeldingen * 1.10)
             {
