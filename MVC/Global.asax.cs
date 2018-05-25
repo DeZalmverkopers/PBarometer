@@ -56,10 +56,10 @@ namespace MVC
                 var hoogsteFrequentie = deelplatformen.Max(d => d.DataOphaalFrequentie);
                 for (int i = 0; i <= hoogsteFrequentie; i++)
                 {
+                    deelplatformen = deelplatformManager.GetDeelplatformen().ToList();
+                    hoogsteFrequentie = deelplatformen.Max(d => d.DataOphaalFrequentie);
                     foreach (var deelplatform in deelplatformen)
                     {
-                        deelplatformen = deelplatformManager.GetDeelplatformen().ToList();
-                        hoogsteFrequentie = deelplatformen.Max(d => d.DataOphaalFrequentie);
                         if (i != 0 && (deelplatform.DataOphaalFrequentie % i == 0 || i % deelplatform.DataOphaalFrequentie == 0))
                         {
                             dataController.HaalBerichtenOp(deelplatform);
