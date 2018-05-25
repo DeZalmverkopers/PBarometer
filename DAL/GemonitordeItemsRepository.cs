@@ -87,8 +87,18 @@ namespace DAL
             context.ItemHistorieken.RemoveRange(itemHistorieken);
             context.SaveChanges();
         }
-        public Persoon ReadPersoonMetHistoriekenDetailItemsOrganisaties(int id) {
+        public Persoon ReadPersoonMetHistoriekenDetailItemsOrganisaties(int id)
+        {
             return context.GemonitordeItems.OfType<Persoon>().Include("DetailItems").Include("ItemHistorieken").Include("Organisatie").AsEnumerable().SingleOrDefault(i => i.GemonitordItemId == id) as Persoon;
+        }
+
+        public void UpdateGemonitordeItems(List<GemonitordItem> items)
+        {
+            foreach (GemonitordItem item in items)
+            {
+                context.Entry(item).State = EntityState.Modified;
+            }
+            context.SaveChanges();
         }
     }
 }

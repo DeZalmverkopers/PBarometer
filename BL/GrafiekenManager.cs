@@ -1,16 +1,13 @@
 ﻿using DAL;
 using Domain.Dashboards;
-using Domain.Deelplatformen;
 using Domain.Gemonitordeitems;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
-using System;
 
 
 namespace BL
 {
-  public class GrafiekenManager
+    public class GrafiekenManager
   {
     private GrafiekenRepository repository;
     private UnitOfWorkManager uowManager;
