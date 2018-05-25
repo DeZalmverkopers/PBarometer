@@ -263,6 +263,27 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 Deelplatform deelplatform = deelplatformenManager.GetDeelplatform(deelplatformViewModel.Id);
+                if (!deelplatform.URLnaam.Equals(deelplatformViewModel.URLNaam, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (deelplatformenManager.GetDeelplatformByURL(deelplatformViewModel.URLNaam) != null)
+                    {
+                        ViewBag.Boodschap = "Deze URL is al in gebruik";
+                        return PartialView();
+                    }
+
+                    //Wanneer de URL van een deelplatform overeenkomt met die van een controller, loopt de routing mis. Dit wordt hier vermeden
+                    List<string> controllerNamen = new List<string>() { "Alerts", "Android","IData","Textgain","Account","Admin",
+                    "Dashboard", "DashboardStatistieken","GemonitordItem","Overzicht","Profiel","SpecifiekePagina","SuperAdmin" };
+                    if (controllerNamen.Any(a => a.Equals(deelplatformViewModel.URLNaam, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        ViewBag.Boodschap = "Deze URL is niet geldig";
+                        return PartialView();
+                    }
+                    else
+                    {
+                        deelplatform.URLnaam = deelplatformViewModel.URLNaam;
+                    }
+                }
                 deelplatform.AantalDagenHistoriek = deelplatformViewModel.AantalDagenHistoriek;
                 deelplatform.Naam = deelplatformViewModel.Naam;
                 deelplatform.URLnaam = deelplatformViewModel.URLNaam;

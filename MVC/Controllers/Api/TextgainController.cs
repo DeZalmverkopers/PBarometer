@@ -98,7 +98,7 @@ namespace MVC.Controllers.Api
                                     }
                                     else
                                     {
-                                        //Beter alternatief zoeken om waardes te geven wanneer sentiment niet beschikbaar is
+                                        //Neutrale waardes geven wanneer sentiment niet beschikbaar is
                                         polariteit = 0;
                                         objectiviteit = 0.5;
                                     }
