@@ -22,6 +22,7 @@ namespace DAL.EF
         public DbSet<GemonitordItem> GemonitordeItems { get; set; }
         public DbSet<DetailItem> DetailItems { get; set; }
         public DbSet<ItemHistoriek> ItemHistorieken { get; set; }
+        public DbSet<FAQItem> FAQItems { get; set; }
         public DbContext(bool unitOfWorkPresent = false) : base("PBDb_Barometer")
         {
             delaySave = unitOfWorkPresent;
