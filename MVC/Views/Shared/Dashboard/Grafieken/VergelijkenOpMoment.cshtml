@@ -27,6 +27,7 @@
     <label>Welke data wilt u vergelijken voor deze items?</label>
 
     <select id="gewensteData">
+        <option hidden selected>Selecteer een optie</option>
         <option value="av">Aantal vermeldingen</option>
         <option value="gp">Gemiddelde polariteit</option>
         <option value="go">Gemiddelde objectiviteit</option>
@@ -37,6 +38,7 @@
     <label>In welk soort grafiek wilt u de gegevens zien?</label>
 
     <select id="soortGrafiek">
+        <option hidden selected>Selecteer een optie</option>
         <option value="staaf">Staafdiagram</option>
         <option value="taart">Taartdiagram</option>
     </select>
@@ -234,8 +236,8 @@
                  var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment2Items", "Dashboard", new
                            {
                                grafiektitel = "replaceGrafiektitel",
-                               item1 = "replaceItem1",
-                               item2 = "replaceItem2",
+                               id1 = "replaceItem1",
+                               id2 = "replaceItem2",
                                gewensteData = "replaceGewensteData",
                                soortGrafiek = "replaceSoortGrafiek"
                            }))'
@@ -258,9 +260,9 @@
                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment3Items", "Dashboard", new
                            {
                                grafiektitel = "replaceGrafiektitel",
-                               item1 = "replaceItem1",
-                               item2 = "replaceItem2",
-                               item3 = "replaceItem3",
+                               id1 = "replaceItem1",
+                               id2 = "replaceItem2",
+                               id3 = "replaceItem3",
                                gewensteData = "replaceGewensteData",
                                soortGrafiek = "replaceSoortGrafiek"
 
@@ -286,10 +288,10 @@
                  var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment4Items", "Dashboard", new
                             {
                                 grafiektitel = "replaceGrafiektitel",
-                                item1 = "replaceItem1",
-                                item2 = "replaceItem2",
-                                item3 = "replaceItem3",
-                                item4 = "replaceItem4",
+                                id1 = "replaceItem1",
+                                id2 = "replaceItem2",
+                                id3 = "replaceItem3",
+                                id4 = "replaceItem4",
                                 gewensteData = "replaceGewensteData",
                                 soortGrafiek = "replaceSoortGrafiek"
 
@@ -317,11 +319,11 @@
                  var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment5Items", "Dashboard", new
                             {
                                 grafiektitel = "replaceGrafiektitel",
-                                item1 = "replaceItem1",
-                                item2 = "replaceItem2",
-                                item3 = "replaceItem3",
-                                item4 = "replaceItem4",
-                                item5 = "replaceItem5",
+                                id1 = "replaceItem1",
+                                id2 = "replaceItem2",
+                                id3 = "replaceItem3",
+                                id4 = "replaceItem4",
+                                id5 = "replaceItem5",
                                 gewensteData = "replaceGewensteData",
                                 soortGrafiek = "replaceSoortGrafiek"
 
@@ -352,8 +354,8 @@
                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment2Items", "Dashboard", new
                            {
                                grafiektitel = "replaceGrafiektitel",
-                               item1 = "replaceItem1",
-                               item2 = "replaceItem2",
+                               id1 = "replaceItem1",
+                               id2 = "replaceItem2",
                                gewensteData = "replaceGewensteData",
                                soortGrafiek = "replaceSoortGrafiek"
 
@@ -376,9 +378,9 @@
                   var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment3Items", "Dashboard", new
                              {
                                  grafiektitel = "replaceGrafiektitel",
-                                 item1 = "replaceItem1",
-                                 item2 = "replaceItem2",
-                                 item3 = "replaceItem3",
+                                 id1 = "replaceItem1",
+                                 id2 = "replaceItem2",
+                                 id3 = "replaceItem3",
                                  gewensteData = "replaceGewensteData",
                                  soortGrafiek = "replaceSoortGrafiek"
 
@@ -402,10 +404,10 @@
                  var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment4Items", "Dashboard", new
                             {
                                 grafiektitel = "replaceGrafiektitel",
-                                item1 = "replaceItem1",
-                                item2 = "replaceItem2",
-                                item3 = "replaceItem3",
-                                item4 = "replaceItem4",
+                                id1 = "replaceItem1",
+                                id2 = "replaceItem2",
+                                id3 = "replaceItem3",
+                                id4 = "replaceItem4",
                                 gewensteData = "replaceGewensteData",
                                 soortGrafiek = "replaceSoortGrafiek"
 
@@ -432,11 +434,11 @@
                var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment5Items", "Dashboard", new
                           {
                               grafiektitel = "replaceGrafiektitel",
-                              item1 = "replaceItem1",
-                              item2 = "replaceItem2",
-                              item3 = "replaceItem3",
-                              item4 = "replaceItem4",
-                              item5 = "replaceItem5",
+                              id1 = "replaceItem1",
+                              id2 = "replaceItem2",
+                              id3 = "replaceItem3",
+                              id4 = "replaceItem4",
+                              id5 = "replaceItem5",
                               gewensteData = "replaceGewensteData",
                               soortGrafiek = "replaceSoortGrafiek"
 
@@ -464,8 +466,8 @@
                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment2Items", "Dashboard", new
                            {
                                grafiektitel = "replaceGrafiektitel",
-                               item1 = "replaceItem1",
-                               item2 = "replaceItem2",
+                               id1 = "replaceItem1",
+                               id2 = "replaceItem2",
                                gewensteData = "replaceGewensteData",
                                soortGrafiek = "replaceSoortGrafiek"
 
@@ -488,9 +490,9 @@
                 var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment3Items", "Dashboard", new
                            {
                                grafiektitel = "replaceGrafiektitel",
-                               item1 = "replaceItem1",
-                               item2 = "replaceItem2",
-                               item3 = "replaceItem3",
+                               id1 = "replaceItem1",
+                               id2 = "replaceItem2",
+                               id3 = "replaceItem3",
                                gewensteData = "replaceGewensteData",
                                soortGrafiek = "replaceSoortGrafiek"
 
@@ -515,10 +517,10 @@
                  var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment4Items", "Dashboard", new
                             {
                                 grafiektitel = "replaceGrafiektitel",
-                                item1 = "replaceItem1",
-                                item2 = "replaceItem2",
-                                item3 = "replaceItem3",
-                                item4 = "replaceItem4",
+                                id1 = "replaceItem1",
+                                id2 = "replaceItem2",
+                                id3 = "replaceItem3",
+                                id4 = "replaceItem4",
                                 gewensteData = "replaceGewensteData",
                                 soortGrafiek = "replaceSoortGrafiek"
 
@@ -544,11 +546,11 @@
                   var tempLink = '@Html.Raw(Url.Action("LaadVergelijkingOpMoment5Items", "Dashboard", new
                              {
                                  grafiektitel = "replaceGrafiektitel",
-                                 item1 = "replaceItem1",
-                                 item2 = "replaceItem2",
-                                 item3 = "replaceItem3",
-                                 item4 = "replaceItem4",
-                                 item5 = "replaceItem5",
+                                 id1 = "replaceItem1",
+                                 id2 = "replaceItem2",
+                                 id3 = "replaceItem3",
+                                 id4 = "replaceItem4",
+                                 id5 = "replaceItem5",
                                  gewensteData = "replaceGewensteData",
                                  soortGrafiek = "replaceSoortGrafiek"
 

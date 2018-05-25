@@ -1,7 +1,7 @@
 ﻿<label>Duid 2 items aan om te kruisen</label>
 
 <div>
-    @Html.Partial("~/Views/Shared/Dashboard/Dropdown/GemonitordeItemsAantal.cshtml")
+    @Html.Action("LaadGemonitordeItems", "Dashboard")
 </div>
 
 
@@ -15,10 +15,10 @@
 
         var link;
 
-        var tempLink = '@Html.Raw(Url.Action("LaadKruising", "DashboardStatistieken", new
+        var tempLink = '@Html.Raw(Url.Action("LaadPersisteerKruising", "DashboardStatistieken", new
                    {
-                       item1 = "replaceItem1",
-                       item2 = "replaceItem2",
+                       id1 = "replaceItem1",
+                       id2 = "replaceItem2",
                       
                    }))'
                     .replace("replaceGrafiektitel", $("#grafiektitel").val());

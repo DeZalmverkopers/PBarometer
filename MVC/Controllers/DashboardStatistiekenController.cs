@@ -139,17 +139,7 @@ namespace MVC.Controllers
     }
 
     public virtual ActionResult LaadKruisingKeuze()
-    {
-
-      var items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
-      selects = new List<SelectListItem>();
-      foreach (var item in items)
-      {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-      }
-
-      ViewBag.GemonitordeItemsViewbag = selects;
-
+    { 
       return PartialView("~/Views/Shared/Dashboard/Statistieken/GekruistItemKeuze.cshtml", ViewBag);
     }
     #endregion
@@ -158,8 +148,9 @@ namespace MVC.Controllers
 
     #region Statistieken: weergave & persistentie
 
-    public virtual ActionResult LaadGetal(string item)
+    public virtual ActionResult LaadPersisteerGetal(string id1)
     {
+      int id1Int = Int32.Parse(id1);
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
@@ -167,7 +158,7 @@ namespace MVC.Controllers
 
       foreach (var element in items)
       {
-        if (element.Naam.Equals(item))
+        if (element.GemonitordItemId == id1Int)
         {
           ViewBag.ItemNaam = element.Naam;
           ViewBag.ItemVermeldingen = element.TotaalAantalVermeldingen;
@@ -194,8 +185,9 @@ namespace MVC.Controllers
     }
 
 
-    public virtual ActionResult LaadGetalTrend(string item)
+    public virtual ActionResult LaadPersisteerGetalTrend(string id1)
     {
+      int id1Int = Int32.Parse(id1);
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
@@ -203,7 +195,7 @@ namespace MVC.Controllers
 
       foreach (var element in items)
       {
-        if (element.Naam.Equals(item))
+        if (element.GemonitordItemId == id1Int)
         {
           ViewBag.ItemNaam = element.Naam;
           ViewBag.ItemVermeldingen = element.TotaalAantalVermeldingen;
@@ -250,7 +242,7 @@ namespace MVC.Controllers
 
 
 
-    public virtual ActionResult LaadTop5()
+    public virtual ActionResult LaadPersisteerTop5()
     {
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
@@ -311,7 +303,7 @@ namespace MVC.Controllers
 
 
 
-    public virtual ActionResult LaadTop10()
+    public virtual ActionResult LaadPersisteerTop10()
     {
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
@@ -372,8 +364,10 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/GetalEnOverzicht/Top10.cshtml", ViewBag);
     }
 
-    public virtual ActionResult LaadKruising(string item1, string item2)
+    public virtual ActionResult LaadPersisteerKruising(string id1, string id2)
     {
+      int id1Int = Int32.Parse(id1);
+      int id2Int = Int32.Parse(id2);
 
       List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
@@ -382,11 +376,11 @@ namespace MVC.Controllers
 
       foreach (var gemonitordItem in gemonitordeItems)
       {
-        if (gemonitordItem.Naam.Equals(item1))
+        if (gemonitordItem.GemonitordItemId == id1Int)
         {
           gemonitordItem1 = gemonitordItem;
         }
-        else if (gemonitordItem.Naam.Equals(item2))
+        else if (gemonitordItem.GemonitordItemId == id2Int)
         {
           gemonitordItem2 = gemonitordItem;
         }
@@ -431,7 +425,7 @@ namespace MVC.Controllers
 
     #region Statistieken: inladen uit databank
 
-    public virtual ActionResult LaadGetalViaId(int id)
+    public virtual ActionResult LaadGetalUitDatabank(int id)
     {
       statistieken = statistiekenManager.GetStatistieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId).ToList();
 
@@ -466,7 +460,7 @@ namespace MVC.Controllers
     }
 
 
-    public virtual ActionResult LaadGetalTrendViaId(int id)
+    public virtual ActionResult LaadGetalTrendUitDatabank(int id)
     {
       statistieken = statistiekenManager.GetStatistieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId).ToList();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
@@ -513,7 +507,7 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/GetalEnOverzicht/GetalTrend.cshtml", ViewBag);
     }
 
-    public virtual ActionResult LaadTop5ViaId(int id)
+    public virtual ActionResult LaadTop5UitDatabank(int id)
     {
       statistieken = statistiekenManager.GetStatistieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId).ToList();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
@@ -573,7 +567,7 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/GetalEnOverzicht/Top5.cshtml", ViewBag);
     }
 
-    public virtual ActionResult LaadTop10ViaId(int id)
+    public virtual ActionResult LaadTop10UitDatabank(int id)
     {
       statistieken = statistiekenManager.GetStatistieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId).ToList();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
@@ -631,7 +625,7 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/GetalEnOverzicht/Top10.cshtml", ViewBag);
     }
 
-    public virtual ActionResult LaadKruisingViaId(int id)
+    public virtual ActionResult LaadKruisingUitDatabank(int id)
     {
       statistieken = statistiekenManager.GetStatistieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId).ToList();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
@@ -689,7 +683,7 @@ namespace MVC.Controllers
 
 
     #region Statistieken die niet worden opgeslagen
-    public virtual ActionResult LaadGetalViaIdNietOpslaan(int id)
+    public virtual ActionResult LaadGetalNietOpslaan(int id)
     {
       statistieken = GetStatistiekenNietIngelogd();
 
@@ -729,7 +723,7 @@ namespace MVC.Controllers
 
 
 
-    public virtual ActionResult LaadGetalTrendViaIdNietOpslaan(int id)
+    public virtual ActionResult LaadGetalTrendNietOpslaan(int id)
     {
       statistieken = GetStatistiekenNietIngelogd();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
@@ -783,7 +777,7 @@ namespace MVC.Controllers
 
 
 
-    public virtual ActionResult LaadKruisingViaIdNietOpslaan(int id)
+    public virtual ActionResult LaadKruisingNietOpslaan(int id)
     {
       statistieken = GetStatistiekenNietIngelogd();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();

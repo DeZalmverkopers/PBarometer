@@ -162,11 +162,11 @@ namespace MVC.Controllers
     public virtual ActionResult LaadOrganisaties1Item()
     {
 
-      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).OrderBy(o => o.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.OrganisatiesViewbag = selects;
@@ -176,11 +176,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties2Items()
     {
-      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).OrderBy(o => o.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.OrganisatiesViewbag = selects;
@@ -190,11 +190,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties3Items()
     {
-      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).OrderBy(o => o.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.OrganisatiesViewbag = selects;
@@ -204,11 +204,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties4Items()
     {
-      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).OrderBy(o => o.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.OrganisatiesViewbag = selects;
@@ -218,11 +218,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadOrganisaties5Items()
     {
-      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).OrderBy(o => o.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.OrganisatiesViewbag = selects;
@@ -237,11 +237,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen1Item()
     {
-      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).OrderBy(p => p.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.PersonenViewbag = selects;
@@ -253,11 +253,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen2Items()
     {
-      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).OrderBy(p => p.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.PersonenViewbag = selects;
@@ -269,11 +269,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen3Items()
     {
-      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).OrderBy(p => p.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.PersonenViewbag = selects;
@@ -285,11 +285,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen4Items()
     {
-      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).OrderBy(p => p.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.PersonenViewbag = selects;
@@ -300,11 +300,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadPersonen5Items()
     {
-      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).OrderBy(p => p.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.PersonenViewbag = selects;
@@ -321,11 +321,11 @@ namespace MVC.Controllers
     #region themas laden
     public virtual ActionResult LaadThemas1Item()
     {
-      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).OrderBy(t => t.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.ThemasViewbag = selects;
@@ -336,11 +336,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas2Items()
     {
-      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).OrderBy(t => t.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.ThemasViewbag = selects;
@@ -350,11 +350,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas3Items()
     {
-      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).OrderBy(t => t.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.ThemasViewbag = selects;
@@ -364,11 +364,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas4Items()
     {
-      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).OrderBy(t => t.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.ThemasViewbag = selects;
@@ -378,11 +378,11 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadThemas5Items()
     {
-      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
+      var items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).OrderBy(t => t.Naam).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
       {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
 
       ViewBag.ThemasViewbag = selects;
@@ -391,7 +391,23 @@ namespace MVC.Controllers
     }
     #endregion
 
+    #region laad gemonitorde items
+    public virtual ActionResult LaadGemonitordeItems()
+    {
+       
+      var items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).OrderBy(t => t.Naam).ToList();
+      selects = new List<SelectListItem>();
+      foreach (var item in items)
+      {
+        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
+      }
 
+      ViewBag.GemonitordeItemsViewbag = selects;
+
+      return PartialView("~/Views/Shared/Dashboard/Dropdown/GemonitordeItemsAantal.cshtml", ViewBag);
+    
+    }
+    #endregion
 
 
     #region soorten grafieken laden
@@ -429,8 +445,11 @@ namespace MVC.Controllers
 
     #region laad vergelijking op moment
 
-    public virtual ActionResult LaadVergelijkingOpMoment2Items(string grafiektitel, string item1, string item2, string gewensteData, string soortGrafiek)
+    public virtual ActionResult LaadVergelijkingOpMoment2Items(string grafiektitel, string id1, string id2, string gewensteData, string soortGrafiek)
     {
+      int id1Int = Int32.Parse(id1);
+      int id2Int = Int32.Parse(id2);
+
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
@@ -446,7 +465,7 @@ namespace MVC.Controllers
         case "av":
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -456,7 +475,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -475,7 +494,7 @@ namespace MVC.Controllers
         case "gp":
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -485,7 +504,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -506,7 +525,7 @@ namespace MVC.Controllers
 
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -516,7 +535,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -608,9 +627,11 @@ namespace MVC.Controllers
 
     }
 
-    public virtual ActionResult LaadVergelijkingOpMoment3Items(string grafiektitel, string item1, string item2, string item3, string gewensteData, string soortGrafiek)
+    public virtual ActionResult LaadVergelijkingOpMoment3Items(string grafiektitel, string id1, string id2, string id3, string gewensteData, string soortGrafiek)
     {
-
+      int id1Int = Int32.Parse(id1);
+      int id2Int = Int32.Parse(id2);
+      int id3Int = Int32.Parse(id3);
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
@@ -626,7 +647,7 @@ namespace MVC.Controllers
         case "av":
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -636,7 +657,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -646,7 +667,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item3))
+            if (element.GemonitordItemId == id3Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -666,7 +687,7 @@ namespace MVC.Controllers
         case "gp":
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -676,7 +697,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -686,7 +707,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item3))
+            if (element.GemonitordItemId == id3Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -707,7 +728,7 @@ namespace MVC.Controllers
 
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -717,7 +738,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -727,7 +748,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item3))
+            if (element.GemonitordItemId == id3Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -823,8 +844,12 @@ namespace MVC.Controllers
     }
 
 
-    public virtual ActionResult LaadVergelijkingOpMoment4Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string gewensteData, string soortGrafiek)
+    public virtual ActionResult LaadVergelijkingOpMoment4Items(string grafiektitel, string id1, string id2, string id3, string id4, string gewensteData, string soortGrafiek)
     {
+      int id1Int = Int32.Parse(id1);
+      int id2Int = Int32.Parse(id2);
+      int id3Int = Int32.Parse(id3);
+      int id4Int = Int32.Parse(id4);
 
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
@@ -841,7 +866,7 @@ namespace MVC.Controllers
         case "av":
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -851,7 +876,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -861,7 +886,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item3))
+            if (element.GemonitordItemId == id3Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -871,7 +896,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item4))
+            if (element.GemonitordItemId == id4Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -890,7 +915,7 @@ namespace MVC.Controllers
         case "gp":
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -900,7 +925,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -910,7 +935,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item3))
+            if (element.GemonitordItemId == id3Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -920,7 +945,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item4))
+            if (element.GemonitordItemId == id4Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -942,7 +967,7 @@ namespace MVC.Controllers
 
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -952,7 +977,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -962,7 +987,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item3))
+            if (element.GemonitordItemId == id3Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -972,7 +997,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item4))
+            if (element.GemonitordItemId == id4Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -1066,8 +1091,13 @@ namespace MVC.Controllers
 
     }
 
-    public virtual ActionResult LaadVergelijkingOpMoment5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string gewensteData, string soortGrafiek)
+    public virtual ActionResult LaadVergelijkingOpMoment5Items(string grafiektitel, string id1, string id2, string id3, string id4, string id5, string gewensteData, string soortGrafiek)
     {
+      int id1Int = Int32.Parse(id1);
+      int id2Int = Int32.Parse(id2);
+      int id3Int = Int32.Parse(id3);
+      int id4Int = Int32.Parse(id4);
+      int id5Int = Int32.Parse(id5);
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
@@ -1083,7 +1113,7 @@ namespace MVC.Controllers
         case "av":
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -1093,7 +1123,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -1103,7 +1133,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item3))
+            if (element.GemonitordItemId == id3Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -1113,7 +1143,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item4))
+            if (element.GemonitordItemId == id4Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -1123,7 +1153,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item5))
+            if (element.GemonitordItemId == id5Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.TotaalAantalVermeldingen);
@@ -1141,7 +1171,7 @@ namespace MVC.Controllers
         case "gp":
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -1151,7 +1181,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -1161,7 +1191,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item3))
+            if (element.GemonitordItemId == id3Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -1171,7 +1201,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item4))
+            if (element.GemonitordItemId == id4Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -1181,7 +1211,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item5))
+            if (element.GemonitordItemId == id5Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemPolariteit);
@@ -1202,7 +1232,7 @@ namespace MVC.Controllers
 
           foreach (var element in items)
           {
-            if (element.Naam.Equals(item1))
+            if (element.GemonitordItemId == id1Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -1212,7 +1242,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item2))
+            if (element.GemonitordItemId == id2Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -1222,7 +1252,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item3))
+            if (element.GemonitordItemId == id3Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -1232,7 +1262,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item4))
+            if (element.GemonitordItemId == id4Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -1242,7 +1272,7 @@ namespace MVC.Controllers
                 ItemId = element.GemonitordItemId
               });
             }
-            if (element.Naam.Equals(item5))
+            if (element.GemonitordItemId == id5Int)
             {
               xLabels.Add(element.Naam);
               data.Add(element.GemObjectiviteit);
@@ -1340,9 +1370,11 @@ namespace MVC.Controllers
 
 
     #region aantal tweets
-    public virtual ActionResult LaadLijndiagramAantalTweets(string grafiektitel, string item, string aantalDagen, string mannenVrouwen)
-    {
+ 
 
+    public virtual ActionResult LaadLijndiagramAantalTweets(string grafiektitel, string id1, string aantalDagen, string mannenVrouwen)
+    {
+      int idInt = Int32.Parse(id1);
       int dagen = Int32.Parse(aantalDagen);
 
       List<ItemHistoriek> grafiekItemhistorieken = new List<ItemHistoriek>();
@@ -1363,7 +1395,7 @@ namespace MVC.Controllers
 
       foreach (var element in gemonitordeItems)
       {
-        if (element.Naam.Equals(item))
+        if (element.GemonitordItemId == idInt)
         {
           grafiekItems.Add(new GrafiekItem()
           {
@@ -1478,9 +1510,10 @@ namespace MVC.Controllers
 
 
     #region vergelijking doorheen tijd
-    public virtual ActionResult LaadVergelijkingDoorheenTijd1Item(string grafiektitel, string item1, string aantalDagen, string gewensteData)
+   
+    public virtual ActionResult LaadVergelijkingDoorheenTijd1Item(string grafiektitel, string id1, string aantalDagen, string gewensteData)
     {
-
+      int idInt = Int32.Parse(id1);
       int dagen = Int32.Parse(aantalDagen);
 
       List<ItemHistoriek> grafiekItemhistorieken = new List<ItemHistoriek>();
@@ -1488,13 +1521,14 @@ namespace MVC.Controllers
 
       List<dynamic> grafiekXLabels = new List<dynamic>();
       List<double> grafiekWaarden = new List<double>();
+      List<List<double>> waarden = new List<List<double>>();
       List<GrafiekItem> grafiekItems = new List<GrafiekItem>();
       List<GemonitordItem> gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       GemonitordItem gemonitordItem = new GemonitordItem();
 
       foreach (var element in gemonitordeItems)
       {
-        if (element.Naam.Equals(item1))
+        if (element.GemonitordItemId == idInt)
         {
           grafiekItems.Add(new GrafiekItem()
           {
@@ -1531,8 +1565,10 @@ namespace MVC.Controllers
 
       }
 
-      ViewBag.ItemDagen = grafiekXLabels;
-      ViewBag.Item1Data = grafiekWaarden;
+      waarden.Add(grafiekWaarden);
+
+      ViewBag.XLabels = grafiekXLabels;
+      ViewBag.Data = waarden;
       ViewBag.Grafiektitel = grafiektitel;
 
 
@@ -1558,7 +1594,7 @@ namespace MVC.Controllers
         XLabels = grafiekXLabels,
         Periode = dagen,
 
-        Datawaarden = new List<List<double>>() { grafiekWaarden },
+        Datawaarden = waarden,
 
         Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, null, null, null, null },
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, null, null, null, null },
@@ -1582,8 +1618,11 @@ namespace MVC.Controllers
     }
 
 
-    public virtual ActionResult LaadVergelijkingDoorheenTijd2Items(string grafiektitel, string item1, string item2, string aantalDagen, string gewensteData)
+
+    public virtual ActionResult LaadVergelijkingDoorheenTijd2Items(string grafiektitel, string id1, string id2, string aantalDagen, string gewensteData)
     {
+      int id1Int = Int32.Parse(id1);
+      int id2Int = Int32.Parse(id2);
 
       int dagen = Int32.Parse(aantalDagen);
       GrafiekWaarde grafiekWaarde = new GrafiekWaarde();
@@ -1610,7 +1649,7 @@ namespace MVC.Controllers
 
       foreach (var element in items)
       {
-        if (element.Naam.Equals(item1))
+        if (element.GemonitordItemId == id1Int)
         {
           itemhistoriekItem1 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -1621,7 +1660,7 @@ namespace MVC.Controllers
           });
 
         }
-        if (element.Naam.Equals(item2))
+        if (element.GemonitordItemId == id2Int)
         {
           itemhistoriekItem2 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -1720,8 +1759,12 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram2Items.cshtml", ViewBag);
     }
 
-    public virtual ActionResult LaadVergelijkingDoorheenTijd3Items(string grafiektitel, string item1, string item2, string item3, string aantalDagen, string gewensteData)
+    public virtual ActionResult LaadVergelijkingDoorheenTijd3Items(string grafiektitel, string id1, string id2, string id3, string aantalDagen, string gewensteData)
     {
+      int id1Int = Int32.Parse(id1);
+      int id2Int = Int32.Parse(id2);
+      int id3Int = Int32.Parse(id3);
+
 
       int dagen = Int32.Parse(aantalDagen);
       GrafiekWaarde grafiekWaarde = new GrafiekWaarde();
@@ -1753,7 +1796,7 @@ namespace MVC.Controllers
 
       foreach (var element in items)
       {
-        if (element.Naam.Equals(item1))
+        if (element.GemonitordItemId == id1Int)
         {
           itemhistoriekItem1 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -1764,7 +1807,7 @@ namespace MVC.Controllers
           });
 
         }
-        if (element.Naam.Equals(item2))
+        if (element.GemonitordItemId == id2Int)
         {
           itemhistoriekItem2 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -1774,7 +1817,7 @@ namespace MVC.Controllers
             ItemId = element.GemonitordItemId
           });
         }
-        if (element.Naam.Equals(item3))
+        if (element.GemonitordItemId == id3Int)
         {
           itemhistoriekItem3 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -1878,8 +1921,12 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Grafieken/Lijndiagram/Lijndiagram3Items.cshtml", ViewBag);
     }
 
-    public virtual ActionResult LaadVergelijkingDoorheenTijd4Items(string grafiektitel, string item1, string item2, string item3, string item4, string aantalDagen, string gewensteData)
+    public virtual ActionResult LaadVergelijkingDoorheenTijd4Items(string grafiektitel, string id1, string id2, string id3, string id4, string aantalDagen, string gewensteData)
     {
+      int id1Int = Int32.Parse(id1);
+      int id2Int = Int32.Parse(id2);
+      int id3Int = Int32.Parse(id3);
+      int id4Int = Int32.Parse(id4);
 
       int dagen = Int32.Parse(aantalDagen);
       GrafiekWaarde grafiekWaarde = new GrafiekWaarde();
@@ -1911,7 +1958,7 @@ namespace MVC.Controllers
 
       foreach (var element in items)
       {
-        if (element.Naam.Equals(item1))
+        if (element.GemonitordItemId == id1Int)
         {
           itemhistoriekItem1 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -1922,7 +1969,7 @@ namespace MVC.Controllers
           });
 
         }
-        if (element.Naam.Equals(item2))
+        if (element.GemonitordItemId == id2Int)
         {
           itemhistoriekItem2 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -1932,7 +1979,7 @@ namespace MVC.Controllers
             ItemId = element.GemonitordItemId
           });
         }
-        if (element.Naam.Equals(item3))
+        if (element.GemonitordItemId == id3Int)
         {
           itemhistoriekItem3 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -1942,7 +1989,7 @@ namespace MVC.Controllers
             ItemId = element.GemonitordItemId
           });
         }
-        if (element.Naam.Equals(item4))
+        if (element.GemonitordItemId == id4Int)
         {
           itemhistoriekItem4 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -2051,8 +2098,14 @@ namespace MVC.Controllers
 
 
 
-    public virtual ActionResult LaadVergelijkingDoorheenTijd5Items(string grafiektitel, string item1, string item2, string item3, string item4, string item5, string aantalDagen, string gewensteData)
+    public virtual ActionResult LaadVergelijkingDoorheenTijd5Items(string grafiektitel, string id1, string id2, string id3, string id4, string id5, string aantalDagen, string gewensteData)
     {
+      int id1Int = Int32.Parse(id1);
+      int id2Int = Int32.Parse(id2);
+      int id3Int = Int32.Parse(id3);
+      int id4Int = Int32.Parse(id4);
+      int id5Int = Int32.Parse(id5);
+
 
       int dagen = Int32.Parse(aantalDagen);
       GrafiekWaarde grafiekWaarde = new GrafiekWaarde();
@@ -2086,7 +2139,7 @@ namespace MVC.Controllers
 
       foreach (var element in items)
       {
-        if (element.Naam.Equals(item1))
+        if (element.GemonitordItemId == id1Int)
         {
           itemhistoriekItem1 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -2097,7 +2150,7 @@ namespace MVC.Controllers
           });
 
         }
-        if (element.Naam.Equals(item2))
+        if (element.GemonitordItemId == id2Int)
         {
           itemhistoriekItem2 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -2107,7 +2160,7 @@ namespace MVC.Controllers
             ItemId = element.GemonitordItemId
           });
         }
-        if (element.Naam.Equals(item3))
+        if (element.GemonitordItemId == id3Int)
         {
           itemhistoriekItem3 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -2117,7 +2170,7 @@ namespace MVC.Controllers
             ItemId = element.GemonitordItemId
           });
         }
-        if (element.Naam.Equals(item4))
+        if (element.GemonitordItemId == id4Int)
         {
           itemhistoriekItem4 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -2127,7 +2180,7 @@ namespace MVC.Controllers
             ItemId = element.GemonitordItemId
           });
         }
-        if (element.Naam.Equals(item5))
+        if (element.GemonitordItemId == id5Int)
         {
           itemhistoriekItem5 = element.ItemHistorieken;
           grafiekLegendelijst.Add(element.Naam);
@@ -2243,8 +2296,10 @@ namespace MVC.Controllers
 
     #region kruising grafiek
 
-    public virtual ActionResult LaadKruising(string grafiektitel, string item1, string item2, string aantalDagen)
+    public virtual ActionResult LaadKruising(string grafiektitel, string id1, string id2, string aantalDagen)
     {
+      int id1Int = Int32.Parse(id1);
+      int id2Int = Int32.Parse(id2);
 
       int dagen = Int32.Parse(aantalDagen);
 
@@ -2263,11 +2318,11 @@ namespace MVC.Controllers
 
       foreach (var gemonitordItem in gemonitordeItems)
       {
-        if (gemonitordItem.Naam.Equals(item1))
+        if (gemonitordItem.GemonitordItemId == id1Int)
         {
           gemonitordItem1 = gemonitordItem;
         }
-        else if (gemonitordItem.Naam.Equals(item2))
+        else if (gemonitordItem.GemonitordItemId == id2Int)
         {
           gemonitordItem2 = gemonitordItem;
         }

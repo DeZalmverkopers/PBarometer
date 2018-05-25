@@ -71,19 +71,19 @@
         switch (keuze) {
             case "Persoon":
 
-                link = '@Url.Action("LaadGetalTrend", "DashboardStatistieken", new { item = "replace" })'.replace("replace", $("#persoon1").val());
+                link = '@Url.Action("LaadPersisteerGetalTrend", "DashboardStatistieken", new { id1 = "replace" })'.replace("replace", $("#persoon1").val());
 
             break;
 
             case "Organisatie":
 
-                link = '@Url.Action("LaadGetalTrend", "DashboardStatistieken", new { item = "replace" })'.replace("replace", $("#organisatie1").val());
+                link = '@Url.Action("LaadPersisteerGetalTrend", "DashboardStatistieken", new { id1 = "replace" })'.replace("replace", $("#organisatie1").val());
 
             break;
 
             case "Thema":
 
-                link = '@Url.Action("LaadGetalTrend", "DashboardStatistieken", new { item = "replace" })'.replace("replace", $("#thema1").val());
+                link = '@Url.Action("LaadPersisteerGetalTrend", "DashboardStatistieken", new { id1 = "replace" })'.replace("replace", $("#thema1").val());
 
             break;
         }
