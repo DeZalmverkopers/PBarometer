@@ -1,7 +1,7 @@
 ﻿@model MVC.Models.SuperAdmin.MaakDeelplatformViewModel
 
 
-@using (Ajax.BeginForm("MaakDeelplatform", "SuperAdmin", new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "maakDeelplatformForm" }))
+@using (Ajax.BeginForm("MaakDeelplatform", "SuperAdmin", new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "maakDeelplatformForm"}))
 {
     @Html.AntiForgeryToken()
 
