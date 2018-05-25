@@ -103,7 +103,7 @@ namespace DAL
     public void DeleteFAQItem(int id, string vraag)
     {
       Deelplatform deelplatform = context.Deelplatformen.Include("FAQItems").FirstOrDefault(b => b.DeelplatformId == id);
-      deelplatform.FAQItems.Remove(deelplatform.FAQItems.FirstOrDefault(faqitem => faqitem.Vraag.Equals(vraag)));
+      context.FAQItems.Remove(deelplatform.FAQItems.FirstOrDefault(faqitem => faqitem.Vraag.Equals(vraag)));
       context.SaveChanges();
     }
   }
