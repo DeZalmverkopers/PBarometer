@@ -60,7 +60,7 @@ namespace MVC
                     {
                         deelplatformen = deelplatformManager.GetDeelplatformen().ToList();
                         hoogsteFrequentie = deelplatformen.Max(d => d.DataOphaalFrequentie);
-                        if (i != 0 && deelplatform.DataOphaalFrequentie % i == 0)
+                        if (i != 0 && (deelplatform.DataOphaalFrequentie % i == 0 || i % deelplatform.DataOphaalFrequentie == 0))
                         {
                             dataController.HaalBerichtenOp(deelplatform);
                         }

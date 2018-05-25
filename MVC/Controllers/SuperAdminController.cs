@@ -57,10 +57,6 @@ namespace MVC.Controllers
             return View();
         }
 
-        public virtual ActionResult LaadGemonitordeItemsBeheren()
-        {
-            return PartialView("~/Views/Shared/AdminSuperadmin/GemonitordeItemsBeheren.cshtml");
-        }
 
         public virtual ActionResult LaadData()
         {
@@ -77,10 +73,6 @@ namespace MVC.Controllers
             return PartialView("~/Views/Shared/AdminSuperadmin/LayoutAanpassen.cshtml");
         }
 
-        public virtual ActionResult LaadMediabronnen()
-        {
-            return PartialView("~/Views/Shared/Superadmin/SocialeMediabronnenInstellen.cshtml");
-        }
 
         public virtual ActionResult LaadGebruikersgegevens()
         {
