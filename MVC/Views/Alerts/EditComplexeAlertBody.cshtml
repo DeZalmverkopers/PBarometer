@@ -3,7 +3,6 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -43,111 +42,120 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.MinDaling, htmlAttributes: new { @class = "control-label col-md-2" })
+
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.MinDaling, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinDaling, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.MinDaling, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="De minimum daling in percentage vergeleken met de vorige periode die de Alert moet triggeren."
+                      data-placement="auto"></span>
             </div>
+
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.MinDalingPeriode, htmlAttributes: new { @class = "control-label col-md-2" })
+
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.MinDalingPeriode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinDalingPeriode, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.MinDalingPeriode, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='Het aantal dagen waarop de daling moet berekend worden.'
+                      data-placement="auto"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.MinStijging, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.MinStijging, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinStijging, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.MinStijging, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='De minimum stijging in percentage vergeleken met de vorige periode die de Alert moet triggeren.'
+                      data-placement="auto"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.MinStijgingPeriode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.MinStijgingPeriode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinStijgingPeriode, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.MinStijgingPeriode, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='Het aantal dagen waarop de stijging moet berekend worden.' data-placement="auto"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.NietBelangrijkWaarde, htmlAttributes: new { @class = "control-label col-md-2" })
+
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.NietBelangrijkWaarde, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NietBelangrijkWaarde, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.NietBelangrijkWaarde, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='Het aantal vermeldingen gedurende een periode in verband met een GemonitordItem dat niet als relevant meer wordt geacht.'
+                      data-placement="auto"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.BelangrijkWaarde, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.BelangrijkWaarde, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BelangrijkWaarde, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.BelangrijkWaarde, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='Het aantal vermeldingen gedurende een periode in verband met een GemonitordItem dat als belangrijk wordt geacht.' data-placement="auto"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.BelangrijkheidsPeriode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.BelangrijkheidsPeriode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BelangrijkheidsPeriode, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.BelangrijkheidsPeriode, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='Het aantal dagen waarop de belangrijkheid of niet-belangrijkheid wordt berekend.'
+                      data-placement="auto"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.MinPolariteit, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.MinPolariteit, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinPolariteit, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.MinPolariteit, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='De minimumpolariteit die de Alert moet triggeren.' data-placement="auto"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.MaxPolariteit, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.MaxPolariteit, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaxPolariteit, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.MaxPolariteit, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='De maximumpolariteit die de Alert moet triggeren.' data-placement="auto"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PolariteitsPeriode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.PolariteitsPeriode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PolariteitsPeriode, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PolariteitsPeriode, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='Het aantal dagen waarop de gemiddelde polariteit wordt berekend.' data-placement="auto"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.MinObjectiviteit, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.MinObjectiviteit, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinObjectiviteit, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.MinObjectiviteit, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='De minimumobjectiviteit die de Alert moet triggeren.' data-placement="auto"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.MaxObjectiviteit, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.MaxObjectiviteit, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaxObjectiviteit, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.MaxObjectiviteit, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='De maximumobjectiviteit die de Alert moet triggeren.' data-placement="auto"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ObjectiviteitsPeriode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-offset-4">
-                @Html.EditorFor(model => model.ObjectiviteitsPeriode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ObjectiviteitsPeriode, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ObjectiviteitsPeriode, new { htmlAttributes = new { @class = "form-control", @type = "number", required = "required" } })
+                <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='Het aantal dagen waarop de gemiddelde objectiviteit wordt berekend.' data-placement="auto"></span>
             </div>
         </div>
         <div class="modal-footer">
             <div class="form-group">
                 <div class="col-md-offset-5">
-                    <input type="submit" value="Pas aan" class="btn btn-primary" />
+                    <input type="submit" value="Maak aan" class="btn btn-primary" />
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
                 </div>
             </div>

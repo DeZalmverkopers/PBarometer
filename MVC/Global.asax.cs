@@ -50,7 +50,7 @@ namespace MVC
         {
             IDataController dataController = new TextgainController();
             DeelplatformenManager deelplatformManager = new DeelplatformenManager();
-            IEnumerable<Deelplatform> deelplatformen = deelplatformManager.GetDeelplatformen();
+            IEnumerable<Deelplatform> deelplatformen = deelplatformManager.GetDeelplatformen().ToList();
             if (deelplatformen != null && deelplatformen.Count() > 0)
             {
                 var hoogsteFrequentie = deelplatformen.Max(d => d.DataOphaalFrequentie);
@@ -58,7 +58,9 @@ namespace MVC
                 {
                     foreach (var deelplatform in deelplatformen)
                     {
-                        if (deelplatform.DataOphaalFrequentie == i)
+                        deelplatformen = deelplatformManager.GetDeelplatformen().ToList();
+                        hoogsteFrequentie = deelplatformen.Max(d => d.DataOphaalFrequentie);
+                        if (i != 0 && deelplatform.DataOphaalFrequentie % i == 0)
                         {
                             dataController.HaalBerichtenOp(deelplatform);
                         }
