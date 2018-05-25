@@ -18,6 +18,7 @@
 <div>
     <label>Van hoeveel dagen wilt u de evolutie zien?</label>
     <select id="aantalDagen">
+        <option hidden selected>Selecteer een optie</option>
         <option>2</option>
         <option>3</option>
         <option>4</option>
@@ -38,6 +39,7 @@
 <div>
     <label>Weergave tweets</label>
     <select id="tweetsGeslacht">
+        <option hidden selected>Selecteer een optie</option>
         <option value="a">Alle tweets</option>
         <option value="v">Enkel vrouwelijke tweets</option>
         <option value="m">Enkel mannelijke tweets</option>
@@ -109,7 +111,7 @@
 
                 var sublink1 = '@Html.Raw(Url.Action("LaadLijndiagramAantalTweets", "Dashboard",
                      new { grafiektitel = "replaceGrafiektitel",
-                         item = "replaceItem",
+                         id1 = "replaceItem",
                          aantalDagen = "replaceAantalDagen",
                          mannenVrouwen = "replaceGeslacht"
                      }))'
@@ -127,7 +129,7 @@
 
                 var sublink1 = '@Html.Raw(Url.Action("LaadLijndiagramAantalTweets", "Dashboard",
                      new { grafiektitel = "replaceGrafiektitel",
-                         item = "replaceItem",
+                         id1 = "replaceItem",
                          aantalDagen = "replaceAantalDagen",
                          mannenVrouwen = "replaceGeslacht"
 
@@ -147,7 +149,7 @@
 
                var sublink1 = '@Html.Raw(Url.Action("LaadLijndiagramAantalTweets", "Dashboard",
                      new { grafiektitel = "replaceGrafiektitel",
-                         item = "replaceItem",
+                         id1 = "replaceItem",
                          aantalDagen = "replaceAantalDagen",
                          mannenVrouwen = "replaceGeslacht"
 
