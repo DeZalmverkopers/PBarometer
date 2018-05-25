@@ -1,11 +1,11 @@
 ﻿<div id="div-@ViewBag.GrafiekId" class="col-md-5 col-lg-5">
     <canvas id="@ViewBag.GrafiekId" height="300"></canvas>
 
-    <button id="bewerken-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+    <button id="bewerken-@ViewBag.GrafiekId" title="Grafiek bewerken" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
         <span class="glyphicon glyphicon-pencil"></span>
     </button>
 
-    <button id="verwijderen-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+    <button id="verwijderen-@ViewBag.GrafiekId" title="Grafiek verwijderen" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
         <span class="glyphicon glyphicon-remove"></span>
     </button>
 </div>

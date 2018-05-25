@@ -112,7 +112,7 @@ namespace MVC.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult GrafiekAanpassen(int id, string titel, string xTitel, string yTitel, string type)
+    public ActionResult GrafiekAanpassen(int id, string titel, string xTitel, string yTitel)
     {
 
       List<Grafiek> grafieken = grafiekenManager.GetGrafieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId, true).ToList();
@@ -122,7 +122,6 @@ namespace MVC.Controllers
         if (grafiek.GrafiekId == id)
         {
           grafiek.Titel = titel;
-          grafiek.Type = type;
           grafiek.XTitel = xTitel;
           grafiek.YTitel = yTitel;
           grafiekenManager.ChangeGrafiek(grafiek);
@@ -628,8 +627,7 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
         LegendeLijst = new List<dynamic> { null, null, null, null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+
         FillDataset = false,
         Lijnlegendeweergave = false,
 
@@ -844,8 +842,7 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
         LegendeLijst = new List<dynamic> { null, null, null, null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+
         FillDataset = false,
         Lijnlegendeweergave = false,
 
@@ -1092,8 +1089,6 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
         LegendeLijst = new List<dynamic> { null, null, null, null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
         FillDataset = false,
         Lijnlegendeweergave = false,
 
@@ -1366,8 +1361,7 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
         LegendeLijst = new List<dynamic> { null, null, null, null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+
         FillDataset = false,
         Lijnlegendeweergave = false,
 
@@ -1508,8 +1502,7 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, null, null, null },
         LegendeLijst = legendelijst,
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+
         FillDataset = false,
         Lijnlegendeweergave = true,
 
@@ -1619,8 +1612,7 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, null, null, null, null },
         LegendeLijst = new List<dynamic>() { null, null, null, null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 0,
+
         FillDataset = false,
         Lijnlegendeweergave = false,
 
@@ -1759,8 +1751,7 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, null, null, null },
         LegendeLijst = new List<dynamic> { grafiekLegendelijst[0], grafiekLegendelijst[1], null, null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 0,
+
         FillDataset = false,
         Lijnlegendeweergave = true,
 
@@ -1923,8 +1914,7 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, new List<string> { "#3cba9f" }, null, null },
         LegendeLijst = new List<dynamic> { grafiekLegendelijst[0], grafiekLegendelijst[1], grafiekLegendelijst[2], null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 0,
+
         FillDataset = false,
         Lijnlegendeweergave = true,
 
@@ -2095,8 +2085,6 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, new List<string> { "#3cba9f" }, new List<string> { "#ff8000" }, null },
         LegendeLijst = new List<dynamic> { grafiekLegendelijst[0], grafiekLegendelijst[1], grafiekLegendelijst[2], grafiekLegendelijst[3], null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 0,
         FillDataset = false,
         Lijnlegendeweergave = true,
 
@@ -2289,8 +2277,7 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, new List<string> { "#3cba9f" }, new List<string> { "#ff8000" }, new List<string> { "#c45850" } },
         LegendeLijst = new List<dynamic> { grafiekLegendelijst[0], grafiekLegendelijst[1], grafiekLegendelijst[2], grafiekLegendelijst[3], grafiekLegendelijst[4] },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 0,
+
         FillDataset = false,
         Lijnlegendeweergave = true,
 
@@ -2414,8 +2401,6 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, null, null, null, null },
         LegendeLijst = new List<dynamic>() { null, null, null, null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 0,
         FillDataset = false,
         Lijnlegendeweergave = true,
 
@@ -2720,8 +2705,7 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null},
         LegendeLijst = new List<dynamic>{ null, null, null, null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+
         FillDataset = false,
         Lijnlegendeweergave = false,
 
@@ -2756,8 +2740,7 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
         LegendeLijst = new List<dynamic>{ null, null, null, null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+
         FillDataset = false,
         Lijnlegendeweergave = false,
 
@@ -2792,8 +2775,6 @@ namespace MVC.Controllers
         Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, null, null, null, null},
         LegendeLijst = new List<dynamic>{ null, null, null, null, null },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 0,
         FillDataset = false,
         Lijnlegendeweergave = false,
 
@@ -2828,9 +2809,7 @@ namespace MVC.Controllers
         Randkleur        = new List<List<string>>(){ new List<string> { "#3e95cd" }, new List<string> {"#8e5ea2" }, new List<string> { "#3cba9f"}, new List<string> { "#ff8000" }, new List<string> { "#c45850" } },
         LegendeLijst     = new List<dynamic>{ grafiek4Legendelijst[0], grafiek4Legendelijst[1], grafiek4Legendelijst[2], grafiek4Legendelijst[3], grafiek4Legendelijst[4] },
 
-        XAsMaxrotatie = 90,
-        XAsMinrotatie = 0,
-        FillDataset = false,
+             FillDataset = false,
         Lijnlegendeweergave = true,
 
         GrafiekItems = grafiek4GrafiekItems,

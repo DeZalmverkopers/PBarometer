@@ -14,7 +14,7 @@
     @if (Request.IsAuthenticated)
 
     {
-        <button id="verwijderen-@ViewBag.StatistiekId" class="btn btn-primary" onclick="statistiekVerwijderen(this.id)">
+        <button id="verwijderen-@ViewBag.StatistiekId" title="Statistiek verwijderen" class="btn btn-primary" onclick="statistiekVerwijderen(this.id)">
             <span class="glyphicon glyphicon-remove"></span>
         </button>
 

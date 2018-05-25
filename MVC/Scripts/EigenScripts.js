@@ -224,9 +224,8 @@
             xAxes: [{
                 display: toonXAs,
                 ticks: {
-                    beginAtZero: xAsNul,
-                    maxRotation: xAsMaxRotatie,
-                    minRotation: xAsMinRotatie
+                    beginAtZero: true,                   
+                    autoSkip: false
                 },
                 scaleLabel: {
                     display: true,
