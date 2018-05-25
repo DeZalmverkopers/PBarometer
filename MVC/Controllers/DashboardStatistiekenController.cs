@@ -240,13 +240,13 @@ namespace MVC.Controllers
 
 
 
-      if (itemsZonderKruisingen.Count < 10)
+      if (itemsZonderKruisingen.Count < 5)
       {
         teller = itemsZonderKruisingen.Count;
       }
       else
       {
-        teller = 10;
+        teller = 5;
       }
 
       for (int i = 0; i < teller; i++)
@@ -559,13 +559,13 @@ namespace MVC.Controllers
         }
       }
 
-      if (itemsZonderKruisingen.Count < 10)
+      if (itemsZonderKruisingen.Count < 5)
       {
         teller = itemsZonderKruisingen.Count;
       }
       else
       {
-        teller = 10;
+        teller = 5;
       }
 
       for (int i = 0; i < teller; i++)
