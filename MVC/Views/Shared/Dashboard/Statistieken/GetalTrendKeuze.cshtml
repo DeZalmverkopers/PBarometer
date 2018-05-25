@@ -8,7 +8,6 @@
 </select>
 
 <div>
-    <label id="lblKiezen"></label>
     <div id="itemGeselecteerd"></div>
 </div>
 
@@ -28,8 +27,8 @@
 
                 $.get('@Url.Action("LaadPersonen1Item", "Dashboard")', {}, function (resultaat) {
                     $("#itemGeselecteerd").html(resultaat);
-                    $("#lblKiezen").html("Kies een persoon")
                  });
+                $("#divToevoegenOpslaan").show();
 
             break;
 
@@ -37,24 +36,31 @@
 
                 $.get('@Url.Action("LaadOrganisaties1Item", "Dashboard")', {}, function (resultaat) {
                     $("#itemGeselecteerd").html(resultaat)
-                    $("#lblKiezen").html("Kies een organisatie")
 
                  });
+                $("#divToevoegenOpslaan").show();
 
             break;
 
             case "Thema":
 
-                $.get('@Url.Action("LaadThemas1Item", "Dashboard")', {}, function (resultaat) {
-                    $("#itemGeselecteerd").html(resultaat)
-                    $("#lblKiezen").html("Kies een thema")
+                var aantalThemas = @Html.Raw(Json.Encode(ViewBag.AantalThemas));
 
-                 });
+                if (aantalThemas == 0) {
+                    $("#itemGeselecteerd").html("Er zijn geen thema's beschikbaar. U kan kiezen uit personen of organisaties.");
+                    $("#divToevoegenOpslaan").hide();
+
+                } else {
+                 $.get('@Url.Action("LaadThemas1Item", "Dashboard")', {}, function (resultaat) {
+                     $("#itemGeselecteerd").html(resultaat)
+
+                    });
+                 $("#divToevoegenOpslaan").show();
+                }
 
             break;
         }
 
-        $("#divToevoegenOpslaan").show();
 
     });
 

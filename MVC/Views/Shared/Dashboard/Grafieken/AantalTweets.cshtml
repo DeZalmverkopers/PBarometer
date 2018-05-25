@@ -68,7 +68,7 @@
                 $.get('@Url.Action("LaadPersonen1Item", "Dashboard")', {}, function (resultaat) {
                     $("#itemAantalTweetsKeuzelijst").html(resultaat);
                 });
-
+                $("#divToevoegenOpslaan").show();
             break;
 
             case "Organisatie":
@@ -77,20 +77,28 @@
                     $("#itemAantalTweetsKeuzelijst").html(resultaat)
 
                  });
-
+                $("#divToevoegenOpslaan").show();
             break;
 
             case "Thema":
+                var aantalThemas = @Html.Raw(Json.Encode(ViewBag.AantalThemas));
 
-                $.get('@Url.Action("LaadThemas1Item", "Dashboard")', {}, function (resultaat) {
+                if (aantalThemas == 0) {
+                    $("#itemAantalTweetsKeuzelijst").html("Er zijn geen thema's beschikbaar. U kan kiezen uit personen of organisaties.");
+                    $("#divToevoegenOpslaan").hide();
+
+                } else {
+                 $.get('@Url.Action("LaadThemas1Item", "Dashboard")', {}, function (resultaat) {
                     $("#itemAantalTweetsKeuzelijst").html(resultaat)
 
-                 });
+                    });
+                 $("#divToevoegenOpslaan").show();
+                }
 
             break;
         }
 
-        $("#divToevoegenOpslaan").show();
+        
 
     });
 </script>

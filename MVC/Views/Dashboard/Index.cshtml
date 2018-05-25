@@ -47,17 +47,17 @@ else
 
         @foreach (var grafiek in ViewBag.Grafieken)
         {
-            <div class="col-md-6">
-                <canvas id="@grafiek.GrafiekId" height="300"></canvas>
+        <div id="div-@grafiek.GrafiekId" class="col-md-5 col-lg-5">
+            <canvas id="@grafiek.GrafiekId" height="300"></canvas>
 
-                <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </button>
+            <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
 
-                <button id="verwijderen-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-            </div>
+            <button id="verwijderen-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekVerwijderen(this.id)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </div>
         }
 
 

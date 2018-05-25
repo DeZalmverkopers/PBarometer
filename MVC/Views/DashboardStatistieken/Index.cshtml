@@ -2,7 +2,7 @@
     ViewBag.Title = "Index";
 }
 
-<h1>Dashboard - statistieken</h1>
+<h1>@ViewBag.DeelplatformNaam - statistieken</h1>
 
 
 @if (!Request.IsAuthenticated)
@@ -28,47 +28,47 @@ else
         {
             if (item.StatistiekSoort == "getal")
             {
-                <div class="col-md-6">
+              
 
                     @Html.Action("LaadGetalUitDatabank", "DashboardStatistieken", new { id = item.StatistiekId })
 
-                </div>
+               
 
 
             }
             else if (item.StatistiekSoort == "getalTrend")
             {
-                <div class="col-md-6">
+               
 
-                    @Html.Action("LaadGetalUitDatabankd", "DashboardStatistieken", new { id = item.StatistiekId })
+                    @Html.Action("LaadGetalTrendUitDatabank", "DashboardStatistieken", new { id = item.StatistiekId })
 
-                </div>
+           
 
 
             }
             else if (item.StatistiekSoort == "top5")
             {
-                <div class="col-md-6">
+            
 
                     @Html.Action("LaadTop5UitDatabank", "DashboardStatistieken", new { id = item.StatistiekId })
 
-                </div>
+             
             }
             else if (item.StatistiekSoort == "top10")
             {
-                <div class="col-md-6">
+               
 
                     @Html.Action("LaadTop10UitDatabank", "DashboardStatistieken", new { id = item.StatistiekId })
 
-                </div>
+                
             }
             else if (item.StatistiekSoort == "kruising")
             {
-                <div class="col-md-6">
+               
 
                     @Html.Action("LaadKruisingUitDatabank", "DashboardStatistieken", new { id = item.StatistiekId })
 
-                </div>
+               
             }
 
         }
@@ -122,7 +122,6 @@ else
     var statistiekVerwijderen = confirm("Ben je zeker dat je de statistiek wilt verwijderen?");
     if (statistiekVerwijderen === true) {
         $("div#" + subid).remove()
-
         $("#verwijderen-" + subid).remove();
 
        var link = '@Html.Raw(Url.Action("StatistiekVerwijderen", "DashboardStatistieken",
