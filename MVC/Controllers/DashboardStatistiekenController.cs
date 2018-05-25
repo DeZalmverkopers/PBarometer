@@ -221,6 +221,7 @@ namespace MVC.Controllers
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       List<GemonitordItem> itemsZonderKruisingen = new List<GemonitordItem>();
+      int teller = 0;
 
       List<GemonitordItem> geordend = items.OrderByDescending(i => i.TotaalAantalVermeldingen).ToList();
       List<GemonitordItem> top5 = new List<GemonitordItem>();
@@ -236,7 +237,19 @@ namespace MVC.Controllers
         }
       }
 
-      for (int i = 0; i < 5; i++)
+
+
+
+      if (itemsZonderKruisingen.Count < 10)
+      {
+        teller = itemsZonderKruisingen.Count;
+      }
+      else
+      {
+        teller = 10;
+      }
+
+      for (int i = 0; i < teller; i++)
       {
 
         top5.Add(itemsZonderKruisingen[i]);
@@ -298,6 +311,7 @@ namespace MVC.Controllers
       List<string> itemsNamen = new List<string>();
       List<double> itemsWaarden = new List<double>();
       List<string> itemsTrend = new List<string>();
+      int teller = 0;
 
       foreach (var item in geordend)
       {
@@ -307,7 +321,16 @@ namespace MVC.Controllers
         }
       }
 
-      for (int i = 0; i < 10; i++)
+      if (itemsZonderKruisingen.Count < 10)
+      {
+        teller = itemsZonderKruisingen.Count;
+      }
+      else
+      {
+        teller = 10;
+      }
+
+      for (int i = 0; i < teller; i++)
       {
 
         top10.Add(itemsZonderKruisingen[i]);
@@ -509,6 +532,7 @@ namespace MVC.Controllers
       statistieken = statistiekenManager.GetStatistieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId).ToList();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
+      int teller = 0;
 
       List<GemonitordItem> itemsZonderKruisingen = new List<GemonitordItem>();
       List<GemonitordItem> geordend = items.OrderByDescending(i => i.TotaalAantalVermeldingen).ToList();
@@ -535,7 +559,16 @@ namespace MVC.Controllers
         }
       }
 
-      for (int i = 0; i < 5; i++)
+      if (itemsZonderKruisingen.Count < 10)
+      {
+        teller = itemsZonderKruisingen.Count;
+      }
+      else
+      {
+        teller = 10;
+      }
+
+      for (int i = 0; i < teller; i++)
       {
 
         top5.Add(itemsZonderKruisingen[i]);
@@ -579,6 +612,7 @@ namespace MVC.Controllers
       statistieken = statistiekenManager.GetStatistieken(HuidigDashboard.DashboardId, HuidigDeelplatform.DeelplatformId).ToList();
       gemonitordeItems = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
+      int teller = 0;
 
       List<GemonitordItem> itemsZonderKruisingen = new List<GemonitordItem>();
       List<GemonitordItem> geordend = items.OrderByDescending(i => i.TotaalAantalVermeldingen).ToList();
@@ -597,7 +631,6 @@ namespace MVC.Controllers
       }
 
 
-
       foreach (var item in geordend)
       {
         if (!(item is GekruistItem))
@@ -606,12 +639,23 @@ namespace MVC.Controllers
         }
       }
 
-      for (int i = 0; i < 10; i++)
+
+      if (itemsZonderKruisingen.Count < 10)
+      {
+        teller = itemsZonderKruisingen.Count;
+      }
+      else
+      {
+        teller = 10;
+      }
+
+      for (int i = 0; i < teller; i++)
       {
 
         top10.Add(itemsZonderKruisingen[i]);
 
       }
+
 
       foreach (var top10Item in top10)
       {
@@ -853,6 +897,7 @@ namespace MVC.Controllers
     public virtual ActionResult LaadTop5NietOpslaan()
     {
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
+      int teller = 0;
 
       List<GemonitordItem> itemsZonderKruisingen = new List<GemonitordItem>();
       List<GemonitordItem> geordend = items.OrderByDescending(i => i.TotaalAantalVermeldingen).ToList();
@@ -870,9 +915,17 @@ namespace MVC.Controllers
         }
       }
 
-      for (int i = 0; i < 5; i++)
+      if (itemsZonderKruisingen.Count < 5)
       {
+        teller = itemsZonderKruisingen.Count;
+      }
+      else
+      {
+        teller = 5;
+      }
 
+      for (int i = 0; i < teller; i++)
+      {
         top5.Add(itemsZonderKruisingen[i]);
 
       }
@@ -914,12 +967,14 @@ namespace MVC.Controllers
 
       items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
 
-      List<GemonitordItem> itemsZonderKruisingen = new List<GemonitordItem>();
       List<GemonitordItem> geordend = items.OrderByDescending(i => i.TotaalAantalVermeldingen).ToList();
+      List<GemonitordItem> itemsZonderKruisingen = new List<GemonitordItem>();
+
       List<GemonitordItem> top10 = new List<GemonitordItem>();
       List<string> itemsNamen = new List<string>();
       List<double> itemsWaarden = new List<double>();
       List<string> itemsTrend = new List<string>();
+      int teller = 0;
 
       foreach (var item in geordend)
       {
@@ -929,7 +984,15 @@ namespace MVC.Controllers
         }
       }
 
-      for (int i = 0; i < 10; i++)
+      if (itemsZonderKruisingen.Count < 10)
+      {
+        teller = itemsZonderKruisingen.Count;
+      } else
+      {
+        teller = 10;
+      }
+
+      for (int i = 0; i < teller; i++)
       {
 
         top10.Add(itemsZonderKruisingen[i]);
