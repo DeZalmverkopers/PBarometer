@@ -153,7 +153,7 @@ namespace MVC.Controllers
         [HttpGet]
         public virtual ActionResult SlaAdminOp(string email, bool setAdmin)
         {
-            Claim claim = new Claim("DeelplatformId", HuidigDeelplatform.DeelplatformId.ToString());
+
 
             ApplicationRoleManager roleManager = new ApplicationRoleManager();
 
@@ -171,12 +171,10 @@ namespace MVC.Controllers
             if (!isAdmin && setAdmin)
             {
                 UserManager.AddToRole(user.Id, adminRole.Name);
-                UserManager.AddClaim(user.Id, claim);
             }
             else if (isAdmin && !setAdmin)
             {
                 UserManager.RemoveFromRole(user.Id, adminRole.Name);
-                UserManager.RemoveClaim(user.Id, claim);
             }
             return RedirectToAction("Index");
         }
