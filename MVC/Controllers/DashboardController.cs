@@ -2284,7 +2284,7 @@ namespace MVC.Controllers
             itemManager.BepaalDetailItemsVoorGekruistItem(gekruistItem as GekruistItem);
             itemManager.MaakHistorieken(gekruistItem, HuidigDeelplatform.AantalDagenHistoriek, HuidigDeelplatform.LaatsteSynchronisatie);
             itemManager.BerekenEigenschappen(gekruistItem);
-
+            itemManager.ChangeGemonitordItem(gekruistItem);
             grafiekItems.Add(new GrafiekItem()
             {
                 ItemId = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList()[index].GemonitordItemId
