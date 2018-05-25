@@ -246,11 +246,13 @@ namespace BL
             {
                 BepaalDetailItemsVoorGekruistItem(gekruistitem);
             }
-            foreach (GemonitordItem gemonitordItem in repository.ReadGemonitordeItems().Where(a => a.DeelplatformId == deelplatformId).ToList())
+            List<GemonitordItem> TeRefreshenGemonitordeItems = repository.ReadGemonitordeItems().Where(a => a.DeelplatformId == deelplatformId).ToList();
+            foreach (GemonitordItem gemonitordItem in TeRefreshenGemonitordeItems)
             {
                 MaakHistorieken(gemonitordItem, aantalDagenHistoriek, syncDatum);
                 BerekenEigenschappen(gemonitordItem);
             }
+            repository.UpdateGemonitordeItems(TeRefreshenGemonitordeItems);
             AlertManager alertManager = new AlertManager();
             alertManager.GenereerAlerts();
         }
@@ -316,7 +318,6 @@ namespace BL
                 }
             }
             VerwijderHistorieken(item.ItemHistorieken.Where(a => a.HistoriekDatum < syncDatum.Date.AddDays(-aantalDagenHistoriek)).ToList());
-           // ChangeGemonitordItem(item);
         }
 
         private void VerwijderHistorieken(List<ItemHistoriek> itemHistorieken)
