@@ -203,22 +203,22 @@ namespace MVC.Controllers
         }
 
         var user = UserManager.FindById(id);
-        var logins = user.Logins;
-        var rolesForUser = UserManager.GetRoles(id);
+        //var logins = user.Logins;
+        //var rolesForUser = UserManager.GetRoles(id);
 
-        foreach (var login in logins.ToList())
-        {
-          await _userManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
-        }
+        //foreach (var login in logins.ToList())
+        //{
+        //  await _userManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+        //}
 
-        if (rolesForUser.Count() > 0)
-        {
-          foreach (var item in rolesForUser.ToList())
-          {
-            // item should be the name of the role
-            var result = await _userManager.RemoveFromRoleAsync(user.Id, item);
-          }
-        }
+        //if (rolesForUser.Count() > 0)
+        //{
+        //  foreach (var item in rolesForUser.ToList())
+        //  {
+        //    // item should be the name of the role
+        //    var result = await _userManager.RemoveFromRoleAsync(user.Id, item);
+        //  }
+        //}
 
         UserManager.DeleteUser(user);
 
