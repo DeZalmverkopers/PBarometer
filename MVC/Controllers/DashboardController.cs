@@ -394,10 +394,23 @@ namespace MVC.Controllers
     #region laad gemonitorde items
     public virtual ActionResult LaadGemonitordeItems()
     {
-       
+      List<GemonitordItem> itemsZonderKruisingen = new List<GemonitordItem>();
+
       var items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).OrderBy(t => t.Naam).ToList();
-      selects = new List<SelectListItem>();
+
+      //var items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId);
+
       foreach (var item in items)
+      {
+        if (!(item is GekruistItem))
+        {
+          itemsZonderKruisingen.Add(item);
+        }
+
+      }
+
+      selects = new List<SelectListItem>();
+      foreach (var item in itemsZonderKruisingen)
       {
         selects.Add(new SelectListItem() { Text = item.Naam, Value = item.GemonitordItemId.ToString() });
       }
@@ -405,7 +418,7 @@ namespace MVC.Controllers
       ViewBag.GemonitordeItemsViewbag = selects;
 
       return PartialView("~/Views/Shared/Dashboard/Dropdown/GemonitordeItemsAantal.cshtml", ViewBag);
-    
+
     }
     #endregion
 
@@ -413,7 +426,9 @@ namespace MVC.Controllers
     #region soorten grafieken laden
     public virtual ActionResult LaadAantalTweets()
     {
-      return PartialView("~/Views/Shared/Dashboard/Grafieken/AantalTweets.cshtml");
+      ViewBag.AantalThemas = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).Count();
+
+      return PartialView("~/Views/Shared/Dashboard/Grafieken/AantalTweets.cshtml", ViewBag);
     }
 
     public virtual ActionResult LaadItemsKruisen()
@@ -432,11 +447,15 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadVergelijkenDoorheenDeTijd()
     {
+      ViewBag.AantalThemas = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).Count();
+
       return PartialView("~/Views/Shared/Dashboard/Grafieken/VergelijkenDoorheenDeTijd.cshtml");
     }
 
     public virtual ActionResult LaadVergelijkenOpMoment()
     {
+      ViewBag.AantalThemas = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).Count();
+
       return PartialView("~/Views/Shared/Dashboard/Grafieken/VergelijkenOpMoment.cshtml");
     }
     #endregion
@@ -605,8 +624,8 @@ namespace MVC.Controllers
 
         Datawaarden = new List<List<double>>() { data },
 
-        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
-        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
         LegendeLijst = new List<dynamic> { null, null, null, null, null },
 
         XAsMaxrotatie = 90,
@@ -821,8 +840,8 @@ namespace MVC.Controllers
 
         Datawaarden = new List<List<double>>() { data },
 
-        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
-        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
         LegendeLijst = new List<dynamic> { null, null, null, null, null },
 
         XAsMaxrotatie = 90,
@@ -1069,8 +1088,8 @@ namespace MVC.Controllers
 
         Datawaarden = new List<List<double>>() { data },
 
-        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
-        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
         LegendeLijst = new List<dynamic> { null, null, null, null, null },
 
         XAsMaxrotatie = 90,
@@ -1343,8 +1362,8 @@ namespace MVC.Controllers
 
         Datawaarden = new List<List<double>>() { data },
 
-        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
-        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850" }, null, null, null, null },
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null },
         LegendeLijst = new List<dynamic> { null, null, null, null, null },
 
         XAsMaxrotatie = 90,
@@ -1370,7 +1389,7 @@ namespace MVC.Controllers
 
 
     #region aantal tweets
- 
+
 
     public virtual ActionResult LaadLijndiagramAantalTweets(string grafiektitel, string id1, string aantalDagen, string mannenVrouwen)
     {
@@ -1510,7 +1529,7 @@ namespace MVC.Controllers
 
 
     #region vergelijking doorheen tijd
-   
+
     public virtual ActionResult LaadVergelijkingDoorheenTijd1Item(string grafiektitel, string id1, string aantalDagen, string gewensteData)
     {
       int idInt = Int32.Parse(id1);
@@ -1601,7 +1620,7 @@ namespace MVC.Controllers
         LegendeLijst = new List<dynamic>() { null, null, null, null, null },
 
         XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+        XAsMinrotatie = 0,
         FillDataset = false,
         Lijnlegendeweergave = false,
 
@@ -1741,7 +1760,7 @@ namespace MVC.Controllers
         LegendeLijst = new List<dynamic> { grafiekLegendelijst[0], grafiekLegendelijst[1], null, null, null },
 
         XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+        XAsMinrotatie = 0,
         FillDataset = false,
         Lijnlegendeweergave = true,
 
@@ -1905,7 +1924,7 @@ namespace MVC.Controllers
         LegendeLijst = new List<dynamic> { grafiekLegendelijst[0], grafiekLegendelijst[1], grafiekLegendelijst[2], null, null },
 
         XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+        XAsMinrotatie = 0,
         FillDataset = false,
         Lijnlegendeweergave = true,
 
@@ -2072,12 +2091,12 @@ namespace MVC.Controllers
 
         Datawaarden = new List<List<double>>() { alleWaarden[0], alleWaarden[1], alleWaarden[2], alleWaarden[3] },
 
-        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, new List<string> { "#3cba9f" }, new List<string> { "#e8c3b9" }, null },
-        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, new List<string> { "#3cba9f" }, new List<string> { "#e8c3b9" }, null },
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, new List<string> { "#3cba9f" }, new List<string> { "#ff8000" }, null },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, new List<string> { "#3cba9f" }, new List<string> { "#ff8000" }, null },
         LegendeLijst = new List<dynamic> { grafiekLegendelijst[0], grafiekLegendelijst[1], grafiekLegendelijst[2], grafiekLegendelijst[3], null },
 
         XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+        XAsMinrotatie = 0,
         FillDataset = false,
         Lijnlegendeweergave = true,
 
@@ -2266,12 +2285,12 @@ namespace MVC.Controllers
 
         Datawaarden = new List<List<double>>() { alleWaarden[0], alleWaarden[1], alleWaarden[2], alleWaarden[3], alleWaarden[4] },
 
-        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, new List<string> { "#3cba9f" }, new List<string> { "#e8c3b9" }, new List<string> { "#c45850" } },
-        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, new List<string> { "#3cba9f" }, new List<string> { "#e8c3b9" }, new List<string> { "#c45850" } },
+        Achtergrondkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, new List<string> { "#3cba9f" }, new List<string> { "#ff8000" }, new List<string> { "#c45850" } },
+        Randkleur = new List<List<string>>() { new List<string> { "#3e95cd" }, new List<string> { "#8e5ea2" }, new List<string> { "#3cba9f" }, new List<string> { "#ff8000" }, new List<string> { "#c45850" } },
         LegendeLijst = new List<dynamic> { grafiekLegendelijst[0], grafiekLegendelijst[1], grafiekLegendelijst[2], grafiekLegendelijst[3], grafiekLegendelijst[4] },
 
         XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+        XAsMinrotatie = 0,
         FillDataset = false,
         Lijnlegendeweergave = true,
 
@@ -2328,16 +2347,22 @@ namespace MVC.Controllers
         }
       }
 
-      itemManager.AddGekruistItem(gemonitordItem1, gemonitordItem2, "gekruistItem", HuidigDeelplatform.DeelplatformId);
+      itemManager.AddGekruistItem(gemonitordItem1, gemonitordItem2, gemonitordItem1.Naam + " & " + gemonitordItem2.Naam, HuidigDeelplatform.DeelplatformId);
+
+
 
 
       int index = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList().Count - 1;
 
       gekruistItem = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList()[index];
 
-      //gekruistItem.BerekenEigenschappen();
 
+      itemManager.BepaalDetailItemsVoorGekruistItem(gekruistItem as GekruistItem);
       itemManager.MaakHistorieken(gekruistItem, HuidigDeelplatform.AantalDagenHistoriek, HuidigDeelplatform.LaatsteSynchronisatie);
+      itemManager.BerekenEigenschappen(gekruistItem);
+      itemManager.ChangeGemonitordItem(gekruistItem);
+
+
 
 
       grafiekItems.Add(new GrafiekItem()
@@ -2390,7 +2415,7 @@ namespace MVC.Controllers
         LegendeLijst = new List<dynamic>() { null, null, null, null, null },
 
         XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+        XAsMinrotatie = 0,
         FillDataset = false,
         Lijnlegendeweergave = true,
 
@@ -2691,8 +2716,8 @@ namespace MVC.Controllers
         XLabels = grafiek1XLabels,
         Datawaarden = new List<List<double>>(){ grafiek1Datawaarden },
 
-        Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
-        Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
+        Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null},
+        Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850" }, null, null, null, null},
         LegendeLijst = new List<dynamic>{ null, null, null, null, null },
 
         XAsMaxrotatie = 90,
@@ -2727,8 +2752,8 @@ namespace MVC.Controllers
 
         Datawaarden = new List<List<double>>(){ grafiek2Datawaarden},
 
-        Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
-        Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
+        Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
+        Randkleur = new List<List<string>>(){ new List<string> { "#3e95cd", "#8e5ea2", "#3cba9f", "#ff8000", "#c45850", "#ffff00", "#ffa500" }, null, null, null, null},
         LegendeLijst = new List<dynamic>{ null, null, null, null, null },
 
         XAsMaxrotatie = 90,
@@ -2768,7 +2793,7 @@ namespace MVC.Controllers
         LegendeLijst = new List<dynamic>{ null, null, null, null, null },
 
         XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+        XAsMinrotatie = 0,
         FillDataset = false,
         Lijnlegendeweergave = false,
 
@@ -2795,16 +2820,16 @@ namespace MVC.Controllers
         YOorsprongNul     = true,
         YTitel            = "Aantal tweets",
         XLabels = grafiek4XLabels,
-                Periode = 5,
+        Periode = 5,
 
         Datawaarden = alleWaarden,
 
-        Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, new List<string> {"#8e5ea2" }, new List<string> { "#3cba9f"}, new List<string> { "#e8c3b9"}, new List<string> { "#c45850" } },
-        Randkleur        = new List<List<string>>(){ new List<string> { "#3e95cd" }, new List<string> {"#8e5ea2" }, new List<string> { "#3cba9f"}, new List<string> { "#e8c3b9"}, new List<string> { "#c45850" } },
+        Achtergrondkleur = new List<List<string>>(){ new List<string> { "#3e95cd" }, new List<string> {"#8e5ea2" }, new List<string> { "#3cba9f"}, new List<string> { "#ff8000" }, new List<string> { "#c45850" } },
+        Randkleur        = new List<List<string>>(){ new List<string> { "#3e95cd" }, new List<string> {"#8e5ea2" }, new List<string> { "#3cba9f"}, new List<string> { "#ff8000" }, new List<string> { "#c45850" } },
         LegendeLijst     = new List<dynamic>{ grafiek4Legendelijst[0], grafiek4Legendelijst[1], grafiek4Legendelijst[2], grafiek4Legendelijst[3], grafiek4Legendelijst[4] },
 
         XAsMaxrotatie = 90,
-        XAsMinrotatie = 90,
+        XAsMinrotatie = 0,
         FillDataset = false,
         Lijnlegendeweergave = true,
 

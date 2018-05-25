@@ -27,7 +27,6 @@
     <label>Welke data wilt u vergelijken voor deze items?</label>
 
     <select id="gewensteData">
-        <option hidden selected>Selecteer een optie</option>
         <option value="av">Aantal vermeldingen</option>
         <option value="gp">Gemiddelde polariteit</option>
         <option value="go">Gemiddelde objectiviteit</option>
@@ -38,7 +37,6 @@
     <label>In welk soort grafiek wilt u de gegevens zien?</label>
 
     <select id="soortGrafiek">
-        <option hidden selected>Selecteer een optie</option>
         <option value="staaf">Staafdiagram</option>
         <option value="taart">Taartdiagram</option>
     </select>
@@ -99,6 +97,7 @@
 
 
                                         typeAantal = "persoon2items"
+                                        $("#divToevoegenOpslaan").show();
 
                                         break;
 
@@ -109,13 +108,26 @@
                                         });
 
                                         typeAantal = "organisatie2items";
+                                        $("#divToevoegenOpslaan").show();
 
                                         break;
 
                                     case "Thema":
-                                        $.get('@Url.Action("LaadThemas2Items", "Dashboard")', {}, function (resultaat) {
+
+                                         var aantalThemas = @Html.Raw(Json.Encode(ViewBag.AantalThemas));
+
+
+                                        if (aantalThemas == 0) {
+                                            $("#divSelectie").html("Er zijn geen thema's beschikbaar. U kan kiezen uit personen of organisaties.");
+                                            $("#divToevoegenOpslaan").hide();
+
+                                        } else {
+                                            $.get('@Url.Action("LaadThemas2Items", "Dashboard")', {}, function (resultaat) {
                                             $("#divSelectie").html(resultaat);
-                                        });
+                                            });
+
+                                            $("#divToevoegenOpslaan").show();
+                                        }
 
                                         typeAantal = "thema2items";
 
@@ -130,6 +142,7 @@
                                         });
 
                                         typeAantal = "persoon3items"
+                                        $("#divToevoegenOpslaan").show();
 
                                         break;
 
@@ -140,17 +153,28 @@
                                         });
 
                                         typeAantal = "organisatie3items";
+                                        $("#divToevoegenOpslaan").show();
 
                                         break;
 
                                     case "Thema":
-                                        $.get('@Url.Action("LaadThemas3Items", "Dashboard")', {}, function (resultaat) {
-                                            $("#divSelectie").html(resultaat);
-                                        });
+
+                                         var aantalThemas = @Html.Raw(Json.Encode(ViewBag.AantalThemas));
+
+
+                                        if (aantalThemas == 0) {
+                                            $("#divSelectie").html("Er zijn geen thema's beschikbaar. U kan kiezen uit personen of organisaties.");
+                                            $("#divToevoegenOpslaan").hide();
+
+                                        } else {
+                                             $.get('@Url.Action("LaadThemas3Items", "Dashboard")', {}, function (resultaat) {
+                                                $("#divSelectie").html(resultaat);
+                                            });
+
+                                            $("#divToevoegenOpslaan").show();
+                                        }
 
                                         typeAantal = "thema3items";
-
-
                                 }
                                 break;
 
@@ -162,6 +186,7 @@
                                          });
 
                                         typeAantal = "persoon4items"
+                                        $("#divToevoegenOpslaan").show();
 
                                         break;
                                     case "Organisatie":
@@ -170,16 +195,26 @@
                                          });
 
                                         typeAantal = "organisatie4items";
+                                        $("#divToevoegenOpslaan").show();
 
                                         break;
 
                                     case "Thema":
-                                        $.get('@Url.Action("LaadThemas4Items", "Dashboard")', {}, function (resultaat) {
-                                            $("#divSelectie").html(resultaat);
-                                        });
+                                        var aantalThemas = @Html.Raw(Json.Encode(ViewBag.AantalThemas));
+
+                                        if (aantalThemas == 0) {
+                                            $("#divSelectie").html("Er zijn geen thema's beschikbaar. U kan kiezen uit personen of organisaties.");
+                                            $("#divToevoegenOpslaan").hide();
+
+                                        } else {
+                                             $.get('@Url.Action("LaadThemas4Items", "Dashboard")', {}, function (resultaat) {
+                                                $("#divSelectie").html(resultaat);
+                                            });
+
+                                            $("#divToevoegenOpslaan").show();
+                                        }
 
                                         typeAantal = "thema4items";
-
 
                                 }
                                 break;
@@ -192,6 +227,7 @@
                                         });
 
                                         typeAantal = "persoon5items"
+                                        $("#divToevoegenOpslaan").show();
 
                                         break;
                                     case "Organisatie":
@@ -200,22 +236,30 @@
                                         });
 
                                         typeAantal = "organisatie5items";
+                                        $("#divToevoegenOpslaan").show();
 
                                         break;
 
                                     case "Thema":
-                                        $.get('@Url.Action("LaadThemas5Items", "Dashboard")', {}, function (resultaat) {
-                                            $("#divSelectie").html(resultaat);
-                                        });
+                                        var aantalThemas = @Html.Raw(Json.Encode(ViewBag.AantalThemas));
+
+                                        if (aantalThemas == 0) {
+                                            $("#divSelectie").html("Er zijn geen thema's beschikbaar. U kan kiezen uit personen of organisaties.");
+                                            $("#divToevoegenOpslaan").hide();
+
+                                        } else {
+                                             $.get('@Url.Action("LaadThemas5Items", "Dashboard")', {}, function (resultaat) {
+                                                $("#divSelectie").html(resultaat);
+                                            });
+
+                                            $("#divToevoegenOpslaan").show();
+                                        }
 
                                         typeAantal = "thema5items";
 
                                 }
 
                         }
-
-                                $("#divToevoegenOpslaan").show();
-
 
     });
 
@@ -584,7 +628,7 @@
 
         $("#modalGrafiekToevoegen").modal('hide');
 
-                });
+    });
 
 
 </script>

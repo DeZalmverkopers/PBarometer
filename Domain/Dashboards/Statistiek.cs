@@ -1,4 +1,5 @@
 ﻿using Domain.Deelplatformen;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Dashboards
 {
@@ -7,6 +8,9 @@ namespace Domain.Dashboards
 
 
     public int StatistiekId { get; set; }
+
+    //Noodzakelijk voor teststatistieken
+    [NotMapped]
     public int StatistiekIdNietOpslaan { get; set; }
 
     public Deelplatform Deelplatform { get; set; }
@@ -15,6 +19,9 @@ namespace Domain.Dashboards
     public Dashboard Dashboard { get; set; }
 
     public int GemonitordItemId { get; set; }
+
+    //Noodzakelijk voor teststatistieken
+    [NotMapped]
     public int GemonitordItemId2 { get; set; }
 
     //Geen enum omwille van javascript-redenen

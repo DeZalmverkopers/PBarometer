@@ -1,4 +1,4 @@
-﻿<div id="div-@ViewBag.GrafiekId" class="col-md-6">
+﻿<div id="div-@ViewBag.GrafiekId" class="col-md-5 col-lg-5">
     <canvas id="@ViewBag.GrafiekId" height="300"></canvas>
 
     <button id="bewerken-@ViewBag.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
@@ -10,7 +10,6 @@
     </button>
 </div>
 
-
 <script>
 
 
@@ -21,7 +20,7 @@
     var data1 = @Html.Raw(Json.Encode(ViewBag.Data));
    
    
-    GrafiekOpbouwen(grafiekId, grafiekTitel, "line", false, true, true, true, true, false, true, 90, 90, "Dag", "Aantal tweets", dagen,
+    GrafiekOpbouwen(grafiekId, grafiekTitel, "line", false, true, true, true, true, false, true, 90, 0, "Dag", "Aantal tweets", dagen,
         null, null, null, null, null, data1[0], null, null, null, null, ["#3e95cd"], null, null, null, null, ["#3e95cd"], null, null, null, null)
 
 
