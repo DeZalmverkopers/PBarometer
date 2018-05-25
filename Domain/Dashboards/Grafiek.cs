@@ -103,17 +103,13 @@ namespace Domain.Dashboards
 
         public GrafiekWaarde GrafiekWaarde { get; set; }
 
-        public int XAsMaxrotatie { get; set; }
-        public int XAsMinrotatie { get; set; }
+
         public bool FillDataset { get; set; }
         public bool Lijnlegendeweergave { get; set; }  
 
         public Grafiek()
         {
-            LegendeLijst = new List<dynamic>();
-            //Items = new List<GemonitordItem>();
-            //GrafiekItems = new List<GrafiekItem>();
-            //Waarden = new List<GrafiekWaarde>();
+            LegendeLijst = new List<dynamic>();           
             Datawaarden = new List<List<double>>();
             XLabels = new List<dynamic>();
         }

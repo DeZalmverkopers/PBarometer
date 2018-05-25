@@ -85,38 +85,6 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadStatistiekToevoegen()
     {
-
-
-      items = itemManager.GetPersonen(HuidigDeelplatform.DeelplatformId).ToList();
-      selects = new List<SelectListItem>();
-      foreach (var item in items)
-      {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-      }
-
-      ViewBag.Personen = selects;
-
-      items = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).ToList();
-      selects = new List<SelectListItem>();
-      foreach (var item in items)
-      {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-      }
-
-      ViewBag.Themas = selects;
-
-
-      items = itemManager.GetOrganisaties(HuidigDeelplatform.DeelplatformId).ToList();
-      selects = new List<SelectListItem>();
-      foreach (var item in items)
-      {
-        selects.Add(new SelectListItem() { Text = item.Naam, Value = item.Naam });
-      }
-
-      ViewBag.Organisaties = selects;
-
-
-
       return PartialView("~/Views/Shared/Dashboard/Statistieken/StatistiekToevoegen.cshtml", ViewBag);
 
     }
