@@ -1383,8 +1383,7 @@ namespace MVC.Controllers
 
 
     #region aantal tweets
-
-
+    [Authorize]
     public virtual ActionResult LaadLijndiagramAantalTweets(string grafiektitel, string id1, string aantalDagen, string mannenVrouwen)
     {
       int idInt = Int32.Parse(id1);
