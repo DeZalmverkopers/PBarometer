@@ -157,7 +157,7 @@ namespace MVC.Controllers
         MinStijgingPeriode = alert.MinStijging,
       };
 
-      List<string> items = gemonitordeItemsManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
+      List<string> items = gemonitordeItemsManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).Where(a => !(a is GekruistItem)).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
       var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
 
       ViewBag.Onderwerp = ItemsSelectlist;
@@ -205,7 +205,7 @@ namespace MVC.Controllers
 
       ViewBag.Eigenschappen = new List<string>() { "Polariteit", "Objectiviteit", "Aantal Vermeldingen" }.Select(x => new SelectListItem() { Text = x, Value = x });
       ViewBag.Trend = new List<string>() { "Stijgend", "Dalend", "Neutraal" }.Select(x => new SelectListItem() { Text = x, Value = x });
-      List<string> items = gemonitordeItemsManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
+      List<string> items = gemonitordeItemsManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).Where(a => !(a is GekruistItem)).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
       var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
 
       ViewBag.Onderwerp = ItemsSelectlist;
@@ -257,7 +257,7 @@ namespace MVC.Controllers
     [HttpGet]
     public virtual ActionResult CreateAlert()
     {
-      List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Select(a => a.Naam).ToList();
+      List<string> items = gemonitordeItemsManager.GetGemonitordeItems(1).ToList().OrderBy(a => a.Naam).Where(a => !(a is GekruistItem)).Select(a => a.Naam).ToList();
       var ItemsSelectlist = items.Select(x => new SelectListItem() { Text = x, Value = x });
 
       ViewBag.Onderwerp = ItemsSelectlist;
@@ -271,7 +271,7 @@ namespace MVC.Controllers
     {
       if (ModelState.IsValid)
       {
-        GemonitordItem gemonitordItem = gemonitordeItemsManager.GetGemonitordItem(1, alertViewModel.Onderwerp);
+        GemonitordItem gemonitordItem = gemonitordeItemsManager.GetGemonitordItem(HuidigDeelplatform.DeelplatformId, alertViewModel.Onderwerp);
         Alert alert = new Alert()
         {
           Beschrijving = alertViewModel.Beschrijving,

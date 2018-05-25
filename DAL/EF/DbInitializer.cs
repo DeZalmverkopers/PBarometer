@@ -15,7 +15,7 @@ namespace DAL.EF
                 LaatsteSynchronisatie = DateTime.Now.AddYears(-100),
                 AantalDagenHistoriek = 14,
                 URLnaam = "politiek",
-                DataOphaalFrequentie = 2
+                DataOphaalFrequentie = 1
             };
 
 
