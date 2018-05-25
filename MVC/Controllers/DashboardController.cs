@@ -2335,7 +2335,7 @@ namespace MVC.Controllers
 
       gekruistItem = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList()[index];
 
-      gekruistItem.BerekenEigenschappen();
+      //gekruistItem.BerekenEigenschappen();
 
       itemManager.MaakHistorieken(gekruistItem, HuidigDeelplatform.AantalDagenHistoriek, HuidigDeelplatform.LaatsteSynchronisatie);
 

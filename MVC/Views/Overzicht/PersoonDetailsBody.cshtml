@@ -214,14 +214,14 @@
             var sublink1 = '@Html.Raw(Url.Action("LaadLijndiagramAantalTweets", "Dashboard",
             new {
                 grafiektitel = "replaceGrafiektitel",
-                item = "replaceItem",
+                id1 = "replaceItem",
                 aantalDagen = "replaceAantalDagen",
                 mannenVrouwen = "replaceGeslacht"
 
             }))'
                 .replace("replaceGrafiektitel", "Vermeldingen doorheen de tijd - " + @Html.Raw(Json.Encode(ViewBag.PersoonNaam)));
 
-        var sublink2 = sublink1.replace("replaceItem", @Html.Raw(Json.Encode(ViewBag.PersoonNaam)));
+        var sublink2 = sublink1.replace("replaceItem", @Html.Raw(Json.Encode(ViewBag.PersoonId)));
 
         var sublink3 = sublink2.replace("replaceAantalDagen", @Html.Raw(Json.Encode(ViewBag.DagenLengte)));
 

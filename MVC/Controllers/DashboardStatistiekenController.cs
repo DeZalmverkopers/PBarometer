@@ -393,7 +393,7 @@ namespace MVC.Controllers
         Item2 = gemonitordItem2
       };
 
-      gekruistItem.BerekenEigenschappen();
+      //gekruistItem.BerekenEigenschappen();
 
       var aantal = gekruistItem.TotaalAantalVermeldingen;
 
@@ -664,7 +664,7 @@ namespace MVC.Controllers
         Item2 = gemonitordItem2
       };
 
-      gekruistItem.BerekenEigenschappen();
+      //gekruistItem.BerekenEigenschappen();
 
       var aantal = gekruistItem.TotaalAantalVermeldingen;
 
@@ -816,7 +816,7 @@ namespace MVC.Controllers
         Item2 = gemonitordItem2
       };
 
-      gekruistItem.BerekenEigenschappen();
+      //gekruistItem.BerekenEigenschappen();
 
       var aantal = gekruistItem.TotaalAantalVermeldingen;
 

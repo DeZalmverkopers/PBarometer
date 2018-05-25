@@ -47,7 +47,7 @@ else
 
         @foreach (var grafiek in ViewBag.Grafieken)
         {
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <canvas id="@grafiek.GrafiekId" height="300"></canvas>
 
                 <button id="bewerken-@grafiek.GrafiekId" class="btn btn-primary" onclick="grafiekBewerken(this.id)">
@@ -184,6 +184,7 @@ function grafiekVerwijderen(id) {
 
         $("#verwijderen-" + subid).remove();
         $("#bewerken-" + subid).remove();
+        $("#div-" + subid).remove();
 
        var link = '@Html.Raw(Url.Action("GrafiekVerwijderen", "Dashboard",
                     new { id = "replaceId"}
