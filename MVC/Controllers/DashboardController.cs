@@ -315,8 +315,6 @@ namespace MVC.Controllers
     #endregion
 
 
-
-
     #region themas laden
     public virtual ActionResult LaadThemas1Item()
     {
@@ -389,6 +387,7 @@ namespace MVC.Controllers
       return PartialView("~/Views/Shared/Dashboard/Dropdown/Themas/Themas5Items.cshtml", ViewBag);
     }
     #endregion
+
 
     #region laad gemonitorde items
     public virtual ActionResult LaadGemonitordeItems()
