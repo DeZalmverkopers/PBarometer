@@ -424,6 +424,9 @@ namespace MVC.Controllers
     #region soorten grafieken laden
     public virtual ActionResult LaadAantalTweets()
     {
+      ViewBag.AantalDagenHistoriek = HuidigDeelplatform.AantalDagenHistoriek;
+
+
       ViewBag.AantalThemas = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).Count();
 
       return PartialView("~/Views/Shared/Dashboard/Grafieken/AantalTweets.cshtml", ViewBag);
@@ -431,6 +434,10 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadItemsKruisen()
     {
+      ViewBag.AantalDagenHistoriek = HuidigDeelplatform.AantalDagenHistoriek;
+
+
+
       var items = itemManager.GetGemonitordeItems(HuidigDeelplatform.DeelplatformId).ToList();
       selects = new List<SelectListItem>();
       foreach (var item in items)
@@ -445,6 +452,9 @@ namespace MVC.Controllers
 
     public virtual ActionResult LaadVergelijkenDoorheenDeTijd()
     {
+      ViewBag.AantalDagenHistoriek = HuidigDeelplatform.AantalDagenHistoriek;
+
+
       ViewBag.AantalThemas = itemManager.GetThemas(HuidigDeelplatform.DeelplatformId).Count();
 
       return PartialView("~/Views/Shared/Dashboard/Grafieken/VergelijkenDoorheenDeTijd.cshtml");

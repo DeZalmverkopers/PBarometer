@@ -19,7 +19,7 @@
     var xLabels = @Html.Raw(Json.Encode(ViewBag.XLabels));
 
 
-    GrafiekOpbouwen(grafiekId, grafiektitel, "line", true, true, true, true, true, false, true, 90, 0, "x", "y", xLabels,
+    GrafiekOpbouwen(grafiekId, grafiektitel, "line", true, true, true, true, true, false, true, 90, 0, "Datum", "Waarde", xLabels,
         legendelijst[0], legendelijst[1], null, null, null,
         data[0], data[1], null, null, null,
         ["#3e95cd"], ["#8e5ea2"], null, null, null, ["#3e95cd"], ["#8e5ea2"], null, null, null)

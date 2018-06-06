@@ -34,11 +34,11 @@
 </div>
 
 <div>
-    <label>In welk soort grafiek wilt u de gegevens zien?</label>
+    <label id="lblSoortGrafiek">In welk soort grafiek wilt u de gegevens zien?</label>
 
     <select id="soortGrafiek">
         <option value="staaf">Staafdiagram</option>
-        <option value="taart">Taartdiagram</option>
+        <option id="taartdiagram" value="taart">Taartdiagram</option>
     </select>
 
 </div>
@@ -58,6 +58,17 @@
     var vergelijkingskeuze;
     var typeAantal;
 
+    $("#gewensteData").change(function () {
+        if ($("#gewensteData").val() === "gp") {
+            $("#taartdiagram").hide()
+        }
+        if ($("#gewensteData").val() === "av") {
+            $("#taartdiagram").show()
+        }
+        if ($("#gewensteData").val() === "go") {
+            $("#taartdiagram").show()
+        }
+    });
 
     $("#itemType").change(function () {
 
