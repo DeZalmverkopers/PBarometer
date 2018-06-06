@@ -8,7 +8,7 @@ namespace MVC.Models.SuperAdmin
     public string Naam { get; set; }
     [Required]
     [Display(Name = "URL")]
-    [RegularExpression("^[A-Za-z]+$", ErrorMessage = "De URL mag geen spaties bevatten") ]
+    [RegularExpression("^[A-Za-z0-9]+$", ErrorMessage = "De URL mag geen spaties bevatten") ]
     public string URLNaam { get; set; }
     [Required]
     [Display(Name = "Aantal dagen historiek")]
