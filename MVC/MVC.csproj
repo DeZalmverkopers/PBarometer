@@ -18,8 +18,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44314</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -271,7 +270,7 @@
     <Content Include="images\Deelplatformen\default.png" />
     <Content Include="images\TheVoice.jpg" />
     <Content Include="images\alert.png" />
-    <Content Include="images\K3.jpg" />
+    <Content Include="images\Deelplatformen\k3zoektk3.jpg" />
     <Content Include="images\PolitiekeBarometer.jpg" />
     <Content Include="images\uhno.jpg" />
     <Content Include="ApplicationInsights.config">
